@@ -1,0 +1,483 @@
+<template-flip-book (onFlipInit)="onFlipInit($event)" (onStart)="onStart($event)" (onTurning)="onTurning($event)"
+    (onTurned)="onTurned($event)" (onEnd)="onEnd($event)">
+
+    <img src="./assets/kiatnakin/image/close.png" (click)="onClickClose()" ignore="1" *ngIf="isShowCloseButton"
+        style="  max-width: 100%;z-index: 900;position: absolute;top: -25px;left: 1350px">
+
+    <div class="hard cover">
+        <div class="cover-page">
+            <div class="logo">
+                <img src="{{product.domainAPI + coverImage}}" width="100%">
+            </div>
+        </div>
+    </div>
+
+    <div class="cover blue hard front-side" [ngClass]="{'fixed': currentPageIndex > 3}">
+        <div class="content-cover">
+            <div class="product-recommend-wrapper" id="product-recommend-wrapper_01_id">
+                <div class="container pt-0">
+                    <div class="row">
+                        <div class="col-12" style="padding: 0">
+                            <div class="recommend">
+                                <h1 class="recommend-header Quark text-bold">{{product.prod_title_TH}}</h1>
+                                <label class="recommend-label Quark text-bold">{{product.prod_title_EN}}</label>
+                            </div>
+
+                            <table class="product-type-table">
+                                <tr>
+                                    <td *ngIf="product.prod.prod_type1" class="product-row-line">
+                                        <div class="product-line"></div>
+                                    </td>
+                                    <td class="product-row-type">
+                                        <div id="product-type-sa_id" class="product-type Quark text-bold">
+                                            {{product.prod.prod_type1}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="product-type-icon">
+                                            <img src="./assets/kiatnakin/image/catalogdetail/pointer_ic.png" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div *ngFor="let product1 of product.special.sp_1">
+                                <div class="product-card">
+                                    <div class="product-card-img">
+                                        <img *ngIf="product1.PROD_IMG" id="product-card-img-sa_1"
+                                            src="{{product1.PROD_IMG}}">
+                                        <img *ngIf="!product1.PROD_IMG" id="product-card-img-sa_2"
+                                            src="{{imgPart+'catalogdetail/IMG1.png'}}">
+                                    </div>
+                                    <div class="product-card-detail align-middle col-lg-7">
+                                        <div>
+                                            <h2 id="header-card-sa_1" class="header-card text-bold Quark"
+                                                [innerHTML]="product1.PROD_NAME"></h2>
+                                            <label id="label-card-sa_1"
+                                                class="label-card Quark display-8">{{product1.PROD_DESC}}</label>
+                                        </div>
+                                        <div>
+                                            <button id="btn_{{product1.PROD_ID}}_id"
+                                                class="btn btn-default btn-readmore Quark"
+                                                (click)="onOpenSection(dataService.selectedDepositType,product1.PROD_ID)">ดูรายละเอียด</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="product-list-ul mt-3 scroll1" style="height: 100px;">
+                                <li *ngFor="let product1 of product.productList.data1" class="product-list col-lg-6">
+                                    <div class="col-lg-12 mt-3">
+                                        <div id="list_{{product1.PROD_ID}}_id"
+                                            (click)="onOpenSection(dataService.selectedDepositType,product1.PROD_ID)">
+                                            <tr class="product-list-arrow">
+                                                <td>
+                                                    <img src="./assets/kiatnakin/image/catalogdetail/next_ic.png" />
+                                                </td>
+                                                <td>
+                                                    <span id="product-list-header-sa-prodName"
+                                                        class="Quark text-bold display-7-8">{{product1.PROD_NAME}}</span>
+                                                </td>
+                                            </tr>
+                                            <div class="product-list-detail">
+                                                <div class="product-list-label Quark display-7-8"
+                                                    id="product-list-label-sa-prod01">
+                                                    <div class="col-lg-12" style="width: 250px;height: 40px">
+                                                        {{product1.PROD_DESC}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <table class="product-type-table" style="margin-top:  21%;">
+                                <tr>
+                                    <td *ngIf="product.prod.prod_type2" class="product-row-line">
+                                        <div class="product-line"></div>
+                                    </td>
+                                    <td class="product-row-type">
+                                        <div id="product-type-new" class="product-type Quark text-bold">
+                                            {{product.prod.prod_type2}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="product-type-icon">
+                                            <img src="./assets/kiatnakin/image/catalogdetail/pointer_ic.png" />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div *ngFor="let product2 of product.special.sp_2">
+                                <div class="product-card">
+                                    <div class="product-card-img">
+                                        <img *ngIf="product2.PROD_IMG" id="product-card-img-ca"
+                                            src="{{product2.PROD_IMG}}">
+                                        <img *ngIf="!product2.PROD_IMG" id="product-card-img-sa_2"
+                                            src="{{imgPart+'catalogdetail/IMG1.png'}}">
+                                    </div>
+                                    <div class="product-card-detail align-middle col-lg-7">
+                                        <div>
+                                            <h2 id="header-card-td" class="header-card text-bold Quark"
+                                                [innerHTML]="product2.PROD_NAME"></h2>
+                                            <label id="label-card-sa_1"
+                                                class="label-card Quark display-8">{{product2.PROD_DESC}}</label>
+                                        </div>
+                                        <div>
+                                            <button id="btn_{{product2.PROD_ID}}_id"
+                                                class="btn btn-default btn-readmore Quark"
+                                                (click)="onOpenSection(dataService.selectedDepositType,product2.PROD_ID)">ดูรายละเอียด</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <ul class="product-list-ul mt-3 scroll2" style="height: 100px;">
+                                <li *ngFor="let product2 of product.productList.data2" class="product-list col-lg-6">
+                                    <div class="col-lg-12 mt-3">
+                                        <div id="list_{{product2.PROD_ID}}_id"
+                                            (click)="onOpenSection(dataService.selectedDepositType,product2.PROD_ID)">
+
+                                            <tr class="product-list-arrow">
+                                                <td>
+                                                    <img src="./assets/kiatnakin/image/catalogdetail/next_ic.png" />
+                                                </td>
+                                                <td>
+                                                    <span id="product-list-header-td-01"
+                                                        class="Quark text-bold display-7-8">{{product2.PROD_NAME}}</span>
+                                                </td>
+                                            </tr>
+                                            <div class="product-list-detail">
+                                                <div class="product-list-label Quark display-7-8"
+                                                    id="product-list-label-td-01">
+                                                    <div class="col-lg-12" style="width: 250px;height: 40px">
+                                                        {{product2.PROD_DESC}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="{{imgPart+'tick_front.png'}}" class="tick_book_font" />
+    </div>
+
+    <div class="cover hard" [ngClass]="(productDetail.length == 0)?'fixed back-side blue':'own-size'">
+        <div class="content-cover">
+            <div class="product-recommend-wrapper" id="product-recommend-wrapper_02_id">
+                <div class="container pt-0" style="padding-right: 14px !important">
+                    <div class="row">
+                        <div class="col-12">
+                            <div *ngIf="product.prod.prod_New" class="row">
+                                <div class="col-10" *ngFor="let productNew of product.prod.prod_New">
+                                    <div class="news-product-image">
+                                        <img src="{{productNew.PROD_IMG}}" style="width:430px" />
+                                    </div>
+                                    <div class="row" style="padding: 10px 0;">
+                                        <div class="col-7" style="padding: 0 20px 0 32px;">
+                                            <h3 class="news-product-header text-bold Quark">{{productNew.PROD_NAME}}
+                                            </h3>
+                                            <span
+                                                class="news-product-label Quark display-7-8">{{productNew.PROD_DESC}}</span>
+                                        </div>
+                                        <div class="col-4" style="padding-left:36px">
+                                            <div style="text-align: center;">
+                                                <button class="btn btn-default btn-readmore Quark"
+                                                    (click)="onOpenSection(dataService.selectedDepositType,productNew.PROD_ID)">ดูรายละเอียด</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="isProductNew" class="col-2" style="background-color: #0098C8;">
+                                    <div class="news-product-banner">
+                                        <img src="./assets/kiatnakin/image/catalogdetail/NEW_PRODUCT.png"
+                                            style="padding-top: 42px; width: 40px;">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div [ngStyle]="isProductNew === false && {'margin-top': '20%'}">
+                                <table class="product-type-table mt-4">
+                                    <tr>
+                                        <td *ngIf="product.prod.prod_type3" class="product-row-line">
+                                            <div class="product-line"></div>
+                                        </td>
+                                        <td class="product-row-type">
+                                            <div id="product-type-sa" class="product-type Quark text-bold">
+                                                {{product.prod.prod_type3 || ''}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="product-type-icon">
+                                                <img src="./assets/kiatnakin/image/catalogdetail/pointer_ic.png" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <div *ngFor="let product3 of product.special.sp_3">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <img *ngIf="product3.PROD_IMG" id="product-card-img-sa_3"
+                                                src="{{product3.PROD_IMG}}">
+                                            <img *ngIf="!product3.PROD_IMG" id="product-card-img-sa_3"
+                                                src="{{imgPart+'catalogdetail/IMG1.png'}}">
+                                        </div>
+                                        <div class="product-card-detail align-middle col-lg-7">
+                                            <div>
+                                                <h2 id="header-card-sa" class="header-card text-bold Quark"
+                                                    [innerHTML]="product3.PROD_NAME"></h2>
+                                                <label id="label-card-sa"
+                                                    class="label-card Quark display-8">{{product3.PROD_DESC}}</label>
+                                            </div>
+                                            <div>
+                                                <button id="btn_{{product3.PROD_ID}}_id"
+                                                    class="btn btn-default btn-readmore Quark"
+                                                    (click)="onOpenSection(dataService.selectedDepositType,product3.PROD_ID)">ดูรายละเอียด</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="product-list-ul mt-3 scroll3">
+                                    <li *ngFor="let product3 of product.productList.data3"
+                                        class="product-list col-lg-6">
+                                        <div class="col-lg-12 mt-3">
+                                            <div id="list_{{product3.PROD_ID}}_id"
+                                                (click)="onOpenSection(dataService.selectedDepositType,product3.PROD_ID)">
+
+                                                <tr class="product-list-arrow">
+                                                    <td>
+                                                        <img src="./assets/kiatnakin/image/catalogdetail/next_ic.png" />
+                                                    </td>
+                                                    <td>
+                                                        <span id="product-list-header-sa-prodName"
+                                                            class="Quark text-bold display-7-8">{{product3.PROD_NAME}}</span>
+                                                    </td>
+                                                </tr>
+                                                <div class="product-list-detail">
+                                                    <div class="product-list-label Quark display-7-8"
+                                                        id="product-list-label-sa-prod01">
+                                                        <div class="col-lg-12" style="width: 250px;height: 40px">
+                                                            {{product3.PROD_DESC}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div [ngStyle]="isProductNew === false && {'margin-top': '20%'}">
+                                <table class="product-type-table mt-4">
+                                    <tr>
+                                        <td *ngIf="product.prod.prod_type4" class="product-row-line">
+                                            <div class="product-line"></div>
+                                        </td>
+                                        <td class="product-row-type">
+                                            <div id="product-type-sa" class="product-type Quark text-bold">
+                                                {{product.prod.prod_type4 || ''}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="product-type-icon">
+                                                <img src="./assets/kiatnakin/image/catalogdetail/pointer_ic.png" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <div *ngFor="let product4 of product.special.sp_4">
+                                    <div class="product-card">
+                                        <div class="product-card-img">
+                                            <img *ngIf="product4.PROD_IMG" id="product-card-img-sa_4"
+                                                src="{{product4.PROD_IMG}}">
+                                            <img *ngIf="!product4.PROD_IMG" id="product-card-img-sa_4"
+                                                src="{{imgPart+'catalogdetail/IMG1.png'}}">
+                                        </div>
+                                        <div class="product-card-detail align-middle col-lg-7">
+                                            <div>
+                                                <h2 id="header-card-sa" class="header-card text-bold Quark text-bold"
+                                                    [innerHTML]="product4.PROD_NAME"></h2>
+                                                <label id="label-card-sa"
+                                                    class="label-card">{{product4.PROD_DESC}}</label>
+                                            </div>
+                                            <div>
+                                                <button id="btn_{{product4.PROD_ID}}_id"
+                                                    class="btn btn-default btn-readmore Quark"
+                                                    (click)="onOpenSection(dataService.selectedDepositType,product4.PROD_ID)">ดูรายละเอียด</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <ul class="product-list-ul mt-3 scroll4">
+                                    <li *ngFor="let product4 of product.productList.data4"
+                                        class="product-list col-lg-6">
+                                        <div class="col-lg-12 mt-3">
+                                            <div id="list_{{product4.PROD_ID}}_id"
+                                                (click)="onOpenSection(dataService.selectedDepositType,product4.PROD_ID)">
+
+                                                <tr class="product-list-arrow">
+                                                    <td>
+                                                        <img src="./assets/kiatnakin/image/catalogdetail/next_ic.png" />
+                                                    </td>
+                                                    <td>
+                                                        <span id="product-list-header-td-01"
+                                                            class="Quark text-bold display-7-8">{{product4.PROD_NAME}}</span>
+                                                    </td>
+                                                </tr>
+                                                <div class="product-list-detail">
+                                                    <div class="product-list-label Quark display-7-8"
+                                                        id="product-list-label-td-01">
+                                                        <div class="col-lg-12" style="width: 250px;height: 40px">
+                                                            {{product4.PROD_DESC}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img *ngIf="productDetail.length !== 0" src="{{imgPart+'subscription/next_ic.png'}}" (click)="onClickNextPage()"
+            class="tick_next" id="tick_next_prodList_id" />
+    </div>
+
+    <ng-container *ngFor="let productD of productDetail; let i = index">
+        <div class="cover hard own-size">
+            <div class="content-cover">
+                <div class="product-recommend-wrapper" id="product-recommend-wrapper_03_id">
+                    <div class="container pt-0">
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="detail-image-main-l1 mb-3" style="height:500px">
+                                    <img style="width:100%" src="{{productD.coverProduct}}" />
+                                </div>
+
+                                <div *ngIf="productD.keySellingPoint.length > 0" class="detail-icon-list col-lg-12">
+                                    <div class="row">
+                                        <div *ngFor="let productKeySell of productD.keySellingPoint" [ngClass]="[
+                                                productD.keySellingPoint.length ===4 ? 'col-lg-3' : '',
+                                                productD.keySellingPoint.length ===3 ? 'col-lg-4' : '',
+                                                productD.keySellingPoint.length ===2 ? 'col-lg-6' : ''
+                                            ]" class="p-0">
+                                            <div class="col-lg-12">
+                                                <div *ngIf="productKeySell.imgBullet" class="row">
+                                                    <div
+                                                        [ngClass]="[productD.keySellingPoint.length === 2?'col-lg-3':'col-lg-5']">
+                                                        <img id="icon-01" class="icon-list"
+                                                            src="{{productKeySell.imgBullet}}" />
+                                                    </div>
+                                                    <div class="col-lg-7"
+                                                        [ngClass]="[productD.keySellingPoint.length === 3?'p-0':'']">
+                                                        <div id="icon-label-01" class="icon-label display-7-5 Quark"
+                                                            style="width: 140px">{{productKeySell.labelBullet}}</div>
+                                                        <div id="icon-detail-01"
+                                                            class="icon-detail color-blue display-7-8 Quark"
+                                                            style="width: 120px">{{productKeySell.labelDetail}}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="container detail-image-footer-l1 col-lg-12"
+                                    style="margin-top:20px;margin-bottom:25px;height:195px">
+                                    <div class="row h-100">
+                                        <div *ngIf="productD.custExpDesc" class="col-5">
+                                            <p><q class="col-lg">{{productD.custExpDesc}}</q></p>
+                                            <div *ngIf="productD.custExpName"
+                                                class="text-blue font-italic text-right pr-2">{{productD.custExpName}}
+                                            </div>
+                                            <img *ngIf="productD.custExpImg" id="detail-image-r1" style="width: 70px"
+                                                class="r1" src="{{productD.custExpImg}}" />
+                                        </div>
+                                        <div class="col-7 product bg-blue">
+                                            <div class="sa-product text-violet  text-center Quark text-bold row">
+                                                {{productD.tagLine1}}</div>
+                                            <div class="name-product text-white text-center Quark text-bold row">
+                                                {{productD.tagLine2}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img src="{{imgPart+'subscription/previouse.png'}}" (click)="onClickPreviuesPage()"
+                class="tick_previouse" />
+        </div>
+
+        <div class="cover hard" [ngClass]="(productDetail.length - 1 == i)?'fixed back-side blue':'own-size'">
+            <div class="content-cover">
+                <div class="product-recommend-wrapper" id="product-recommend-wrapper_01">
+                    <div class="container pt-0">
+                        <div class="row">
+                            <div class="col-12">
+                                <div *ngIf="productD.conImgHeader" class="detail-image-main-r1 mb-3">
+                                    <img id="detail-image-main-02" style="width: 100%;margin-bottom:20px"
+                                        src="{{productD.conImgHeader}}" />
+                                </div>
+
+                                <div class="detail-list-01"
+                                    [ngStyle]="productD.conImgHeader=='' ?'margin-top:20% !important':''">
+                                    <h4 class="text-violet text-bold display-7 Quark" id="detail-list-header-01">
+                                        <span class="text-blue mb-3">{{productD.conTitle1}}</span>
+                                        {{productD.conTitleSub1}}
+                                    </h4>
+                                    <ul class="detail-list-ul mt-3 display-7-8 Quark p-0">
+                                        <p [innerHTML]="productD.conDesc1"></p>
+                                    </ul>
+                                </div>
+
+                                <div class="detail-list-02 mt-3">
+                                    <h4 class="detail-list-header text-violet mb-3 text-bold display-7 Quark"
+                                        style="display:inline-block" id="detail-list-header-02">{{productD.conTitle2}}
+                                    </h4>
+                                    <ul class="detail-list-ul condition-container display-7-8 Quark p-0">
+                                        <span [innerHTML]="productD.conDesc2"></span>
+                                    </ul>
+                                </div>
+                                <div class="buttom-footer" style="text-align:center;">
+
+
+                                    <button
+                                        *ngIf="ShowBTN && productD.tagLine2 !== 'KK ATM Card' && productD.tagLine2 !== 'สิทธิพิเศษเพื่อพนักงานองค์กร' && productD.tagLine2 !== 'หักบัญชีเงินฝากเพื่อการลงทุนแบบอัตโนมัติ' && productD.tagLine2 !== 'รับเงินโอนต่างประเทศ'
+                                        && productD.tagLine2 !== 'รับฝากเงินสดผ่านที่ทำการไปรษณีย์' && productD.tagLine2 !== 'รับฝากเงินสดผ่านตู้รับฝากเงินสด' && productD.tagLine2 !== 'ชำระบิลข้ามธนาคาร' && productD.tagLine2 !== 'KKP Contact Center' && productD.tagLine2 !== 'KK e-Banking @PhatraEdge'
+                                        && productD.tagLine2 !== 'KK Direct Debit' && productD.tagLine2 !== 'KK Biz e-Banking' && productD.tagLine2 !== 'เปิดบัญชี KK e-Account' && productD.tagLine2 !== 'KK Smart SMS' && productD.tagLine2 !== 'KK พร้อมเพย์ สำหรับนิติบุคคล'"
+                                        class="btn btn-default Quark display-7-5"
+                                        style="color: #ffffff; background-color: #0098C8;"
+                                        id="btn_{{productD.prodId}}_id"
+                                        (click)="onSubmitOpenAccount(productD.prodId)">สนใจสมัครบริการ</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img *ngIf="!(productDetail.length - 1 == i)" src="{{imgPart+'subscription/next_ic.png'}}"
+                (click)="onClickNextPage()" id="tick_next_id" class="tick_next" />
+            <img *ngIf="(productDetail.length - 1 == i)" src="{{imgPart+'tick_back.png'}}" id="tick_back_id"
+                class="tick_book_back" />
+        </div>
+    </ng-container>
+
+</template-flip-book>

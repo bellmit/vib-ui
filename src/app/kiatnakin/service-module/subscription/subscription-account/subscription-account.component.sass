@@ -1,0 +1,691 @@
+@import "./src/styles-master"
+
+.ribbon_gray_right
+  //background-image: url("/assets/kiatnakin/image/subscription/ribbon_gray.png")
+  position: absolute
+  background-color: $low-dark-gray
+  height: 50px
+  width: 682px
+  top: 46px
+  right: 0px
+
+.ribbon_gray_right80
+  @extend .ribbon_gray_right
+  height: 90px !important
+
+.ribbon_gray_left
+  //background-image: url("/assets/kiatnakin/image/subscription/ribbon_gray.png")
+  position: absolute
+  background-color: $low-dark-gray
+  height: 50px
+  width: 682px
+  top: 46px
+
+.arrowBlue
+  height: 12px
+  width: 20px
+
+.title_display
+  @extend .display-5
+  color: $white
+  font-family: $font-name2 !important
+
+.scroll
+  overflow-y: auto
+  top: 135px
+  bottom: 224px
+  left: 45px
+  right: 40px
+  position: absolute
+
+input[type=checkbox].checkbox-principal
+  background: url("/assets/kiatnakin/image/subscription/check_box_cir.png") left center no-repeat !important
+  background-size: 35px !important
+
+input[type=checkbox]:checked.checkbox-principal
+  background: url("/assets/kiatnakin/image/subscription/check_box_cir_check.png") left center no-repeat !important
+  background-size: 35px !important
+
+.checkbox-principal
+  position: absolute
+  top: 5px
+  left: 18px
+
+.radioAccept
+  position: absolute
+  top: 80%
+  left: 38px
+  width: 88.6%
+
+//.ssu_nameth
+//  left : 20px
+
+.ml13px
+  margin-left: 13px
+
+.ml15px
+  margin-left: 15px
+
+.ml20px
+  margin-left: 20px
+
+.ml23px
+  margin-left: 23px
+
+.ml25px
+  margin-left: 25px
+
+.ml10px
+  margin-left: 10px
+
+.radioAccept_txt
+  line-height: 2
+  @extend .text-dark
+  @extend .display-5
+  @extend .text-bold
+
+.ribbon
+  background-image: url("/assets/kiatnakin/image/icon_ribbon_subscription.png")
+  max-width: 587px
+  margin-left: -69px
+  label
+    margin-bottom: 0
+  .title
+    .subtitle
+      position: absolute
+      margin-top: 0px
+
+.txt-nameth
+  width: 29px
+
+.txt-subnameth
+  width: 100px
+
+.txt-subsurth
+  width: 150px
+
+.title
+  height: 68px
+
+.image-service
+  right: 5%
+
+.readCardEnable
+  opacity: 1
+
+.readCardDisable
+  opacity: .1
+  filter: grayscale(100%)
+
+.radio-button
+  padding: 5px 0 5px 0
+  width: 140px
+  height: 52px
+
+  label
+    height: 40px
+    width: 95%
+    border: 1px solid $blue
+    border-radius: 5px
+    background-color: white
+    color: $blue
+    @extend .display-6
+    span
+      margin: 0 auto
+    input[type=radio]
+      position: absolute
+      width: 0px
+
+  label.checked
+    border-radius: 3px
+    background-color: $blue
+    border-color: transparent
+    color: white
+
+.page-right
+  margin-right: 40px !important
+
+.stick-right
+  right: 7%
+  top: 0px
+
+.stick-right2
+  right: 11%
+
+.r15px
+  right: 15px
+
+.stick-right3
+  bottom: 13px !important
+  right: 11px !important
+
+.stick-left
+  left: 18px
+
+.ssu-career
+  position: absolute
+  top: -8px
+  right: 4px
+
+.ssu-position
+  position: absolute
+  top: 57px
+  right: 4px
+
+.ssu_businessType
+  bottom: 10px
+  right: 4px
+
+.suu_checkbox
+  margin-left: 0% !important
+  background-size: 24px !important
+
+.suu_NotUSA_txt
+  position: absolute
+  right: 31% !important
+  top: 5%
+
+.line
+  border: solid .3px
+  color: $low-gray
+
+.usCitizen
+  position: absolute
+  left: 10% !important
+
+.ssu_idCard
+  position: absolute
+  left: 26%
+
+.ssu_address_no
+  width: 103px
+
+.ssu_address_moo_txt
+  width: 50px
+
+.ssu_address_moo
+  width: 65px
+
+.ssu_address_village
+  width: 229px
+
+.ssu_address_village_txt
+  width: 150px
+
+.ssu_address_tower_txt
+  width: 130px
+
+.ssu_address_tower
+  width: 286px
+
+.ssu_address_alley_txt
+  width: 65px
+
+.ssu_address_alley
+  width: 255px
+
+.sub_address_alley
+  width: 222px
+
+.ssu_address_street
+  width: 225px
+
+.ssu_address_province
+  width: 206px
+
+.ssu_address_country_txt
+  width: 93px
+
+.ssu_address_country
+  width: 227px
+
+.ssu_address_postcode_txt
+  width: 138px
+
+.ssu_address_postcode
+  width: 183px
+
+.ssu_address_floor
+  width: 68px
+
+.ssu_address_floor_txt
+  width: 50px
+
+.ssu_address_province_txt
+  width: 63px
+
+.ssu_address_locality
+  width: 167px
+
+.ssu_address_district_txt
+  width: 117px
+
+.ssu_address_district
+  width: 204px
+
+.ssu_backNo
+  width: 455px
+
+.ssu_spouse_NameEn
+  width: 187px
+
+.ssu_spouse_nameTH
+  width: 216px
+
+.ssu_spouse_surnameEN
+  width: 208px
+
+.ssu_spouse_surnameEN_txt
+  width: 100px
+
+.ssu_spouse_surnameTH-txt
+  width: 91px
+
+.ssu_spouse_surnameTH
+  width: 218px
+
+.subscription_contact_relationship
+  margin-left: 14px
+  margin-top: 14px
+  width: 120px
+
+.subscription_contact_surname_txt
+  width: 88px
+
+.subscription_contact_surname
+  width: 228px
+
+.subscription_contact_phone
+  width: 215px
+
+.subscription_contact_relationshipOther
+  width: 473px
+
+.subscription_ssu_property
+  width: 412px
+
+.subscription_ssu_workplace
+  width: 381px
+
+.subscription_ssu_position
+  width: 428px
+
+.ssu_address_moblie_phone2
+  width: 416px
+
+.ssu_address_office_moblie_phone_txt
+  width: 156px
+
+.ssu_address_office_home_phone_txt
+  width: 149px
+
+.subscription_ssu_businessType_txt
+  width: 115px
+
+.subscription_ssu_businessType
+  width: 457px
+
+.ssu_address_home_phone_txt
+  width: 130px
+
+.ssu_address_home_phone
+  width: 423px
+
+.ssu_address_email_txt
+  width: 130px
+
+.ssu_address_email
+  width: 425px
+
+.ssu_address_fax_phone_txt
+  width: 130px
+
+.ssu_address_fax_phone
+  width: 425px
+
+.ssu_name
+  flex: 0 0 8.333333% !important
+
+.subscription_bookName
+  width: 490px
+
+.subscription_accountName2
+  width: 259px
+
+.subscription_accountName
+  width: 600px
+
+.subscription_ssu_career
+  width: 450px
+
+.subscription_ssu_careerDesc
+  width: 425px
+
+.subscription_email_txt
+  width: 170px
+
+.register_subscription_email
+  width: 416px
+
+.ssu_nameth
+  width: 139px
+
+.tab3
+  left: 30px
+
+.tab42px
+  left: 42px
+
+.tab4
+  left: 16px
+
+.r5px
+  right: 5px
+
+.r20px
+  right: 20px
+
+.r21px
+  right: 21px
+
+.tabmg3
+  margin-right: 16px
+
+.ml20px
+  margin-left: 20px
+
+.ml25px
+  margin-left: 25px
+
+.ssuFrom_Income
+  right: 5px
+
+.ssu_birthdate_txt
+  font-family: "Cordia New" !important
+  font-size: 30px !important
+  width: 179px !important
+  @extend .text-dark-black-gray
+
+.txt-Header
+  @extend .display-5
+  @extend .text-dark
+  right: 21px
+
+.txt-subHeader
+  @extend .display-5-7
+  @extend .text-dark
+
+.txt-ssu-header
+  @extend .display-5
+  @extend .text-light-white-gray
+
+.txt-ssu
+  @extend .display-5
+  @extend .text-dark-black-gray
+
+.txt-ssu-property
+  @extend .display-6-1
+  @extend .text-dark-black-gray
+
+.txt-ci
+  @extend .display-5
+  @extend .text-dark-black-gray
+
+.txt-ssu-citizen
+  @extend .display-5
+  @extend .text-dark-black-gray
+
+.txt-ssu-citizen-txt
+  @extend .display-5
+  @extend .text-dark-black-gray
+  @extend .text-bold
+
+.txt-subscription
+  @extend .display-5-9
+  @extend .text-dark
+
+.txt-Address
+  @extend .display-5-9
+  @extend .text-dark-black-gray
+
+.txt-display
+  @extend .display-7
+
+.txt-display-p
+  @extend .display-8
+
+.txt-MyPin
+  @extend .display-2
+  @extend .text-dark-black-gray
+
+.button-fatca
+  left: 50px
+  top: 22px
+
+.img-check
+  width: 25px
+  height: 25px
+
+.sub-service-pin
+  width: 60%
+
+input[type=checkbox].sub-service-checkbox
+  background: url("/assets/kiatnakin/image/subscription/none_tb.png") left center no-repeat !important
+  background-size: 25px !important
+
+input[type=checkbox]:checked.sub-service-checkbox
+  background: url("/assets/kiatnakin/image/subscription/select_tb.png") left center no-repeat !important
+  background-size: 25px !important
+
+.sub-service-checkbox
+  position: absolute
+  top: 5px
+  left: 18px
+
+.sub-service-head-icon
+  top: 12px
+
+.sub-service-checkbox-title
+  padding-top: 8px
+
+.sub-service-checkbox-desc
+  font-size: 16px
+
+.sub-service-radio
+  visibility: hidden
+  position: absolute
+
+.sub-service-image
+  opacity: 0.3
+  &.checked
+    opacity: 1
+
+.sub-service-confirm-button-area
+  position: absolute
+  top: 800px
+
+.sub-service-confirm-button
+  width: 200px
+  height: 40px
+
+.sub-service-mypin-logo
+  width: 100px !important
+  height: auto !important
+
+.sub-service-mypin-success
+  width: 20px !important
+  height: auto !important
+  padding-bottom: 5px !important
+  margin-right: 10px !important
+
+.sub-service-mypin-email-label
+  width: 135px
+
+.sub-service-mypin-email-text
+  width: 380px
+
+.sub-service-mypin-phone-label
+  width: 135px
+
+.sub-service-mypin-phone-text
+  width: 380px
+
+.sub-service-mypin-area-enable
+  //opacity:
+
+.sub-service-mypin-area-disable
+  opacity: 0.3
+
+.address-enable
+  opacity: 1
+
+.address-disable
+  opacity: 0.3
+
+.sub-service-atm-area-enable
+  opacity: 1
+
+.sub-service-atm-area-disable
+  opacity: 0.3
+
+.sub-service-sms-area-enable
+  opacity: 1
+
+.sub-service-sms-area-disable
+  opacity: 0.3
+
+.sub-service-phone-area-enable
+  opacity: 1
+
+.sub-service-phone-area-disable
+  opacity: 0.3
+
+.frame
+  .slidee
+    margin: 0
+    padding: 0
+    list-style: none
+    li
+      float: left
+      margin: 0 60px 0 0
+      padding: 0
+      width: 100px
+      height: 60px
+      transform: scale(1) !important
+      transition: all .2s ease-in-out
+      opacity: .6
+      @extend .gray-scale
+    li.active
+      opacity: 1 !important
+      transform: scale(1) !important
+      @extend .non-gray-scale
+
+.seletor-content
+  width: 1000px
+  height: 900px
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  margin: 0 auto
+  background: url('/assets/kiatnakin/image/bg_login.png') no-repeat
+  z-index: 2
+  padding: 80px 100px 10px 100px
+
+.seletor-content2
+  width: 1000px
+  height: 900px
+  position: fixed
+  bottom: -8% !important
+  left: 0
+  right: 0
+  margin: 0 auto
+  background: url('/assets/kiatnakin/image/bg_login.png') no-repeat
+  z-index: 2
+  padding: 80px 100px 10px 100px 
+
+.body
+  position: absolute
+  bottom: 300px
+  top: 70px
+  left: 0px
+  right: 0px
+
+.footer
+  position: absolute
+  bottom: 20px
+  left: 0px
+  right: 0px
+  padding-right: 185px !important
+  padding-left: 185px !important
+  max-height: 300px
+  height: 190px
+  button
+    width: 250px
+    height: 80px
+
+.page-dialog-confirm-button-area
+  top: 40px
+
+.page-dialog-confirm-button
+  width: 200px
+  height: 40px
+
+.selector_content_bg
+  width: 100%
+  height: 100%
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  margin: 0 auto
+  z-index: 1
+  background: rgba(0, 0, 0, 0.85)
+
+.ng2-pdf-viewer-container
+  width: 796px !important
+
+.arrow_size
+  height: 12px
+  width: 20px
+
+.btnClickClose
+  max-width: 100%
+  z-index: 900
+  position: absolute
+  top: -30px
+  left: 1350px
+
+.txt-title
+  flex: 0 !important
+  width: 88px
+
+.txt-titleEN
+  width: 60px
+  flex: 0 !important
+  
+.txt-gender
+  width: 231px
+
+.cardInfoSurnamePosition
+  position: absolute
+  right: 80px
+
+.cardInfoSurname
+  width: 216px
+
+.ssu_nation
+  width: 199px
+
+.underline_red
+  @extend .underline
+  border-bottom: 1px solid $red !important
+
+.PDFbody
+  width: 1000px
+  height: 550px
+  overflow-y: auto
+
+.button-box .btn 
+  -webkit-box-shadow: 0 0 0 2px rgba(89, 79, 116, 0.25)
+  box-shadow: 0 0 0 2px rgba(89, 79, 116, 0.25)

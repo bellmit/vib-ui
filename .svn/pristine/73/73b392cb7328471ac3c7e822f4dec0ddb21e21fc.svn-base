@@ -1,0 +1,149 @@
+@import "./src/styles-master"
+
+#container_form_deposit
+  background-color: white
+  height: 730px
+  width: 1250px
+  @extend .shadow
+  #header
+    height: 70px
+    width: 100%
+    color: white
+    padding: 0px !important
+    .row
+      height: 100%
+      margin: 0px
+      #header-logo
+        margin: 0 0 2px
+      #header-desc
+  #div-confirm
+    height: 600px !important
+
+#container_confirm
+  height: 600px
+  @extend #container_form_deposit
+
+
+.content-border
+  border: 3px solid #E3F7FE !important
+  background-color: #E3F7FE !important
+
+.container
+  align-items: center
+  height: 100%
+
+.text-money
+  height: 70px !important
+  text-align: center
+
+.non-border
+  border: #EEEEEE solid 3px !important
+
+.section-detail
+  top: 15px
+
+.section-top
+  margin-bottom: 20px
+  margin-right: -40px
+  top: 15px
+
+.form-in
+  height: 250px
+  margin: 0 30px 0 30px
+  padding: 0px
+
+.content-detail
+  background-color: white
+  border-radius: 15px 15px 0 0
+  padding: 5px 20px
+  .row
+    line-height: 40px
+    vertical-align: bottom
+
+.content-total
+  padding: 0px 20px
+
+.content-border
+  border-radius: 15px
+  border: 3px solid #E4F8FF
+  background-color: #E4F8FF
+  padding: 0
+  margin: 20px 0px 10px 45px
+
+.text-sum
+  line-height: 35px
+  margin-top: 20px
+  vertical-align: bottom
+  color: #1A1A1A
+  margin-top: 20px
+
+.bathTxt
+  text-align: right
+  color: #1A1A1A
+
+.totalAmount
+  font-size: 60px
+  margin-top: 20px
+  line-height: 20px
+  color: #2AA8D3
+
+.border_top_deposit_page
+  border-style: solid
+  border-top-style: dashed
+  border-top-color: #D8D8D8
+  border-left-color: white
+  border-right-color: white
+
+
+.deposit_page
+  justify-content: center
+  background-color: #F0EFEF
+  height: 430px
+  width: 1110px
+  @extend .shadow
+
+.input-noCard
+  font-size: 30px
+  height: 50px
+  width: 200px
+
+.btn-scan
+  border-radius: 15px
+  height: 50px
+  width: 200px
+
+.scan-container
+  background-color: white
+  height: 730px
+  width: 1250px
+
+
+.frame
+  padding-top: 50px
+  margin-left: 14px
+  .slidee
+    margin: 0
+    padding: 0
+    list-style: none
+    height: 200px
+    li
+      float: left
+      margin: 0 100px 0 0
+      padding: 0
+      width: 152px
+      transform: scale(1)
+      transition: all .2s ease-in-out
+      opacity: .6
+      @extend .gray-scale
+    li.active
+      opacity: 1 !important
+      transform: scale(1.6)
+      @extend .non-gray-scale
+
+.service-image
+  margin-top: 5%
+  font-weight: bold
+
+.bankImage
+  width: 100px
+  height: 100px

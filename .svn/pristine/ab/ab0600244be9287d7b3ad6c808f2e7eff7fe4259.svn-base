@@ -1,0 +1,71 @@
+@import "./src/styles-master"
+
+.container
+  align-items: center
+  height: 100%
+  margin-top: 5%
+
+#container_form2
+  width: 1170px
+  height: 668px
+  background-image: url("/assets/kiatnakin/image/bg_cheque_big.png")
+  @extend .shadow
+  #header
+    height: 70px
+    width: 100%
+    color: white
+    padding: 0px !important
+
+#container_form
+  background-color: white
+  width: 1110px
+  height: 730px
+  @extend .shadow
+  #header
+    height: 70px
+    width: 100%
+    color: white
+    padding: 0px !important
+    .row
+      height: 100%
+      margin: 0px
+      #header-logo
+        margin: 0 0 1px
+      #header-desc
+
+.content-border
+  border: 2px solid $dark-blue !important
+
+.page
+  margin-top: -7%
+  justify-content: center
+  background-color: #F7F7F7
+  height: 430px
+  width: 1110px
+  @extend .shadow
+
+.border_dark_blue
+  border-bottom: 2px solid $dark-blue !important
+
+.border_top_page
+  border-style: solid
+  border-top-style: dashed
+  border-top-color: #262626
+  border-left-color: white
+  border-right-color: white
+
+select
+  border-bottom: 2px solid $dark-blue
+
+.txt_date
+  left: -7%
+  top: 2px
+
+.txt_datenow
+  right: 75px
+  top: 2px
+
+input[type=text], input[type=password]
+  @extend .underline
+  border-bottom: 2px solid $dark-blue !important
+  font-size: 80%

@@ -1,0 +1,14 @@
+@import "./src/styles-master"
+
+.obj_left
+  position: absolute
+  left: 10%
+  top: 20%
+
+.obj_right
+  position: absolute
+  right: 10%
+  top: 22%
+
+.resize
+  width: 120%

@@ -1,0 +1,35 @@
+
+<div class="row col-lg-12">
+  <div class="col-lg-3">
+    <img src="./assets/kiatnakin/image/login/icon_mypin_topic.png">
+  </div>
+  <div class="col-lg-9">
+    <label class="display-2 text-bold">MyPIN</label> <br>
+    <label class="display-5">กรุณากรอกรหัสส่วนตัว  MyPIN ของท่าน</label>
+  </div>
+  <div class="row col-lg-12 mt-5  text-center">
+    <div class="display-3 display-12 col-lg-12">
+      รหัส PIN
+    </div>
+    <div class="display-3 col-lg-12 mt-3">
+      <input id="pin"
+             type="text"
+             name="security-dot"
+             keyboard="pin"
+             style="margin: 0 auto; width: 50%"
+             class="text-center"
+             maxlength="6"
+             autocomplete="off"
+             Number
+             [(ngModel)]="userLogin.pin">
+    </div>
+  </div>
+  <div class="col-lg-12 text-center mt-5">
+    <button id="button_login"  class="button-submit button-blue  display-3" type="submit"
+            (click)="onSubmit()"
+            type="submit"
+            [disabled]="userLogin.pin.length !== 6">
+      <h2>{{ 'ok' | translate}}</h2>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,2392 @@
+<app-absorption *ngIf="!showFlipbook" (scaN)="onCheckAbsorption($event)" [queryParams]="{'returnUrl': 'subscription/account'}">
+</app-absorption>
+
+<template-flip-book *ngIf="showFlipbook" (onFlipInit)="onFlipInit($event)" (onStart)="onStart($event)" (onTurning)="onTurning($event)"
+    (onTurned)="onTurned($event)" (onEnd)="onEnd($event)">
+    <img src="./assets/kiatnakin/image/close.png" id="btnClickClose" class="btnClickClose" (click)="onClickClose()" ignore="1"
+        *ngIf="(isShowCloseButton && showSelector === false)">
+
+
+    <div name="Cover" data-id="cover" class="hard cover">
+        <div class="cover-page">
+            <div class="logo">
+                <img *ngIf="coverImage" src="{{register.domainAPI +coverImage}}" width="100%" style="margin-top: -30%">
+                <img *ngIf="!coverImage" src="./assets/kiatnakin/image/logo_kk_big.png" style="width: 400px">
+                <!-- <img src="/assets/kiatnakin/image/logo_kk_big.png" style="width: 400px"> -->
+            </div>
+        </div>
+    </div>
+
+    <div name="Page-1" *ngIf="TermAndCondition" data-id="idCardScan" class="cover blue hard front-side" [ngClass]="{'fixed': currentPageIndex >= '3'}">
+        <div class="content-cover">
+            <div class="ribbon_gray_left">
+                <label class="text-white pl-39px pt-2 title_display"> ข้อตกลงและเงื่อนไขการใช้บริการ</label>
+            </div>
+
+            <div class="row">
+
+                <div class="scroll display-6-1">
+                    <p [innerHTML]="AccountTerm"></p>
+
+                    <p [innerHTML]="ElectronicsTerm" class="mt-3"></p>
+                </div>
+
+                <div class="radioAccept" [ngStyle]="checkAccept === true && {'background-color': '#0098C8','color':'#FFFFFF','border-radius': '15px'}">
+                    <div class="col-lg-12 row">
+                        <div class="col-lg-1 text-center">
+                            <input #checkboxPrincipal type="checkbox" name="accept" id="checkbox_accept" [checked]="checkAccept == true" (click)="changeTermAndCon()"
+                                class="checkbox-principal">
+                        </div>
+                        <div class="col-lg-10 text-left radioAccept_txt" [ngStyle]="checkAccept === true && {'color':'#FFFFFF'}" (click)="changeTermAndCon()">
+                            ยอมรับเงื่อนไขธนาคาร
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="{{imgPart+'tick_front.png'}}" class="tick_book_font" />
+    </div>
+
+    <div name="Page-2" *ngIf="TermAndCondition" data-id="termCondition" class="cover hard own-size">
+
+        <div name="Pre_Input_IDcard" *ngIf="scanCode === '1000' || scanCode === '1003' && showInput === false" class="content-cover">
+            <div [ngClass]="(checkAccept)?'readCardEnable':'readCardDisable'" class="content row mt-10">
+                <div class="col-lg-12 pt-5 m-0 text-center">
+                    <img src="./assets/kiatnakin/image/subscription/icon_id_card.png" />
+                </div>
+                <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                    กรุณาเสียบบัตรประจำตัวประชาชน
+                </div>
+                <div class="col-lg-12 mt-3 display-5 text-center text-dark-black-gray text-italic text-bold">
+                    เพื่อตรวจสอบข้อมูลเบื้องต้นและยืนยันการทำรายการ
+                </div>
+            </div>
+        </div>
+
+        <div name="Read_Card" *ngIf="scanCode === '1103' || scanCode === '1109' && showInput === false" class="content-cover">
+            <div class="content row mt-10">
+                <div class="col-lg-12 pt-5 m-0 text-center">
+                    <img class="loading" src="./assets/kiatnakin/image/loading.png" />
+                </div>
+                <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                    กรุณารอสักครู่
+                </div>
+                <div class="col-lg-12 display-5 text-center text-dark-black-gray text-italic text-bold">
+                    ระบบกำลังดึงข้อมูล
+                </div>
+            </div>
+        </div>
+
+        <div name="Read_Fails" *ngIf="scanCode === '9105'  || scanCode === '1110' || scanCode === '9103' || scanCode === '9005'  && showInput === false"
+            class="content-cover">
+            <div class="content row mt-10">
+                <div class="col-lg-12 pt-5 m-0 text-center">
+                    <img class="" src="./assets/kiatnakin/image/read_false.png" />
+                </div>
+                <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                    ไม่สามารถอ่านบัตรประชาชนได้
+                </div>
+                <div class="col-lg-12 mt-3 display-5 text-center text-dark-black-gray text-italic text-bold">
+                    หากท่านต้องการทำรายการต่อ
+                </div>
+                <div class="col-lg-12 display-5 text-center text-dark-black-gray text-italic text-bold">
+                    กรุณากรอกข้อมูลบัตรประชาชน
+                </div>
+
+                <div class="row col-lg-12 mt-3">
+                    <div class="col-lg-6 text-right">
+                        <button class="btn btn-blue text-center" (click)="onRequestSmartCardReader()">
+                            กรุณาเสียบบัตรอีกครั้ง
+                        </button>
+                    </div>
+                    <div class="col-lg-6 text-left">
+                        <button class="btn btn-blue text-center" (click)="onRequestInputSmartCard()" id="btn_inputIDNo_id" name="btn_inputIDNo">
+                            กรอกข้อมูลเอง
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div name="Read_Succresss" *ngIf="scanCode === '0000'&& showInput === false" class="content-cover">
+            <div class="content row mt-10">
+                <div class="col-lg-12 pt-5 m-0 text-center">
+                    <img class="" src="./assets/kiatnakin/image/read_success.png" />
+                </div>
+                <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                    อ่านข้อมูลสำเร็จ
+                </div>
+            </div>
+        </div>
+
+        <div name="Input_Data" *ngIf="showInput === true" class="content-cover">
+            <div class="ribbon_gray_right">
+                <!-- <label class="pl-42px pt-2 title_display">ข้อมูลตามบัตรประชาชน</label> -->
+                <label class="pl-42px pt-2 title_display">ข้อมูลตามบัตรประชาชนของลูกค้า หรือ ผู้ขอใช้บริการ</label>
+            </div>
+
+            <div class="col-lg-12 p-0 mt-7-5" id="ssuFrom_idcard">
+                <div class="col-lg-12 tab42px">
+
+                    <div class="row">
+                        <div class="txt-ssu-header p-0">เลขที่บัตรประชาชน:</div>
+                        <div *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'" style="width:72%;">
+                            <input Number type="text" class="text-center txt-ssu text-bold p-0" keyboard="number" id="ssu_idcard" maxlength="13" [(ngModel)]="register.ssu.cardInfo.idCardNumber"
+                                (ngModelChange)="CheckIdCard(register.ssu.cardInfo.idCardNumber)" autocomplete="off">
+                        </div>
+                        <div *ngIf="register.ssu.cardInfo.idType == '001' || register.ssu.cardInfo.idType == 'E'" class="txt-ssu-citizen-txt text-bold"
+                            style="width:65%;margin-left: 20px">
+                            {{register.ssu.cardInfo.idCardNumbertxt}}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3 col-lg-12 p-0">
+                        <div class="txt-ssu-header txt-nameth p-0">ชื่อ:</div>
+                        <input *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'" type="text" readonly class="txt-title text-center txt-ssu p-0"
+                            id="titleTH_id" (click)="onSelector('ssu_titleTH')" [(ngModel)]="register.ssu.cardInfo.titleTH">
+                        <input *ngIf="(register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E') && checkTitleActive" type="text" [readonly]="true"
+                            style="width: 90px;flex: 0 !important;" class="text-left text-title txt-ssu none-keyboard col-lg-2 text-center p-0"
+                            id="titleTH_id_txt" [(ngModel)]="register.ssu.cardInfo.titleTH">
+                        <input *ngIf="(register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E') && !checkTitleActive" type="text" [readonly]="true"
+                            style="width: 90px;flex: 0 !important;" class="text-left text-title txt-ssu none-keyboard col-lg-2 text-center p-0"
+                            id="titleTH_id_txt" (click)="onSelector('ssu_titleTH')" [(ngModel)]="register.ssu.cardInfo.titleTH">
+                        <img src="{{imgPart+'arrow_blue.png'}}" class="arrowBlue" *ngIf="!register.ssu.cardInfo.titleTH" style="position: absolute;left: 100px;top: 18px;"
+                            (click)="onSelector('ssu_titleTH')" />
+
+                        <div class="ml10px">
+                            <input *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'" type="text" id="ssu_nameTH" class="ssu_nameth text-center txt-ssu"
+                                maxlength="64" alphapet keyboard="th" [(ngModel)]="register.ssu.cardInfo.nameTH" (ngModelChange)="setBlueLineTextisNull('ssu_nameTH',$event)" autocomplete="off">
+                            <div *ngIf="register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E'" type="text" id="ssu_nameTHtxt"
+                                class="ssu_nameth text-center txt-ssu underline">
+                                {{register.ssu.cardInfo.nameTH}}
+                            </div>
+                        </div>
+
+                        <div class="txt-ssu-header ml25px">นามสกุล:</div>
+                        <div *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'" style="position: absolute;right: 49px;">
+                            <input type="text" id="ssu_surnameTH" class="text-center txt-ssu cardInfoSurname" (ngModelChange)="setBlueLineTextisNull('ssu_surnameTH',$event)"
+                                alphapet keyboard="th" [(ngModel)]="register.ssu.cardInfo.surnameTH" autocomplete="off">
+                        </div>
+                        <div *ngIf="register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E'" class="cardInfoSurnamePosition">
+                            <input type="text" id="ssu_surnameTHtxt" class=" text-center txt-ssu" [readonly]="true" keyboard="th" [(ngModel)]="register.ssu.cardInfo.surnameTH"
+                                style="width: 216px;margin-right: -19px !important;">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-ssu-header p-0">Name:</div>
+                        <input *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'" type="text" [readonly]="true"
+                            class="text-left text-title txt-ssu none-keyboard col-lg-2 text-center p-0 txt-titleEN" id="titleEN_id"
+                            (click)="onSelector('ssu_titleEN')" [(ngModel)]="register.ssu.cardInfo.titleEN">
+                        <img src="{{imgPart+'arrow_blue.png'}}" class="arrowBlue" *ngIf="!register.ssu.cardInfo.titleTH" style="position: absolute;left: 100px;top: 123px;"
+                            (click)="onSelector('ssu_titleEN')" />
+                        <input *ngIf="register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E'" type="text" [readonly]="true"
+                            style="width: 60px;flex: 0 !important;" class="text-left text-title txt-ssu none-keyboard col-lg-2 text-center p-0"
+                            id="titleEN_id_txt" [(ngModel)]="register.ssu.cardInfo.titleEN">
+
+                        <div class="ml10px">
+                            <input *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'" type="text" id="ssu_nameEN" class="ssu_nameth text-center txt-ssu"
+                                maxlength="64" keyboard="en-capslock" [(ngModel)]="register.ssu.cardInfo.nameEN" (ngModelChange)="setBlueLineTextisNull('ssu_nameEN',$event)" autocomplete="off">
+                            <input *ngIf="register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E'" [readonly]="true" type="text"
+                                id="ssu_nameENtxt" class="ssu_nameth text-center txt-ssu" maxlength="64" keyboard="en-capslock"
+                                [(ngModel)]="register.ssu.cardInfo.nameEN">
+                        </div>
+
+                        <div class="txt-ssu-header ml25px">Surname:</div>
+                        <div style="position: absolute;right: 80px;top: 105px">
+                            <input *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'" type="text" id="ssu_surnameEN"
+                                class=" text-center txt-ssu" keyboard="en-capslock" [(ngModel)]="register.ssu.cardInfo.surnameEN"
+                                style="width: 216px;" (ngModelChange)="setBlueLineTextisNull('ssu_surnameEN',$event)" autocomplete="off">
+                            <input *ngIf="register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E'" type="text" id="ssu_surnameENtxt"
+                                class=" text-center txt-ssu" [readonly]="true" keyboard="en-capslock" [(ngModel)]="register.ssu.cardInfo.surnameEN"
+                                style="width: 216px;margin-right: 11px !important;">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="txt-ssu-header p-0">เพศ:</div>
+                        <input *ngIf="(register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E') && genderShowInput === false"
+                            type="text" [readonly]="true" class="text-left text-title txt-ssu none-keyboard text-center txt-gender"
+                            id="gender_id" (click)="onSelector('ssu_gender')" [(ngModel)]="register.ssu.cardInfo.gender.data">
+                        <img src="{{imgPart+'arrow_blue.png'}}" class="arrowBlue" *ngIf="!register.ssu.cardInfo.gender.value" style="position: absolute;left: 36%;top: 67%;"
+                            (click)="onSelector('ssu_gender')" />
+                        <input *ngIf="(register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E') || genderShowInput === true"
+                            type="text" [readonly]="true" class="text-left text-title txt-ssu none-keyboard text-center txt-gender"
+                            id="gender_id_txt" [(ngModel)]="register.ssu.cardInfo.gender.data">
+
+                        <div class="ml25px txt-ssu-header p-0">วันเดือนปีเกิด:</div>
+                        <div *ngIf="register.ssu.cardInfo.idType != '001' && register.ssu.cardInfo.idType != 'E'" class="col-lg-3 p-0 ssu_birthdate_txt">
+                            <custom-date-picker (onChanged)="onSelectedChanged('birthdate',$event)" [idClose]="'btnClickClose'" type="birthdate">
+                            </custom-date-picker>
+                        </div>
+                        <div *ngIf="register.ssu.cardInfo.idType == '001' || register.ssu.cardInfo.idType == 'E'" class="ssu_birthdate_txt text-center underline none-keyboard">
+                            {{ register.ssu.cardInfo.birthdate.day+' '+register.ssu.cardInfo.birthdate.mounth+ ' ' +register.ssu.cardInfo.birthdate.year}}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="txt-ssu-header p-0">สัญชาติ:</div>
+                        <input *ngIf="register.ssu.cardInfo.idType !== '001'" type="text" class="text-center txt-ssu p-0 none-keyboard ssu_nation"
+                            keyboard="th" id="ssu_nation_id" (click)="onSelector('ssu_nation')" [readonly]="true" [(ngModel)]="register.ssu.cardInfo.nation">
+                        <img *ngIf="!register.ssu.cardInfo.nation" src="{{imgPart+'arrow_blue.png'}}" class="arrow_size" style="position: absolute;left: 36%;top: 90%;"
+                            (click)="onSelector('ssu_nation')" />
+
+                        <input *ngIf="register.ssu.cardInfo.idType === '001'" type="text" class="text-center txt-ssu p-0 none-keyboard ssu_nation"
+                            keyboard="th" id="ssu_nation_id_txt" [readonly]="true" [(ngModel)]="register.ssu.cardInfo.nation">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-12 p-0 txt-Header text-bold mt-4 tab42px">ที่อยู่ตามบัตรประชาชน</div>
+            <div class="col-lg-12 mt-2 tab42px" id="ssuFrom_Address">
+                <div class="row">
+                    <div class="txt-ssu-header p-0">เลขที่:</div>
+                    <input *ngIf="!customerExits" type="text" class="text-center txt-ssu p-0 ssu_address_no" keyboard="th" id="ssu_address_no_id"
+                        [(ngModel)]="register.ssu.cardInfo.address.no" autocomplete="off">
+                    <div *ngIf="customerExits" class="text-center txt-ssu p-0 ssu_address_no underline">
+                        {{register.ssu.cardInfo.address.no}}
+                    </div>
+
+                    <!-- <div class="txt-ssu-header p-0 ssu_address_moo_txt text-right">หมู่:</div>
+                    <input *ngIf="!customerExits" type="text" class="text-center txt-ssu p-0 ssu_address_moo" keyboard="th" id="ssu_address_moo_id"
+                        [(ngModel)]="register.ssu.cardInfo.address.moo">
+                    <div *ngIf="customerExits" class="text-center txt-ssu p-0 ssu_address_moo underline">
+                        {{register.ssu.cardInfo.address.moo}}
+                    </div> -->
+
+                    <div class="txt-ssu-header p-0 ssu_address_village_txt text-right">หมู่บ้าน/อาคาร:</div>
+                    <input *ngIf="!customerExits" type="text" class="text-center txt-ssu p-0 ssu_address_tower" keyboard="th" id="ssu_address_tower_id"
+                        [(ngModel)]="register.ssu.cardInfo.address.tower" autocomplete="off">
+                    <div *ngIf="customerExits" class="text-center txt-ssu p-0 ssu_address_tower underline">
+                        {{register.ssu.cardInfo.address.tower}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="txt-ssu-header p-0">หมู่:</div>
+                    <input *ngIf="!customerExits" type="text" class="text-center txt-ssu p-0 ssu_address_moo" keyboard="th" id="ssu_address_moo_id"
+                        [(ngModel)]="register.ssu.cardInfo.address.moo" autocomplete="off">
+                    <div *ngIf="customerExits" class="text-center txt-ssu p-0 ssu_address_moo underline">
+                        {{register.ssu.cardInfo.address.moo}}
+                    </div>
+
+                    <div class="txt-ssu-header p-0 ssu_address_floor_txt text-right">ชั้น:</div>
+                    <input *ngIf="!customerExits" type="text" class="text-center txt-ssu p-0 ssu_address_floor" keyboard="number" id="ssu_address_floor_id"
+                        [(ngModel)]="register.ssu.cardInfo.address.floor" autocomplete="off">
+                    <div *ngIf="customerExits" class="text-center txt-ssu p-0 ssu_address_floor underline">
+                        {{register.ssu.cardInfo.address.floor}}
+                    </div>
+
+                    <div class="txt-ssu-header ssu_address_alley_txt p-0 text-right">ซอย:</div>
+                    <input *ngIf="!customerExits" type="text" class="text-center ssu_address_alley txt-ssu p-0" keyboard="th" id="ssu_address_alley_id"
+                        [(ngModel)]="register.ssu.cardInfo.address.alley" autocomplete="off">
+                    <div *ngIf="customerExits" class="text-center ssu_address_alley txt-ssu p-0 underline">
+                        {{register.ssu.cardInfo.address.alley}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="txt-ssu-header p-0">ถนน:</div>
+                    <input *ngIf="!customerExits" type="text" class="text-center ssu_address_street txt-ssu p-0" keyboard="th" id="ssu_address_street_id"
+                        [(ngModel)]="register.ssu.cardInfo.address.street" autocomplete="off">
+                    <div *ngIf="customerExits" class="text-center ssu_address_street txt-ssu p-0 underline">
+                        {{register.ssu.cardInfo.address.street}}
+                    </div>
+
+                    <div class="txt-ssu-header p-0 ssu_address_country_txt text-right">ประเทศ:</div>
+                    <input *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'" type="text" class="text-center txt-ssu p-0 none-keyboard ssu_address_country"
+                        keyboard="th" id="ssu_address_country" (click)="onSelector('ssu_country')" readonly [(ngModel)]="register.ssu.cardInfo.address.country">
+                    <img src="{{imgPart+'arrow_blue.png'}}" class="arrow_size" style="position: absolute;right: 14.4%;top: 107px;" *ngIf="!register.ssu.cardInfo.address.country"
+                        (click)="onSelector('ssu_country')" />
+                    <div *ngIf="register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E'" class="text-center txt-ssu p-0 ssu_address_country underline">
+                        {{register.ssu.cardInfo.address.country}}
+                    </div>
+                </div>
+
+                <div *ngIf="register.ssu.cardInfo.address.country === 'ไทย' || register.ssu.cardInfo.address.country == null">
+                    <div class="row">
+                        <div class="txt-ssu-header text-right p-0">จังหวัด:</div>
+                        <input type="text" class="text-center txt-ssu p-0 ssu_address_province none-keyboard" id="ssu_address_province_id" (click)="onSelector('ssu_province')"
+                            [readonly]="true" *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'"
+                            [(ngModel)]="register.ssu.cardInfo.address.province">
+                        <img src="{{imgPart+'arrow_blue.png'}}" class="arrow_size" (click)="onSelector('ssu_province')" style="position: absolute;right: 60.6%;top: 153px;"
+                            *ngIf="!register.ssu.cardInfo.address.province" />
+                        <div class="text-center txt-ssu p-0 ssu_address_province underline text-light-white-gray" id="ssu_address_province_id_txt"
+                            *ngIf="register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E'">
+                            {{register.ssu.cardInfo.address.province}}
+                        </div>
+
+                        <div class="txt-ssu-header p-0 text-right ssu_address_district_txt">เขต/อำเภอ:</div>
+                        <input type="text" class="text-center txt-ssu p-0 ssu_address_district none-keyboard" id="ssu_address_district_id" (click)="onSelector('ssu_district')"
+                            [readonly]="true" *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'"
+                            [(ngModel)]="register.ssu.cardInfo.address.district">
+                        <img src="{{imgPart+'arrow_blue.png'}}" class="arrow_size" style="position: absolute;right: 97px;top: 152px" *ngIf="!register.ssu.cardInfo.address.district"
+                            (click)="onSelector('ssu_district')" />
+                        <div class="text-center txt-ssu p-0 ssu_address_district underline" id="ssu_address_district_id_txt" *ngIf="register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E'">
+                            {{register.ssu.cardInfo.address.district}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-ssu-header p-0">แขวง/ตำบล:</div>
+                        <input type="text" class="text-center txt-ssu p-0 ssu_address_locality none-keyboard" keyboard="th" id="ssu_address_locality_id"
+                            (click)="onSelector('ssu_locality')" [readonly]="true" *ngIf="register.ssu.cardInfo.idType !== '001' && register.ssu.cardInfo.idType !== 'E'"
+                            [(ngModel)]="register.ssu.cardInfo.address.locality">
+                        <img src="{{imgPart+'arrow_blue.png'}}" class="arrow_size" style="position: absolute;right: 60.6%;top: 197px;" *ngIf="!register.ssu.cardInfo.address.locality"
+                            (click)="onSelector('ssu_locality')" />
+                        <div *ngIf="register.ssu.cardInfo.idType === '001' || register.ssu.cardInfo.idType === 'E'" class="text-center txt-ssu p-0 ssu_address_locality underline">
+                            {{register.ssu.cardInfo.address.locality}}
+                        </div>
+
+                        <div class="txt-ssu-header p-0 text-right ssu_address_postcode_txt">รหัสไปรษณีย์:</div>
+                        <input *ngIf="!customerExits" type="text" class="text-center ssu_address_postcode txt-ssu p-0" keyboard="number" id="ssu_address_postcode_id"
+                            (ngModelChange)="CheckPostCode('ssu_address_postcode_id',$event)" Number maxlength="5" [(ngModel)]="register.ssu.cardInfo.address.postcode">
+                        <div *ngIf="customerExits" class="text-center ssu_address_postcode txt-ssu p-0 underline">
+                            {{register.ssu.cardInfo.address.postcode}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="txt-ssu-header p-0 text-right">วันออกบัตร:</div>
+                    <div *ngIf="register.ssu.cardInfo.idType !== '001'">
+                        <custom-date-picker [idClose]="'btnClickClose'" (onChanged)="onSelectedChanged('issueDate',$event)" type="issueDate">
+                        </custom-date-picker>
+                    </div>
+
+                    <div *ngIf="register.ssu.cardInfo.idType == '001'" style="width: 170px" class="row col-lg-3 ssu_birthdate_txt text-center underline">
+                        {{ register.ssu.cardInfo.issueDate.day+' '+register.ssu.cardInfo.issueDate.mounth+' '+register.ssu.cardInfo.issueDate.year}}
+                    </div>
+
+                    <div class="txt-ssu-header p-0 text-right col-lg-3" style="left: -10px">วันบัตรหมดอายุ:</div>
+                    <div class="txt-ssu" *ngIf="register.ssu.cardInfo.idType !== '001'">
+                        <custom-date-picker [idClose]="'btnClickClose'" (onChanged)="onSelectedChanged('expireDate',$event)" type="expireDate">
+                        </custom-date-picker>
+                    </div>
+
+                    <div *ngIf="register.ssu.cardInfo.idType == '001'" class="row col-lg-3 ssu_birthdate_txt underline">
+                        {{ register.ssu.cardInfo.expireDate.day+' '+register.ssu.cardInfo.expireDate.mounth+' '+register.ssu.cardInfo.expireDate.year}}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div *ngIf="register.ssu.cardInfo.idType !== '001'" class="txt-ssu-header p-0 text-right">
+                        ตัวเลขหลังบัตร:
+                    </div>
+                    <input *ngIf="register.ssu.cardInfo.idType !== '001'" type="text" class="text-center col-lg-1 txt-ssu p-0 ssu_backNo" keyboard="en"
+                        (ngModelChange)="setBlueLineTextisNullAndCheckLenght('ssu_backNo1_id',$event,3)" keyboard="en-capslock"
+                        id="ssu_backNo1_id" [(ngModel)]="register.laser_no1" maxlength="3" autocomplete="off">
+                    <div *ngIf="register.ssu.cardInfo.idType !== '001'" type="text" class="text-ssu">-</div>
+                    <input *ngIf="register.ssu.cardInfo.idType !== '001'" type="text" class="text-center col-lg-2 txt-ssu p-0 ssu_backNo" keyboard="number"
+                        (ngModelChange)="setBlueLineTextisNullAndCheckLenght('ssu_backNo2_id',$event,7)" Number id="ssu_backNo2_id"
+                        [(ngModel)]="register.laser_no2" maxlength="7" autocomplete="off">
+                    <div *ngIf="register.ssu.cardInfo.idType !== '001'" type="text" class="text-ssu">-</div>
+                    <input *ngIf="register.ssu.cardInfo.idType !== '001'" type="text" class="text-center col-lg-1 txt-ssu p-0 ssu_backNo" keyboard="number"
+                        (ngModelChange)="setBlueLineTextisNullAndCheckLenght('ssu_backNo3_id',$event,2)" Number id="ssu_backNo3_id"
+                        [(ngModel)]="register.laser_no3" maxlength="2" autocomplete="off">
+                </div>
+
+            </div>
+            <div *ngIf="btnSubmit === ''" class="col-lg-12 text-center mt-3">
+                <button *ngIf="checkAccept === true && submit === false" type="submit" class="col-lg-4 display-6 button-blue text-white"
+                    id="submit_CustomerInfo_id" name="submit_CustomerInfo" (click)="CheckIdType()">
+                    ยืนยันข้อมูล
+                </button>
+            </div>
+            <img src="./assets/kiatnakin/image/subscription/next_ic.png" (click)="onClickNextPage()" style="position:absolute;left: 93%;top: 94.3%"
+            />
+        </div>
+    </div>
+
+    <div name="Page-3" *ngIf="newCustomer" data-id="ssu1" class=" cover hard own-size">
+        <div class="content-cover">
+            <div class="content row">
+                <div class="ribbon_gray_right">
+                    <label class="text-white pl-39px pt-2 title_display"> 1/4 ข้อมูลลูกค้า </label>
+                </div>
+
+                <div class="col-lg-12 p-0 mt-4rem txt-Header text-bold r20px">การยืนยันตัวตนในการเปิดบัญชี</div>
+                <div class="r20px p-0">
+                    <div class="row tabmg3">
+                        <div class="txt-Header p-0 text-left ssu_address_email_txt">อีเมล:</div>
+                        <input *ngIf="updateInfo !== true" class="text-center txt-ssu p-0 ssu_address_email" id="ssu_address_email_id" keyboard="email-capslock"
+                            [(ngModel)]="register.ssu.current.contact.email" (ngModelChange)="checkIsEmail($event)" type="text" autocomplete="off">
+                        <div *ngIf="updateInfo === true" class="text-center txt-ssu p-0 ssu_address_email" id="ssu_address_email_updateCustomer_id">
+                            {{register.ssu.current.contact.email ? register.ssu.current.contact.email : '-'}}
+                        </div>
+                    </div>
+                    <div class="row tabmg3">
+                        <div class="txt-Header p-0 text-left ssu_address_email_txt">โทรศัพท์มือถือ:</div>
+                        <input *ngIf="updateInfo !== true" type="text" class="text-center txt-ssu p-0 ssu_address_email" keyboard="phone" id="ssu_address_moblie_phone_id"
+                            [(ngModel)]="register.ssu.current.contact.moblie_phone" Number maxlength="10" (ngModelChange)="checkPhoneDefault('mobliePhone', $event)" autocomplete="off">
+                        <div *ngIf="updateInfo === true" class="text-center txt-ssu p-0 ssu_address_email" id="ssu_address_moblie_phone_UpdateCustomer_id">
+                            {{register.ssu.current.contact.moblie_phone ? register.ssu.current.contact.moblie_phone : '-'}}
+                        </div>
+                    </div>
+                    <div class="row tabmg3">
+                        <div class="txt-Header p-0 text-left ssu_address_home_phone_txt">โทรศัพท์บ้าน:</div>
+                        <input *ngIf="updateInfo !== true" type="text" class="text-center txt-ssu p-0 ssu_address_home_phone" id="ssu_address_home_phone_id"
+                            keyboard="phone" Number maxlength="9" (ngModelChange)="checkPhoneDefault('homePhone', $event)" [(ngModel)]="register.ssu.current.contact.home_phone" autocomplete="off">
+                        <div *ngIf="updateInfo === true" class="text-center txt-ssu p-0 ssu_address_home_phone" id="ssu_address_home_phone_UpdateCustomer_id">
+                            {{register.ssu.current.contact.home_phone ? register.ssu.current.contact.home_phone : '-'}}
+                        </div>
+                    </div>
+                    <div class="row tabmg3">
+                        <div class="txt-Header p-0 ssu_address_fax_phone_txt">โทรสาร:</div>
+                        <input *ngIf="updateInfo !== true" type="text" class="text-center txt-ssu p-0 ssu_address_email" keyboard="phone" id="ssu_address_fax_phone_id"
+                            [(ngModel)]="register.ssu.current.contact.fax_phone" Number maxlength="9" (ngModelChange)="checkPhoneDefault('faxPhone', $event)" autocomplete="off">
+                        <div *ngIf="updateInfo === true" class="text-center txt-ssu p-0 ssu_address_email" id="ssu_address_fax_phone_UpdateCustomer_id">
+                            {{register.ssu.current.contact.fax_phone ? register.ssu.current.contact.fax_phone : '-'}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12 p-0 mt-3 txt-Header text-bold r20px">ที่อยู่ที่ติดต่อได้</div>
+                <div *ngIf="updateInfo !== true" class="row col-lg-12 p-0 r20px">
+                    <div class="row col-lg-12">
+                        <div class="radio-button col-lg-4 text-center" style="padding-left:10px !important;">
+                            <label>
+                                <input type="radio" name="subscr_currentType" id="subscr_currentType_id" [(ngModel)]="register.ssu.current.Type" value="CI"
+                                    (click)="AddressSameIDcard('AddresssameId13')">
+                                <span id="ID_card_address">ตามบัตรประชาชน</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-4 text-center">
+                            <label>
+                                <input type="radio" name="subscr_currentType" [(ngModel)]="register.ssu.current.Type" value="IN" (click)="AddressSameIDcard('inputCurrent')"
+                                    (click)="getkeyboard()" (click)="enableInput('ssuFrom_Address_Current')">
+                                <span>ตามที่ระบุด้านล่าง</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="register.ssu.current.Type == 'CI'" class="col-lg-12 p-0 mt-3 txt-Header text-bold">
+                    ที่อยู่ตามบัตรประชาชน
+                </div>
+                <div [ngClass]="register.ssu.current.Type === '' && updateInfo !== true ?'address-disable':'address-enable'" class="col-lg-12 p-0 mt-3"
+                    id="ssuFrom_Address_Current">
+                    <div class="row">
+                        <div class="txt-Header p-0">เลขที่:</div>
+                        <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_no"
+                            keyboard="th" id="ssu_current_address_no_id" [(ngModel)]="register.ssu.current.address.no" (ngModelChange)="setBlueLineTextisNull('ssu_current_address_no_id',$event)" autocomplete="off">
+                        <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_no">
+                            {{register.ssu.current.address.no? register.ssu.current.address.no:'-'}}
+                        </div>
+
+                        <!-- <div class="txt-Header p-0 ssu_address_moo_txt text-right">หมู่:</div>
+                        <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_moo"
+                            keyboard="th" id="ssu_current.address_moo_id" [(ngModel)]="register.ssu.current.address.moo">
+                        <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_moo text-light-white-gray">
+                            {{register.ssu.current.address.moo?register.ssu.current.address.moo:'-'}}
+                        </div> -->
+
+                        <div class="txt-Header p-0 ssu_address_village_txt text-right">หมู่บ้าน/อาคาร:</div>
+                        <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_tower"
+                            keyboard="th" id="ssu_current.address_tower_id" [(ngModel)]="register.ssu.current.address.tower" autocomplete="off">
+                        <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_tower">
+                            {{register.ssu.current.address.tower?register.ssu.current.address.tower:'-'}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-Header p-0">หมู่:</div>
+                        <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_moo"
+                            keyboard="th" id="ssu_current.address_moo_id" [(ngModel)]="register.ssu.current.address.moo" autocomplete="off">
+                        <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_moo">
+                            {{register.ssu.current.address.moo?register.ssu.current.address.moo:'-'}}
+                        </div>
+
+                        <div class="txt-Header p-0 ssu_address_floor_txt text-right">ชั้น:</div>
+                        <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_floor"
+                            maxlength="3" keyboard="number" id="ssu_current.address_floor_id" [(ngModel)]="register.ssu.current.address.floor" autocomplete="off">
+                        <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_floor">
+                            {{register.ssu.current.address.floor?register.ssu.current.address.floor:'-'}}
+                        </div>
+
+                        <div class="txt-Header ssu_address_alley_txt p-0 text-right">ซอย:</div>
+                        <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center ssu_address_alley txt-ssu p-0"
+                            keyboard="th" id="ssu_current.address_alley_id" [(ngModel)]="register.ssu.current.address.alley" autocomplete="off">
+                        <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center ssu_address_alley txt-ci p-0">
+                            {{register.ssu.current.address.alley?register.ssu.current.address.alley:'-'}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-Header p-0">ถนน:</div>
+                        <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center ssu_address_street txt-ssu p-0"
+                            keyboard="th" id="ssu_current_address_street_id" [(ngModel)]="register.ssu.current.address.street" autocomplete="off">
+                        <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center ssu_address_street txt-ci p-0">
+                            {{register.ssu.current.address.street?register.ssu.current.address.street:'-'}}
+                        </div>
+
+                        <div class="txt-Header p-0 ssu_address_country_txt text-right">ประเทศ:</div>
+                        <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center txt-ssu p-0 none-keyboard ssu_address_country"
+                            keyboard="th" id="ssu_current_address_country" (click)="onSelector('ssu_address_country')" [readonly]="true"
+                            [(ngModel)]="register.ssu.current.address.country">
+                        <img *ngIf="!register.ssu.current.address.country && updateInfo === false && register.ssu.current.Type !== ''" class="arrow_size"
+                            src="./assets/kiatnakin/image/arrow_blue.png" style="position: absolute;right: 3%;top: 106px;"
+                            (click)="onSelector('ssu_address_country')" />
+
+                        <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center txt-ci p-0 none-keyboard ssu_address_country">
+                            {{register.ssu.current.address.country?register.ssu.current.address.country:'-'}}
+                        </div>
+                    </div>
+
+                    <div *ngIf="register.ssu.current.address.country === 'ไทย' || register.ssu.current.address.country == null">
+                        <div class="row">
+                            <div class="txt-Header text-right p-0">จังหวัด:</div>
+                            <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_province none-keyboard"
+                                id="ssu_current_address_province_id" (click)="onSelector('ssu_address_province')" [readonly]="true"
+                                [(ngModel)]="register.ssu.current.address.province">
+                            <img *ngIf="!register.ssu.current.address.province && updateInfo === false && register.ssu.current.Type !== ''" class="arrow_size"
+                                src="./assets/kiatnakin/image/arrow_blue.png" class="arrow_size" style="position: absolute;right:57%;top: 151px;"
+                                (click)="onSelector('ssu_address_province')" />
+
+                            <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_province none-keyboard">
+                                {{register.ssu.current.address.province?register.ssu.current.address.province:'-'}}
+                            </div>
+
+                            <div class="txt-Header p-0 text-right ssu_address_district_txt">เขต/อำเภอ:</div>
+                            <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_district none-keyboard"
+                                id="ssu_current_address_district_id" (click)="onSelector('ssu_address_district')" [readonly]="true"
+                                [(ngModel)]="register.ssu.current.address.district">
+                            <img *ngIf="!register.ssu.current.address.district && updateInfo === false && register.ssu.current.Type !== ''" class="arrow_size"
+                                src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20" style="position: absolute;right:3%;top: 151px;"
+                                (click)="onSelector('ssu_address_district')" />
+
+                            <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_district none-keyboard">
+                                {{register.ssu.current.address.district?register.ssu.current.address.district:'-'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="txt-Header p-0">แขวง/ตำบล:</div>
+                            <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_locality none-keyboard"
+                                keyboard="th" id="ssu_current_address_locality_id" (click)="onSelector('ssu_address_locality')"
+                                [readonly]="true" [(ngModel)]="register.ssu.current.address.locality">
+                            <img *ngIf="!register.ssu.current.address.locality && updateInfo === false && register.ssu.current.Type !== ''" class="arrow_size"
+                                src="./assets/kiatnakin/image/arrow_blue.png" style="position: absolute;right:57%;top: 197px;"
+                                (click)="onSelector('ssu_address_locality')" />
+
+                            <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_locality none-keyboard">
+                                {{register.ssu.current.address.locality?register.ssu.current.address.locality:'-'}}
+                            </div>
+
+                            <div class="txt-Header p-0 text-right ssu_address_postcode_txt">รหัสไปรษณีย์:</div>
+                            <input *ngIf="register.ssu.current.Type != 'CI' && updateInfo === false" type="text" class="text-center ssu_address_postcode txt-ssu p-0"
+                                (ngModelChange)="CheckPostCode('ssu_current_address_postcode_id',$event)" keyboard="number" Number
+                                maxlength="5" id="ssu_current_address_postcode_id" [(ngModel)]="register.ssu.current.address.postcode">
+                            <div *ngIf="register.ssu.current.Type == 'CI' || updateInfo === true" type="text" class="text-center ssu_address_postcode txt-ci p-0 none-keyboard">
+                                {{register.ssu.current.address.postcode?register.ssu.current.address.postcode:'-'}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/previouse.png" (click)="onClickPreviuesPage()" style="position:absolute;left: 0%;top: 94.3%"
+            id='Page3_next' />
+    </div>
+
+    <div name="Page-4" *ngIf="newCustomer" data-id="ssu1-2" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="content row">
+                <div class="col-lg-12 p-0 tab3">
+                    <div class="col-lg-12 p-0 text-black txt-subHeader text-bold">สถานะภาพการสมรสตามกฏหมาย</div>
+                    <div class="col-lg-12 p-0" id="ssuFrom_Status">
+                        <div class="row col-lg-12 p-0">
+                            <div *ngFor="let mar of marital" class="radio-button text-center col-lg-3" style="padding-left:10px !important;">
+                                <label>
+                                    <input type="radio" name="ssu_status" [(ngModel)]="register.ssu.spouse.status" id="{{'ssu_status'+mar.REF_VALUE+'_id'}}"
+                                        value="{{mar.REF_VALUE}}" (ngModelChange)="onSpouseStatusChanged($event)">
+                                    <span (click)="getkeyboard()">{{ mar.DESC_THAI }}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12" id="ssuFrom_Spouse" *ngIf="register.ssu.spouse.status == 'M'">
+                        <div class="row">
+                            <div class="text-black txt-subHeader col-lg-12 text-bold p-0">ข้อมูลคู่สมรส</div>
+                        </div>
+                        <div class="row">
+                            <div class="txt-Header txt-nameth p-0">ชื่อ:</div>
+                            <input type="text" [readonly]="true" class="text-center txt-title txt-ssu none-keyboard" id="ContactTitleTH_id" (click)="onSelector('ssu_spouse_titleTH')"
+                                [(ngModel)]="register.ssu.spouse.title.TH">
+                            <img *ngIf="!register.ssu.spouse.title.TH" src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20"
+                                style="position: absolute;left: 17%;top: 58px;" (click)="onSelector('ssu_spouse_titleTH')" />
+
+                            <div class="ml15px">
+                                <input type="text" class="ssu_nameth text-center txt-ssu" (ngModelChange)="setBlueLineTextisNull('ssu_spouse_nameTH',$event)"
+                                    alphapet keyboard="th" id="ssu_spouse_nameTH" maxlength="64" [(ngModel)]="register.ssu.spouse.name.TH" autocomplete="off">
+                            </div>
+
+                            <div class="txt-Header ml15px">นามสกุล:</div>
+                            <div style="width: 222px">
+                                <input type="text" class="text-center txt-ssu" alphapet keyboard="th" id="ssu_spouse_surnameTH" maxlength="64" [(ngModel)]="register.ssu.spouse.surname.TH"
+                                    (ngModelChange)="setBlueLineTextisNull('ssu_spouse_surnameTH',$event)" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="txt-Header p-0">Name:</div>
+                            <input type="text" [readonly]="true" style="width: 60px;flex: 0 !important;" class="text-left text-title txt-ssu none-keyboard col-lg-2 p-0 text-center"
+                                id="ContactTitleEN_id" (click)="onSelector('ssu_spouse_titleEN')" [readonly]="true" [(ngModel)]="register.ssu.spouse.title.EN">
+                            <img *ngIf="!register.ssu.spouse.title.EN" src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20"
+                                style="position: absolute;left: 17%;top: 105px;" (click)="onSelector('ssu_spouse_titleEN')" />
+
+                            <div class="ml15px">
+                                <input type="text" id="ssu_spouse_nameEN" class="ssu_nameth text-center txt-ssu" (ngModelChange)="setBlueLineTextisNull('ssu_spouse_nameEN',$event)"
+                                    maxlength="64" keyboard="en-capslock" [(ngModel)]="register.ssu.spouse.name.EN" autocomplete="off">
+                            </div>
+
+                            <div class="txt-Header ml15px">Surname:</div>
+                            <div style="width: 211px">
+                                <input type="text" id="ssu_spouse_surnameEN" class="text-center txt-ssu" keyboard="en-capslock" [(ngModel)]="register.ssu.spouse.surname.EN"
+                                    (ngModelChange)="setBlueLineTextisNull('ssu_spouse_surnameEN',$event)" autocomplete="off">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 p-0 mt-3">
+                        <div class="col-lg-12 p-0 text-black txt-subHeader text-bold">ข้อมูลผู้ติดต่อ</div>
+                        <div class="row col-lg-12 tab4" id="ssuFrom_Contact">
+                            <div class="row">
+                                <div class="col-lg-12 p-0" id="ssuFrom_Contact_status1">
+                                    <div class="row col-lg-12 p-0">
+                                        <div class="txt-Header p-0 text-left subscription_contact_relationship">
+                                            ความสัมพันธ์:
+                                        </div>
+                                        <div *ngFor="let re1 of register.Realation.realation1" class="radio-button text-center" [ngClass]="re1.REF_VALUE == '05' ? 'col-lg-3' : 'col-lg-2'"
+                                            style="padding-left:10px !important;">
+                                            <label id="{{'label_ssu_relationship1'+re1.REF_VALUE+'_id'}}">
+                                                <input type="radio" name="ssu_relationship1" [(ngModel)]="register.ssu.relationship.Data1" id="{{'ssu_relationship1'+re1.REF_VALUE+'_id'}}"
+                                                    value="{{re1.REF_VALUE}}" (click)="getRelationMarry('Data1')" (click)="showHidden('realation1')"
+                                                    [disabled]="(re1.REF_VALUE == '23' && register.ssu.relationship.Data1 == '23') || (re1.REF_VALUE == '23' && register.ssu.spouse.status == 'S')">
+                                                <span (click)="getkeyboard()">{{ re1.DESC_THAI }}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div *ngIf="(register.ssu.relationship.Data1 != '99' && register.ssu.relationship.Data1 != '23' && register.ssu.relationship.Data1 != '29' && register.ssu.relationship.Data1 != '05')" class="row">
+                                <div class="txt-Header p-0">{{nameOfRelationTypeOtherSelected}}</div>
+                            </div> -->
+                            <!-- <div *ngIf="register.ssu.relationship.Data1 == '99'" class="row">
+                                <div class="txt-Header p-0">โปรดระบุ:</div>
+                                <input type="text" class="text-center txt-ssu p-0 subscription_contact_relationshipOther" keyboard="th" id="subscription_contact_relationshipOther1"
+                                    (ngModelChange)="setBlueLineTextisNull('subscription_contact_relationshipOther1',$event)"
+                                    (click)="getkeyboard()" [(ngModel)]="register.ssu.relationship.Other1">
+                            </div> -->
+
+                            <div id="ssu_relationship1_Hide" [ngClass]="register.ssu.relationship.Data1 === '' ?'address-disable':'address-enable'">
+                                <div class="row">
+                                    <div class="txt-Header txt-nameth p-0">ชื่อ:</div>
+                                    <input type="text" class="text-center txt-title txt-ssu none-keyboard" id="ssu_relationship_title1" (click)="onSelector('relationship_title1')"
+                                        [(ngModel)]="register.ssu.relationship.title1.TH" (click)="onSelector('relationship_title1')">
+                                    <img *ngIf="!register.ssu.relationship.title1.TH && register.ssu.relationship.Data1 !== ''" class="arrow_size" src="./assets/kiatnakin/image/arrow_blue.png"
+                                        (click)="onSelector('relationship_title1')" (click)="showHidden('realation2')" [ngStyle]="{position: 'absolute',left: '98px',top: '76px'}" />
+
+                                    <div class="ml15px">
+                                        <input type="text" class="ssu_nameth text-center txt-ssu" alphapet keyboard="th" id="ssu_relationship_name1" maxlength="64"
+                                            (ngModelChange)="setBlueLineTextisNull('ssu_relationship_name1',$event)" [(ngModel)]="register.ssu.relationship.name1.TH" autocomplete="off">
+                                    </div>
+
+                                    <div class="txt-Header ml25px">นามสกุล:</div>
+                                    <div style="position: absolute;right: 4px">
+                                        <input type="text" class="text-center txt-ssu" alphapet keyboard="th" id="ssu_relationship_surname1" maxlength="64" [(ngModel)]="register.ssu.relationship.surname1.TH"
+                                            (ngModelChange)="setBlueLineTextisNull('ssu_relationship_surname1',$event)" style="width: 200px" autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="txt-Header p-0">เพศ:</div>
+                                    <input type="text" [readonly]="true" *ngIf="relationship1GenderShowInput === false || register.ssu.relationship.title1.TH == ''"
+                                        class="text-left text-title txt-ssu none-keyboard text-center txt-gender" id="relationship_gender1"
+                                        (click)="onSelector('relationship_gender1')" [(ngModel)]="register.ssu.relationship.gender1.data">
+                                    <img src="{{imgPart+'arrow_blue.png'}}" class="arrowBlue" *ngIf="!register.ssu.relationship.gender1.value && register.ssu.relationship.Data1 !== ''"
+                                        style="position: absolute;left: 42%;top: 38%;" (click)="onSelector('relationship_gender1')"
+                                        [ngStyle]="{position: 'absolute',left: '42%',top: '80%'}" />
+                                    <input type="text" [readonly]="true" *ngIf="relationship1GenderShowInput === true && register.ssu.relationship.title1.TH !== ''"
+                                        class="text-left text-title txt-ssu none-keyboard text-center txt-gender" id="relationship_gender1_id_txt"
+                                        [(ngModel)]="register.ssu.relationship.gender1.data">
+
+                                    <div class="ml25px txt-Header">โทรศัพท์:</div>
+                                    <input type="text" class="text-center txt-ssu p-0 subscription_contact_phone" keyboard="number" id="subscription_contact_phone1"
+                                        (ngModelChange)="setBlueLineContactisNull('subscription_contact_phone1',$event)" Number
+                                        maxlength="10" [(ngModel)]="register.ssu.relationship.contact1.moblie_phone" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="row mt-3" style="display: none;">
+                                <div class="col-lg-12 p-0" id="ssuFrom_Contact_status2">
+                                    <div class="row col-lg-12 p-0">
+                                        <div class="txt-Header p-0 text-left subscription_contact_relationship">
+                                            ความสัมพันธ์:
+                                        </div>
+                                        <div *ngFor="let re2 of register.Realation.realation2" class="radio-button text-center" [ngClass]="re2.REF_VALUE == '05' ? 'col-lg-3' : 'col-lg-2'"
+                                            style="padding-left:10px !important;">
+                                            <label id="{{'label_ssu_relationship2'+re2.REF_VALUE+'_id'}}">
+                                                <input type="radio" name="ssu_relationship2" [(ngModel)]="register.ssu.relationship.Data2" id="{{'ssu_relationship2'+re2.REF_VALUE+'_id'}}"
+                                                    value="{{re2.REF_VALUE}}" (click)="getRelationMarry('Data2')" (click)="showHidden('realation2')"
+                                                    [disabled]="(re2.REF_VALUE == '23' && register.ssu.relationship.Data1 == '23') || (re2.REF_VALUE == '23' && register.ssu.spouse.status == 'S')">
+                                                <span (click)="getkeyboard()">{{ re2.DESC_THAI }}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div *ngIf="register.ssu.relationship.Data2 == '99'" class="row">
+                                <div class="txt-Header p-0">โปรดระบุ:</div>
+                                <input type="text" class="text-center txt-ssu p-0 subscription_contact_relationshipOther" keyboard="th" id="subscription_contact_relationshipOther2"
+                                    (ngModelChange)="setBlueLineTextisNull('subscription_contact_relationshipOther2',$event)"
+                                    (click)="getkeyboard()" [(ngModel)]="register.ssu.relationship.Other2">
+                            </div> -->
+
+                            <div id="ssu_relationship2_Hide" [ngClass]="register.ssu.relationship.Data2  === '' ?'address-disable':'address-enable'" style="display: none;">
+                                <div class="row">
+                                    <div class="txt-Header txt-nameth p-0">ชื่อ:</div>
+                                    <input type="text" [readonly]="true" class="text-center txt-title txt-ssu none-keyboard" id="ssu_relationship_title2" (click)="onSelector('relationship_title2')"
+                                        [(ngModel)]="register.ssu.relationship.title2.TH">
+                                    <img *ngIf="!register.ssu.relationship.title2.TH && register.ssu.relationship.Data2 !== ''" class="arrow_size" src="./assets/kiatnakin/image/arrow_blue.png"
+                                        (click)="onSelector('relationship_title2')" [ngStyle]="register.ssu.relationship.Data2 != '99' && register.ssu.relationship.Data1 != '99' && {position: 'absolute',left: '98px',top: '238px'} ||
+                                                    register.ssu.relationship.Data2 == '99' && register.ssu.relationship.Data1 != '99' && {position: 'absolute',left: '98px',top: '284px'} ||
+                                                    register.ssu.relationship.Data2 != '99' && register.ssu.relationship.Data1 == '99' && {position: 'absolute',left: '98px',top: '284px'} ||
+                                                    register.ssu.relationship.Data2 == '99' && register.ssu.relationship.Data1 == '99' && {position: 'absolute',left: '98px',top: '329px'}
+                                            " />
+                                    <div class="ml15px">
+                                        <input type="text" class="ssu_nameth text-center txt-ssu" alphapet keyboard="th" id="ssu_relationship_name2" maxlength="64"
+                                            (ngModelChange)="setBlueLineTextisNull('ssu_relationship_name2',$event)" [(ngModel)]="register.ssu.relationship.name2.TH" autocomplete="off">
+                                    </div>
+
+                                    <div class="txt-Header ml25px">นามสกุล:</div>
+                                    <div style="position: absolute;right: 4px">
+                                        <input type="text" class="text-center txt-ssu" alphapet keyboard="th" id="ssu_relationship_surname2" maxlength="64" [(ngModel)]="register.ssu.relationship.surname2.TH"
+                                            (ngModelChange)="setBlueLineTextisNull('ssu_relationship_surname2',$event)" style="width: 200px" autocomplete="off">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="txt-Header p-0">เพศ:</div>
+                                    <input type="text" [readonly]="true" *ngIf="relationship2GenderShowInput === false || register.ssu.relationship.title2.TH == ''"
+                                        class="text-left text-title txt-ssu none-keyboard text-center txt-gender" id="relationship_gender2"
+                                        (click)="onSelector('relationship_gender2')" [(ngModel)]="register.ssu.relationship.gender2.data">
+                                    <img src="{{imgPart+'arrow_blue.png'}}" class="arrowBlue" *ngIf="!register.ssu.relationship.gender2.value && register.ssu.relationship.Data2 !== ''"
+                                        style="position: absolute;left: 42%;top: 38%;" (click)="onSelector('relationship_gender2')"
+                                        [ngStyle]="register.ssu.relationship.Data2 != '99' &&
+                                                {position: 'absolute',left: '42%',top: '90%'} ||
+                                                register.ssu.relationship.Data1 == '99' &&
+                                                {position: 'absolute',left: '42%',top: '96%'}" />
+                                    <input type="text" [readonly]="true" *ngIf="relationship2GenderShowInput === true && register.ssu.relationship.title2.TH !== ''"
+                                        class="text-left text-title txt-ssu none-keyboard text-center txt-gender" id="relationship_gender2_id_txt"
+                                        [(ngModel)]="register.ssu.relationship.gender2.data">
+
+                                    <div class="txt-Header p-0 ml25px">โทรศัพท์:</div>
+                                    <input type="text" class="text-center txt-ssu p-0 subscription_contact_phone" keyboard="number" id="subscription_contact_phone2"
+                                        (ngModelChange)="setBlueLineContactisNull('subscription_contact_phone2',$event)" Number
+                                        maxlength="10" [(ngModel)]="register.ssu.relationship.contact2.moblie_phone" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/next_ic.png" (click)="onClickNextPage()" style="position:absolute;left: 93%;top: 94.3%"
+            id='Page4_next' />
+    </div>
+
+    <div name="Page-5" *ngIf="newCustomer" data-id="ssu2" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="content row page-right">
+
+                <div class="ribbon_gray_right">
+                    <label class="text-white pl-39px pt-2 title_display"> 2/4 ข้อมูลทางการเงิน </label>
+                </div>
+                <div class="col-lg-12 p-0 mt-4rem txt-Header text-bold r21px">รายได้ต่อปี</div>
+                <div class="row col-lg-12 p-0 r5px" id="ssuFrom_Income">
+                    <div class="row col-lg-12 p-0">
+                        <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                            <label>
+                                <input type="radio" name="ssu_income" [(ngModel)]="register.ssu.income.Select" value="01" id="ssu_income1_id">
+                                <span>ต่ำกว่า 5 แสน</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-3 text-center">
+                            <label>
+                                <input type="radio" name="ssu_income" [(ngModel)]="register.ssu.income.Select" value="02" id="ssu_income2_id">
+                                <span>5 แสน - 1 ล้าน</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-3 text-center">
+                            <label>
+                                <input type="radio" name="ssu_income" [(ngModel)]="register.ssu.income.Select" value="03" id="ssu_income3_id">
+                                <span>1 ล้าน - 4 ล้าน</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-3 text-center">
+                            <label>
+                                <input type="radio" name="ssu_income" [(ngModel)]="register.ssu.income.Select" value="04" id="ssu_income4_id">
+                                <span>มากกว่า 4 ล้าน</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-2 p-0">
+                    <div class="row">
+                        <div class="txt-Header p-0">มูลค่าทรัพย์สินส่วนตัว</div>
+                        <input type="text" class="text-center txt-ssu-property none-keyboard subscription_ssu_property" keyboard="th" id="subscription_ssu_property"
+                            [readonly]="true" [(ngModel)]="register.ssu.property.Value" (click)="onSelector('ssu_property')">
+                        <img *ngIf="!register.ssu.property.Value" src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20"
+                            style="position: absolute;left: 92%;top: 17px;" (click)="onSelector('ssu_property')" />
+                    </div>
+                </div>
+
+                <div class="ribbon_gray_right" style="top: 32%;">
+                    <label class="text-white pl-39px pt-2 title_display r20px"> 3/4 ข้อมูลทางการศึกษา / การทำงาน </label>
+                </div>
+                <div class="col-lg-12 p-0 mt-6 txt-Header text-bold r21px">ระดับการศึกษาสูงสุด</div>
+                <div class="col-lg-12 row p-0 r21px">
+                    <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                        <label>
+                            <input type="radio" name="ssu_education" [(ngModel)]="register.ssu.education" value="1" id="ssu1_education">
+                            <span>ต่ำกว่าปริญญาตรี</span>
+                        </label>
+                    </div>
+                    <div class="radio-button col-lg-3 text-center">
+                        <label>
+                            <input type="radio" name="ssu_education" [(ngModel)]="register.ssu.education" value="2" id="ssu2_education">
+                            <span>ปริญญาตรี</span>
+                        </label>
+                    </div>
+                    <div class="radio-button col-lg-3 text-center">
+                        <label>
+                            <input type="radio" name="ssu_education" [(ngModel)]="register.ssu.education" value="3" id="ssu3_education">
+                            <span>สูงกว่าปริญญาตรี</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-12 r20px" id="ssuFrom_education">
+                    <div class="row mt-3">
+                        <div class="txt-Header p-0">อาชีพ</div>
+                        <input type="text" class="text-center subscription_ssu_career txt-ssu-property none-keyboard" keyboard="th" id="subscription_ssu_career"
+                            (click)="onSelector('ssu_career')" [readonly]="true" [(ngModel)]="register.ssu.career.Data">
+                        <img *ngIf="!register.ssu.career.Data" src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20"
+                            style="position: absolute;left: 78%;top: 33px;" (click)="onSelector('ssu_career')" />
+                    </div>
+                    <div class="row">
+                        <div *ngIf="register.ssu.career.Id === 'carreerList_7'" class="text-center txt-Header p-0">โปรดระบุ
+                        </div>
+                        <input *ngIf="register.ssu.career.Id === 'carreerList_7'" type="text" class="text-center txt-ssu p-0 subscription_ssu_careerDesc"
+                            keyboard="th" id="subscription_ssu_careerDesc" [(ngModel)]="register.ssu.career.DESC">
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-Header p-0">สถานที่ทำงาน</div>
+                        <input type="text" class="text-center txt-ssu subscription_ssu_workplace" maxlength="100" keyboard="th" id="subscription_ssu_workplace"
+                            [(ngModel)]="register.ssu.career.workplace" autocomplete="off">
+                    </div>
+                    <div class="row">
+                        <div class="text-center txt-Header p-0">ตำแหน่ง</div>
+                        <input type="text" class="text-center subscription_ssu_position txt-ssu-property none-keyboard" keyboard="th" id="subscription_ssu_position"
+                        (click)="onSelector('ssu_position')" [readonly]="true" [(ngModel)]="register.ssu.position.Data">
+                    <img *ngIf="!register.ssu.position.Data" src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20"
+                        style="position: absolute;left: 78%;top: 33px;" (click)="onSelector('ssu_position')" />
+                        <!-- <input type="text" class="text-center subscription_ssu_position txt-ssu p-0" keyboard="th" id="subscription_ssu_position"
+                            [(ngModel)]="register.ssu.career.position" maxlength="100"> -->
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/previouse.png" (click)="onClickPreviuesPage()" style="position:absolute;left: 0%;top: 94.3%"
+            id='Page5_previues' />
+    </div>
+
+    <div name="Page-6" *ngIf="newCustomer" data-id="ssu2-2" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="content row">
+                <div class="col-lg-12 p-0 tab3">
+                    <div class="col-lg-12 p-0 txt-Header text-bold">ที่อยู่ที่ทำงาน</div>
+                    <div *ngIf="updateInfo !== true" class="row col-lg-12 p-0">
+                        <div class="radio-button col-lg-4 text-center" style="padding-left:10px !important;">
+                            <label>
+                                <input type="radio" name="subscr_officeType" id="subscr_officeType1_id" [(ngModel)]="register.ssu.office.Type" value="CI"
+                                    (click)="AddressSameIDcard('OfficesameId13')">
+                                <span>ตามบัตรประชาชน</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-4 text-center" style="padding-left:10px !important;">
+                            <label>
+                                <input type="radio" name="subscr_officeType" id="subscr_officeType2_id" [(ngModel)]="register.ssu.office.Type" value="CU"
+                                    (click)="AddressSameIDcard('OfficesameCurrent')">
+                                <span>ตามที่อยู่ที่ติดต่อได้</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-4 text-center" style="padding-left:10px !important;">
+                            <label>
+                                <input type="radio" name="subscr_officeType" id="subscr_officeType3_id" [(ngModel)]="register.ssu.office.Type" value="IN"
+                                    (click)="AddressSameIDcard('Officeinput')" (click)="enableInput('ssuFrom_Office_Address')">
+                                <span>ตามที่ระบุด้านล่าง</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 p-0 tab4 mt-3" style="left:0%" [ngClass]="register.ssu.office.Type === '' && updateInfo !== true ?'address-disable':'address-enable'"
+                        id="ssuFrom_Office_Address">
+                        <div class="row">
+                            <div class="txt-Header p-0">เลขที่:</div>
+                            <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_no"
+                                keyboard="th" id="ssu_address_office_no_id" [(ngModel)]="register.ssu.office.address.no" (ngModelChange)="setBlueLineTextisNull('ssu_address_office_no_id',$event)" autocomplete="off">
+                            <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_no">
+                                {{register.ssu.office.address.no?register.ssu.office.address.no:'-'}}
+                            </div>
+
+                            <!-- <div class="txt-Header p-0 ssu_address_moo_txt text-right">หมู่:</div>
+                            <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_moo"
+                                keyboard="th" id="ssu_address_office_moo_id" [(ngModel)]="register.ssu.office.address.moo">
+                            <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_moo text-light-white-gray">
+                                {{register.ssu.office.address.moo?register.ssu.office.address.moo:'-'}}
+                            </div> -->
+
+                            <div class="txt-Header p-0 ssu_address_village_txt text-right">หมู่บ้าน/อาคาร:</div>
+                            <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_tower"
+                                keyboard="th" id="ssu_address_office_tower_id" [(ngModel)]="register.ssu.office.address.tower" autocomplete="off">
+                            <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_tower">
+                                {{register.ssu.office.address.tower?register.ssu.office.address.tower:'-'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="txt-Header p-0">หมู่:</div>
+                            <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_moo"
+                                keyboard="th" id="ssu_address_office_moo_id" [(ngModel)]="register.ssu.office.address.moo" autocomplete="off">
+                            <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_moo">
+                                {{register.ssu.office.address.moo?register.ssu.office.address.moo:'-'}}
+                            </div>
+
+                            <div class="txt-Header p-0 ssu_address_floor_txt text-right">ชั้น:</div>
+                            <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_floor"
+                                keyboard="number" id="ssu_address_office_floor_id" [(ngModel)]="register.ssu.office.address.floor" autocomplete="off">
+                            <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_floor">
+                                {{register.ssu.office.address.floor?register.ssu.office.address.floor:'-'}}
+                            </div>
+
+                            <div class="txt-Header ssu_address_alley_txt p-0 text-right">ซอย:</div>
+                            <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center ssu_address_alley txt-ssu p-0"
+                                keyboard="th" id="ssu_address_office_alley_id" [(ngModel)]="register.ssu.office.address.alley" autocomplete="off">
+                            <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center ssu_address_alley txt-ci p-0">
+                                {{register.ssu.office.address.alley?register.ssu.office.address.alley:'-'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="txt-Header p-0">ถนน:</div>
+                            <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center ssu_address_street txt-ssu p-0"
+                                keyboard="th" id="ssu_address_office_street_id" [(ngModel)]="register.ssu.office.address.street" autocomplete="off">
+                            <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center ssu_address_street txt-ci p-0">
+                                {{register.ssu.office.address.street?register.ssu.office.address.street:'-'}}
+                            </div>
+
+                            <div class="txt-Header p-0 ssu_address_country_txt text-right">ประเทศ:</div>
+                            <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center txt-ssu p-0 none-keyboard ssu_address_country"
+                                keyboard="th" id="ssu_address_office_country" (click)="onSelector('ssu_address_office_country')"
+                                [readonly]="true" [(ngModel)]="register.ssu.office.address.country">
+                            <img src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20" style="position: absolute;right: 4%;top: 108px;"
+                                *ngIf="!register.ssu.office.address.country && register.ssu.office.Type !== ''" (click)="onSelector('ssu_address_office_country')"
+                            />
+                            <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center txt-ci p-0 none-keyboard ssu_address_country">
+                                {{register.ssu.office.address.country?register.ssu.office.address.country:'-'}}
+                            </div>
+                        </div>
+
+                        <div *ngIf="register.ssu.office.address.country === 'ไทย' || register.ssu.office.address.country == null">
+                            <div class="row">
+                                <div class="txt-Header text-right p-0">จังหวัด:</div>
+                                <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_province none-keyboard"
+                                    id="ssu_address_office_province_id" (click)="onSelector('ssu_address_office_province')" [readonly]="true"
+                                    [(ngModel)]="register.ssu.office.address.province">
+                                <img src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20" style="position: absolute;right: 57.6%;top: 153px;"
+                                    *ngIf="!register.ssu.office.address.province && updateInfo === false && register.ssu.office.Type !== ''"
+                                    (click)="onSelector('ssu_address_office_province')" />
+                                <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_province none-keyboard">
+                                    {{register.ssu.office.address.province?register.ssu.office.address.province:'-'}}
+                                </div>
+
+                                <div class="txt-Header p-0 text-right ssu_address_district_txt">เขต/อำเภอ:</div>
+                                <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_district none-keyboard"
+                                    id="ssu_address_office_district_id" (click)="onSelector('ssu_address_office_district')" [readonly]="true"
+                                    [(ngModel)]="register.ssu.office.address.district">
+                                <img src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20" style="position: absolute;right: 4%;top: 151px;"
+                                    *ngIf="!register.ssu.office.address.district && updateInfo === false && register.ssu.office.Type !== ''"
+                                    (click)="onSelector('ssu_address_office_district')" />
+                                <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_district none-keyboard">
+                                    {{register.ssu.office.address.district?register.ssu.office.address.district:'-'}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="txt-Header p-0">แขวง/ตำบล:</div>
+                                <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center txt-ssu p-0 ssu_address_locality none-keyboard"
+                                    keyboard="th" id="ssu_address_office_locality_id" (click)="onSelector('ssu_address_office_locality')"
+                                    [readonly]="true" [(ngModel)]="register.ssu.office.address.locality">
+                                <img src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20" style="position: absolute;right: 57.6%;top: 197px;"
+                                    *ngIf="!register.ssu.office.address.locality && updateInfo === false && register.ssu.office.Type !== ''"
+                                    (click)="onSelector('ssu_address_office_locality')" />
+                                <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center txt-ci p-0 ssu_address_locality none-keyboard">
+                                    {{register.ssu.office.address.locality?register.ssu.office.address.locality:'-'}}
+                                </div>
+
+                                <div class="txt-Header p-0 text-right ssu_address_postcode_txt">รหัสไปรษณีย์:</div>
+                                <input *ngIf="register.ssu.office.Type != 'CI' && register.ssu.office.Type != 'CU' && updateInfo === false" type="text" class="text-center ssu_address_postcode txt-ssu p-0"
+                                    (ngModelChange)="CheckPostCode('ssu_address_office_postcode_id',$event)" Number maxlength="5"
+                                    keyboard="number" id="ssu_address_office_postcode_id" [(ngModel)]="register.ssu.office.address.postcode">
+                                <div *ngIf="sameoffice || updateInfo === true" type="text" class="text-center ssu_address_postcode txt-ci p-0 none-keyboard">
+                                    {{register.ssu.office.address.postcode?register.ssu.office.address.postcode:'-'}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row tabmg3 mt-3">
+                        <div class="txt-Header p-0 text-left ssu_address_office_moblie_phone_txt tabmg3">
+                            โทรศัพท์(ที่ทำงาน):
+                        </div>
+                        <input type="text" class="text-center txt-ssu p-0 ssu_address_moblie_phone2" keyboard="phone" id="ssu_address_office_office_phone_id"
+                            Number maxlength="9" [(ngModel)]="register.ssu.office.contact.office_phone" (ngModelChange)="checkPhoneDefault('officePhone', $event)" autocomplete="off">
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-Header p-0 text-left subscription_ssu_businessType_txt tabmg3">
+                            ประเภทธุรกิจ:
+                        </div>
+                        <input type="text" class="text-center txt-ssu txt-ssu none-keyboard subscription_ssu_businessType" keyboard="th" id="subscription_ssu_businessType"
+                            (click)="onSelector('business_sector')" [readonly]="true" [(ngModel)]="register.ssu.business.Type">
+                        <img *ngIf="!register.ssu.business.Type" src="./assets/kiatnakin/image/arrow_blue.png" height="12" width="20"
+                            (click)="onSelector('business_sector')" [ngStyle]="register.ssu.office.address.country == '' &&
+                            {position: 'absolute' ,left: '93%', top: '93%'} ||
+                            register.ssu.office.address.country == 'ไทย' &&
+                            {position: 'absolute' ,left: '93%', top: '93%'} ||
+                            register.ssu.office.address.country !== 'ไทย' &&
+                            {position: 'absolute', left: '93%', top: '93%'}" />
+                    </div>
+                    <div class="row">
+                        <div *ngIf="register.ssu.business.Id == '9990000'" class="col-lg-2 txt-Header text-center p-0">โปรดระบุ:
+                        </div>
+                        <input *ngIf="register.ssu.business.Id == '9990000'" class="col-lg-9 txt-ssu" type="text" name="ssu_businessTypeDesc" [(ngModel)]="register.ssu.business.DESC">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/next_ic.png" (click)="onClickNextPage()" style="position:absolute;left: 93%;top: 94.3%"
+            id='Page6_next' />
+    </div>
+
+    <div name="Page-7" *ngIf="newCustomer" data-id="ssu3" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="content row">
+                <div class="ribbon_gray_right">
+                    <label class="text-white pl-39px pt-2 title_display"> 4/4 การเปิดเผยข้อมูลเพิ่มเติมตามที่กฏหมายกำหนด </label>
+                </div>
+                <div class="col-lg-12 p-0 mt-4rem txt-Header text-bold r20px">แหล่งที่มาของรายได้หลักมาจาก</div>
+                <div class="row col-lg-12 p-0 r20px">
+                    <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                        <label>
+                            <input type="radio" name="ssu_public_businessType" (click)="resetPrimary()" [(ngModel)]="register.ssu.primary.Select" value="01">
+                            <span>เงินเดือน</span>
+                        </label>
+                    </div>
+                    <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                        <label>
+                            <input type="radio" name="ssu_public_businessType" id="ssu_public_businessType_id" (click)="resetPrimary()" [(ngModel)]="register.ssu.primary.Select"
+                                value="02">
+                            <span>การประกอบธุรกิจ</span>
+                        </label>
+                    </div>
+                    <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                        <label>
+                            <input type="radio" name="ssu_public_businessType" [(ngModel)]="register.ssu.primary.Select" (click)="resetPrimary()" value="03">
+                            <span>การลงทุน</span>
+                        </label>
+                    </div>
+                    <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                        <label>
+                            <input (click)="getkeyboard()" type="radio" name="ssu_public_businessType" [(ngModel)]="register.ssu.primary.Select" value="04">
+                            <span>อื่นๆ</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row col-lg-12 p-0 r5px">
+                    <div *ngIf="register.ssu.primary.Select === '04'" class="col-lg-2 txt-ssu p-0">โปรดระบุ
+                    </div>
+                    <input *ngIf="register.ssu.primary.Select === '04'" class="col-lg-9 txt-ssu" type="text" name="primaryIncomeDesc" id="primaryIncomeDesc_id"
+                        (ngModelChange)="setBlueLineTextisNull('primaryIncomeDesc_id',$event)" [(ngModel)]="register.ssu.primary.Desc" autocomplete="off">
+                </div>
+
+                <div class="col-lg-12 p-0 text-black txt-Header text-bold r20px mt-3">ประเทศที่มาของรายได้หลักมาจาก
+                </div>
+
+                <div class="col-lg-12 p-0">
+                    <div class="col-lg-12 r20px p-0" id="subscr_incomeCountry">
+                        <div class="row">
+                            <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;" (click)="resetContryincome()">
+                                <label>
+                                    <input type="radio" name="subscr_incomeCountry" id="incomeCountry_0" [(ngModel)]="register.ssu.Contryincome.Select" value="0">
+                                    <span id="incomeCountry_01">ประเทศไทย</span>
+                                </label>
+                            </div>
+                            <div class="radio-button col-lg-3 text-center">
+                                <label>
+                                    <input type="radio" name="subscr_incomeCountry" id="incomeCountry_1" [(ngModel)]="register.ssu.Contryincome.Select" value="1">
+                                    <span>อื่นๆ</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row col-lg-12">
+                            <div *ngIf="register.ssu.Contryincome.Select === '1'" class="col-lg-2 txt-ssu p-0">โปรดระบุ
+                            </div>
+                            <div *ngIf="register.ssu.Contryincome.Select === '1'">
+                                <input type="text" class="col-lg-9 text-center txt-ssu p-0 none-keyboard " keyboard="th" id="incomeCountry_DESC" (click)="onSelector('ssu_countryincome')"
+                                    [readonly]="true" value="1" [(ngModel)]="register.ssu.Contryincome.Desc">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subscr_Ban">
+                    <div class="col-lg-12 p-0 txt-Header text-bold r20px mt-3">
+                        <p>
+                            ท่านอยู่ระหว่างการถูกยับยั้งการทำธุรกรรม ยึดหรืออายัดทรัพย์สินหรือเป็นผู้ที่ศาลมีคำสั่งให้ทรัพย์สินตกเป็นของแผ่นดิน กฎหมายว่าด้วยการป้องกันและปราบปรามการฟอกเงินหรือไม่
+                        </p>
+                    </div>
+
+                    <div class="row col-lg-12 p-0 r20px">
+                        <div class="radio-button col-lg-2 text-center" style="padding-left:10px !important;">
+                            <label>
+                                <input type="radio" name="subscr_ban" id="subscr_ban_id" [(ngModel)]="register.ssu.ban.Select" value="N">
+                                <span id="Blocked_no">ไม่ใช่</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-2 text-center">
+                            <label>
+                                <input type="radio" name="subscr_ban" [(ngModel)]="register.ssu.ban.Select" value="Y">
+                                <span>ใช่</span>
+                            </label>
+                        </div>
+
+                        <div class="row">
+                            <div *ngIf="register.ssu.ban.Select === 'Y'" class="txt-ssu p-0 text-right" style="width: 130px">โปรดระบุ:
+                            </div>
+                            <input *ngIf="register.ssu.ban.Select === 'Y'" class="txt-ssu" type="text" name="banDesc" style="width: 275px" [(ngModel)]="register.ssu.ban.Desc">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/previouse.png" (click)="onClickPreviuesPage()" style="position:absolute;left: 0%;top: 94.3%"
+            id='Page7_previues' />
+    </div>
+
+    <div name="Page-8" *ngIf="newCustomer" data-id="ssu3-2" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="content row">
+                <div name="subscr_launder" class="ml25px">
+                    <div class="col-lg-12 p-0 txt-Header text-bold" style="left:0px">
+                        <p>
+                            ท่านเป็นหรือเคยเป็นบุคคลที่กระทำความผิดเกี่ยวกับความผิดฐานฟอกเงิน ความผิดมูลฐานตามกฎหมายฟอกเงิน หรือความผิดเกี่ยวกับการก่อการร้ายและสนับสนุนทางการเงินแก่การก่อการร้ายหรือไม่
+                        </p>
+                    </div>
+
+                    <div class="row col-lg-12 p-0">
+                        <div class="radio-button col-lg-2 text-center" style="padding-left:10px !important;">
+                            <label>
+                                <input type="radio" name="subscr_launder" id="subscr_launder_id" [(ngModel)]="register.ssu.launder.Select" value="N">
+                                <span>ไม่เคย</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-2 text-center">
+                            <label>
+                                <input type="radio" name="subscr_launder" [(ngModel)]="register.ssu.launder.Select" value="Y" (click)="getkeyboard()">
+                                <span>เคย</span>
+                            </label>
+                        </div>
+
+                        <div class="row">
+                            <div *ngIf="register.ssu.launder.Select === 'Y'" class="txt-ssu p-0 text-right" style="width: 130px">โปรดระบุ:
+                            </div>
+                            <input *ngIf="register.ssu.launder.Select === 'Y'" class="txt-ssu" type="text" name="launderDesc" style="width: 275px" [(ngModel)]="register.ssu.launder.Desc">
+                        </div>
+                    </div>
+                </div>
+
+                <div name="subscr_politic" class="ml25px">
+                    <div class="col-lg-12 p-0 txt-Header text-bold" style="left:0px">
+                        <p>
+                            ท่านเป็นบุคคลที่มีสถานภาพทางการเมืองไทยหรือต่างประเทศใช่หรือไม่
+                        </p>
+                    </div>
+
+                    <div class="row col-lg-12 p-0">
+                        <div class="radio-button col-lg-2 text-center" style="padding-left:10px !important;">
+                            <label>
+                                <input type="radio" name="subscr_politic" id="subscr_politic_id" [(ngModel)]="register.ssu.politic.Select" value="N">
+                                <span>ไม่ใช่</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-2 text-center">
+                            <label>
+                                <input type="radio" name="subscr_politic" [(ngModel)]="register.ssu.politic.Select" value="Y" (click)="getkeyboard()">
+                                <span>ใช่</span>
+                            </label>
+                        </div>
+
+                        <div class="row">
+                            <div *ngIf="register.ssu.politic.Select === 'Y'" class="txt-ssu p-0 text-right" style="width: 130px">โปรดระบุ:
+                            </div>
+                            <input *ngIf="register.ssu.politic.Select === 'Y'" class="txt-ssu" type="text" name="politicDesc" style="width: 275px" [(ngModel)]="register.ssu.politic.Desc">
+                        </div>
+                    </div>
+                </div>
+
+                <div name="subscr_interest" class="ml25px" style="left:0px">
+                    <div class="col-lg-12 p-0 txt-Header text-bold" style="left:0px">
+                        <p>
+                            บุคคลที่ได้รับผลประโยชน์จากการทำธุรกรรมที่แท้จริง
+                        </p>
+                    </div>
+
+                    <div class="row col-lg-12 p-0">
+                        <div class="radio-button col-lg-2 text-center" style="padding-left:10px !important;width:80px" (click)="resetInterest()">
+                            <label>
+                                <input type="radio" name="subscr_interest" id="subscr_interest_id" [(ngModel)]="register.ssu.interest.Select" value="0">
+                                <span>ลูกค้า</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-2 text-center">
+                            <label>
+                                <input type="radio" name="subscr_interest" (click)="getkeyboard()" [(ngModel)]="register.ssu.interest.Select" value="1">
+                                <span>อื่นๆ</span>
+                            </label>
+                        </div>
+
+                        <div class="row">
+                            <div *ngIf="register.ssu.interest.Select === '1'" class="txt-ssu p-0 text-right" style="width: 130px">โปรดระบุ:
+                            </div>
+                            <input *ngIf="register.ssu.interest.Select === '1'" class="txt-ssu" type="text" name="politicDesc" style="width: 275px" [(ngModel)]="register.ssu.interest.Desc" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/next_ic.png" (click)="onClickNextPage()" style="position:absolute;left: 93%;top: 94.3%"
+            id='Page8_next' />
+    </div>
+
+    <div name="Page-9" *ngIf="newCustomer" data-id="fatca" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="content row">
+                <div class="ribbon_gray_right title" (click)="onShowlog()">
+                    <div class="row">
+                        <label class="text-white pl-39px pt-2 title_display"> FATCA </label>
+                    </div>
+                    <!-- <div class="row">
+                            <label class="text-white pl-39px pt-2 title_display">แบบแจ้งสถานะความเป็นบุคคลอเมริกัน/ไม่เป็นบุคคลอเมริกัน</label>
+                    </div> -->
+                </div>
+                <div class="col-lg-12 p-0 mt-6 txt-Header text-bold">
+                    แบบแจ้งสถานะความเป็นบุคคลอเมริกัน/ไม่เป็นบุคคลอเมริกัน
+                </div>
+                <div class="col-lg-12 p-0 text-black display-7 mt-2">บุคคลอเมริกัน / U.S. Person</div>
+
+                <div class="row col-lg-12" id="ssu_usCitizen_ID">
+                    <div class="col-lg-8 p-0 text-black display-7 mt-3">
+                        ท่านเป็นพลเมืองอเมริกัน
+                    </div>
+                    <div class="row col-lg-4 button-fatca">
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usCitizen" [(ngModel)]="register.fatca.usCitizen" value="Y">
+                                <span id="usCitizen_y_id">ใช่</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usCitizen" [(ngModel)]="register.fatca.usCitizen" value="N">
+                                <span id="usCitizen_n_id">ไม่ใช่</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-lg-9">
+                    <p class="col-lg-12 p-0 text-black display-7-6">
+                        โปรดตอบ “ใช่” หากท่านเป็นพลเมืองอเมริกัน แม้ว่าจะอาศัยอยู่นอกสหรัฐอเมริกา
+                        <br> โปรดตอบ “ใช่” หากท่านมีสถานะเป็นพลเมืองของหลายประเทศ และหนึ่งในนั้นคือเป็นเมืองอเมริกัน
+                        <br> โปรดตอบ “ใช่” หากท่านเกิดในสหรัฐอเมริกา (หรือดินแดนที่เป็นของสหรัฐอเมริกา)
+                        <br> และยังไม่ได้สละความเป็นพลเมืองอเมริกาสมบูรณ์ตามกฎหมาย
+                    </p>
+                </div>
+
+                <div class="row col-lg-12" id="ssu_usCard_ID">
+                    <div class="col-lg-8 p-0 text-black display-7 mt-3">
+                        ท่านเป็นผู้ถือบัตรประจำตัวผู้มีถิ่นที่อยู่ถาวรอย่างถูกต้องตามกฏหมายในสหรัฐอเมริกา(เช่น กรีนการ์ด)
+                    </div>
+                    <div class="row col-lg-4 button-fatca">
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usCard" [(ngModel)]="register.fatca.usCard" value="0">
+                                <span id="usCard_y_id">ใช่</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usCard" [(ngModel)]="register.fatca.usCard" value="1">
+                                <span id="usCard_n_id">ไม่ใช่</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-lg-9 ">
+                    <p class="col-lg-12 p-0 text-black display-7-6">
+                        โปรดตอบ “ใช่” หากสำนักงานตรวจคนเข้าเมืองและสัญชาติของสหรัฐอเมริกาได้ออกบัตร
+                        <br> ประจำตัวผู้มีถิ่นที่อยู่ถาวรอย่างถูกต้องตามกฎหมายในสหรัฐอเมริกาให้แก่ท่าน ไม่ว่าบัตร
+                        <br> ดังกล่าวของท่านจะหมดอายุแล้วหรือไม่ ณ วันที่ท่านกรอกและลงลายมือชื่อในแบบฟอร์ม
+                        <br> นี้ ควรตอบ “ไม่ใช่” หากบัตรดังกล่าวของท่านได้ถูกสละ ยกเลิก หรือถอดถอนอย่างเป็น
+                        <br> ทางการแล้ว ณ วันที่ ท่านกรอกและลงลายมือชื่อในแบบฟอร์มนี้
+                    </p>
+                </div>
+
+                <div class="row col-lg-12" id="ssu_usLocation_ID">
+                    <div class="col-lg-8 p-0 text-black display-7 mt-3">
+                        ท่านมีสถานะเป็นผู้มีถิ่นที่อยู่ในสหรัฐอเมริกาเพื่อวัตถุประสงค์ในการเก็บภาษีอากรของสหรัฐอเมริกา
+                    </div>
+                    <div class="row col-lg-4 button-fatca">
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usLocation" [(ngModel)]="register.fatca.usLocation" value="0">
+                                <span id="usLocation_y_id">ใช่</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usLocation" [(ngModel)]="register.fatca.usLocation" value="1">
+                                <span id="usLocation_n_id">ไม่ใช่</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row col-lg-9">
+                    <p class="col-lg-12 p-0 text-black display-7-6">
+                        ท่านอาจถูกพิจารณาว่าเป็นผู้มีถิ่นที่อยู่ในสหรัฐอเมริกาหากเป็นไปตามเกณฑ์
+                        <br> “Substantial Physical Presence Test” เช่น ในปีปัจจุบัน ท่านอยู่ในสหรัฐอเมริกาอย่าง
+                        <br> น้อย 183 วัน เป็นต้น และหากต้องการรายละเอียดเพิ่มเติม โปรดศึกษาข้อมูลในเว็บไซต์
+                        <br> ของ หน่วยงานจัดเก็บภาษีอากรของสหรัฐอเมริกา (Internal Revenue Service: IRS) ดังนี้
+                        <br>
+                        <small> http://www.irs.gov/Individuals/International-Taxpayers/Substantial-Presence-Test </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/previouse.png" (click)="onClickPreviuesPage()" style="position:absolute;left: 0%;top: 94.3%"
+            id='Page9_previues' />
+    </div>
+
+    <div name="Page-10" *ngIf="newCustomer" data-id="fatca-2" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="content row">
+                <div class="col-lg-12 p-0 text-black display-6-1 mt-2 tab4">คำถามเพิ่มเติม / Additional Questions
+                </div>
+
+                <div class="row col-lg-12 tab4" id="ssu_usTerritory_ID">
+                    <div class="col-lg-8 p-0 text-black display-7 mt-3">
+                        ท่านเกิดในสหรัฐอเมริกา (หรือดินแดนที่เป็นของสหรัฐอเมริกา)
+                        <br> แต่ได้สละความเป็นพลเมืองอเมริกันอย่างสมบูรณ์ตามกฎหมายแล้ว
+                    </div>
+                    <div class="row col-lg-4 button-fatca">
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usTerritory" [(ngModel)]="register.fatca.usTerritory" value="0">
+                                <span id="usTerritory_y_id">ใช่</span>
+                            </label>
+                        </div>
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usTerritory" [(ngModel)]="register.fatca.usTerritory" value="1">
+                                <span id="usTerritory_n_id">ไม่ใช่</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-lg-12 tab4 mt-2" id="ssu_usTransfer_ID">
+                    <div class="col-lg-8 p-0 text-black display-7 mt-3">
+                        ท่านมีคำสั่งทำรายการโอนเงินเป็นประจำโดยอัตโนมัติจากบัญชีที่เปิดไว้หรือมีอยู่กับกลุ่มธุรกิจการเงินเกียรตินาคินภัทรไปยังบัญชีในสหรัฐอเมริกา
+                    </div>
+                    <div class="row col-lg-4 button-fatca">
+                        <!--ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usTransfer" [(ngModel)]="register.fatca.usTransfer" value="0">
+                                <span id="usTransfer_y_id">ใช่</span>
+                            </label>
+                        </div>
+                        <!--ไม่ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usTransfer" [(ngModel)]="register.fatca.usTransfer" value="1">
+                                <span id="usTransfer_n_id">ไม่ใช่</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-lg-12 tab4 mt-2" id="ssu_usSignatory_ID">
+                    <div class="col-lg-8 p-0 text-black display-7 mt-3">
+
+                        ท่านมีการมอบอำนาจหรือให้อำนาจการลงลายมือชื่อแก่บุคคลที่มีที่อยู่ในสหรัฐอเมริกา เพื่อการใดๆ ที่เกี่ยวข้องกับบัญชีที่เปิดไว้หรือมีอยู่กับกลุ่มธุรกิจการเงินเกียรตินาคินภัทร
+                    </div>
+                    <div class="row col-lg-4 button-fatca">
+                        <!--ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usSignatory" [(ngModel)]="register.fatca.usSignatory" value="0">
+                                <span id="usSignatory_y_id">ใช่</span>
+                            </label>
+                        </div>
+                        <!--ไม่ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usSignatory" [(ngModel)]="register.fatca.usSignatory" value="1">
+                                <span id="usSignatory_n_id">ไม่ใช่</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-lg-12 tab4 mt-2" id="ssu_usContact_ID">
+                    <div class="col-lg-8 p-0 text-black display-7 mt-3">
+                        ท่านมีที่อยู่เพื่อการติดต่อหรือดำเนินการเกี่ยวกับบัญชีที่เปิดไว้หรือมีอยู่กับกลุ่มธุรกิจการเงินเกียรตินาคินภัทร แต่เพียงที่อยู่เดียว
+                        ซึ่งเป็น
+                        <br>ที่อยู่สำหรับรับไปรษณีย์แทนหรือที่อยู่สำหรับการส่งต่อ
+                    </div>
+                    <div class="row col-lg-4 button-fatca">
+                        <!--ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usContact" [(ngModel)]="register.fatca.usContact" value="0">
+                                <span id="usContact_y_id">ใช่</span>
+                            </label>
+                        </div>
+                        <!--ไม่ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usContact" [(ngModel)]="register.fatca.usContact" value="1">
+                                <span id="usContact_n_id">ไม่ใช่</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-lg-12 tab4 mt-2" id="ssu_usAddress_ID">
+                    <div class="col-lg-8 p-0 text-black display-7 mt-3">
+                        ท่านมีที่อยู่อาศัยในปัจจุบัน หรือที่อยู่เพื่อการติดต่อในสหรัฐอเมริกา สำหรับบัญชีที่เปิดไว้หรือมีอยู่กับกลุ่มธุรกิจการเงินเกียรตินาคินภัทร
+                    </div>
+                    <div class="row col-lg-4 button-fatca">
+                        <!--ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usAddress" [(ngModel)]="register.fatca.usAddress" value="0">
+                                <span id="usAddress_y_id">ใช่</span>
+                            </label>
+                        </div>
+                        <!--ไม่ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usAddress" [(ngModel)]="register.fatca.usAddress" value="1">
+                                <span id="usAddress_n_id">ไม่ใช่</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-lg-12 tab4 mt-2" id="ssu_usTelephone_ID">
+                    <div class="col-lg-8 p-0 text-black display-7 mt-3">
+                        ท่านมีหมายเลขโทรศัพท์ในสหรัฐอเมริกา เพื่อการติดต่อท่านหรือบุคคลอื่นที่เกี่ยวข้องกับบัญชีที่เปิดไว้หรือมีอยู่กับกลุ่มธุรกิจการเงิน
+                        <br>เกียรตินาคินภัทร
+                    </div>
+                    <div class="row col-lg-4 button-fatca">
+                        <!--ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usTelephone" [(ngModel)]="register.fatca.usTelephone" value="0">
+                                <span id="usTelephone_y_id">ใช่</span>
+                            </label>
+                        </div>
+                        <!--ไม่ใช่-->
+                        <div class="radio-button col-lg-6 text-center">
+                            <label>
+                                <input type="radio" name="subscr_usTelephone" [(ngModel)]="register.fatca.usTelephone" value="1">
+                                <span id="usTelephone_n_id">ไม่ใช่</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/next_ic.png" (click)="onClickNextPage()" style="position:absolute;left: 93%;top: 94.3%"
+            id='Page10_next' />
+    </div>
+
+    <div name="Page-11" *ngIf="Subscription" data-id="subscription" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="content row">
+                <!--Ribbon-->
+                <div class="ribbon_gray_right80 title">
+                    <label class="text-white pl-57px title_display">
+                        ข้อมูลเพิ่มเติมเพื่อขอเปิดบัญชีเงินฝาก และสมัครใช้บริการด้านการเงินผ่านช่องทางอิเล็กทรอนิกส์
+                    </label>
+                </div>
+
+                <div class="col-lg-12 p-0 mt-7 txt-Header text-bold r15px">ที่อยู่ที่ติดต่อได้ / ที่อยู่จัดส่งเอกสาร</div>
+                <div *ngIf="register.haveFD !== 'Y'" class="row col-lg-12 p-0 r15px mt-2">
+                    <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                        <label>
+                            <input type="radio" name="subscription_transport_currentType" id="subscription_transport_currentType_ID" [(ngModel)]="register.subscription.current.Type"
+                                value="CI" (click)="AddressSameIDcard('TransportId13')">
+                            <span id="AddressSameIDcard_id">ตามบัตรประชาชน</span>
+                        </label>
+                    </div>
+                    <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                        <label>
+                            <input type="radio" name="subscription_transport_currentType" [(ngModel)]="register.subscription.current.Type" value="CS"
+                                (click)="AddressSameIDcard('SameSSU')">
+                            <span id="AddressSameSSU_id">ที่อยู่ที่ให้ไว้</span>
+                        </label>
+                    </div>
+                    <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                        <label>
+                            <input type="radio" name="subscription_transport_currentType" [(ngModel)]="register.subscription.current.Type" value="CU"
+                                (click)="AddressSameIDcard('TransportOffice')">
+                            <span>ตามที่ทำงาน</span>
+                        </label>
+                    </div>
+                    <div class="radio-button col-lg-3 text-center" style="padding-left:10px !important;">
+                        <label>
+                            <input type="radio" name="subscription_transport_currentType" [(ngModel)]="register.subscription.current.Type" value="IN"
+                                (click)="AddressSameIDcard('Transportinput')" id="Transportinput_id" (click)="enableInput('Subscription_Address')">
+                            <span>ตามที่ระบุด้านล่าง</span>
+                        </label>
+                    </div>
+                </div>
+                <!--Transport Address-->
+                <div [ngClass]="register.subscription.current.Type === '' ?'address-disable':'address-enable'" class="col-lg-12 p-0 mt-3"
+                    id="Subscription_Address">
+                    <div class="row mt-3">
+                        <div class="txt-Header p-0 ssu_address_no_txt text-right">เลขที่:</div>
+                        <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                            type="text" class="text-center txt-ssu p-0 ssu_address_no" keyboard="th" id="subscription_address_no_id"
+                            (ngModelChange)="setBlueLineTextisNull('subscription_address_no_id',$event)" [(ngModel)]="register.subscription.address.no" autocomplete="off">
+                        <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_no">
+                            {{register.subscription.address.no?register.subscription.address.no:'-'}}
+                        </div>
+
+                        <!-- <div class="txt-Header p-0 ssu_address_moo_txt text-right">หมู่:</div>
+                        <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                            type="text" class="text-center txt-ssu p-0 ssu_address_moo" keyboard="th" id="subscription_address_moo_id"
+                            [(ngModel)]="register.subscription.address.moo">
+                        <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_moo">
+                            {{register.subscription.address.moo?register.subscription.address.moo:'-'}}
+                        </div> -->
+
+                        <div class="txt-Header p-0 ssu_address_village_txt text-right">หมู่บ้าน/อาคาร:</div>
+                        <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                            type="text" class="text-center txt-ssu p-0 ssu_address_tower" keyboard="th" id="subscription_address_tower_id"
+                            [(ngModel)]="register.subscription.address.tower" autocomplete="off">
+                        <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_tower">
+                            {{register.subscription.address.tower?register.subscription.address.tower:'-'}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-Header p-0">หมู่:</div>
+                        <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                            type="text" class="text-center txt-ssu p-0 ssu_address_moo" keyboard="th" id="subscription_address_moo_id"
+                            [(ngModel)]="register.subscription.address.moo" autocomplete="off">
+                        <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_moo">
+                            {{register.subscription.address.moo?register.subscription.address.moo:'-'}}
+                        </div>
+
+                        <div class="txt-Header p-0 ssu_address_floor_txt text-right">ชั้น:</div>
+                        <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                            type="text" class="text-center txt-ssu p-0 ssu_address_floor" keyboard="th" id="subscription_address_floor_id"
+                            [(ngModel)]="register.subscription.address.floor" autocomplete="off">
+                        <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_floor">
+                            {{register.subscription.address.floor?register.subscription.address.floor:'-'}}
+                        </div>
+
+
+                        <div class="txt-Header p-0 ssu_address_village_txt text-center">ซอย:</div>
+                        <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                            type="text" class="text-center txt-ssu p-0 sub_address_alley" keyboard="th" id="subscription_address_alley_id"
+                            [(ngModel)]="register.subscription.address.alley" autocomplete="off">
+                        <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_alley">
+                            {{register.subscription.address.alley?register.subscription.address.alley:'-'}}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-Header p-0 ssu_address_street_txt text-right">ถนน:</div>
+                        <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                            type="text" class="text-center txt-ssu p-0 ssu_address_street" keyboard="th" id="subscription_address_street_id"
+                            [(ngModel)]="register.subscription.address.street" autocomplete="off">
+                        <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_street">
+                            {{register.subscription.address.street?register.subscription.address.street:'-'}}
+                        </div>
+
+                        <div class="txt-Header p-0 ssu_address_country_txt text-right">ประเทศ:</div>
+                        <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                            type="text" class="text-center txt-ssu p-0 ssu_address_country none-keyboard" id="subscription_address_country_id"
+                            (click)="onSelector('subscription_country')" [(ngModel)]="register.subscription.address.country">
+                        <img src="{{imgPart+'arrow_blue.png'}}" class="arrowBlue" *ngIf="!register.subscription.address.country && register.subscription.current.Type !== ''"
+                            (click)="onSelector('subscription_country')" style="position: absolute;left: 90%;top: 80%" />
+                        <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_country">
+                            {{register.subscription.address.country?register.subscription.address.country:'-'}}
+                        </div>
+                    </div>
+
+                    <div *ngIf="register.subscription.address.country === 'ไทย' || register.subscription.address.country == null">
+                        <div class="row">
+                            <div class="txt-Header p-0 ssu_address_province_txt text-right">จังหวัด:</div>
+                            <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                                type="text" class="text-center txt-ssu p-0 ssu_address_province none-keyboard" id="subscription_address_province_id"
+                                (click)="onSelector('subscription_province')" [(ngModel)]="register.subscription.address.province">
+                            <img src="{{imgPart+'arrow_blue.png'}}" class="arrowBlue" *ngIf="!register.subscription.address.province && register.subscription.current.Type !== ''"
+                                (click)="onSelector('subscription_province')" style="position: absolute;left: 38%;top: 67.5%"
+                            />
+                            <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_province">
+                                {{register.subscription.address.province?register.subscription.address.province:'-'}}
+                            </div>
+
+                            <div class="txt-Header p-0 ssu_address_district_txt text-right">เขต/อำเภอ:</div>
+                            <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                                type="text" class="text-center txt-ssu p-0 ssu_address_district none-keyboard" id="subscription_address_districte_id"
+                                (click)="onSelector('subscription_district')" [(ngModel)]="register.subscription.address.district">
+                            <img src="{{imgPart+'arrow_blue.png'}}" class="arrowBlue" *ngIf="!register.subscription.address.district && register.subscription.current.Type !== ''"
+                                (click)="onSelector('subscription_district')" style="position: absolute;left: 90%;top: 67.5%"
+                            />
+                            <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_province">
+                                {{register.subscription.address.district?register.subscription.address.district:'-'}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="txt-Header p-0 ssu_address_locality_txt text-right">แขวง/ตำบล:</div>
+                            <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                                type="text" class="text-center txt-ssu p-0 ssu_address_locality none-keyboard" id="subscription_address_locality_id"
+                                (click)="onSelector('subscription_locality')" [(ngModel)]="register.subscription.address.locality">
+                            <img src="{{imgPart+'arrow_blue.png'}}" class="arrowBlue" *ngIf="!register.subscription.address.locality && register.subscription.current.Type !== ''"
+                                (click)="onSelector('subscription_locality')" style="position: absolute;left: 38%;top: 85.5%"
+                            />
+                            <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_locality">
+                                {{register.subscription.address.locality?register.subscription.address.locality:'-'}}
+                            </div>
+
+                            <div class="txt-Header p-0 ssu_address_postcode_txt text-right">รหัสไปรษณีย์:</div>
+                            <input *ngIf="register.subscription.current.Type != 'CI' && register.subscription.current.Type != 'CU' && register.subscription.current.Type != 'S' && register.subscription.current.Type != 'CS'"
+                                Number maxlength="5" type="text" class="text-center txt-ssu p-0 ssu_address_postcode" keyboard="number"
+                                (ngModelChange)="CheckPostCode('subscription_address_postcode_id',$event)" id="subscription_address_postcode_id"
+                                (click)="onSelector('subscription_postcode')" [(ngModel)]="register.subscription.address.postcode">
+                            <div *ngIf="sametrans" type="text" class="text-center txt-ci p-0 ssu_address_postcode">
+                                {{register.subscription.address.postcode?register.subscription.address.postcode:'-'}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3 r15px">
+                    <!--Email-->
+                    <div class="text-left txt-Header subscription_email_txt">อีเมล:</div>
+                    <input *ngIf="register.subscription.current.Type != 'S'" type="text" class="text-center txt-ssu register_subscription_email"
+                        (change)="validateEmail(register.subscription.contact.email,'register_subscription_email_id')" keyboard="email-capslock"
+                        id="register_subscription_email_id" [(ngModel)]="register.subscription.contact.email" autocomplete="off">
+                    <div *ngIf="register.subscription.current.Type == 'S'" class="text-center txt-ci register_subscription_email">
+                        {{register.subscription.contact.email ? register.subscription.contact.email : '-'}}
+                    </div>
+                </div>
+
+                <div class="row r15px">
+
+                    <div class="text-left txt-Header subscription_email_txt">เบอร์โทรศัพท์ มือถือ:</div>
+                    <input *ngIf="register.subscription.current.Type != 'S'" type="text" class="text-center txt-ssu register_subscription_email"
+                        Number keyboard="phone" id="register_subscription_moblie_phone_id" [(ngModel)]="register.subscription.contact.moblie_phone"
+                        maxlength="10" autocomplete="off">
+                    <div *ngIf="register.subscription.current.Type == 'S'" class="text-center txt-ci register_subscription_email">
+                        {{register.subscription.contact.moblie_phone ? register.subscription.contact.moblie_phone : '-'}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/previouse.png" (click)="onClickPreviuesPage()" style="position:absolute;left: 0%;top: 94.3%"
+            id='Page11_previues' />
+    </div>
+
+    <div name="Page-12" *ngIf="Subscription" data-id="subscription-2" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="content row ">
+
+                <div class="col-lg-12 tab3">
+                    <div class="row txt-Header text-bold">คำขอเปิดบัญชีเงินฝากและสมัครใช้บริการด้านการเงิน</div>
+                    <div class="row txt-Header text-bold">ผ่านช่องทางอิเล็กทรอนิกส์</div>
+
+                    <div class="row">
+                        <div class="txt-Header">ขอเปิดบัญชีเงินฝาก:</div>
+                        <input type="text" class="text-center txt-ssu" style="width: 300px" id="register_subscription1" [readonly]="true" [(ngModel)]="register.subscription.account.PROD_DESC">
+                        <!--Product Name-->
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-Header">ประเภท:</div>
+                        <input type="text" class="text-center txt-ssu none-keyboard" style="width: 300px" id="register_subscription2" [readonly]="true"
+                            [(ngModel)]="register.subscription.account.PROD_TYPE_DESC">
+                        <!--Product Type-->
+                    </div>
+
+                    <div class="row">
+                        <div class="txt-Header">ชื่อบัญชี:</div>
+                        <input type="text" class="text-center txt-ssu" style="width: 300px" alphapet keyboard="th" id="register_subscription3" maxlength="70"
+                            readonly [(ngModel)]="register.subscription.account.ACCOUNT_NAME">
+                        <!--Account Name-->
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="txt-Header text-bold">เงื่อนไขการสั่งจ่าย:</div>
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="col-lg-4 text-left txt-ssu p-0">
+                            ลงนามสั่งจ่ายคนเดียว
+                        </div>
+                    </div> -->
+
+                    <div class="row">
+                        <div class="radio-button col-lg-4 text-center" style="padding-left:10px !important; right: 15px">
+                            <label>
+                                <input type="radio" name="ssu_status01" id="ssu_status01_id" [(ngModel)]="register.subscription.account.PMT_COND" value="S">
+                                <span>ลงนามสั่งจ่ายคนเดียว</span>
+                            </label>
+                        </div>
+                        <!-- <div class="radio-button col-lg-4 text-center">
+                            <label>
+                                <input type="radio" name="ssu_status" [(ngModel)]="register.subscription.account.PMT_COND" value="O">
+                                <span>อื่นๆ</span>
+                            </label>
+                        </div> -->
+                    </div>
+
+                    <div class="row" *ngIf="register.subscription.account.PMT_COND === 'O'">
+                        <div class="txt-Header">โปรดระบุ</div>
+                        <div class="col-lg-10">
+                            <input [readonly]="true" (click)="onSelector('subscription_instruction')" type="text" class="subscription_bookName txt-ssu none-keyboard text-center"
+                                [(ngModel)]="register.subscription.account.PMT_DESC">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="txt-Header">วัตถุประสงค์ในการเปิดบัญชี:</div>
+                        <input type="text" class="text-center txt-ssu none-keyboard" [readonly]="true" style="width: 230px" id="register_subscription4"
+                            (click)="onSelector('subscription_purpose')" [(ngModel)]="register.subscription.account.OBJ.Data">
+                        <img *ngIf="!register.subscription.account.OBJ.Data" src="./assets/kiatnakin/image/arrow_blue.png" class="arrow_size"
+                            (click)="onSelector('subscription_purpose')" style="position: absolute;left: 86%;top: 72%;" [ngStyle]="register.subscription.account.PROD_TYPE == 'S' &&
+                                        {position: 'absolute' ,left: '74%', top: '72%'} ||
+                                        register.subscription.account.PROD_TYPE == 'D' &&
+                                        {position: 'absolute' ,left: '74%', top: '92%'} ||
+                                        register.subscription.account.PROD_TYPE == 'T' &&
+                                        {position: 'absolute', left: '75%', top: '71%'}" />
+                    </div>
+
+                    <div class="row" *ngIf="register.subscription.account.OBJ.Data === 'อื่นๆ'">
+                        <div class="txt-Header">โปรดระบุ</div>
+                        <div class="col-lg-10">
+                            <input (click)="getkeyboard()" type="text" id="OBJ_OTH_id" class="subscription_bookName txt-ssu" [(ngModel)]="register.subscription.account.OBJ_OTH"
+                                (ngModelChange)="setBlueLineTextisNull('OBJ_OTH_id',$event)">
+                        </div>
+                    </div>
+                    <div class="row mt-3" *ngIf="register.subscription.account.PROD_TYPE === 'T'" style="display: none">
+                        <div class="txt-Header">โอนดอกเบี้ยเข้าบัญชี:</div>
+                        <input *ngIf="register.haveFD === 'Y'" type="text" class="subscription_accountName txt-ssu text-center none-keyboard" [readonly]="true"
+                            id="Account_interest_id" (click)="onSelector('subscription_interest')" [(ngModel)]="register.subscription.account.interestData">
+                        <img *ngIf="!register.subscription.account.interestData && register.haveFD === 'Y'" src="./assets/kiatnakin/image/arrow_blue.png"
+                            class="arrow_size" (click)="onSelector('subscription_interest')" style="position: absolute;left: 92%;top: 78%;"
+                        />
+                        <div *ngIf="register.haveFD !== 'Y'" class="subscription_accountName txt-ssu text-center underline">
+                            เปิดบัญชีใหม่: KK Savings Plus Individual
+                        </div>
+                    </div>
+
+                    <div *ngIf="register.subscription.account.PROD_TYPE === 'S' || register.subscription.account.PROD_TYPE === 'T'" class="row mt-3">
+                        <div class="txt-Header">ประเภทหลักฐานการรับฝากเงิน</div>
+                    </div>
+                    <div class="row">
+                        <div *ngIf="register.subscription.account.PROD_TYPE === 'S' || register.subscription.account.PROD_TYPE === 'T'" class="radio-button col-lg-4 text-center"
+                            style="padding-left:10px !important; right: 15px">
+                            <label>
+                                <input type="radio" name="ssu_type" [(ngModel)]="register.subscription.account.flg_psbook" value="P" id="flg_psbook01_id">
+                                <span>แบบมีสมุดคู่ฝาก</span>
+                            </label>
+                        </div>
+                        <div *ngIf="register.subscription.account.PROD_TYPE === 'S'" class="radio-button col-lg-4 text-center">
+                            <label>
+                                <input type="radio" name="ssu_type" [(ngModel)]="register.subscription.account.flg_psbook" value="C" id="flg_psbook02_id">
+                                <span id="flg_psbook02_id">KK e-Account</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/next_ic.png" (click)="onClickNextPage()" style="position:absolute;left: 93%;top: 94.3%"
+            id='Page12_next' />
+    </div>
+
+    <div name="Page-13" *ngIf="Services" data-id="services" class="cover hard own-size">
+        <div class="content-cover">
+            <div class="ribbon_gray_left title">
+                <label class="pl-30px pt-2 title_display">การสมัครบริการเสริม รหัสประจำตัว MyPIN </label>
+            </div>
+
+            <div *ngIf="register.haveMyPin === 'N'" class="content">
+                <div *ngIf="!myPinRegisted; else myPinRegistedTemplate">
+                    <div class="col-lg-12 p-0 mt-8 txt-Header text-bold">
+                        เพื่อความสะดวกในการใช้งานครั้งต่อไป กรุณากรอกอีเมลและเบอร์โทรศัพท์มือถือ เพื่อทำการสมัครรหัสประจำตัว
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row tabmg3">
+                            <div class="txt-ssu p-0 text-left sub-service-mypin-email-label">อีเมล:</div>
+                            <input type="text" class="text-center txt-ssu p-0 sub-service-mypin-email-text" id="mypin_email" keyboard="email-capslock"
+                                (change)="validateEmail(register.subscriptionService.contact.email)" [(ngModel)]="register.subscriptionService.contact.email" [readonly]="true">
+                        </div>
+                        <div class="row tabmg3">
+                            <div class="txt-ssu p-0 text-left sub-service-mypin-phone-label">โทรศัพท์มือถือ:</div>
+                            <input type="text" class="text-center txt-ssu p-0 sub-service-mypin-phone-text" keyboard="phone" id="mypin_phone" (change)="CheckPhoneNo(register.subscriptionService.contact.moblie_phone)"
+                                maxlength="10" [(ngModel)]="register.subscriptionService.contact.moblie_phone" [readonly]="true">
+                        </div>
+                    </div>
+
+                    <div id="my-pin-area" class="col-lg-12 mt-5" [ngClass]="(register.subscriptionService.contact.email && register.subscriptionService.contact.moblie_phone)?'sub-service-mypin-area-enable':'sub-service-mypin-area-disable'">
+                        <div class="row">
+                            <div class="col-lg-3 text-center">
+                                <img src="./assets/kiatnakin/image/subscription/pin_img.png" height="100" width="72" />
+                            </div>
+                            <div class="col-lg-9 p-0 txt-Header">
+                                <div class="text-bold">ขอสร้างรหัสประจำตัว MyPIN</div>
+                                <p class="txt-ssu" style="font-size: 24px !important">การใช้รหัสประจำตัว MyPIN เป็นไปตามข้อตกลงและเงื่อนไข</p>
+                                <p class="txt-ssu" style="font-size: 24px !important">บัญชีเงินฝากและบริการด้านการเงินผ่านช่องทางอิเล็กทรอนิกส์</p>
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-lg-12 display-6 text-bold text-dark text-center">
+                                โปรดระบุรหัสประจำตัว MyPIN 6 หลัก
+                            </div>
+                            <div class="col-lg-12 text-bold text-center mt-3">
+                                <input type="text" id="ssu_current_address_moblie_phone_id1" name="security-dot" class="text-center txt-ssu sub-service-pin p-0"
+                                    (ngModelChange)="CheckMyPIN1()" Number keyboard="number" maxlength="6" [(ngModel)]="assign_mypin_1"
+                                    [disabled]="(!register.subscriptionService.contact.email || !register.subscriptionService.contact.moblie_phone)" autocomplete="off">
+                            </div>
+                            <div class="col-lg-12 display-6 text-bold text-dark text-center mt-5">
+                                ยืนยันรหัสประจำตัว MyPIN 6 หลัก
+                            </div>
+                            <div class="col-lg-12 text-bold text-center mt-3">
+                                <input type="text" id="ssu_current_address_moblie_phone_id2" name="security-dot" class="text-center txt-ssu sub-service-pin p-0"
+                                    Number keyboard="number" maxlength="6" [(ngModel)]="assign_mypin_2" (ngModelChange)="CheckMyPIN2()"
+                                    [disabled]="(!register.subscriptionService.contact.email || !register.subscriptionService.contact.moblie_phone)" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template #myPinRegistedTemplate>
+                    <div class="col-lg-12 p-0 mt-12 text-center">
+                        <img src="./assets/kiatnakin/image/subscription/pin_img.png" class="sub-service-mypin-logo" />
+                    </div>
+                    <div class="col-lg-12 p-0 mt-5 txt-Header text-bold text-center">
+                        บริการรหัสประจำตัว MyPIN
+                    </div>
+                    <div class="col-lg-12 p-0 txt-Header text-center">
+                        <p>เพิ่มความปลอดภัยและความสะดวก</p>
+                        <p>ในการใช้บริการและการทำธุรกรรมทางการเงิน</p>
+                    </div>
+
+                    <div class="col-lg-12 p-0 mt-6 text-center">
+                        <div class="display-6">
+                            <img src="./assets/kiatnakin/image/icheck.png" class="sub-service-mypin-success" /> บัญชีมีการสมัครรหัสประจำตัว MyPIN แล้ว
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+
+            <div *ngIf="register.haveMyPin === 'Y'" class="content">
+                <div class="row">
+                    <div class="col-lg-12 text-center mt-12">
+                        <img src="./assets/kiatnakin/image/subscription/pin_img.png" height="100" width="72" />
+                        <div class="p-0 txt-Header mt-5">
+                            <div class="text-bold">ขอใช้บริการรหัสประจำตัว MyPIN</div>
+                            <p class="txt-ssu" style="font-size: 24px !important;">การใช้รหัสประจำตัว MyPIN เป็นไปตามข้อตกลงและเงื่อนไข</p>
+                            <p class="txt-ssu" style="font-size: 24px !important;">บัญชีเงินฝากและบริการด้านการเงินผ่านช่องทางอิเล็กทรอนิกส์</p>
+                        </div>
+
+                        <div class="p-0 txt-Header mt-5">
+                            <div class="row">
+                                <div class="col-lg-3 text-right p-0">
+                                    <img src="./assets/kiatnakin/image/icheck.png" height="20" width="20" />
+                                </div>
+                                <div class="col-lg-9 text-left">
+                                    <div class="text-italic text-blue">บัญชีมีการสมัคร MyPIN แล้ว</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="./assets/kiatnakin/image/subscription/previouse.png" (click)="onClickPreviuesPage()" style="position:absolute;left: 0%;top: 94.3%"
+            id='Page13_previues' />
+    </div>
+
+    <div name="Page-14" *ngIf="Services" data-id="services-2" disabled=true class="cover hard blue fixed back-side disabled">
+        <div class="content-cover">
+            <div class="ribbon_gray_left title">
+                <label class="pl-30px pt-2 title_display">การสมัครบริการเสริมอื่นๆ </label>
+            </div>
+            <div class="content">
+
+                <div name="ATM_Service" class="col-lg-12 mt-8" *ngIf="isCASA">
+                    <div class="row">
+                        <div class="col-lg-2 text-center">
+                            <input #atmCheckboxPrincipal type="checkbox" name="registerServices" id="atmServiceChecked" [checked]="atmServiceChecked"
+                                (change)="onAtmCheckboxPrincipalChanged(atmCheckboxPrincipal)" class="sub-service-checkbox">
+                        </div>
+
+                        <div class="col-lg-10 text-left txt-Header text-bold sub-service-checkbox-title" [ngClass]="(atmServiceChecked)?'sub-service-atm-area-enable':'sub-service-atm-area-disable'">
+                            ขอใช้บริการบัตรอิเล็กทรอนิกส์
+                        </div>
+                    </div>
+                    <div [ngClass]="(atmServiceChecked)?'sub-service-atm-area-enable':'sub-service-atm-area-disable'">
+                        <div class="row mt-4">
+                            <div class="scrollbar">
+                                <div id="frame" class="frame">
+                                    <ul id="slidee" class="slidee" style="height:100px;min-width:640px">
+                                        <li *ngFor="let atm of atmList" id="{{atm.BIN_CODE}}">
+                                            <img src="{{register.domainAPI + '/files/atm_card/'+atm.IMG_NAME}}" style="width: 150px;height: 100px;" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="!ShowSMS" name="Smart_SMS" class="col-lg-12" [ngClass]="(isCASA === false)?'mt-7':'mt-4'">
+                    <div class="row">
+                        <div class="col-lg-2 text-center">
+                            <input #smsCheckboxPrincipal id="smsServiceChecked" type="checkbox" name="registerServices" class="sub-service-checkbox"
+                                [checked]="smsServiceChecked == true" (change)="smsCheckboxPrincipal.checked ? register.smsServiceChecked = true : register.smsServiceChecked = false"
+                                (change)="getkeyboard()" [disabled]="register.subscription.account.PROD_TYPE === 'T' || type === 'SubSer'">
+                        </div>
+                        <div class="col-lg-10 text-left txt-Header text-bold sub-service-checkbox-title" [ngClass]="(register.smsServiceChecked)?'sub-service-phone-area-enable':'sub-service-phone-area-disable'">
+                            ขอใช้บริการ KK Smart SMS
+                        </div>
+                    </div>
+
+                    <div class="row" [ngClass]="(register.smsServiceChecked)?'sub-service-phone-area-enable':'sub-service-phone-area-disable'">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-10 display-7 sub-service-checkbox-desc text-left txt-ssu p-0">
+                            ธนาคารจะใช้หมายเลขโทรศัพท์มือถือที่ได้ให้ไว้กับการเปิดบัญชีนี้
+                        </div>
+                    </div>
+                    <div class="row mt-4" [ngClass]="(register.smsServiceChecked)?'sub-service-phone-area-enable':'sub-service-phone-area-disable'">
+                        <div class="col-lg-4">
+                            <div class="txt-Header text-bold text-center">
+                                เลือกภาษา
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="sub-service-image checked text-center">
+                                <input type="radio" class="sub-service-radio" name="sms" value="1" [(ngModel)]="SMS_LANG_CODE" [disabled]="(!register.smsServiceChecked)"
+                                />
+                                <img src="./assets/kiatnakin/image/subscription/thai_language.png">
+                                <p class="text-center txt-ssu">ไทย</p>
+
+                            </label>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="sub-service-image text-center" style="display: none">
+                                <input type="radio" class="sub-service-radio" name="sms" value="2" [(ngModel)]="SMS_LANG_CODE" [disabled]="(!register.smsServiceChecked)"
+                                />
+                                <img src="./assets/kiatnakin/image/subscription/eng_language.png">
+                                <p class="text-center txt-ssu">English</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row mt-3" [ngClass]="(register.smsServiceChecked)?'sub-service-phone-area-enable':'sub-service-phone-area-disable'">
+                        <div class="txt-ssu text-right col-lg-5">ค่าธรรมเนียม หักจาก:</div>
+                        <div *ngIf="register.subscription.account.PROD_TYPE === 'S' || register.subscription.account.PROD_TYPE === 'D' || register.subscription.account.PROD_TYPE === 'T' && register.haveFD !== 'Y'"
+                            type="text" class="text-center txt-ssu col-lg-6 underline">
+                            หักจากบัญชีที่กำลังทำการสมัคร
+                        </div>
+                        <input *ngIf="register.subscription.account.PROD_TYPE === 'T' && register.haveFD === 'Y'" type="text" class="subscription_accountName2 txt-ssu text-center none-keyboard"
+                            [readonly]="true" id="AccountNoFeeSMS_id" placeholder="บัญชีที่หักค่าธรรมเนียม" (click)="onSelector('subscription_FeeSMS')"
+                            [(ngModel)]="register.subscriptionService.service.internet.AccountNoFeeSMS_DATA">
+
+                    </div>
+                    <div class="row" [ngClass]="(register.smsServiceChecked)?'sub-service-phone-area-enable':'sub-service-phone-area-disable'">
+                        <div class="col-lg-10 offset-1 p-0 display-7 sub-service-checkbox-desc text-left">
+                            หักบัญชีเงินฝาก ที่เปิดนี้ เพื่อชำระค่าธรรมเนียม KK Smart SMS
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div name="Phone_Service" class="col-lg-12 mt-2">
+                    <div class="row">
+                        <div class="col-lg-1 text-center">
+                            <input #phoneCheckboxPrincipal type="checkbox" name="registerServices" id="phoneServiceChecked" [checked]="register.phoneServiceChecked == true"
+                                (change)="phoneCheckboxPrincipal.checked ? register.phoneServiceChecked = true : register.phoneServiceChecked = false"
+                                (change)="getkeyboard()" class="sub-service-checkbox">
+                        </div>
+                        <div class="col-lg-1 sub-service-head-icon text-left" [ngClass]="(phoneServiceChecked)?'sub-service-phone-area-enable':'sub-service-phone-area-disable'">
+                            <img src="./assets/kiatnakin/image/subscription/phone_ic.png" />
+                        </div>
+                        <div class="col-lg-10 text-left txt-Header text-bold sub-service-checkbox-title" [ngClass]="(register.phoneServiceChecked)?'sub-service-phone-area-enable':'sub-service-phone-area-disable'">
+                            ขอใช้บริการ Phone Service Security 2 Lock
+                        </div>
+                    </div>
+                    <div class="row" [ngClass]="(register.phoneServiceChecked)?'sub-service-phone-area-enable':'sub-service-phone-area-disable'">
+                        <div class="col-lg-10 display-7 offset-2 sub-service-checkbox-desc text-left">
+                            บริการสอบถามข้อมูลเชิงลึกผ่านโทรศัพท์
+                        </div>
+                    </div>
+                </div> -->
+
+                <div *ngIf="register.subscriptionService.contact.email !== '' && register.subscriptionService.contact.moblie_phone.length >= 10 && (checkPIN === true || assign_mypin_1 === '' && assign_mypin_2 === '')"
+                    class="col-lg-12 text-center sub-service-confirm-button-area">
+                    <button *ngIf="ClickSave" class="display-6 button-blue sub-service-confirm-button" id="submit_subscription_id" (click)="checkRegister()">
+                        ยืนยันการทำรายการ
+                    </button>
+                </div>
+            </div>
+        </div>
+        <img src="{{imgPart+'tick_back.png'}}" class="tick_book_back" />
+    </div>
+
+    <progress-dialog #progress [progressId]="subscription" (onClickEmitter)="onClickBack()" (isShowEmitter)="progressIsShow = $event">
+    </progress-dialog>
+
+</template-flip-book>
+
+<div id="seletor_content_modal" class="text-left seletor-content display-3">
+
+    <img *ngIf="genPDF || otp || mypin" src="./assets/kiatnakin/image/close.png" id="buttonClose" (click)="onClickDismiss()" style="max-width: 100%; z-index: 9; position: absolute; top: -35px; right: -30px">
+
+    <div *ngIf="genPDF">
+        <div class="body PDFbody">
+            <pdf-viewer *ngIf="customerSSU === 'N'" src="{{pdfFormMasterApp}}" [render-text]="false" [original-size]="false" [autoresize]="true">
+            </pdf-viewer>
+            <!-- <label>End Master App</label> -->
+            <pdf-viewer *ngIf="pdfFormProduct !== ''" src="{{pdfFormProduct}}" [render-text]="false" [original-size]="false" [autoresize]="true">
+            </pdf-viewer>
+            <!-- <label>End Form Product</label> -->
+            <pdf-viewer *ngIf="pdfFormProductBenefit !== ''" src="{{pdfFormProductBenefit}}" [render-text]="false" [original-size]="false" [autoresize]="true">
+            </pdf-viewer>
+            <!-- <label>End Form Product Benefit</label> -->
+            <pdf-viewer *ngIf="pdfFormService !== ''" src="{{pdfFormService}}" [render-text]="false" [original-size]="false" [autoresize]="true">
+            </pdf-viewer>
+            <!-- <label>End Form Product Service</label> -->
+        </div>
+        <div class="row m-0 col-lg-12 footer">
+            <div style="width: 100%;" *ngIf="name_confirm">
+                <div class="display-6 text-center">
+                    กรุณาพิมพ์ชื่อและนามสกุลของท่าน เพื่อยืนยันการทำรายการและตกลงผูกพันตาม
+                </div>
+                <div class="display-6 text-center">
+                    ข้อตกลงและเงื่อนไขบัญชีเงินฝากและบริการด้านการเงินผ่านช่องทางอิเล็กทรอนิกส์
+                </div>
+                <div class="row col-lg-12 mt-3 p-0">
+                    <div class="row col-lg-6">
+                        <div class="col-lg-2 display-4">ชื่อ:</div>
+                        <input class="txt-ssu col-lg-9" id="ConfirmByName_id" type="text" [(ngModel)]="register.E_name" alphapet keyboard="th" autocomplete="off">
+                    </div>
+                    <div class="row col-lg-6">
+                        <div class="col-lg-2 display-4">นามสกุล:</div>
+                        <input class="txt-ssu col-lg-9" id="ConfirmBynSername_id" type="text" style="left: 58px" [(ngModel)]="register.E_lastname"
+                            alphapet keyboard="th" autocomplete="off">
+                    </div>
+                </div>
+                <div class="col-lg-12 text-center page-dialog-confirm-button-area">
+                    <button class="button-blue page-dialog-confirm-button" (click)="onSubscriptionAccount()" type="submit">
+                        <div class="display-6" id="submit_subscriptionAndPDF_id">ยืนยันการทำรายการ</div>
+                    </button>
+                </div>
+            </div>
+
+            <ng-template #mypin_confirm>
+                <div class="display-5">กรุณากรอก MyPIN เพื่อยืนยันการทำรายการ</div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div *ngIf="AddressSameOld">
+
+        <div class="row col-lg-12 text-center mt-6">
+            <div class="col-lg-5 text-center" style="line-height: 5">
+                <img src="./assets/kiatnakin/image/card13.png" />
+            </div>
+            <div class="col-lg-2 text-center" style="line-height: 5">
+                <img src="./assets/kiatnakin/image/icon_arrow_transfer.png" />
+            </div>
+            <div class="col-lg-5 text-center">
+                <img src="./assets/kiatnakin/image/fileKK.png" />
+            </div>
+        </div>
+
+        <div class="col-lg-12 mt-6">
+            <div class="text-center display-3">
+                ธนาคารจะทำการเปลี่ยนแปลงข้อมูลของท่านให้เป็นข้อมูลปัจจุบัน
+            </div>
+        </div>
+
+        <div class="col-lg-12 mt-5">
+            <div class="text-center">
+                <button class="button-blue text-white display-4" (click)="onChangeAddress()" id="btn_replaceAddress_id">ตกลง</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div *ngIf="ModalShow">
+        <div class="col-lg-12 text-center mt-6">
+            <img src="{{Modal_image}}" />
+        </div>
+
+        <div class="col-lg-12 mt-6">
+            <div class="text-center display-3">
+                {{Modal_text}}
+            </div>
+        </div>
+        <div class="col-lg-12 mt-3">
+            <div class="text-center display-3">
+                {{Modal_text2}}
+            </div>
+        </div>
+
+        <div class="col-lg-12 mt-5">
+            <div class="text-center">
+                <button class="button-blue text-white display-4" (click)="onClickDismissError()">ตกลง</button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="promtpay">
+        <div class="col-lg-12">
+
+            <div class="col-lg-12 text-center">
+                <img src="/assets/kiatnakin/image/promptpay.png">
+            </div>
+
+            <div class="col-lg-12 text-center display-4 mt-5" id="PromptPay">
+                เปิดใช้บริการ PromptPay บัญชีนี้กับ {{register.account_no}}
+            </div>
+        </div>
+
+
+        <div class="col-lg-12 mt-5 row">
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <img style="width: 100%;" src="./assets/kiatnakin/image/promtpay/promptpay_citizen.png" id="promtpay_btn_card13_id" (click)="CheckKKAnyId_idcard()">
+                    <!--<button id="promtpay_btn_card13_id" class="button-blue text-white display-4" (click)="CheckKKAnyId_idcard()">หมายเลขบัตรประชาชน-->
+                    <!--</button>-->
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <img style="width: 100%;" src="./assets/kiatnakin/image/promtpay/promptpay_mobile.png" id="promtpay_btn_mobile_id" (click)="otpPromtpay()">
+                    <!--<button id="promtpay_btn_mobile_id" class="button-blue text-white display-4" style="width: 281px" (click)="otpPromtpay()">-->
+                    <!--เบอร์โทรศัพท์-->
+                    <!--</button>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 mt-8" style="left: 83%" (click)="onPrintPromptPayForm()">
+            <div class="row">
+                ยังไม่ผูกตอนนี้
+                <img style="width: 100%;" src="/assets/kiatnakin/image/promtpay/skip.png" id="promtpay_btn_skip_id" style="width:5%;height:35px;margin-left:10px;margin-top:7px">
+                <!--<button id="promtpay_btn_skip_id" class="button-white text-blue display-4" style="width: 281px" (click)="onPrintPromptPayForm()">ข้าม</button>-->
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="mypin && checkAccept">
+        <div class="col-lg-12 text-center mt-6">
+            <img src="./assets/kiatnakin/image/login/icon_mypin_topic.png" height="140" width="140" />
+        </div>
+
+        <div class="col-lg-12">
+            <div class="display-4 text-center mt-5 text-italic text-bold">กรุณากรอก MyPIN เพื่อยืนยันการทำรายการ</div>
+
+            <div class="col-lg-12 text-center">
+                <input id="input_MyPin_id" (click)="getkeyboard()" class="col-lg-6 text-center mt-5" type="text" name="security-dot" Number
+                    keyboard="pin" maxlength="6" [(ngModel)]="register.AuthenMyPIN" autocomplete="off">
+            </div>
+            <div *ngIf="btnSubmit == 'MyPIN'" class="col-lg-12 text-center mt-3">
+                <button [disabled]="register.AuthenMyPIN.length !== 6" class="button-blue text-white text-center display-5" type="submit"
+                    id="btn_submit_mypin" style="width: 220px" (click)="onSubmitMyPIN()">
+                    ยืนยันการทำรายการ
+                </button>
+            </div>
+
+            <div class="col-lg-12 text-center mt-3">
+                <button class="button-white text-blue text-center display-5" style="width: 220px" (click)="getMobile_no()" id="btn_input_otp">
+                    ลืม MyPIN
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="otp && checkAccept">
+        <div class="col-lg-12 text-center mt-6">
+            <img src="./assets/kiatnakin/image/login/icon_otp_topic.png" height="140" width="140" />
+        </div>
+
+        <div class="col-lg-12">
+            <div class="display-4 text-center mt-5 text-italic text-bold">รหัสผ่านใช้ครั้งเดียว</div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="display-4 text-center mt-5 text-italic text-bold">{{otp_moblie_number_txt}}</div>
+        </div>
+
+        <div *ngIf="otp2">
+            <input type="hidden" id="ref_code_id" [value]="register.ReferenceNo">
+            <div class="display-4 text-center mt-5 text-italic text-bold">Reference code: {{register.ReferenceNo}}</div>
+            <div class="display-4 text-center mt-5 text-italic text-bold">โปรดระบุรหัสผ่านครั้งเดียว (OTP)</div>
+
+            <div class="col-lg-12 text-center">
+                <input type="text" class="mt-5 disply-4 mt-5 txt-ssu text-center" keyboard="number" [(ngModel)]="register.otp_no" maxlength="6"
+                    Number (ngModelChange)="verifyOTP($event)" id="otp_ref_id" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="col-lg-12 text-center mt-5">
+            <button class="display-4 text-center button-blue text-white" (click)="openOTP()">ขอรหัสผ่านใหม่อีกครั้ง</button>
+        </div>
+    </div>
+
+    <div *ngIf="MyPINerror">
+        <div class="col-lg-12 text-center mt-6">
+            <img src="./assets/kiatnakin/image/login/icon_mypin_topic.png" height="140" width="140" />
+        </div>
+
+        <div class="col-lg-12">
+            <div class="display-4 text-center mt-5 text-italic text-bold">{{RespondCode}}</div>
+            <div class="display-4 text-center mt-5 text-italic text-bold">ผิดครั้งที่ : {{PINcount}}</div>
+
+            <div class="col-lg-12 text-center mt-3">
+                <button class="button-white text-blue text-center display-5" style="width: 220px" (click)="onRestartMyPIN()" id="btn_input_otp">
+                    กรอก MyPIN อีกครั้ง
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="progressSuccess" class="content-cover">
+        <div class="content row mt-10">
+            <div class="col-lg-12 pt-5 m-0 text-center">
+                <img class="" src="./assets/kiatnakin/image/read_success.png" />
+            </div>
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                ทำรายการสำเร็จ
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="progressModal" class="content-cover">
+        <div class="content row mt-10">
+            <div class="col-lg-12 pt-5 m-0 text-center">
+                <img class="loading" src="./assets/kiatnakin/image/loading.png" />
+            </div>
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                ระบบกำลังทำรายการ
+            </div>
+            <div class="col-lg-12 display-5 text-center text-dark-black-gray text-italic text-bold">
+                กรุณารอสักครู่
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="progressModalFails" class="content-cover">
+        <div class="content row mt-10">
+            <div class="col-lg-12 pt-5 m-0 text-center">
+                <img src="./assets/kiatnakin/image/read_false.png" />
+            </div>
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                {{RespondCode}}
+            </div>
+            <div class="col-lg-12 text-center mt-3">
+                <button class="btn btn-blue col-lg-4" (click)="onClickDismissError()">
+                    ตกลง
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="progressPassRespond" class="content-cover">
+        <div class="content row mt-10">
+            <div class="col-lg-12 pt-5 m-0 text-center">
+                <img class="loading" src="./assets/kiatnakin/image/loading.png" />
+            </div>
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                {{RespondCode}}
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="progressModalFailNoneRedirect" class="content-cover">
+        <div class="content row mt-10">
+            <div class="col-lg-12 pt-5 m-0 text-center">
+                <img class="" src="./assets/kiatnakin/image/read_false.png" />
+            </div>
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                {{RespondCode}}
+            </div>
+            <div class="col-lg-12 text-center mt-3">
+                <button class="btn btn-blue col-lg-4" (click)="showModalPromtPay()">
+                    ตกลง
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="progressModalFailCreateMyPinTDAccount" class="content-cover">
+        <div class="content row mt-10">
+            <div class="col-lg-12 pt-5 m-0 text-center">
+                <img class="" src="./assets/kiatnakin/image/read_false.png" />
+            </div>
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                {{RespondCode}}
+            </div>
+            <div class="col-lg-12 text-center mt-3">
+                <button class="btn btn-blue col-lg-4" (click)="onCloseModalMyPinError()">
+                    ตกลง
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dismiss_bg_otp" class="selector_content_bg"></div>
+<selector-dialog *ngIf="showSelector" class="p-0" selector_dialog (onSelector)="onSet($event)" (showSelector2)="onShow($event)"
+    [id]="selected" [Title]="titleTypeList" [DataList]="dataList" [RespondCode]="RespondCode" [ActiveNow]="ActiveNow">
+</selector-dialog>

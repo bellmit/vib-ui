@@ -1,0 +1,42 @@
+<div class="container vertical-center display-5 p-0 animated fadeIn" style="justify-content: center">
+    <div id="container_form_deposit" >
+        <img src="./assets/kiatnakin/image/icon_cover_book.png" style="position: absolute; z-index: -1">
+        <div id="div-login" (click)="onClickLogin()" *ngIf="showLogin">
+            <img src="./assets/kiatnakin/image/login_bt.png" >
+            <img src="./assets/kiatnakin/image/icon_cover_book_login_key.png" class="key" >
+            <label class="text-white display-6">
+                {{ 'เข้าระบบ' }}<br>
+                {{ 'เพื่อเลือกบัญชี' }}
+            </label>
+        </div>
+
+        <div class="col-12 text-center acc-no display-3 bold">
+            {{ 'account_no' | translate }}
+        </div>
+
+        <div class=" col-12 mt-5 text-center">
+            <input id="account-number"
+                   type="text"
+                   class="text-center display-1 input-acc-no h-75 w-75"
+                   keyboard="number"
+                   placeholder="{{ 'input_account_no' | translate }}" maxlength="14"
+                   [(ngModel)]="accountNumber" autocomplete="off">
+        </div>
+
+        <div class="col-lg-12 text-center mt-5">
+            <button id="button-submit"
+                    type="submit"
+                    class="button-blue button-submit display-4"
+                    (click)="onSelectedAccount(accountNumber)"
+                    [disabled]="accountNumber.length < 10">
+                {{ 'ok' | translate }}
+            </button>
+        </div>
+
+        <!--<div class="col-lg-12 text-center btn-login">-->
+            <!--<label class="label-login" (click)="onClickLogin()">{{ 'login' | translate }}</label>-->
+        <!--</div>-->
+    </div>
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

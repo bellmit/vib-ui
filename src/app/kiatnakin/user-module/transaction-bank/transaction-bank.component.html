@@ -1,0 +1,475 @@
+<div class="app-back" (click)="onClickMainMenu()" style="z-index: 0">
+    <p class="text-lll">กลับหน้าหลัก</p>
+</div>
+
+<div #book class="container"
+    [ngClass]="{'CurrentTop': dataService.selectedAccount.accountType =='D' || (dataService.selectedAccount.accountType == 'S' && $flag_passbook == 'N')}">
+
+    <div class="row" style="bottom: 20px;">
+        <div id="bb-bookblock" class="bb-bookblock">
+            <div *ngIf="dataService.selectedAccount.accountType == 'S' && $flag_passbook != 'N'" class="bb-item">
+                <div class="page-book-haft-buttom">
+                    <img *ngIf="dataService.selectedAccount.accountType =='S' && $flag_passbook != 'N'"
+                        class="page-next" id="pagesa" src="./assets/kiatnakin/image/bookbank/cover_sa.png">
+                </div>
+            </div>
+            <div *ngIf="dataService.selectedAccount.accountType == 'T'" class="bb-item">
+                <div class="page-book-haft-buttom">
+                    <img *ngIf="dataService.selectedAccount.accountType =='T'" class="page-next" id="pagesa"
+                        src="./assets/kiatnakin/image/bookbank/cover_td.png">
+                </div>
+            </div>
+            <div *ngIf="(dataService.selectedAccount.accountType == 'S' && $flag_passbook != 'N') || dataService.selectedAccount.accountType == 'T'"
+                class="bb-item" style="display: none;">
+                <div class="page-book-full">
+                    <div class="fc-calendar-wrap">
+                        <div class="dropzone" id="dropzone">
+                            <img class="page-prev" src="./assets/kiatnakin/image/book_cover_in.png">
+                            <div class="account">
+                                <img class="page-next" src="./assets/kiatnakin/image/book_cover.png">
+                                <div class="col-lg-12 product-name" style="margin-top: 0;font-size: 2rem"
+                                    id="Product_id">
+                                    {{dataService.selectedAccount.ProductDesc}}
+                                </div>
+                                <h4 class="account-name" id="accountName_id">
+                                    {{dataService.selectedAccount.accountName}}
+                                </h4>
+                                <h4 class="account-number" id="accountNumber_id">
+                                    {{dataService.selectedAccount.accountNumber}}
+                                </h4>
+                                <h4 class="branch-name" id="branch-name-id">
+                                    {{dataService.selectedAccount.branchCode}} -
+                                    {{dataService.selectedAccount.branchName}}
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="dataService.selectedAccount.accountType == 'S' && $flag_passbook != 'N'">
+                <ng-container #bookitem *ngFor="let passbook of passbooks; let i = index">
+                    <div class="bb-item">
+                        <div class="page-book-full">
+                            <div class="fc-calendar-wrap">
+                                <div class="head page-prev"></div>
+                                <div class="fc-calendar-container">
+                                    <div class="transaction">
+                                        <div class="body-transaction">
+                                            <table id="tablescroll" class="scroll" cellspacing="0" cellpadding="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>วันที่<div class="font14">Date</div>
+                                                        </th>
+                                                        <th>รหัสรายการ<div class="font14">Transaction Code</div>
+                                                        </th>
+                                                        <th>ถอน<div class="font14">Withdrawal</div>
+                                                        </th>
+                                                        <th>ฝาก<div class="font14">Deposit</div>
+                                                        </th>
+                                                        <th>ยอดคงเหลือ<div class="font14">Outstanding Balance</div>
+                                                        </th>
+                                                        <th>รหัสผู้ทำรายการ<div class="font14">Teller ID</div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody *ngIf="$flag_passbook !== 'N'" style="overflow: overlay">
+                                                    <tr *ngFor="let item of passbook.listTransaction; let myIndex = index"
+                                                        [ngClass]="{'current': myIndex==transaction.transactionPassbook-1}">
+                                                        <td>{{item.txndate | date:'dd/MM/yyyy'}}</td>
+                                                        <td>{{item.codtxnliteral}}</td>
+
+                                                        <td *ngIf="item.coddebitcredit == 'D'"
+                                                            style="text-align: right">
+                                                            {{item.amount !== '' ? (item.amount| number:'1.2-2') : ""}}
+                                                        </td>
+                                                        <td *ngIf="item.coddebitcredit != 'D'"
+                                                            style="text-align: right"></td>
+
+                                                        <td *ngIf="item.coddebitcredit == 'C'"
+                                                            style="text-align: right">
+                                                            {{item.amount !== '' ? (item.amount| number:'1.2-2') : ""}}
+                                                        </td>
+                                                        <td *ngIf="item.coddebitcredit != 'C'"
+                                                            style="text-align: right"></td>
+
+                                                        <td style="text-align: right">
+                                                            {{item.runbal !== '' ? (item.runbal| number:'1.2-2') : ""}}
+                                                        </td>
+                                                        <td class="lastcol">{{item.tellerid}}</td>
+                                                    </tr>
+                                                    <tr *ngFor="let rowBlank of passbook.pageSize; let i = index">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="foot-transaction page-next">
+                                            <div style="display: none" (click)="setScroll()" id="setScroll">
+                                                <div>
+                                                    <strong>กลับรายการล่าสุด</strong>
+                                                </div>
+                                                <img src="./assets/kiatnakin/image/triangle.png"
+                                                    style="margin-top: -30px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+
+            <div *ngIf="dataService.selectedAccount.accountType == 'S' && $flag_passbook == 'N'" class="bb-item"
+                style="width: 1040px;left: -20%">
+                <div class="page-book-full1" id='CurrentShowID'>
+                    <div class="fc-calendar-wrap">
+                        <div class="headCA" id="page3">
+                            <img id="logo" class="logo" src="/assets/kiatnakin/image/logo_kk.png">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div style="position: absolute;left: 48%;margin-top: -8%">
+                                        เลขบัญชี
+                                    </div>
+                                    <div style="position: absolute;left: 54%;margin-top: -8%">
+                                        {{dataService.selectedAccount.accountNumber}}
+                                    </div>
+
+                                    <div style="position: absolute;left: 75%;margin-top: -8%">
+                                        บัญชี
+                                    </div>
+                                    <div *ngIf="dataService.selectedAccount.accountType == 'S'"
+                                        style="position: absolute;left: 79%;margin-top: -8%">
+                                        เงินฝากออมทรัพย์
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div style="position: absolute;left: 48%;margin-top: -3%">
+                                        ชื่อบัญชี
+                                    </div>
+                                    <div style="position: absolute;left: 54%;margin-top: -3%">
+                                        {{dataService.selectedAccount.accountName}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fc-calendar-container">
+                            <div class="transaction">
+                                <div class="body-transaction">
+                                    <table id="tablescroll" class="scroll" cellspacing="0" cellpadding="0">
+                                        <thead style="background-color: #594F74">
+                                            <tr>
+                                                <th class="borderBlue Quark font14">วันที่</th>
+                                                <th class="borderBlue Quark font14">รายการ</th>
+                                                <th class="borderBlue Quark font14">ถอน</th>
+                                                <th class="borderBlue Quark font14">ฝาก</th>
+                                                <th class="borderBlue Quark font14">คงเหลือ</th>
+                                                <th class="borderBlue Quark font14">รหัสผู้ทำรายการ</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody style="overflow: overlay">
+                                            <tr *ngFor="let item of dataService.selectedAccount.transactionPassbook; let myIndex = index"
+                                                [ngClass]="{'current': myIndex==transaction.length-1}">
+                                                <td class="borderBlue font18">{{item.txndate | date:'dd/MM/yyyy'}}</td>
+                                                <td class="borderBlue font18">{{item.codtxnliteral}}</td>
+
+                                                <td class="borderBlue font18" *ngIf="item.coddebitcredit == 'D'"
+                                                    style="text-align: right">
+                                                    {{item.amount !== '' ? (item.amount| number:'1.2-2') : ""}}
+                                                </td>
+                                                <td class="borderBlue font18" *ngIf="item.coddebitcredit != 'D'"
+                                                    style="text-align: right"></td>
+
+                                                <td class="borderBlue font18" *ngIf="item.coddebitcredit == 'C'"
+                                                    style="text-align: right">
+                                                    {{item.amount !== '' ? (item.amount| number:'1.2-2') : ""}}
+                                                </td>
+                                                <td class="borderBlue font18" *ngIf="item.coddebitcredit != 'C'"
+                                                    style="text-align: right"></td>
+
+                                                <td class="borderBlue font18" style="text-align: right">
+                                                    {{item.runbal !== '' ? (item.runbal| number:'1.2-2') : ""}}</td>
+                                                <td class="borderBlue lastcol font18">{{item.tellerid}}</td>
+                                            </tr>
+                                            <tr class="lastrow" id="lastrow">
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="dataService.selectedAccount.accountType == 'D'" class="bb-item"
+                style="width: 1040px;left: -20%">
+                <div class="page-book-full1" id='CurrentShowID'>
+                    <div class="fc-calendar-wrap">
+                        <div class="headCA" id="page3">
+                            <img id="logo" class="logo" src="./assets/kiatnakin/image/logo_kk.png">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div style="position: absolute;left: 48%;margin-top: -8%">
+                                        เลขบัญชี
+                                    </div>
+                                    <div style="position: absolute;left: 54%;margin-top: -8%">
+                                        {{dataService.selectedAccount.accountNumber}}
+                                    </div>
+
+                                    <div style="position: absolute;left: 75%;margin-top: -8%">
+                                        บัญชี
+                                    </div>
+                                    <div *ngIf="dataService.selectedAccount.accountType == 'D'"
+                                        style="position: absolute;left: 79%;margin-top: -8%">
+                                        เงินฝากกระแสรายวัน
+                                    </div>
+                                    <div *ngIf="dataService.selectedAccount.accountType == 'S'"
+                                        style="position: absolute;left: 79%;margin-top: -8%">
+                                        เงินฝากออมทรัพย์
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div style="position: absolute;left: 48%;margin-top: -3%">
+                                        ชื่อบัญชี
+                                    </div>
+                                    <div style="position: absolute;left: 54%;margin-top: -3%">
+                                        {{dataService.selectedAccount.accountName}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fc-calendar-container">
+                            <div class="transaction">
+                                <div class="body-transaction">
+                                    <table id="tablescroll" class="scrollTableCurrent" cellspacing="0" cellpadding="0">
+                                        <thead style="background-color: #594F74">
+                                            <tr>
+                                                <th class="borderBlue Quark font14">วันที่</th>
+                                                <th class="borderBlue Quark font14">รหัสรายการ</th>
+                                                <th class="borderBlue Quark font14">เลขที่เช็ค</th>
+                                                <th class="borderBlue Quark font14">ถอน</th>
+                                                <th class="borderBlue Quark font14">ฝาก</th>
+                                                <th class="borderBlue Quark font14">คงเหลือ</th>
+                                                <th class="borderBlue Quark font14">รหัสสาขา</th>
+                                                <th class="borderBlue Quark font14">รหัสผู้ทำรายการ</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style="overflow: overlay">
+                                            <tr *ngFor="let item of dataService.selectedAccount.transaction; let myIndex = index"
+                                                [ngClass]="{'current': myIndex==transaction.length-1}">
+                                                <td class="borderBlue">{{item.TRAN_DATE | date:'dd/MM/yyyy'}}</td>
+                                                <td class="borderBlue">{{item.TRAN_TYPE}}</td>
+                                                <td class="borderBlue">{{item.CHEQUE_NO}}</td>
+
+                                                <td class="borderBlue" style="text-align: right">
+                                                    {{ item.DB_AMOUNT !== '' ? (item.DB_AMOUNT | number:'1.2-2') : "" }}
+                                                </td>
+                                                <td class="borderBlue" style="text-align: right">
+                                                    {{ item.CR_AMOUNT !== '' ? (item.CR_AMOUNT | number:'1.2-2') : "" }}
+                                                </td>
+                                                <td class="borderBlue" style="text-align: right">
+                                                    {{ item.BALANCE !== '' ? (item.BALANCE | number:'1.2-2') : "" }}
+                                                </td>
+                                                <td class="borderBlue">{{item.BRANCH_NO}}</td>
+                                                <td class="borderBlue lastcol">{{item.CHANNEL}}</td>
+                                            </tr>
+                                            <tr class="lastrow" id="lastrow">
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                                <td class="borderBlue" style="height: 700px"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="dataService.selectedAccount.accountType == 'T'">
+                <ng-container #bookitem *ngFor="let passbook of passbookTD; let i = index">
+                    <div class="bb-item">
+                        <div class="page-book-full">
+                            <div class="fc-calendar-wrap">
+                                <div class="head page-prev"></div>
+                                <div class="fc-calendar-container">
+                                    <div class="transaction">
+                                        <div class="body-transaction">
+                                            <table id="tablescroll" class="scroll2" cellspacing="0" cellpadding="0">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="Quark font12">วันที่</th>
+                                                        <th class="Quark font12">รหัสรายการ</th>
+                                                        <th class="Quark font12">เงื่อนไข</th>
+                                                        <th class="Quark font12">อัตราดอกเบี้ย</th>
+                                                        <th class="Quark font12">วันครบกำหนด</th>
+                                                        <th class="Quark font12">ถอน/ฝาก</th>
+                                                        <th class="Quark font12">ยอดคงเหลือ</th>
+                                                        <th class="Quark font12">รหัสผู้ทำรายการ</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="overflow: overlay">
+                                                    <tr *ngFor="let item of passbook.listTransactionPassbookTD; let myIndex = index"
+                                                        [ngClass]="{'current': myIndex==transaction.length-1}">
+                                                        <td class="font18">{{item.issueDate}}</td>
+                                                        <td class="font18">{{item.tdPlacementSequence}}</td>
+                                                        <td class="font18">{{item.term}}</td>
+                                                        <td class="font18">{{item.rate}}</td>
+                                                        <td class="font18">{{item.maturityDate}}</td>
+                                                        <td class="font18 text-right">{{item.amount| number:'1.2-2'}}
+                                                        </td>
+                                                        <td class="font18 text-right">
+                                                            {{item.availableBalance| number:'1.2-2'}}</td>
+                                                        <td class="font18">{{item.tellerid}}</td>
+                                                    </tr>
+                                                    <tr *ngFor="let rowBlank of passbook.pageSize; let i = index">
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="foot-transaction page-next">
+                                            <div style="display: none" (click)="setScroll()" id="setScroll">
+                                                <div>
+                                                    <strong>กลับรายการล่าสุด</strong>
+                                                </div>
+                                                <img src="./assets/kiatnakin/image/triangle.png"
+                                                    style="margin-top: -30px">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+
+            <!-- <div class="bb-item">
+                <div class="page-book-full1" id='CurrentShowID'>
+                    <div class="fc-calendar-wrap">
+                        <div class="headCA" id="page3">
+                            <img id="logo" class="logo" src="/assets/kiatnakin/image/logo_kk.png">
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div style="position: absolute;left: 48%;margin-top: -8%">
+                                        เลขบัญชี
+                                    </div>
+                                    <div style="position: absolute;left: 54%;margin-top: -8%">
+                                        {{dataService.selectedAccount.accountNumber}}
+                                    </div>
+
+                                    <div style="position: absolute;left: 75%;margin-top: -8%">
+                                        บัญชี
+                                    </div>
+                                    <div *ngIf="dataService.selectedAccount.accountType == 'T'" style="position: absolute;left: 79%;margin-top: -8%">
+                                        เงินฝากประจำ
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div style="position: absolute;left: 48%;margin-top: -3%">
+                                        ชื่อบัญชี
+                                    </div>
+                                    <div style="position: absolute;left: 54%;margin-top: -3%">
+                                        {{dataService.selectedAccount.accountName}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fc-calendar-container">
+                            <div class="transaction">
+                                <div class="body-transaction">
+                                    <table id="tablescroll" class="scroll" cellspacing="0" cellpadding="0">
+                                        <thead style="background-color: #594F74">
+                                            <tr>
+                                                <th class="font18" style="width: 75px">วันที่</th>
+                                                <th class="font18" style="width: 70px">รหัสรายการ</th>
+                                                <th class="font18" style="width: 70px">เงื่อนไข</th>
+                                                <th class="font18" style="width: 90px">อัตราดอกเบี้ย</th>
+                                                <th class="font18" style="width: 75px">วันครบกำหนด</th>
+                                                <th class="font18" style="width: 130px">ถอน/ฝาก</th>
+                                                <th class="font18" style="width: 100px">ยอดคงเหลือ</th>
+                                                <th class="font18" style="width: 80px">รหัสผู้ทำรายการ</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody style="overflow: overlay">
+                                            <tr *ngFor="let item of dataService.selectedAccount.transaction; let myIndex = index" [ngClass]="{'current': myIndex==transaction.length-1}">
+                                                <td class="font18" style="width: 75px">{{item.placement.issueDate}}</td>
+                                                <td class="font18" style="width: 70px">{{item.placement.tdPlacementSequence}}</td>
+                                                <td class="font18" style="width: 70px">{{item.placement.term}}</td>
+                                                <td class="font18" style="width: 90px">{{item.placement.rate}}</td>
+                                                <td class="font18" style="width: 75px">{{item.placement.maturityDate}}</td>
+                                                <td class="font18 text-right" [ngStyle]="{'padding-right':item.coddebitcredit === 'D' ? '30px': '0px' }" style="width: 130px;">{{item.placement.amount| number:'1.2-2'}}</td>
+                                                <td class="font18 text-right" style="width: 100px">{{item.placement.availableBalance| number:'1.2-2'}}</td>
+                                                <td class="font18 lastcol" style="width: 80px">{{item.placement.tellerid}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+</div>
+
+<!--<div id="container_form_transfer"-->
+<!--style="position:fixed;  width: 567px; left: 100%;top:40%"-->
+<!--(click)="onClickTransfer()">-->
+<!--<img id="form-deposit" #form_deposit src="./assets/kiatnakin/image/slip/slip_tr.png"-->
+<!--style="min-width: 100%; min-height: 100%;  width: 576px; height: 317px; cursor: auto">-->
+<!--</div>-->
+
+<!--<div id="container_form_deposit" (click)="onClickDeposit()">-->
+<!--<img id="form-transfer" #form_transfer src="./assets/kiatnakin/image/slip/slip_dep.png"-->
+<!--style="min-width: 100%; min-height: 100%;  width: 576px; height: 317px; cursor: auto">-->
+<!--</div>-->
+
+<div class="vertical-center">
+    <!-- <img id="investment" class=" transfer transfer5 " src="./assets/kiatnakin/image/slip/slip_investment.png" (click)="onClickInvestment()">
+
+    <img id="cheque" class=" transfer transfer1 " src="./assets/kiatnakin/image/slip/slip_chq.png">
+
+    <img id="transfer" class=" transfer transfer2" src="./assets/kiatnakin/image/slip/slip_tr.png" (click)="onClickTransfer()">
+
+    <img id="withdraw" class=" transfer transfer3 " src="./assets/kiatnakin/image/slip/slip_wit.png" (click)="onClickWithdraw()">
+
+    <img id="deposit" class=" transfer transfer4" src="./assets/kiatnakin/image/slip/slip_dep.png" (click)="onClickDeposit()"> -->
+
+    <!-- <img id="investment" class=" transfer investment_position " src="./assets/kiatnakin/image/slip/slip_investment.png" (click)="onClickInvestment()"> -->
+
+    <img id="transfer" class="transfer transfer_position" src="./assets/kiatnakin/image/slip/slip_transfer.png"
+        (click)="onClickTransfer()">
+
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

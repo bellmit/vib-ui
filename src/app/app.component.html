@@ -1,0 +1,63 @@
+<ul style="position: absolute;z-index: 1;">
+
+    <div class="row">
+        <a style="color: #FFFFFF" [routerLink]="['/kk']" routerLinkActive="active" *ngIf="envName !== 'PROD'">
+            MachineID:{{machineId}} KKB:{{branchCode}} ENV:{{envName}} (Version:{{appVersion}})
+        </a>
+    </div>
+
+    <div *ngIf="show">
+        <div class="row mt-1">
+            <button class="btnFunction border-blue text-blue background-white display-5" (click)="onClickBillPayRePay()"> Re PAY & Bill PAY
+            </button>
+        </div>
+        <div class="row mt-1">
+            <button class="btnFunction border-blue text-blue background-white display-5" (click)="onClickRequest()">
+                Request
+            </button>
+        </div>
+        <div class="row mt-1">
+            <button class="btnFunction border-blue text-blue background-white display-5" (click)="onClickInvestment()">
+                Investment
+            </button>
+        </div>
+        <div class="row mt-1">
+            <button class="btnFunction border-blue text-blue background-white display-5" (click)="onClickSubscription()"> Sub Scription Service
+            </button>
+        </div>
+       
+    </div>
+
+    <div *ngIf="showdialog" style="background-color: white;width: 500px;height: 900px;position: absolute;top: 65px;left: 26px">
+
+        <div id="carouselExampleControls" class="carousel slide" data-interval="false">
+            <div class="carousel-inner" role="listbox">
+
+                <div *ngFor="let release of releaseNote; let i = index;" [ngClass]="i == 0 ? 'active' : '' " class="carousel-item" style="height: 900px">
+                    <div class="col-lg-12 text-center">
+                        <div class="text-bold display-4">{{release.version}}</div>
+                        <div class="offset-1 col-lg-10 border_top_page"></div>
+                        <div class="body ml-2 mr-2">
+                            <p *ngFor="let note of release.release_note" [innerHtml]="note" class="text-left" style="text-indent: 30px;"> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" style="background-color: lightgrey; opacity: 0.5; width: 20px; top:0px; bottom: 0px" href="#carouselExampleControls"
+                role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" style="background-color: lightgrey; opacity: 0.5; width: 20px; top:0px; bottom: 0px" href="#carouselExampleControls"
+                role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+
+
+</ul>
+
+<router-outlet></router-outlet>

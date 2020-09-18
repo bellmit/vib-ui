@@ -1,0 +1,44 @@
+<!-- TERM & CONDITION -->
+<div *ngIf="checkFromCondition">
+  <div id="container" class="container">
+    <div class="body text-center">
+      <label class="display-1 text-black">ข้อตกลงการใช้บริการด้านกองทุนรวมผ่านบริการ Virtual Branch / <br>
+        คำเตือนและคำแนะนำที่สำคัญ</label>
+    </div>
+    <div id="scroll" class="scroll" (scroll)="onScroll($event)" [innerHTML]="termAndCond"></div>
+
+    <div class="footer text-center">
+      <button class="button-purple display" [disabled]="disableBtn" (click)="onClickAcceptTerm()">
+        ยอมรับ
+      </button>
+      <!-- <button id="modal-confirm-button-cancel"
+                  type="button"
+                  class="button-blue display-5"
+                  style="margin: 30px">
+            {{ 'cancel' | translate }}
+          </button> -->
+    </div>
+  </div>
+</div>
+
+<!-- CONSENT DATA -->
+<div *ngIf="checkFromVIBConsent">
+  <div id="containerCondition" class="container">
+    <div class="body text-center">
+      <!-- <label class="display-1 text-black">ข้อตกลงการใช้บริการด้านกองทุนรวมผ่านบริการ Virtual Branch / <br>
+        คำเตือนและคำแนะนำที่สำคัญ</label> -->
+    </div>
+    <div id="scroll" class="scroll" (scroll)="onScroll($event)" [innerHTML]="dataFundCondition"></div>
+
+    <div class="footer text-center">
+      <button type="button" class="btn-color display" (click)="checkVIBConsentByCif('N')">
+        ยกเลิก
+      </button>
+      <button type="button" class="button-purple display" (click)="checkVIBConsentByCif('Y')">
+        ยอมรับ
+      </button>
+    </div>
+  </div>
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

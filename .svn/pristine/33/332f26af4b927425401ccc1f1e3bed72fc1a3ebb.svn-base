@@ -1,0 +1,4 @@
+<div class="container-animate">
+    <img src="./assets/kiatnakin/image/EDC_machine.png" class="cardbox" id="cardbox" style="width:100%;">
+    <img src="./assets/kiatnakin/image/id_card_vertical.png" id="card" class="card" style="width:70%;">
+</div>

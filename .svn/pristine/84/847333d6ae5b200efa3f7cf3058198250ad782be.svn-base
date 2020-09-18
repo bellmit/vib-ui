@@ -1,0 +1,4 @@
+<div class="container-animate">
+  <img src="./assets/kiatnakin/image/scanner_finger.png" class="fingerbox" id="fingerbox" style="width: 100%;">
+  <img src="./assets/kiatnakin/image/finger.png" class="finger" id="finger" style=" width: 75%;">
+</div>

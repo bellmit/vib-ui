@@ -1,0 +1,416 @@
+<div *ngIf="dataService.transaction.currentStatus == status.dataList"
+     class="inquiry-paper animated fadeInUp" style="left: 18%;position: fixed;bottom: 0px">
+
+    <div class="kk-logo">
+        <img src="./assets/kiatnakin/image/logo_kk.png">
+    </div>
+    <div class="display-2 txt-service text-right">
+        {{'bank_credit_and_credit_card'|translate}}
+    </div>
+
+    <div class="row col-lg-12 mt-5">
+        <div class="display-4 col-lg-2 offset-1">{{'name'|translate}}</div>
+        <div class="display-4 col-lg-8">{{ dataService.transaction.service_accountName }}</div>
+    </div>
+
+    <div class="row col-lg-12 mt-2">
+        <div class="display-4 col-lg-2 offset-1">{{'address'|translate}}</div>
+        <div class="col-lg-7">
+            <p class="display-4">
+                {{ dataService.transaction.service_address }}
+            </p>
+        </div>
+    </div>
+
+    <div class="header row mt-5">
+        <div class="col-lg-1 text-center display-5">อันดับ</div>
+        <div class="col-lg-2 text-left display-5">ประเภท</div>
+        <div class="col-lg-4 text-center display-5 p-0">รายละเอียด</div>
+        <div class="col-lg-3 text-center display-5">ยอดคงเหลือทั้งหมด</div>
+        <div class="col-lg-2"></div>
+    </div>
+    <div class="body row mt-3">
+        <div class="scroll">
+            <div *ngFor="let list of enquiryList;let index=index; let odd=odd; let even=even;"
+                 class="row col-12 transaction"
+                 [ngClass]="{ odd: odd, even: even }">
+                <div class="col-lg-1 text-center display-5 text-dark-black-gray">{{list.id}}</div>
+                <div class="col-lg-2 text-left display-5 text-dark-black-gray">{{list.type}}</div>
+                <div class="col-lg-4 text-left display-5 text-dark-black-gray">{{list.description}}</div>
+                <div class="col-lg-3 text-right display-5 text-dark-black-gray">{{list.price | number:'.2-2'}}</div>
+                <div class="col-lg-2 text-center p-0" (click)="onClickDetail(list.id)">
+                    <img style="margin-top: 10%" src="./assets/kiatnakin/image/back_chevron.png">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="dataService.transaction.currentStatus == status.detail"
+     class="inquiry-paper animated fadeInUp" style="left: 18%;position: fixed;bottom: 0px">
+
+    <div class="kk-logo">
+        <img src="./assets/kiatnakin/image/logo_kk.png">
+    </div>
+    <div class="display-2 txt-service text-right">
+        {{'bank_credit_and_credit_card'|translate}}
+    </div>
+
+    <div class="row col-lg-12 mt-5">
+        <div class="display-4 col-lg-2 text-center">{{'name'|translate}}</div>
+        <div class="display-4 col-lg-4">{{ dataService.transaction.service_accountName }}</div>
+        <div class="display-4 col-lg text-right p-0" style="position: absolute;bottom: 30px;right: 15%">
+            {{'สินเชื่อประเภท:'}}
+        </div>
+        <div class="display-4 col-lg-2 text-gray text-right" style="position: absolute;bottom: 30px;right: 1.5%">
+            {{'รถยนต์'}}
+        </div>
+    </div>
+
+    <div class="row col-lg-12 mt-3">
+        <div class="display-4 col-lg-2 text-center">{{'address'|translate}}</div>
+        <div class="col-lg-7">
+            <p class="display-5">
+                {{ dataService.transaction.service_address }}
+            </p>
+        </div>
+        <div class="display-5" style="position: absolute;right: 2.5%;bottom: 75px">{{'ยอดหนี้ทั้งหมด'}}</div>
+        <div class="display-0 text-right col-lg-3" style="font-weight: bold">{{ 80000| number:'.2-2'}}</div>
+    </div>
+
+    <div class="header row mt-4">
+        <div class="col-lg-2 text-center display-5 p-0">งวด</div>
+        <div class="col-lg-2 text-center display-5 p-0">วันครบกำหนด</div>
+        <div class="col-lg-2 text-center display-5 p-0">ค่างวด</div>
+        <div class="col-lg-2 text-center display-5 p-0">ค่าปรับชำระเกินกำหนด</div>
+        <div class="col-lg-2 text-center display-5 p-0" style="right: 13px">ยอดชำระ</div>
+        <div class="col-lg-2 text-center display-5 p-0" style="right: 15px">{{"status"|translate}}</div>
+    </div>
+    <div class="wrapper content">
+        <div class="body row mt-3">
+            <div class="scroll" style="bottom: 30% !important;width: 98%">
+                <div *ngFor="let list of enquiryListDetail;let index=index; let odd=odd; let even=even;"
+                     class="row col-12 transaction"
+                     [ngStyle]="list.status == 'l' && {'background-color':'pink','color':'red'}
+                     || list.status == 'n' && {'background-color':'white','color':'black'}
+                     || list.status == 'w' && {'color': '#D8D8D8'}"
+                     [ngClass]="{ odd: odd, even: even}">
+
+                    <div class="col-lg-2 text-center display-5">
+                        {{list.per}}
+                    </div>
+                    <div class="col-lg-2 text-center display-5">
+                        {{list.duedate}}
+                    </div>
+                    <div class="col-lg-2 text-center display-5">
+                        {{list.price | number:'.2-2'}}
+                    </div>
+                    <div class="col-lg-2 text-center display-5">
+                        {{list.fine_price | number:'.2-2'}}
+                    </div>
+                    <div class="col-lg-2 text-center display-5">
+                        {{list.total_price | number:'.2-2'}}
+                    </div>
+
+                    <div *ngIf="list.status == 'l'" class="col-lg-2 text-center display-5">
+                        {{"ค้างชำระ"}}
+                    </div>
+                    <div *ngIf="list.status == 'n'" class="col-lg-2 text-center display-5 text-orange">
+                        {{"ถึงกำหนดชำระ"}}
+                    </div>
+                    <div *ngIf="list.status == 'w'" class="col-lg-2 text-center display-5">
+                        {{"รอชำระ"}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row col-lg-12" style="position: absolute;margin-top: 24%">
+            <div class="col-lg-2 offset-3 text-right display-4">
+                {{'ค่าประกัน'}}
+            </div>
+            <div class="col-lg-3 text-right display-4">
+                {{12000| number:'.2-2'}}
+            </div>
+            <div class="col-lg-1 display-5">
+                {{'bath'|translate}}
+            </div>
+        </div>
+        <div class="row col-lg-12" style="position: absolute;margin-top: 28%">
+            <div class="col-lg-2 offset-3 text-right display-4">
+                {{'ยอดชำระรวม'}}
+            </div>
+            <div class="col-lg-3 text-right display-1 text-blue" style="bottom: 12px">
+                {{28300| number:'.2-2'}}
+            </div>
+            <div class="col-lg-1 display-5">
+                {{'bath'|translate}}
+            </div>
+        </div>
+        <div class="col-lg-12 mt-5 text-center">
+            <button class="button-blue display-2 text-center" style="margin-top: 32%;height: 70px;width: 325px"
+                    (click)="onMoveStep(this.status.inputData)">
+                {{'ชำระบริการ'}}
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<div class="container vertical-center display-5 " id="div-service-detail">
+
+    <div *ngIf="dataService.transaction.currentStatus == status.inputData" class="bg-service col-lg-12">
+        <img class="input-bank-logo" src="{{imageName}}">
+        <div class="col-lg-8 offset-2">
+            <div class="display-2 p-0 input-bank-name">
+                {{ bankName | translate }}
+            </div>
+            <div class="display-3 text-black-gray p-0">
+                {{ dataService.transaction.serviceName }}
+            </div>
+        </div>
+
+        <div class="row col-lg-12 mt-5">
+            <div class="display-5 text-left col-lg-2 offset-1">
+                {{ 'name'|translate }} :
+            </div>
+            <div class="display-5 text-left col-lg-8 text-black-gray">
+                {{ dataService.transaction.service_accountName }}
+            </div>
+        </div>
+
+        <div class="row col-lg-12">
+            <div class="display-5 text-left col-lg-2 offset-1">
+                {{ 'address'|translate }} :
+            </div>
+            <div class="display-5 text-left col-lg-8 text-black-gray">
+                <p>
+                    {{dataService.transaction.service_address}}
+                </p>
+            </div>
+        </div>
+
+        <div class="row col-lg-12">
+            <div class="display-5 text-left col-lg-2 offset-1">
+                {{ 'contract_no'|translate}} :
+            </div>
+            <div class="display-5 text-left col-lg-3 text-black-gray">
+                {{ dataService.transaction.contract_no }}
+            </div>
+        </div>
+
+        <div class="row col-lg-10 offset-1 mt-7">
+            <div class="control-label display-4 col-lg-2  text-black float-left pl-0"
+                 style="position: absolute">
+                {{'total'|translate}}
+            </div>
+            <div class="col mb-3 display-0 text-blue">
+                <input id="amount"
+                       type="text"
+                       class="form-control text-money text-black"
+                       keyboard="currency"
+                       [(ngModel)]="dataService.transaction.amount" maxlength="10"
+                       required placeholder="0.00"
+                       data-max-decimal="2" #text_amount="ngModel">
+            </div>
+            <div class="control-label display-4 col-lg-1  text-black"
+                 style="text-align: right;position: absolute; right: 0px">
+                <label>{{'bath'|translate}}</label>
+            </div>
+        </div>
+
+        <div class="col-lg-12 text-center text-blue btn-inputData mt-5">
+            <button id="button-input" type="submit"
+                    class="button-blue button-submit btn-size-XL"
+                    (click)="onClickSubmit()"
+                    [disabled]="!isInputAmount(text_amount.value)">
+                <h2> {{ 'ok' | translate }} </h2>
+            </button>
+        </div>
+
+    </div>
+
+    <div *ngIf="dataService.transaction.currentStatus == status.confirmation" class="bg-service2 col-lg-12">
+        <img class="input-bank-logo" src="{{imageName}}">
+        <div class="col-lg-8 offset-2">
+            <div class="display-2 p-0 input-bank-name">
+                {{ bankName | translate }}
+            </div>
+            <div class="display-3 text-black-gray p-0">
+                {{ dataService.transaction.serviceName }}
+            </div>
+        </div>
+
+        <div class="row col-lg-12 mt-5 p-0" style="margin: 20px 0px 10px 45px">
+            <div class="display-6 text-left col-lg-1">
+                {{ 'name'|translate }} :
+            </div>
+            <div class="display-6 text-left col-lg-2 text-black-gray">
+                {{ dataService.transaction.service_accountName }}
+            </div>
+
+            <div class="display-6 text-left col-lg-2 offset-1">
+                {{ 'contract_no'|translate}} :
+            </div>
+            <div class="display-6 text-left col-lg-3 text-black-gray">
+                {{ dataService.transaction.contract_no }}
+            </div>
+        </div>
+
+        <div class="row content-border col-lg-11">
+            <div class="col-lg-12 form-input text-center" style="text-align: center;padding: 0">
+                <div class="content-detail">
+                    <div class="row">
+                        <span class="text-left col-lg-2 ">{{'amount'|translate}}</span>
+                        <div class="col-lg text-right text-blue">
+                            <b class="display-3" [id]="'amount'">
+                                {{ dataService.transaction.amount | number:'.2-2'}}</b>
+                        </div>
+                        <span class="text-left col-md-1">{{'bath'|translate}}</span>
+                    </div>
+
+                    <div class="row">
+                        <span class="text-left col-lg-2">{{'fee'|translate}}</span>
+                        <div class="col-lg text-right text-blue">
+                            <b class="display-3" [id]="'fee'">
+                                {{ dataService.transaction.fee.amount | number:'.2-2'}}
+                            </b>
+                        </div>
+                        <span class="text-left col-md-1">{{'bath'|translate}}</span>
+                    </div>
+                </div>
+                <div class="content-total mt-2">
+                    <div class="row">
+                        <span class="text-left col-md-2 text-sum"> {{ 'total_amount'|translate }}</span>
+                        <div class="col-md text-right totalAmount">
+                            <b [id]="'total_amount'">
+                                {{ dataService.transaction.totalAmount | number:'.2-2'}}
+                            </b>
+                        </div>
+                        <span class="text-left col-md-1 text-sum"> {{'bath'|translate}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg control-label text-right">
+                            ({{ dataService.transaction.totalAmount | bahttext }})&nbsp;&nbsp;&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="display-3 text-center col-lg-12 mt-3" style="font-weight: bold">
+            {{ 'กรุณากรอกเบอร์โทรศัพท์ และชื่อผู้ทำรายการ' }}
+        </div>
+        <div class="display-3 text-center col-lg-12">
+            {{ 'เพื่อยืนยันการทำราย' }}
+        </div>
+
+        <div class="row col-lg-8 offset-2 mt-5">
+            <div class="control-label display-6 col-lg-3  text-black float-left pl-0"
+                 style="position: absolute;transform:translateY(-60%)">
+                {{'เบอร์โทรศัพท์'}}
+            </div>
+            <div class="col mb-3">
+                <input id="input-id13Confirm" keyboard="currency"
+                       type="text" class="form-control text-center text-black"
+                       style="height: 60px;font-size: 25px"
+                       maxlength="10" min="10" required
+                       [(ngModel)]="dataService.transaction.phoneNumber"
+                       placeholder="xxx-xxx-xxx">
+            </div>
+
+            <div class="control-label display-6 col-lg-3  text-black float-left pl-0"
+                 style="position: absolute;left: 50%;transform:translateY(-60%)">
+                {{'ชื่อผู้ทำรายการ'}}
+            </div>
+            <div class="col mb-3">
+                <input id="input-NameConfirm" keyboard="th"
+                       type="text" class="form-control text-center text-black"
+                       style="height: 60px;font-size: 25px"
+                       maxlength="64" required
+                       [(ngModel)]="dataService.transaction.from.accountName"
+                       placeholder="xxx-xxx-xxx">
+            </div>
+        </div>
+
+        <div class="row mt-1">
+            <button id="button-confirm-transfer-via-deduction"
+                    class="btn-size-XL button-white border-blue text-blue col-lg-4 offset-2"
+                    (click)="onMoveStep(paymentType.FundTransfer)">
+                <h2>{{'deducted'|translate}}</h2>
+            </button>
+            &nbsp;&nbsp;
+            <button id="button-confirm-transfer-via-cash"
+                    class="btn-size-XL button-blue col-lg-4"
+                    (click)="onMoveStep(paymentType.Cash)">
+                <h2>{{'cash'|translate}}</h2>
+            </button>
+        </div>
+
+    </div>
+
+    <div *ngIf="dataService.transaction.currentStatus == status.Cashto" class="bg-service2 col-lg-12">
+        <img class="p-0 kk-logo" src="./assets/kiatnakin/image/logoKKgray.png">
+        <div class="col-lg-12 text-center mt-7">
+            <img class="logo mt-5"
+                 src="./assets/kiatnakin/image/pay_money.png"
+                 height="171" width="237"/>
+            <div class="mt-5 display-1 text-bold">
+                {{ 'กรุณาชำระเงินให้พนักงาน' }}
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="dataService.transaction.currentStatus == status.waitCash" class="bg-service2 col-lg-12">
+        <img class="p-0 kk-logo" src="./assets/kiatnakin/image/logoKKgray.png">
+        <div class="col-lg-12 text-center mt-7">
+            <img class="logo mt-5"
+                 src="./assets/kiatnakin/image/icon_success.png"
+                 height="150" width="150"/>
+            <div class="mt-5 display-1 text-bold">
+                {{ 'ทำรายการสำเร็จ' }}
+            </div>
+            <div class=" display-1 text-bold">
+                {{ 'กรุณารอรับเอกสารจากพนักงาน' }}
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="dataService.transaction.currentStatus == status.favorite" class="bg-service2 col-lg-12">
+        <div class="col-lg-12 text-center mt-7">
+            <img class="logo mt-5"
+                 src="./assets/kiatnakin/image/star.png"
+                 height="148" width="163"/>
+            <div class="mt-5 display-1 text-bold">
+                {{ 'ต้องการบันทึกเป็นรายการโปรดหรือไม่' }}
+            </div>
+
+            <div class="row text-center mt-5">
+                <div class="col-lg-4 offset-1">
+                    <button id="favorite_y"
+                            class="btn-size-XL button-white text-blue border-blue"
+                            (click)="onFavorite(true)">
+                        <h2>{{ 'ต้องการ' | translate}}</h2>
+                    </button>
+                </div>
+
+                <div class="col-lg-4 offset-1">
+                    <button id="favorite_n"
+                            class="btn-size-XL button-blue border-blue"
+                            (click)="onFavorite(false)">
+                        <h2>{{ 'ไม่ต้องการ' | translate}}</h2>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<app-complete-slip *ngIf="dataService.transaction.currentStatus == status.complete"
+                   [queryParams]="{'transactionType' : 'Enquiry'}"
+                   (PrintSlip)="onClickPrintSlip($event)">
+</app-complete-slip>
+
+<img *ngIf="show_btn_back" src="./assets/kiatnakin/image/back_arrow.png"
+     class="app-back-bottom" id="back" (click)="onClickBack()"/>

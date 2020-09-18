@@ -1,0 +1,111 @@
+import { Injectable } from '@angular/core';
+import { UserProfile } from "../_model/index";
+import { Router } from "@angular/router";
+import { isNullOrUndefined } from "util";
+
+@Injectable()
+export class UserService {
+
+    public _userLogin?: UserProfile = null;
+    public _userAuthen?: UserProfile = null;
+    public _isLoggedIn: boolean = false;
+
+    constructor(private router: Router) {
+
+    }
+
+    // get userLogin() {
+    //     return this._userLogin;
+    // }
+
+    get userAuthen() {
+        return this._userAuthen;
+    }
+
+    set isLoggedIn(isLogin) {
+        this._isLoggedIn = isLogin;
+    }
+
+    isLoggedin() {
+        return this._isLoggedIn;
+    }
+
+    loginSuccess(userProfile: UserProfile) {
+        this._userLogin = userProfile;
+    }
+
+    authenFector1Success(userProfile: UserProfile) {
+        this._userAuthen = userProfile;
+    }
+
+    clearUser() {
+        this._userLogin = null;
+    }
+
+    clearUserAuthen() {
+        this._userAuthen = null;
+    }
+
+    getUser() {
+        return this._userLogin;
+    }
+
+    getAuthenFactor1() {
+        if (this._userAuthen != null) {
+            return this._userAuthen.loginType
+        }
+        else if (this._userLogin != null) {
+            return this._userLogin.loginType
+        }
+        else {
+            return null
+        }
+    }
+
+    logout() {
+        Tweene.get($(".user-online")).to({ top: "-300px" }, 1000, {
+            complete: () => {
+                this.clearUser();
+                this.isLoggedIn = false;
+            }
+        }).play();
+        this.router.navigate(['/kk']);
+    }
+
+    getUserLoginFullName() {
+        return `${this._userLogin.titleTH} ${this._userLogin.nameTH} ${this._userLogin.surenameTH}`;
+    }
+
+    getUserNameTH() {
+        return `${this._userLogin.titleTH} ${this._userLogin.nameTH}`
+    }
+
+    getUserSurenameTH() {
+        return `${this._userLogin.surenameTH}`
+    }
+
+    getidNumber() {
+        return this._userLogin.idNumber.toString();
+    }
+
+    checkAuthenticationFactor2Transaction(isAuthenticated: boolean, returnUrl: string) {
+
+        if (this.getUser() === null) {
+            this.router.navigate(["kk", "login"], { queryParams: { 'returnUrl': returnUrl, 'mode': 'authenticate' } });
+            return false;
+        }
+        else if (!isAuthenticated) {
+            //TODO: check authentication level must be check from api only
+            this.router.navigate(["kk", "login"], {
+                queryParams: {
+                    'returnUrl': returnUrl,
+                    'mode': 'authenticate-factor2'
+                }
+            });
+            return false;
+        }
+
+        return true;
+    }
+}
+

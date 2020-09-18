@@ -1,0 +1,121 @@
+@import "./src/styles-master"
+
+img
+  max-width: 100%
+
+.cover-catalog
+  margin-top: 180px
+  margin-left: 70px 
+  max-width: 550px
+ 
+.folder
+  position: fixed
+  top: 0px
+  left: 35%
+.folder1
+  top: 111px
+  margin-left: 55px
+
+.deposit
+  position: fixed
+  top: 60px
+  width: 300px
+  -ms-transform: rotate(30deg)
+  -webkit-transform: rotate(30deg)
+  transform: rotate(30deg)
+  margin-left: 35%
+  .cover-text
+    display: none
+  img
+//width: 300px
+
+.cover-text
+  text-align: center
+  color: #ffffff
+  font-family: KittithadaMedium65
+  font-size: 60px
+  position: absolute
+  top: 120px
+  width: 506px
+  letter-spacing: 2px
+
+.deposit1
+  left: 100px
+.deposit2
+  left: 200px
+.deposit3
+  left: 300px
+
+.saving
+  color: $white !important
+.current
+  color: $blue !important
+.fixed
+  color: $black !important
+
+.cover-book
+  top: 45%
+  left: 45%
+  width: 490px
+  height: 316px
+  margin: 0 auto
+  position: fixed
+  background: url("/assets/kiatnakin/image/cover_my_bookbank.png") left center no-repeat
+  background-size: cover
+  transform: rotate(2deg)
+
+.bookCheque
+  width: 589px
+  height: 366px
+  position: absolute
+  margin-top: 280px
+  top: 0
+  left: -600px
+  opacity: 0
+  .cover-logo
+    position: absolute
+    top: calc(50% - 36px)
+    left: 0
+    width: 206px
+    margin: 0 auto
+    display: block
+
+.transfer
+  position: absolute
+  margin-top: 280px
+  height: 346px
+
+.transfer5
+  top: -45px
+  right: -320px
+.transfer1
+  top: 25px
+  right: -340px
+.transfer2
+  top: 85px
+  right: -360px
+.transfer3
+  top: 145px
+  right: -380px
+.transfer4
+  top: 205px
+  right: -400px
+
+div.speech:before
+  content: ' '
+  position: absolute
+  width: 0
+  height: 0
+  left: calc(50% - 24px)
+  top: 100px
+  border: 25px solid
+  border-color: #4A4A4A transparent transparent
+.card 
+    width: 520px
+    height: 300px
+    .header
+        height: 45px
+        padding-top: 5px
+
+.Quark
+  font-family: 'Quark' !important

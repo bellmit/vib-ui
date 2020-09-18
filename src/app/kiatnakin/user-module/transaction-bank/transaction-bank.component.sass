@@ -1,0 +1,459 @@
+@import "./src/styles-master"
+
+.font18
+  @extend .display-7-5
+  line-height: 30px
+
+.background_blue
+  background-color: $blue !important
+  
+img
+  max-width: 100%
+
+.row
+  width: 100%
+
+  div
+    text-align: center
+
+.container
+  align-items: center
+  height: 100%
+
+.vertical-center
+  display: flex
+  vertical-align: middle
+  align-items: center
+
+
+.moveLeftOut
+  position: relative
+  -webkit-animation-name: moveLeftOut
+  -webkit-animation-duration: 2s
+  -webkit-animation-iteration-count: 1
+  -webkit-animation-fill-mode: forwards
+
+.moveRightOut
+  position: relative
+  -webkit-animation-name: moveRightOut
+  -webkit-animation-duration: 2s
+  -webkit-animation-iteration-count: 1
+  -webkit-animation-fill-mode: forwards
+
+.flip-cover-h
+  -webkit-transform-origin: 0% 100%
+  -webkit-animation-name: flip-cover
+  -webkit-animation-duration: 1.5s
+  -webkit-animation-iteration-count: 1
+  -webkit-animation-fill-mode: forwards
+
+@-webkit-keyframes flip-cover
+  0%
+    transform: rotate3d(1, 0, 0, 170deg)
+  100%
+    transform: rotate3d(1, 0, 0, 10deg)
+
+.account
+  position: relative
+.account-name
+  position: absolute
+  width: 515px
+  text-align: left
+  left: 20%
+  top: 26%
+
+.product-name
+  position: absolute
+  text-align: left
+  top: 6%
+
+.account-number
+  position: absolute
+  left: 20%
+  top: 40%
+
+.branch-name
+  position: absolute
+  left: 20%
+  top: 54%  
+
+div.speech:before
+  content: ' '
+  position: absolute
+  width: 0
+  height: 0
+  left: 80%
+  top: 180px
+  border: 25px solid
+  border-color: #4A4A4A transparent transparent
+
+/*=========================================*/
+
+.bb-bookblock
+  width: 750px
+  height: 909px
+  -webkit-box-shadow: none
+  -moz-box-shadow: none
+  box-shadow: none
+.bb-item
+
+.bb-bookblock2
+  width: 80%
+  height: 1080px
+  -webkit-box-shadow: none
+  -moz-box-shadow: none
+  box-shadow: none
+.bb-item
+
+.page-book-full1
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4)
+  -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4)
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4)
+  height: 100%
+  background: #fff
+  background-position: bottom center
+  background-repeat: no-repeat
+  background-size: contain
+.fc-calendar-wrap
+  margin-top: 0px
+
+.page-book-haft-buttom
+  height: 50%
+  margin-top: 449px
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4)
+  -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4)
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4)
+  border-bottom-left-radius: 15px
+  border-bottom-right-radius: 15px
+
+.page-book-full
+  border-radius: 20px
+  -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4)
+  -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4)
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.4)
+  background: #fff
+  height: 100%
+  background-image: url("/assets/kiatnakin/image/line-b.png")
+  background-position: bottom center
+  background-repeat: no-repeat
+  background-size: contain
+.fc-calendar-wrap
+  margin-top: 0px
+
+.transaction
+  color: #4A4A4A
+  font-family: "Cordia New"
+  font-size: 32px
+
+.scroll
+  color: black
+  border: none
+  border-collapse: collapse
+  width: 100%
+  background-color: white
+  margin-top: 2px
+
+  thead
+    background-color: #594F74
+    color: white
+  tr
+    display: flex
+  td
+    padding: 3px
+    flex: 1 auto
+    width: 1px
+    word-wrap: break-word
+    font-style: normal
+    font-size: 18px
+  thead
+    th
+      flex: 1 auto
+      display: block
+      height: 55px
+      vertical-align: middle
+      text-align: center
+      font-size: 18px
+      line-height: 15px
+      padding-top: 15px
+  tbody
+    tr.out
+      color: #C5251C
+      background-color: transparent
+    tr.current
+      background-color: #635F98
+      color: white
+    td
+      height: 35px
+      vertical-align: middle
+      line-height: 30px
+  thead th, tbody td
+    border-left: 1px solid #392F89
+  thead th:first-child
+    border-left: none
+  tbody
+    td:first-child
+      border-left: none
+    display: block
+    width: 100%
+    overflow-y: auto
+    height: 700px
+    background-image: url("/assets/kiatnakin/image/bg-bookbank.png")
+    tr:last-child
+      height: auto
+
+  th:nth-child(1), td:nth-child(1)
+    width: 15%
+
+  th:nth-child(2), td:nth-child(2)
+    width: 15%
+
+  th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5)
+    width: 20%
+
+  th:nth-child(6), td:nth-child(6)
+    width: 15%
+
+.scroll2
+  color: black
+  border: none
+  border-collapse: collapse
+  width: 100%
+  background-color: white
+  margin-top: 2px
+
+  thead
+    background-color: #594F74
+    color: white
+  tr
+    display: flex
+  td
+    padding: 3px
+    flex: 1 auto
+    width: 1px
+    word-wrap: break-word
+    font-style: normal
+    font-size: 20px
+  thead
+    th
+      flex: 1 auto
+      display: block
+      height: 61px
+      vertical-align: middle
+      line-height: 61px
+      text-align: center
+      font-size: 24px
+  tbody
+    tr.out
+      color: #C5251C
+      background-color: transparent
+    tr.current
+      background-color: #635F98
+      color: white
+    td
+      height: 34px
+      vertical-align: middle
+      line-height: 30px
+  thead th, tbody td
+    border-left: 1px solid #392F89
+  thead th:first-child
+    border-left: none
+  tbody
+    td:first-child
+      border-left: none
+    display: block
+    width: 100%
+    overflow-y: auto
+    height: 680px
+    background-image: url("/assets/kiatnakin/image/bg-bookbank.png")
+    tr:last-child
+      height: auto
+
+  th:nth-child(1), td:nth-child(1)
+    width: 10%
+
+  th:nth-child(2), td:nth-child(2)
+    width: 10%
+
+  th:nth-child(3), td:nth-child(3)
+    width: 6%
+
+  th:nth-child(4), td:nth-child(4)
+    width: 10%
+
+  th:nth-child(5), td:nth-child(5)
+    width: 12%
+
+  th:nth-child(6), td:nth-child(6)
+    width: 20%
+
+  th:nth-child(7), td:nth-child(7)
+    width: 20%  
+  
+  th:nth-child(8), td:nth-child(8)
+    width: 12%        
+
+.scrollTableCurrent
+  color: black
+  border: none
+  border-collapse: collapse
+  width: 100%
+  background-color: white
+  margin-top: 2px
+
+  thead
+    background-color: #594F74
+    color: white
+  tr
+    display: flex
+  td
+    padding: 3px
+    flex: 1 auto
+    width: 1px
+    word-wrap: break-word
+    font-style: normal
+    font-size: 20px
+  thead
+    th
+      flex: 1 auto
+      display: block
+      height: 61px
+      vertical-align: middle
+      line-height: 61px
+      text-align: center
+      font-size: 24px
+  tbody
+    tr.out
+      color: #C5251C
+      background-color: transparent
+    tr.current
+      background-color: #635F98
+      color: white
+    td
+      height: 35px
+      vertical-align: middle
+      line-height: 30px
+  thead th, tbody td
+    border-left: 1px solid #392F89
+  thead th:first-child
+    border-left: none
+  tbody
+    td:first-child
+      border-left: none
+    display: block
+    width: 100%
+    overflow-y: auto
+    height: 680px
+    background-image: url("/assets/kiatnakin/image/bg-bookbank.png")
+    tr:last-child
+      height: auto
+
+  th:nth-child(1), td:nth-child(1)
+    width: 10%
+
+  th:nth-child(2), td:nth-child(2)
+    width: 10%
+
+  th:nth-child(3), td:nth-child(3)
+    width: 10%
+
+  th:nth-child(4), td:nth-child(4)
+    width: 15%
+
+  th:nth-child(5), td:nth-child(5)
+    width: 15%
+
+  th:nth-child(6), td:nth-child(6)
+    width: 15%
+
+  th:nth-child(7), td:nth-child(7)
+    width: 10%  
+  
+  th:nth-child(8), td:nth-child(8)
+    width: 10%     
+
+.foot-transaction
+  padding-top: 10px
+  background-color: white
+  border-bottom-left-radius: 20px
+  border-bottom-right-radius: 20px
+  color: #352A7E
+  font-size: 32px
+  border-top: 2px #352A7E solid
+  padding-top: 100px
+
+.head
+  background-color: #392F89
+  border-top-left-radius: 20px
+  border-top-right-radius: 20px
+  height: 35px
+
+.headCA
+  background-color: #fff
+  height: 145px
+
+.headTD
+  background-color: #594F74
+  border-top-left-radius: 20px
+  border-top-right-radius: 20px
+  height: 35px
+
+.transfer
+  position: absolute
+  margin-top: 280px
+  height: 346px
+
+.transfer5
+  top: -45px
+  right: -320px
+.transfer1
+  top: 4px
+  right: -340px
+.transfer2
+  top: 85px
+  right: -360px
+.transfer3
+  top: 145px
+  right: -380px
+.transfer4
+  top: 205px
+  right: -400px
+
+.investment_position
+  opacity: 1
+  right: -360px
+  top: 60px
+
+.transfer_position
+  opacity: 1
+  right: -380px
+  top: 120px
+
+.styleHeader
+  margin-top: 1%
+  border-left: 1px solid #392F89
+
+.logo
+  width: 25%
+  margin-right: 70%
+  margin-top: 2.5%
+
+.borderBlue
+  border-left: 1px solid #594F74 !important
+
+.CurrentTop
+  margin-top: 8%
+
+.Quark
+  font-family: 'Quark' !important
+
+.w12
+  width: 12.5% !important
+
+.font19
+  font-size: 19px !important
+
+.font14
+  font-size: 14px !important
+
+.font12
+  font-size: 12px !important  

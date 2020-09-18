@@ -1,0 +1,130 @@
+{
+
+    "Version": "1.2.0",
+    "deflec": {
+        "Subscription": {},
+
+    },
+    "Version": "1.2.2",
+    "Deflec": {
+        "Inquiry Passbook": {
+            1. แก้ Passbook Current(เปลี่ ยนเป็ นสีขาว)
+            2. เพิ่ ม Passbook Statement TD
+            3. เพิ่ ม GetStatement Passbook ของ CA เพิ่ มเข้ าไป
+        },
+        "Transfer": {
+            1. เพิ่ มฟั งก์ ชั่ น ไม่ สามารถโอนเงินเกิน 20 M บาท ได้ ในหน้ าเลือกบั ญชี แต่ ถ้ าโอนภายในบั ญชี สามารถทำได้ โดยเช็ คจาก Custciff ของแต่ ละบั ญชี
+            2. แก้ Effective date ของ Interbank และนำ Calendar ออก
+        },
+        "Subscription": {
+            1. ดั ก TD 55 Up
+            2. แก้ ไม่ สามารถเปิด PassBook ของ CA ได้
+            3. Optimize ในส่ วนของการแสดง Modal ต่ างๆ
+        },
+        "Subscription Teller": {
+            1. Approve Transaction from Subscription
+        }
+    },
+    "Version": "1.2.3",
+    "Deflec": {
+        "Transfer": {
+            1. แก้ Input Account No: {
+                1.1 Promtpay min 10 max 15
+                1.2 KK bank min 14 max 14
+                1.3 Otherbank min 10 max 14
+            }
+            2. แก้ เวลาใน Slip UI และ Slip Termal
+            3. แก้ Time Format ของ Interbank โดยนำ Credit Date มาใส่
+        },
+        "Subscription": {
+            1. แก้ เช็ ค pre - login และมาทำการ Subscription ถ้ า id_card ไม่ ตรงกั บ profile ที่ ล็ อคอิน จะไม่ สามารถทำการสมั ครบริการได้
+        }
+    },
+    "Version": "1.2.4",
+    "Deflec": {
+        "Transfer": {
+            1. จั ด Time Format ของ Interbank ใหม่
+        },
+        "Subscription": {
+            1. เพิ่ ม Bank name ใน Slip ทั้ ง UI และ แผ่ นกระดาษ
+        },
+    },
+    "Version": "1.3.1",
+    "Add-ON": {
+        "Subscription": {
+            1. Teller Approve โดยมีเงื่ อนไขว่ า จะเข้ าเงื่ อนไข Approve ต่ อเมื่ อ
+            1.1 เป็ นลูกค้ าใหม่
+            1.2 None ReadCard
+        }
+    }
+    "Deflect": {
+        "Subscription": {
+            1. แก้ คำนำหน้ าชื่ อ PDF หายไป
+            2. แก้ ไม่ ให้ แก้ ไขชื่ อบั ญชี
+            3. แก้ วั ตถุประสงค์ ในการเปิดบั ญชี พอเลือกอื่ นๆแล้ วไม่ ยอมแสดงใน PDF
+            4. เพิ่ ม Validate ในช่ องวั ตถุประสงค์ ในการเปิดบั ญชี กรณี ลูกค้ ามาเลือกอื่ นๆ
+            5. กรณี CA ปิดไม่ ให้ เลือกประเภทการเปิดบั ญชี
+        },
+        "Transfer": {
+            1. ปรั บวั นที่ ของ Interbank เอา Credit Date มาขึ้ นให้ ครบ ตอนแรก getDate ปั จจุบั น
+            2. นำค่ า Avaliable Net ขึ้ นมาแสดงใน Slip
+            3.
+        },
+        "Login": {
+            1. Login ด้ วยบั ตรประชาชน เพิ่ ม State การเสียบบั ตรเข้ ามา
+        },
+        "selectBankAccount": {
+            1. แก้ BookBank Current
+        },
+    },
+    "Version": "1.3.5",
+    "Deflect": {
+        "Subscription": {
+            1. ถ้ าไม่ เรียก Read Card จะไม่ สามารถ Read Card ซ้ ำได้ อีก
+            2. แก้ E - signature Alert
+        },
+        "catalog": {
+            1. ปรั บ ID product Code Current จาก 110 เป็ น 141
+        },
+        "Transfer": {
+            1. Amount เพิ่ มจาก 13 เป็ น 18 หลั ก
+            2. Format Date
+        }
+    },
+    "Version": "1.3.6",
+    "Deflect": {
+        "Transfer": {
+            1. แก้ ทำรายการโอนเงินจากบั ญชีที่ เปิดภายในวั น พบว่ าบั ญชีอยู่ ขาโอน To
+            2. ปรับ กรอกบัญชีขา from บังคับให้กรอก 14 หลักเท่านั้น
+            * คำถาม Credit Date ที่ได้จาก Checktarget fee นำไปยิงค่า effecttive date ใช่หรือไม่ และทำไมเป็นวันย้อนหลัง
+        },
+        "selectBankAccount": {
+            1. แก้ ชื่ อ Product Name ให้ อยู่ ตรงกลาง แก้ เรื่ องมั นตกบรรทั ด
+            2. เพิ่ มใบ cheque กั บ investment(แต่ cheque ยั งเข้ าไม่ ได้ เนื่ องจาก ต้ อง dev เพิ่ ม แต่ ยั งไม่ piorty)
+        }
+    },
+    "Version": "1.6.0",
+    "Add-ON": {
+        1.เอาใบเช็ค ,ใบฝาก ,ใบถอน ออก จากหน้าหน้า Home
+        2.เอาใบเช็ค ,ใบฝาก ,ใบถอน ออก จากหน้าหน้า Transaction List
+        3.ปรับ Default Login จาก Username && Password เป็น Citizen ID Card && MyPIN
+        4.แก้ คำจาก สแกนอีกครั้ง เป็น อ่านบัตรอีกครั้ง ใน หน้า Login ReadCard และ หน้า Subscription
+        5.ปรับ จังหวะในการ Approve ของ Teller
+        6.Validate บัญชีหักค่าธรรมเนียมของ SMS
+        7.บัญชีรับดอกเบี้ย TD ปรับ Data ใน dropdown Account No , Prod Type , Prod Name
+    },
+    "Delect": {
+        1.แก้ที่อยู่ของ Subscription ที่เป็น Existing จากเดิมเอาที่อยู่จัดส่งของ Customer เปลี่ยนมาเป็นของ SUB
+        2.เอา Sleep ตอน Accept Term And Con ออก
+        3. 
+    }
+
+    เหลือ เอาบัตรประชาชน ออกจาก PDF กรณีอ่านบัตรไม่ได้
+    PDF Product TD,SA
+    Master APP Form PDF // ต้องถามพี่นัท
+
+    "Version": "1.7.0",
+    "Add-ON": {
+        1. แก้ Set Center ของ Catalog
+    }    
+}

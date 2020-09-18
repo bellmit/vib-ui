@@ -1,0 +1,57 @@
+@import "./src/styles-master"
+
+.header-line
+  background-color: #646464
+  color: white
+  position: relative
+  left: -50px
+  top: 0px
+  padding: 5px 0 5px 50px
+  font-size: 40px
+  height: 60px
+
+
+.check-term
+  -webkit-appearance: none
+  border: none
+  border: none
+  outline: none
+  background: url("/assets/kiatnakin/image/radiobox.png") left center no-repeat
+  width: 50px !important
+  height: 50px !important
+  background-size: 50px !important
+  margin: 0 auto
+
+.check-term:checked
+  outline: none
+  background: url("/assets/kiatnakin/image/radiobox_checked.png") left center no-repeat
+
+p
+  text-indent: 0
+  @extend .display-5
+.detail
+  margin: 10px 0 30px
+  font-size: 25px
+  line-height: 1
+  color: $gray
+
+.header_SSU
+  @extend .display-2
+  position: absolute
+  transform: translateY(-13px)
+
+.header_main
+  @extend .display-3
+
+input
+  @extend .display-5
+
+label
+  @extend .display-5
+
+h2
+  @extend .display-4
+
+.text-title-light
+  @extend .display-3
+  transform: translateY(12px)

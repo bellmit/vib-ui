@@ -1,0 +1,1752 @@
+<!--<template-flip-book-->
+        <!--(onFlipInit)="onFlipInit($event)"-->
+        <!--(onStart)="onStart($event)"-->
+        <!--(onTurning)="onTurning($event)"-->
+        <!--(onTurned)="onTurned($event)"-->
+        <!--(onEnd)="onEnd($event)"-->
+<!--&gt;-->
+
+    <!--<img src="/assets/kiatnakin/image/close.png" (click)="onClickClose()" id="buttonClose"-->
+         <!--ignore="1" *ngIf="isShowCloseButton"-->
+         <!--style="max-width: 100%; z-index: 900; position: absolute; top: -30px; left: -30px">-->
+
+    <!--<div class="hard cover" data-id="cover">-->
+        <!--<div class="cover-page">-->
+            <!--<div class="logo">-->
+                <!--<img src="/assets/kiatnakin/image/logo_kk_big.png" style="width: 400px">-->
+            <!--</div>-->
+            <!--<div class="title">ออมทรัพย์</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div #scan_id_left data-id="idCardScan" class="cover blue hard front-side"-->
+         <!--[ngClass]="{'fixed': currentPageIndex > 3}">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="col-md-12 header">-->
+                    <!--<div class="text-blue display-2">{{"การเปิดบัญชีออมทรัพย์ เคเค เซฟวิ่งส์ พลัส"}}</div>-->
+                    <!--<div class="text-subtitle display-4">{{"ยืนยันตัวตนด้วยบัตรประจำตัวประชาชน"}}</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-12">-->
+                    <!--<div style="margin:0 auto;width:40%;">-->
+                        <!--<card-reader-device #cardDevice></card-reader-device>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #scan_id_right data-id="idCardScan" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="col-md-12">-->
+                <!--<div style="margin-top:30%;text-align: center;">-->
+                    <!--<card-reader-info #cardInfo></card-reader-info>-->
+                <!--</div>-->
+
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="text-blue no-border corner-right text-l text-next" (click)="onClickNextPage()"></div>-->
+    <!--</div>-->
+    <!--<div #term_1 data-id="termCondition" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<div class="text-blue display-2">{{"การเปิดบัญชีออมทรัพย์ เคเค เซฟวิ่งส์ พลัส"}}</div>-->
+                <!--</div>-->
+                <!--<div class="form-condition" style="overflow: auto; height: 750px; padding-right: 15px">-->
+                    <!--<p>{{"ข้อตกลงและเงื่อนไขเกี่ยวกับบัญชีเงินฝาก"}}</p>-->
+                    <!--<p>-->
+                        <!--ผู้ฝากซื่งได้ลงนามในคำขอเปิดบัญชีเงินฝากและสมัครใช้บริการด้านการเงินผ่านช่องทางอิเล็กทรอนิกส์ซึ่งต่อไปนี้จะเรียกว่า-->
+                        <!--“คำขอ” ตกลงยินยอมผูกพันและปฏิบัติตามข้อตกลงนี้ กับธนาคารเกียรตินาคิน จำกัด-->
+                        <!--(มหาชน)ซึ่งต่อไปนี้จะเรียกว่า-->
+                        <!--“ธนาคาร” ดังต่อไปนี้-->
+                    <!--</p><br>-->
+                    <!--<p class="display-5-5">- ข้อตกลงทั่วไปเกี่ยวกับ “บัญชีเงินฝากออมทรัพย์ และบัญชีเงินฝากประจำ”</p>-->
+                    <!--<div style="padding-left: 20px;">-->
+                        <!--<p>1. ในการเปิดบัญชีเงินฝากกับธนาคาร ผู้ฝากจะต้องเปิดบัญชี-->
+                            <!--โดยการฝากเงินครั้งแรกจำนวนไม่ต่ำกว่าที่ธนาคารกำหนดและธนาคารจะมอบหลักฐานฝากเงินดังต่อไปนี้ให้แก่ผู้ฝาก-->
+                            <!--เพื่อเป็นหลักฐานการรับฝากเงิน ซึ่งผู้ฝากจะต้องดูแลและเก็บรักษาไว้ในที่ที่ปลอดภัย</p>-->
+                        <!--<div style="padding-left: 30px">-->
+                            <!--<p>1.1 สมุดคู่ฝาก สำหรับบัญชีเงินฝากออมทรัพย์</p>-->
+                            <!--<p>1.2 สมุดคู่ฝาก ใบรับฝาก หรือ บัตรเงินฝากประจำ-->
+                                <!--สำหรับบัญชีเงินฝากประจำ</p>-->
+                            <!--<p>1.3 เอกสารหรือหลักฐานอื่นใดที่ธนาคารจะจัดให้มีขึ้นดังต่อไปนี้</p>-->
+                            <!--<p style="padding-left: 50px">ต่อไปนี้จะเรียกรวมกันหรือแยกกันว่า-->
+                                <!--“หลักฐานการรับฝากเงิน”หลักฐานการรับฝากเงินประเภทสมุดคู่ฝาก และใบรับฝาก-->
+                                <!--ไม่สามารถโอนเงินหรือ-->
+                                <!--เปลี่ยนมือได้ในกรณีที่หลักฐานการรับฝากเงินดังกล่าวข้างต้น</p>-->
+                        <!--</div>-->
+
+                        <!--<p>(1) ชำรุดจนไม่สามารถใช้งานได้-->
+                            <!--สำหรับผู้ฝากประเภทบุคคลธรรมดาจะต้องติดต่อที่สาขาธนาคาร-->
+                            <!--และสำหรับผู้ฝากประเภทนิติบุคคล จะต้องติดต่อที่สาขาธนาคารที่ผู้ฝากเปิดบัญชี-->
+                            <!--เพื่อขอออกหลักฐานการรับฝากเงินฉบับใหม่แทนหลักฐานการรับฝากเงินที่ชำรุด หรือ</p>-->
+                        <!--<p>(2) สูญหาย-->
+                            <!--ผู้ฝากจะต้องดำเนินการแจ้งความที่สถานีตำรวจและนำหลักฐานการแจ้งความที่แสดงว่าหลักฐานการรับฝากเงินสูญหายมาแสดงที่สาขาธนาคารที่ผู้ฝากเปิดบัญชีเงินฝากเพื่อดำเนินการขอออกหลักฐานการรับฝากเงินฉบับใหม่-->
+                            <!--โดยมีค่าธรรมเนียมตามอัตราที่ธนาคารประกาศกำหนดจนกว่าผู้ฝากจะดำเนินการตามวรรคก่อนเรียบร้อยครบถ้วนแล้ว</p>-->
+                        <!--<p>2. ในการฝากเงินเข้าบัญชีเงินฝาก-->
+                            <!--ผู้ฝากสามารถฝากเงินได้โดยการนำเงินสดหรือเช็คเข้าบัญชีเงินฝาก-->
+                            <!--ผ่านสาขาธนาคารหรือนำเงินสดหรือโอนเงินเข้าบัญชีเงินฝากผ่านช่องทางอื่นตามที่ธนาคารกำหนด</p>-->
+                        <!--<p>สำหรับการนำฝากเช็คเข้าบัญชีเงินฝาก-->
+                            <!--ธนาคารจะรับฝากเช็คเพื่อส่งเรียกเก็บเฉพาะเช็คถึงกำหนดจ่ายเงินแล้วเท่านั้น-->
+                            <!--และผู้ฝากจะสามารถใช้เงินตามเช็คได้ต่อเมื่อธนาคารสามารถเรียกเก็บเงินตามเช็คดังกล่าวได้แล้วเท่านั้น-->
+                            <!--ทั้งนี้ ในกรณีที่ธนาคารไม่สามารถเรียกเก็บเงินตามเช็คได้ไม่ว่าด้วยเหตุใดก็ตาม-->
+                            <!--ผู้ฝากตกลงจะมาติดต่อธนาคารเพื่อขอรับเช็คดังกล่าวคืนด้วยตนเอง-->
+                            <!--ไม่ว่าธนาคารจะได้มีหนังสือบอกกล่าวหรือแจ้งให้ผู้ฝากทราบหรือไม่ก็ตาม-->
+                            <!--หากผู้ฝากไม่มารับเช็คกลับคืนและเกิดความเสียหายขึ้น-->
+                            <!--ผู้ฝากตกลงรับผิดชอบต่อความเสียหายดังกล่าวที่เกิดขึ้น-->
+                            <!--ทั้งหมดแต่เพียงผู้เดียว</p>-->
+                        <!--<p>3. ผู้ฝากสามารถถอนเงินฝากได้ด้วยวิธีการดังนี้</p>-->
+
+                        <!--<div style="padding-left: 30px">-->
+                            <!--<p>3.1 การถอนเงินที่สาขาธนาคาร-->
+                                <!--ผู้ฝากจะต้องนำหลักฐานการรับฝากเงินที่ธนาคารออกให้แก่ผู้ฝาก-->
+                                <!--มาแสดงประกอบกับใบถอนทุกครั้ง</p>-->
+                            <!--<p>3.2 การใช้บัตรอิเล็กทรอนิกส์เบิกถอนเงินผ่านเครื่องถอนเงินอัตโนมัติ-->
+                                <!--ผู้ฝากจะต้องดำเนินการตามรายละเอียดและวิธีการที่ธนาคารกำหนดไว้สำหรับการใช้บริการบัตรอิเล็กทรอนิกส์ของธนาคาร</p>-->
+                            <!--<p>3.3-->
+                                <!--การถอนเงินผ่านช่องทางอิเล็กทรอนิกส์ที่ธนาคารได้จัดขึ้นหรือจะจัดให้มีขึ้นในอนาคต-->
+                                <!--ผู้ฝากจะต้องดำเนินการตามรายละเอียดและวิธีการที่ธนาคารกำหนดไว้สำหรับการใช้บริการผ่านช่องทางอิเล็กทรอนิกส์ของธนาคาร</p>-->
+                            <!--<p>3.4 การถอนเงินตามคำสั่งหรือผ่านบริการใดๆ ของธนาคาร-->
+                                <!--ผู้ฝากจะต้องดำเนินการตามรายละเอียดและวิธีการที่ธนาคารกำหนดไว้สำหรับการใช้บริการดังกล่าวของธนาคาร</p>-->
+                        <!--</div>-->
+                        <!--<p>4. ในกรณีที่ผู้ฝากประสงค์จะได้ใช้บริการดังกล่าวตามข้อ 3.2 ถึง 3.4 ข้างต้น-->
+                            <!--หรือบริการอื่นๆ-->
+                            <!--ที่ธนาคารจะจัดขึ้นเพื่ออำนวยความสะดวกให้แก่ผู้ฝาก-->
+                            <!--ผู้ฝากจะต้องลงนามในคำขอใช้บริการหรือขอใช้บริการดังกล่าวตามวิธีการที่ธนาคารกำหนดเพื่อตกลงผูกพันและปฏิบัติตามข้อตกลงและเงื่อนไขการใช้บริการและประเภทดังกล่าวก่อนการใช้บริการ</p>-->
+                        <!--<p>5.-->
+                            <!--ในการณีที่ผู้ฝากมอบหมายให้ผู้อื่นเป็นผู้ดำเนินการฝากหรือถอนเงินที่สาขาของธนาคารแทนผู้ฝาก-->
+                            <!--หากธนาคารดำเนินการถูกต้องตามข้อมูลที่แสดงอยู่บนเอกสารดังต่อไปนี้</p>-->
+                        <!--<p style="padding-left: 30px">5.1 ใบนำฝากเงิน หรือ</p>-->
+                        <!--<p style="padding-left: 30px">5.2-->
+                            <!--ใบถอนซึ่งผู้ฝากได้ลงนามมอบอำนาจให้ผู้อื่นมาทำรายการดังกล่าวแทนผู้ฝากด้านหลังใบถอน-->
+                            <!--พร้อมกับแนบสำเนาบัตรประจำตัวประชาชนที่มีการลงนามรับรองสำเนาถูกต้อง</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #term_2 data-id="termCondition" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row  item-center">-->
+                <!--<div class="col-md-12 item-center" style=" margin-top: 180px">-->
+                    <!--<img src="/assets/kiatnakin/image/email.png">-->
+                    <!--<div style="width: 600px; margin: 50px auto 0" class="display-5-5">-->
+                        <!--หากท่านต้องการรับเอกสารเงื่อนไข กรุณากรอกอีเมล์ของท่านด้านล่าง-->
+                    <!--</div>-->
+                    <!--<div style="margin: 60px" class="form-input">-->
+                        <!--<div class="form-group">-->
+                            <!--<input type="text" [(ngModel)]="register.subscription.email" name="email_term"-->
+                                   <!--class="form-control  item-center display-4"-->
+                                   <!--keyboard="email" maxlength="255"-->
+                                   <!--placeholder="กรุณากรอกอีเมล์ของท่าน"-->
+                                   <!--#email_term="ngModel"-->
+                                   <!--email>-->
+                            <!--<div style="color:#ff0000; height: 25px" class="display-5">-->
+                                <!--<p *ngIf="email_term.errors?.email"> รูปแบบอีเมล์ไม่ถูกต้อง </p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                        <!--<input type="checkbox" class="check-term" #check_term-->
+                               <!--(change)="check_term.checked = check_term.checked; " style="vertical-align: middle">-->
+                        <!--<button class="button-blue" (click)="onClickAcceptTerm()"-->
+                                <!--[disabled]="!check_term.checked||email_term.errors?.email">-->
+                            <!--<h2>{{"ยอมรับเงื่อนไข"}}</h2>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div #ssu_1 data-id="ssu1" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<div class="header-line">-->
+                        <!--<span class="header_SSU">SSU Form</span>-->
+                    <!--</div>-->
+                    <!--<p class="text-title-light text-blue text-bold">กลุ่มธุรกิจการเงินเกียรตินาคินภัทร</p>-->
+                    <!--<p class="text-subtitle-light text-black text-bold" style="transform: translateY(13px)">-->
+                        <!--ข้อมูลลูกค้า - บุคคลธรรมดา-->
+                    <!--</p>-->
+                <!--</div>-->
+                <!--<form novalidate class="flex-layout form-input" (ngSubmit)="onSubmit(ssu_Form1)" #ssu_Form1="ngForm">-->
+                    <!--<div class="col-lg-12">-->
+                        <!--<div class="row">-->
+                            <!--<p class="space-bottom-20"> 1. ข้อมูลลูกค้า </p>-->
+                            <!--<div class="form-group border mt-3">-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-lg-12">-->
+                                        <!--<div class="row">-->
+                                            <!--<label class="col-lg-2 text-left text-bold">{{"ชื่อ"}}</label>-->
+                                            <!--<label class="col-lg-4">{{register.ssu.nameTH}}</label>-->
+                                            <!--<label class="col-lg-2 text-left text-bold">{{"นามสกุล"}}</label>-->
+                                            <!--<label class="col-lg-4">{{register.ssu.surnameTH}}</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                        <!--<div class="row">-->
+                                            <!--<label class="col-lg-2 text-left text-bold">{{"Name"}}</label>-->
+                                            <!--<label class="col-lg-4 text-bold">{{register.ssu.nameEN}}</label>-->
+                                            <!--<label class="col-lg-2 text-left text-bold">{{"Surname"}}</label>-->
+                                            <!--<label class="col-lg-4 text-bold">{{register.ssu.surnameEN}}</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-lg-12">-->
+                                        <!--<div class="row">-->
+                                            <!--<label class="col-lg-4">{{"เลขที่บัตรประชาชน"}}</label>-->
+                                            <!--<label class="col-lg text-bold">{{register.ssu.idCardNumber}}</label>-->
+                                            <!--<label class="control-label">{{"สัญชาติ"}}</label>-->
+                                            <!--<label class="col-lg text-bold">{{register.ssu.nation}}</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row">-->
+                            <!--<div class="form-group col-sm-12">-->
+                                <!--<div class="display-4">{{"สถานภาพการสมรสตามกฎหมาย"}}</div>-->
+                                <!--<div class="row row-checkbox">-->
+                                    <!--<label class="col-lg">-->
+                                        <!--<input type="radio" name="ssu_status" required-->
+                                               <!--[(ngModel)]="register.ssu.status" value="0"> โสด-->
+                                    <!--</label>-->
+                                    <!--<label class="col-lg">-->
+                                        <!--<input type="radio" name="ssu_status" required-->
+                                               <!--[(ngModel)]="register.ssu.status" value="1"> สมรส-->
+                                    <!--</label>-->
+                                    <!--<label class="col-lg">-->
+                                        <!--<input type="radio" name="ssu_status" required-->
+                                               <!--[(ngModel)]="register.ssu.status" value="2"> หม้าย-->
+                                    <!--</label>-->
+                                    <!--<label class="col-lg">-->
+                                        <!--<input type="radio" name="ssu_status" required-->
+                                               <!--[(ngModel)]="register.ssu.status" value="3"> หย่า-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="row">-->
+                            <!--<p class="control-label col-lg-12" [hidden]="register.ssu.status!='1'">ข้อมูลคู่สมรส</p>-->
+                            <!--<div class="form-group  col-lg-12" [hidden]="register.ssu.status!='1'">-->
+
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label">ชื่อ</label>-->
+                                    <!--<div class="col-lg">-->
+                                        <!--<input type="text" class="form-control"-->
+                                               <!--[required]="register.ssu.status=='1'"-->
+                                               <!--[disabled]="register.ssu.status!='1'"-->
+                                               <!--[(ngModel)]="register.ssu.spouse.nameTH" name="ssu_spouse_nameTH">-->
+                                    <!--</div>-->
+                                    <!--<label class="control-label">นามสกุล</label>-->
+                                    <!--<div class="col-lg">-->
+                                        <!--<input type="text" class="form-control"-->
+                                               <!--[required]="register.ssu.status=='1'"-->
+                                               <!--[disabled]="register.ssu.status!='1'"-->
+                                               <!--[(ngModel)]="register.ssu.spouse.surnameTH" name="ssu_spouse_surnameTH">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label">Name</label>-->
+                                    <!--<div class="col-lg">-->
+                                        <!--<input type="text" class="form-control" keyboard="en"-->
+                                               <!--[required]="register.ssu.status=='1'"-->
+                                               <!--[disabled]="register.ssu.status!='1'"-->
+                                               <!--[(ngModel)]="register.ssu.spouse.nameEN" name="ssu_spouse_nameEN">-->
+                                    <!--</div>-->
+                                    <!--<label class="control-label">Surname</label>-->
+                                    <!--<div class="col-lg">-->
+                                        <!--<input type="text" class="form-control" keyboard="en"-->
+                                               <!--[required]="register.ssu.status=='1'"-->
+                                               <!--[disabled]="register.ssu.status!='1'"-->
+                                               <!--[(ngModel)]="register.ssu.spouse.surnameEN" name="ssu_spouse_surnameEN">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #ssu_2 data-id="ssu2" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="row">-->
+                    <!--<p class="text-black"> 2. ข้อมูลทางการเงิน </p>-->
+                <!--</div>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(ssu_Form2)" #ssu_Form2="ngForm">-->
+                    <!--<div class="col-lg-12">-->
+                        <!--<div class="row">-->
+                            <!--<div class="form-group">-->
+                                <!--<p>รายได้ต่อปี</p>-->
+                                <!--<div class="row row-checkbox">-->
+                                    <!--<label class="col-lg-12  control-label">-->
+                                        <!--<input type="radio" required name="ssu_income"-->
+                                               <!--[(ngModel)]="register.ssu.income" value="0">ต่ำกว่า 5-->
+                                        <!--แสนบาท-->
+                                    <!--</label>-->
+                                    <!--<label class="col-lg-12 control-label">-->
+                                        <!--<input type="radio" required-->
+                                               <!--name="ssu_income"-->
+                                               <!--[(ngModel)]="register.ssu.income"-->
+                                               <!--value="1">ตั้งแต่ 5-->
+                                        <!--แสนบาท แต่ไม่ถึง 1-->
+                                        <!--ล้านบาท </label>-->
+                                    <!--<label class="col-lg-12  control-label"><input type="radio" required-->
+                                                                                   <!--name="ssu_income"-->
+                                                                                   <!--[(ngModel)]="register.ssu.income"-->
+                                                                                   <!--value="2">ตั้งแต่ 1-->
+                                        <!--ล้านบาท แต่ไม่ถึง-->
+                                        <!--4 ล้านบาท </label>-->
+                                    <!--<label class="col-lg-12  control-label"><input type="radio" required-->
+                                                                                   <!--name="ssu_income"-->
+                                                                                   <!--[(ngModel)]="register.ssu.income"-->
+                                                                                   <!--value="3">ตั้งแต่ 4-->
+                                        <!--ล้านบาทขึ้นไป-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="col-lg-12">-->
+                        <!--<div class="form-group">-->
+                            <!--<div class="row">-->
+                                <!--<label class="control-label">มูลค่าทรัพย์สินส่วนตัว</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<select class="form-control select display-5" required name="ssu_property"-->
+                                            <!--data-title="มูลค่าทรัพย์สินส่วนตัว" id="ssu_property"-->
+                                            <!--[(ngModel)]="register.ssu.property"-->
+                                            <!--(change)="register.ssu.property = $event.target.value">-->
+                                        <!--<option value="0" class="display-5"> ต่ำกว่า 2 ล้านบาท</option>-->
+                                        <!--<option value="1" class="display-5"> ตั้งแต่ 2 ล้าน แต่ไม่ถึง 5 ล้านบาท</option>-->
+                                        <!--<option value="2" class="display-5"> ตั้งแต่ 5 ล้าน แต่ไม่ถึง 10 ล้านบาท-->
+                                        <!--</option>-->
+                                        <!--<option value="3" class="display-5"> ตั้งแต่ 10 ล้าน แต่ไม่ถึง 30 ล้านบาท-->
+                                        <!--</option>-->
+                                        <!--<option value="4" class="display-5"> ตั้งแต่ 30 ล้าน แต่ไม่ถึง 50 ล้านบาท-->
+                                        <!--</option>-->
+                                        <!--<option value="5" class="display-5"> ตั้งแต่ 50 ล้านบาทขึ้นไป</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-right text-l text-next" (click)="onClickNextPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #ssu_3 data-id="ssu3" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<div class="header-line">-->
+                        <!--<span class="header_SSU">SSU Form</span>-->
+                    <!--</div>-->
+                    <!--<p class="text-title-light text-blue text-bold">กลุ่มธุรกิจการเงินเกียรตินาคินภัทร</p>-->
+                    <!--<p class="text-subtitle-light text-black text-bold" style="transform: translateY(20px)">-->
+                        <!--ข้อมูลลูกค้า - บุคคลธรรมดา-->
+                    <!--</p>-->
+                <!--</div>-->
+                <!--<p class="text-black" style="transform: translateY(15px)">-->
+                    <!--3. ข้อมูลการศึกษา / การทำงาน-->
+                <!--</p>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(ssu_Form3)" #ssu_Form3="ngForm">-->
+                    <!--<div class="col-lg-12">-->
+                        <!--<div class="form-group">-->
+                            <!--<p style="transform: translateY(10px)">การศึกษาสูงสุด</p>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="row control-label mt-1 p-0">-->
+                                    <!--<input type="radio" required name="ssu_education"-->
+                                           <!--[(ngModel)]="register.ssu.education" value="0">-->
+                                    <!--ต่ำกว่าปริญญาตรี &nbsp;&nbsp;-->
+                                <!--</label>&nbsp;&nbsp;-->
+                                <!--<label class="row control-label mt-1 p-0">-->
+                                    <!--<input type="radio" required name="ssu_education"-->
+                                           <!--[(ngModel)]="register.ssu.education" value="1">-->
+                                    <!--ปริญญาตรี &nbsp;&nbsp;-->
+                                <!--</label>&nbsp;&nbsp;-->
+                                <!--<label class="row control-label mt-1 p-0">-->
+                                    <!--<input type="radio" required name="ssu_education"-->
+                                           <!--[(ngModel)]="register.ssu.education" value="2">-->
+                                    <!--สูงกว่าปริญญาตรี-->
+                                <!--</label>-->
+                            <!--</div>-->
+                            <!--<div class="row">-->
+                                <!--<div class="form-group col-lg-12">-->
+                                    <!--<div class="row">-->
+                                        <!--<p class="control-label">อาชีพ</p>-->
+                                        <!--<div class="col-lg">-->
+                                            <!--<select class="form-control select" required name="ssu_career"-->
+                                                    <!--data-title="อาชีพ" id="ssu_career"-->
+                                                    <!--[(ngModel)]="register.ssu.career">-->
+                                                <!--<option value="1">พนักงาน/ผู้บริหารบริษัทเอกชน</option>-->
+                                                <!--<option value="2">เจ้าของกิจการ</option>-->
+                                                <!--<option value="3">ข้าราชการ/พนักงานรัฐวิสาหกิจ</option>-->
+                                                <!--<option value="4">นิสิต/นักศึกษา</option>-->
+                                                <!--<option value="5">พ่อบ้าน/แม่บ้าน/ไม่ได้ทำงาน</option>-->
+                                                <!--<option value="6">เกษียณอายุ</option>-->
+                                                <!--<option value="7">อื่นๆ</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="row">-->
+                                        <!--<label class="control-label"-->
+                                               <!--[hidden]="register.ssu.career!=7">โปรดระบุ</label>-->
+                                        <!--<div class="col-sm" [hidden]="register.ssu.career!=7">-->
+                                            <!--<input class="form-control" type="text"-->
+                                                   <!--[disabled]="register.ssu.career!=7"-->
+                                                   <!--[required]="register.ssu.career==7" name="ssu_careerDesc"-->
+                                                   <!--[(ngModel)]="register.ssu.careerDesc">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="row">-->
+                                        <!--<label class="control-label">ชื่อสถานที่ทำงาน</label>-->
+                                        <!--<div class="col-lg">-->
+                                            <!--<input class="form-control" type="text" required-->
+                                                   <!--name="ssu_workplace"-->
+                                                   <!--[(ngModel)]="register.ssu.workplace">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<div class="row">-->
+                                        <!--<label class="control-label">ตำแหน่ง</label>-->
+                                        <!--<div class="col-sm">-->
+                                            <!--<input class="form-control display-4" type="text" required-->
+                                                   <!--name="ssu_position"-->
+                                                   <!--[(ngModel)]="register.ssu.position">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="row">-->
+                                        <!--<label class="col-lg-12 control-label">ประเภทธุรกิจของสถานที่ทำงาน</label>-->
+                                        <!--<div class="col-lg-12" style="margin-bottom: 15px">-->
+                                            <!--<select class="form-control select" required name="ssu_businessType"-->
+                                                    <!--data-title="ประเภทธุรกิจของสถานที่ทำงาน"-->
+                                                    <!--id="ssu_businessType"-->
+                                                    <!--[(ngModel)]="register.ssu.businessType">-->
+                                                <!--<option value="1">หน่วยงานราชการ/รัฐวิสาหกิจ</option>-->
+                                                <!--<option value="2">สถาบันการศึกษา</option>-->
+                                                <!--<option value="3">การเงิน/ธนาคาร/ประกันภัย</option>-->
+                                                <!--<option value="4">วิศวกรรม/เทคโนโลยี/ยานยนต์</option>-->
+                                                <!--<option value="5">พลังงาน/สาธารณูปโภค</option>-->
+                                                <!--<option value="6">ก่อสร้าง/อสังหาริมทรัพย์</option>-->
+                                                <!--<option value="7">ค้าส่ง/ค้าปลีก</option>-->
+                                                <!--<option value="8">ขนส่ง/บรรจุภันฑ์</option>-->
+                                                <!--<option value="9">สื่อ/สิ่งพิมพ์/บันเทิง</option>-->
+                                                <!--<option value="10">บริการด้านความงาม/สุขภาพ</option>-->
+                                                <!--<option value="11">บริการทางการแพทย์</option>-->
+                                                <!--<option value="12">ศาสนา/องค์กรไม่แสวงหาผลกำไร/การกุศล</option>-->
+                                                <!--<option value="13">สำนักงานกฎหมาย</option>-->
+                                                <!--<option value="14">สิ่งทอ/เสื้อผ้า/เครื่องแต่งกาย</option>-->
+                                                <!--<option value="15">ธุรกิจแลกเปลี่ยนเงินตรา/โอนเงินระหว่างประเทศ-->
+                                                <!--</option>-->
+                                                <!--<option value="16">บริการด้านการท่องเที่ยว/บริษัททัวร์</option>-->
+                                                <!--<option value="17">ค้าของเก่า/วัตถุโบราณ</option>-->
+                                                <!--<option value="18">ค้าทอง/โลหะมีค่า/อัญมณี/เครื่องประดับมีค่า-->
+                                                <!--</option>-->
+                                                <!--<option value="19">บริการด้านการจัดหางาน</option>-->
+                                                <!--<option value="20">อื่นๆ</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="row">-->
+                                        <!--<label class="col-lg-4 control-label"-->
+                                               <!--[hidden]="register.ssu.businessType!='7'-->
+    <!--&& register.ssu.businessType!='20'">โปรดระบุ</label>-->
+                                        <!--<div class="col-lg-8"-->
+                                             <!--[hidden]="register.ssu.businessType!='7'  && register.ssu.businessType!='20'">-->
+                                            <!--<input class="form-control display-4" type="text"-->
+                                                   <!--[required]="register.ssu.businessType=='3'-->
+    <!--|| register.ssu.businessType=='20'"-->
+                                                   <!--[disabled]="register.ssu.businessType!='7'-->
+    <!--&& register.ssu.businessType!='20'"-->
+                                                   <!--name="ssu_businessTypeDesc"-->
+                                                   <!--[(ngModel)]="register.ssu.businessTypeDesc">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #ssu_4 data-id="ssu4" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<div class="display-2 text-black">4. การเปิดเผยข้อมูลเพิ่มเติมตามที่กฎหมายกำหนด</div>-->
+                <!--</div>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(ssu_Form4)" #ssu_Form4="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>แหล่งที่มาของรายได้หลัก</label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-lg-12 display-4">-->
+                                    <!--<input type="radio" required name="ssu_public_businessType"-->
+                                           <!--[(ngModel)]="register.ssu.primaryIncome"-->
+                                           <!--value="0"> เงินเดือน-->
+                                <!--</label>-->
+                                <!--<label class="control-label col-lg-12 display-4">-->
+                                    <!--<input type="radio" required-->
+                                           <!--name="ssu_public_businessType"-->
+                                           <!--[(ngModel)]="register.ssu.primaryIncome"-->
+                                           <!--value="1"> การประกอบธุรกิจ-->
+                                <!--</label>-->
+
+                                <!--<label class="control-label col-sm-12">-->
+                                    <!--<input type="radio" required name="ssu_public_businessType"-->
+                                           <!--[(ngModel)]="register.ssu.primaryIncome"-->
+                                           <!--value="2"> การลงทุน-->
+                                <!--</label>-->
+                                <!--<div class="col-sm-12">-->
+                                    <!--<div class="row row-option">-->
+                                        <!--<label class="control-label">-->
+                                            <!--<input type="radio" required name="ssu_public_businessType"-->
+                                                   <!--[(ngModel)]="register.ssu.primaryIncome"-->
+                                                   <!--value="3"> F-->
+                                        <!--</label>-->
+                                        <!--<div class="col-sm" [hidden]="register.ssu.primaryIncome!='3'">-->
+                                            <!--<div class="row">-->
+                                                <!--<label class="control-label">ระบุ</label>-->
+                                                <!--<div class="col-sm">-->
+                                                    <!--<input type="text" class="form-control "-->
+                                                           <!--name="ssu_public_businessTypeDesc"-->
+                                                           <!--[(ngModel)]="register.ssu.primaryIncomeDesc"-->
+                                                           <!--[required]="register.ssu.primaryIncome=='3'"-->
+                                                           <!--[disabled]="register.ssu.primaryIncome!='3'">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>ประเทศที่มาของรายได้หลักมาจาก</label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-12">-->
+                                    <!--<input type="radio" required-->
+                                           <!--name="ssu_income_country"-->
+                                           <!--[(ngModel)]="register.ssu.incomeCountry"-->
+                                           <!--value="0">-->
+                                    <!--ประเทศไทย </label>-->
+                                <!--<div class="col-sm-12">-->
+                                    <!--<div class="row row-option">-->
+                                        <!--<label class="control-label" style="padding-right: 0">-->
+                                            <!--<input type="radio" required-->
+                                                   <!--name="ssu_income_country"-->
+                                                   <!--[(ngModel)]="register.ssu.incomeCountry"-->
+                                                   <!--value="1">-->
+                                            <!--อื่นๆ-->
+                                        <!--</label>-->
+                                        <!--<div class="col-sm" [hidden]="register.ssu.incomeCountry!='1'">-->
+                                            <!--<div class="row">-->
+                                                <!--<label class="control-label">ระบุ</label>-->
+                                                <!--<div class="col-sm">-->
+                                                    <!--<input type="text" class="form-control"-->
+                                                           <!--name="ssu_income_countryDesc"-->
+                                                           <!--[(ngModel)]="register.ssu.incomeCountryDesc"-->
+                                                           <!--[required]="register.ssu.incomeCountry=='1'"-->
+                                                           <!--[disabled]="register.ssu.incomeCountry!='1'"></div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label> ท่านอยู่ระหว่างการถูกยับยั้งการทำธุรกรรม-->
+                                <!--ยึดหรืออายัดทรัพย์สินหรือเป็นผู้ที่ศาลมีคำสั่งให้สินตกเป็นของแผ่นดิน-->
+                                <!--กฎหมายว่าด้วยการป้องกันและปราบปรามการฟอกเงินหรือไม่ </label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="col-sm-12 control-label">-->
+                                    <!--<input type="radio" name="ssu_ban"-->
+                                           <!--required-->
+                                           <!--[(ngModel)]="register.ssu.ban"-->
+                                           <!--value="0"> ไม่ใช่-->
+                                <!--</label>-->
+                                <!--<div class="col-sm-12">-->
+                                    <!--<div class="row row-option">-->
+                                        <!--<label class="control-label">-->
+                                            <!--<input type="radio" name="ssu_ban"-->
+                                                   <!--[(ngModel)]="register.ssu.ban"-->
+                                                   <!--value="1"> ใช่-->
+                                        <!--</label>-->
+                                        <!--<div class="col-sm" [hidden]="register.ssu.ban!='1'">-->
+                                            <!--<div class="row">-->
+                                                <!--<label class="control-label">โปรดระบุ</label>-->
+                                                <!--<div class="col-sm">-->
+                                                    <!--<input type="text" class="form-control" name="ssu_banDesc"-->
+                                                           <!--[(ngModel)]="register.ssu.banDesc"-->
+                                                           <!--[required]="register.ssu.ban=='1'"-->
+                                                           <!--[disabled]="register.ssu.ban!='1'">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-right text-l text-next" (click)="onClickNextPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #ssu_5 data-id="ssu5" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<div class="header-line">-->
+                        <!--<span>SSU Form</span>-->
+                    <!--</div>-->
+                    <!--<h2>กลุ่มธุรกิจการเงินเกียรตินาคินภัทร</h2>-->
+                    <!--<h3 class="text-subtitle-light">ข้อมูลลูกค้า - บุคคลธรรมดา</h3>-->
+                <!--</div>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(ssu_Form5)" #ssu_Form5="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>ท่านเป็นหรือเคยเป็นบุคคลที่เคยกระทำความผิดเกี่ยวกับความผิดฐานฟอกเงิน-->
+                                <!--ความผิดมูลฐานกฎหมายฟอกเงิน-->
+                                <!--หรือความผิดเกี่ยวกับการก่อการร้ายและสนับสนุนทางการเงินแก่การก่อการร้ายหรือไม่</label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="col-sm-12 control-label"><input type="radio" name="ssu_launder"-->
+                                                                              <!--[(ngModel)]="register.ssu.launder"-->
+                                                                              <!--value="0"> ไม่เคย-->
+                                <!--</label>-->
+
+                                <!--<div class="col-sm-12">-->
+                                    <!--<div class="row row-option">-->
+                                        <!--<label class="control-label"><input type="radio"-->
+                                                                            <!--name="ssu_launder"-->
+                                                                            <!--[(ngModel)]="register.ssu.launder"-->
+                                                                            <!--value="1"> เคย-->
+
+                                        <!--</label>-->
+                                        <!--<div class="col-sm" [hidden]="register.ssu.launder!='1'">-->
+                                            <!--<div class="row">-->
+                                                <!--<label class="control-label">โปรดระบุ</label>-->
+                                                <!--<div class="col-sm">-->
+                                                    <!--<input type="text"-->
+                                                           <!--class="form-control"-->
+                                                           <!--name="ssu_launderDesc"-->
+                                                           <!--[(ngModel)]="register.ssu.launderDesc"-->
+                                                           <!--[required]="register.ssu.launder=='1'"-->
+                                                           <!--[disabled]="register.ssu.launder!='1'">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>-->
+                                <!--ท่านเป็นบุคคลที่มีสถานภาพทางการเมืองไทยหรือต่างประเทศ-->
+                                <!--ใช่หรือไม่ </label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="col-sm-12 control-label"><input type="radio" required-->
+                                                                              <!--name="ssu_politics"-->
+                                                                              <!--[(ngModel)]="register.ssu.politic"-->
+                                                                              <!--value="0"> ไม่ใช่-->
+                                <!--</label>-->
+                                <!--<div class="col-sm-12">-->
+                                    <!--<div class="row row-option">-->
+                                        <!--<label class="control-label"><input type="radio" required-->
+                                                                            <!--name="ssu_politics"-->
+                                                                            <!--[(ngModel)]="register.ssu.politic"-->
+                                                                            <!--value="1"> ใช่-->
+                                        <!--</label>-->
+                                        <!--<div class="col-sm " [hidden]="register.ssu.politic!='1'">-->
+                                            <!--<div class="row">-->
+                                                <!--<label class="control-label">โปรดระบุ</label>-->
+                                                <!--<div class="col-sm ">-->
+                                                    <!--<input type="text"-->
+                                                           <!--class="form-control"-->
+                                                           <!--name="ssu_politicDesc"-->
+                                                           <!--[(ngModel)]="register.ssu.politicDesc"-->
+                                                           <!--[required]="register.ssu.politic=='1'"-->
+                                                           <!--[disabled]="register.ssu.politic!='1'">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #ssu_6 data-id="ssu6" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">&nbsp;</div>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(ssu_Form6)" #ssu_Form6="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label> บุคคลที่ได้รับประโยชน์จากการทำธุรกรรมที่แท้จริง</label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="col-sm-12  control-label"><input type="radio" required-->
+                                                                               <!--name="ssu_interest"-->
+                                                                               <!--[(ngModel)]="register.ssu.interest"-->
+                                                                               <!--value="0"> ลูกค้า-->
+                                <!--</label>-->
+                                <!--<div class="col-sm-12">-->
+                                    <!--<div class="row row-option">-->
+                                        <!--<label class="control-label"><input type="radio" required-->
+                                                                            <!--name="ssu_interest"-->
+                                                                            <!--[(ngModel)]="register.ssu.interest"-->
+                                                                            <!--value="1"> อื่นๆ-->
+                                        <!--</label>-->
+                                        <!--<div class="col-sm " [hidden]="register.ssu.interest!='1'">-->
+                                            <!--<div class="row">-->
+                                                <!--<label class="control-label">โปรดระบุ</label>-->
+                                                <!--<div class="col-sm">-->
+                                                    <!--<input type="text"-->
+                                                           <!--class="form-control"-->
+                                                           <!--name="ssu_interestDesc"-->
+                                                           <!--[(ngModel)]="register.ssu.interestDesc"-->
+                                                           <!--[required]="register.ssu.interest=='1'"-->
+                                                           <!--[disabled]="register.ssu.interest!='1'">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="check-info text-center">-->
+                <!--<img src="/assets/kiatnakin/image/icon_check_doc.png">-->
+                <!--<h1 class="display-1">กรุณาตรวจสอบข้อมูลให้ถูกต้อง<br>ก่อนทำในขั้นตอนถัดไป</h1>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-right text-l text-next" (click)="onClickNextPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div #FATCA_1 data-id="fatca1" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<div class="header-line">-->
+                        <!--<span>FATCA</span>-->
+                    <!--</div>-->
+                    <!--<h2>แบบแจ้งสถานะความเป็นบุคคลอเมริกัน/ไม่เป็นบุคคลอเมริกัน</h2>-->
+                    <!--<h3 class="text-subtitle-light">บุคคลอเมริกัน / U.S. Person</h3>-->
+                <!--</div>-->
+                <!--<form class=" flex-layout form-input" (ngSubmit)="onSubmit(fatca_Form1)" #fatca_Form1="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>ท่านเป็นพลเมืองอเมริกัน ใช่หรือไม่?</label>-->
+                            <!--<div class="detail">-->
+                                <!--<p>โปรดตอบ "ใช่" หากท่านเป็นพลเมืองอเมริกัน แม้ว่าจะอาศัยอยู่นอกสหรัฐอเมริกา<br>-->
+                                    <!--โปรดตอบ "ใช่" หากท่านมีสถานะเป็นพลเมืองของหลายประเทศ-->
+                                    <!--และหนึ่งในนั้นคือเป็นพลเมืองอเมริกัน<br>-->
+                                    <!--โปรดตอบ "ใช่" หากท่านเกิดในสหรัฐอเมริกา(หรือดินแดนที่เป็นของสหรัฐอเมริกา)-->
+                                    <!--และยังไม่ได้สละความเป็นพลเมืองอเมริกาสมบูรณ์ตามกฎหมาย</p>-->
+                            <!--</div>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-2"><input type="radio" required name="usCitizen"-->
+                                                                             <!--[(ngModel)]="register.fatca.usCitizen"-->
+                                                                             <!--value="0">-->
+                                    <!--ใช่ </label>-->
+                                <!--<label class="control-label col-sm"><input type="radio" required name="usCitizen"-->
+                                                                           <!--[(ngModel)]="register.fatca.usCitizen"-->
+                                                                           <!--value="1">-->
+                                    <!--ไม่ใช่ </label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>-->
+                                <!--ท่านเป็นผู้ถือบัตรประจำตัวผู้มีถิ่นที่อยู่ถาวรอย่างถูกต้องตามกฎหมายในสหรัฐอเมริกา-->
+                                <!--(เช่น กรีนการ์ด) ใช่หรือไม่?-->
+                            <!--</label>-->
+                            <!--<div class="detail">-->
+                                <!--<p>โปรดตอบ “ใช่”-->
+                                    <!--หากสำนักงานตรวจคนเข้าเมืองและสัญชาติของสหรัฐอเมริกาได้ออกบัตรประจำตัวผู้มีถิ่นที่อยู่ถาวรอย่างถูกต้องตามกฎหมายในสหรัฐอเมริกาให้แก่ท่าน-->
+                                    <!--ไม่ว่าบัตรดังกล่าวของท่านจะหมดอายุแล้วหรือไม่ ณ-->
+                                    <!--วันที่ท่านกรอกและลงลายมือชื่อในแบบฟอร์มนี้ ควรตอบ-->
+                                    <!--“ไม่ใช่” หากบัตรดังกล่าวของท่านได้ถูกสละ ยกเลิก หรือถอดถอนอย่างเป็นทางการแล้ว ณ-->
+                                    <!--วันที่-->
+                                    <!--ท่านกรอกและลงลายมือชื่อในแบบฟอร์มนี้</p>-->
+
+                            <!--</div>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-2"><input type="radio" required name="usCard"-->
+                                                                             <!--[(ngModel)]="register.fatca.usCard"-->
+                                                                             <!--value="0"> ใช่-->
+                                <!--</label>-->
+                                <!--<label class="control-label col-sm"><input type="radio" required name="usCard"-->
+                                                                           <!--[(ngModel)]="register.fatca.usCard"-->
+                                                                           <!--value="1">-->
+                                    <!--ไม่ใช่ </label>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #FATCA_2 data-id="fatca2" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<h1>&nbsp;</h1>-->
+                <!--</div>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(fatca_Form2)" #fatca_Form2="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>-->
+                                <!--ท่านมีสถานะเป็นผู้มีถิ่นที่อยู่ในสหรัฐอเมริกาเพื่อวัตถุประสงค์ในการเก็บภาษีอากรของสหรัฐอเมริกา-->
+                                <!--ใช่หรือไม่?-->
+                            <!--</label>-->
+                            <!--<div class="detail" style="letter-spacing: 0">-->
+                                <!--<p>ท่านอาจถูกพิจารณาว่าเป็นผู้มีถิ่นที่อยู่ในสหรัฐอเมริกาหากเป็นไปตามเกณฑ์-->
+                                    <!--“Substantial Physical Presence Test” เช่น ในปีปัจจุบัน-->
+                                    <!--ท่านอยู่ในสหรัฐอเมริกาอย่างน้อย 183 วัน-->
+                                    <!--เป็นต้น และหากต้องการรายละเอียดเพิ่มเติม โปรดศึกษาข้อมูลในเว็บไซต์ของ-->
+                                    <!--หน่วยงานจัดเก็บภาษีอากรของสหรัฐอเมริกา (Internal Revenue Service: IRS) ดังนี้-->
+                                    <!--http://www.irs.gov/Individuals/International-Taxpayers/Substantial-Presence-Test-->
+                                <!--</p>-->
+                            <!--</div>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-2"><input type="radio" required name="usLocation"-->
+                                                                             <!--[(ngModel)]="register.fatca.usLocation"-->
+                                                                             <!--value="0"> ใช่ </label>-->
+                                <!--<label class="control-label col-sm"><input type="radio" required name="usLocation"-->
+                                                                           <!--[(ngModel)]="register.fatca.usLocation"-->
+                                                                           <!--value="1"> ไม่ใช่ </label>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="col-sm-12">-->
+                            <!--<h2>-->
+                                <!--คำถามเพิ่มเติม / Additional Questions-->
+                            <!--</h2>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>-->
+                                <!--ท่านเกิดในสหรัฐอเมริกา (หรือดินแดนที่เป็นของสหรัฐอเมริกา)-->
+                                <!--แต่ได้สละความเป็นพลเมืองอเมริกันอย่างสมบูรณ์ตามกฎหมายแล้ว?-->
+                            <!--</label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-2"><input type="radio" required name="usTerritory"-->
+                                                                             <!--[(ngModel)]="register.fatca.usTerritory"-->
+                                                                             <!--value="0"> ใช่ </label>-->
+                                <!--<label class="control-label col-sm"><input type="radio" required name="usTerritory"-->
+                                                                           <!--[(ngModel)]="register.fatca.usTerritory"-->
+                                                                           <!--value="1"> ไม่ใช่ </label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>ท่านมีคำสั่งทำรายการโอนเงินเป็นประจำโดยอัตโนมัติจากบัญชีที่เปิดไว้หรือมีอยู่กับธนาคาร-->
+                                <!--ไปยังบัญชีในสหรัฐอเมริกา ใช่หรือไม่?</label>-->
+
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-2"><input type="radio" required name="usTransfer"-->
+                                                                             <!--[(ngModel)]="register.fatca.usTransfer"-->
+                                                                             <!--value="0"> ใช่ </label>-->
+                                <!--<label class="control-label col-sm"><input type="radio" required name="usTransfer"-->
+                                                                           <!--[(ngModel)]="register.fatca.usTransfer"-->
+                                                                           <!--value="1"> ไม่ใช่ </label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-right text-l text-next" (click)="onClickNextPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #FATCA_3 data-id="fatca3" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<div class="header-line">-->
+                        <!--<span>FATCA</span>-->
+                    <!--</div>-->
+                    <!--<h2>แบบแจ้งสถานะความเป็นบุคคลอเมริกัน/ไม่เป็นบุคคลอเมริกัน</h2>-->
+                    <!--<h3 class="text-subtitle-light">บุคคลอเมริกัน / U.S. Person</h3>-->
+                <!--</div>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(fatca_Form3)" #fatca_Form3="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>ท่านมีการมอบอำนาจหรือให้อำนาจการลงลายมือชื่อแก่บุคคลที่มีที่อยู่ในสหรัฐอเมริกาเพื่อการใดๆ-->
+                                <!--ที่เกี่ยวข้องกับบัญชี ที่เปิดไว้หรือมีอยู่กับธนาคาร ใช่หรือไม่?</label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-2"><input type="radio" required name="usSignatory"-->
+                                                                             <!--[(ngModel)]="register.fatca.usSignatory"-->
+                                                                             <!--value="0"> ใช่ </label>-->
+                                <!--<label class="control-label col-sm"><input type="radio" required name="usSignatory"-->
+                                                                           <!--[(ngModel)]="register.fatca.usSignatory"-->
+                                                                           <!--value="1"> ไม่ใช่ </label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>-->
+                                <!--ท่านมีที่อยู่เพื่อการติดต่อหรือดำเนินการเกี่ยวกับบัญชีที่เปิดไว้หรือมีอยู่กับธนาคารแต่เพียงที่อยู่เดียวซึ่งเป็นที่อยู่สำหรับรับไปรษณีย์แทนหรือที่อยู่สำหรับการส่งต่อ-->
+                                <!--ใช่หรือไม่?-->
+                            <!--</label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-2"><input type="radio" required name="usContact"-->
+                                                                             <!--[(ngModel)]="register.fatca.usContact"-->
+                                                                             <!--value="0">-->
+                                    <!--ใช่ </label>-->
+                                <!--<label class="control-label col-sm"><input type="radio" required name="usContact"-->
+                                                                           <!--[(ngModel)]="register.fatca.usContact"-->
+                                                                           <!--value="1">-->
+                                    <!--ไม่ใช่ </label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>-->
+                                <!--ท่านมีที่อยู่อาศัยในปัจจุบัน หรือที่อยู่เพื่อการติดต่อในสหรัฐอเมริกา-->
+                                <!--สำหรับบัญชีที่เปิดไว้หรือมีอยู่กับธนาคารใช่หรือไม่?-->
+                            <!--</label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-2"><input type="radio" required name="usAddress"-->
+                                                                             <!--[(ngModel)]="register.fatca.usAddress"-->
+                                                                             <!--value="0">-->
+                                    <!--ใช่ </label>-->
+                                <!--<label class="control-label col-sm"><input type="radio" required name="usAddress"-->
+                                                                           <!--[(ngModel)]="register.fatca.usAddress"-->
+                                                                           <!--value="1">-->
+                                    <!--ไม่ใช่ </label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #FATCA_4 data-id="fatca4" class="hard own-size">-->
+        <!--<div class="content">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<h1>&nbsp;</h1>ท่านมีหมายเลขโทรศัพท์ในสหรัฐอเมริกา-->
+                    <!--เพื่อการติดต่อท่านหรือบุคคลอื่นที่เกี่ยวข้องกับบัญชีที่เปิดไว้หรือมีอยู่กับธนาคารหรือไม่?-->
+                <!--</div>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(fatca_Form4)" #fatca_Form4="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<label>-->
+
+                            <!--</label>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="control-label col-sm-3"><input type="radio" required name="usTelephone"-->
+                                                                             <!--[(ngModel)]="register.fatca.usTelephone"-->
+                                                                             <!--value="0"> ใช่ </label>-->
+                                <!--<label class="control-label col-sm"><input type="radio" required name="usTelephone"-->
+                                                                           <!--[(ngModel)]="register.fatca.usTelephone"-->
+                                                                           <!--value="1"> ไม่ใช่ </label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="check-info text-center">-->
+            <!--<img src="/assets/kiatnakin/image/icon_check_doc.png">-->
+            <!--<h1 class="display-1">กรุณาตรวจสอบข้อมูลให้ถูกต้อง<br>ก่อนทำในขั้นตอนถัดไป</h1>-->
+        <!--</div>-->
+        <!--<div class="text-blue no-border corner-right text-l text-next" (click)="onClickNextPage()"></div>-->
+    <!--</div>-->
+
+    <!--<div #ssu_new_customer_1 data-id="ssuNew1" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row ">-->
+                <!--<div class="header">-->
+                    <!--<div class="header-line">-->
+                        <!--<span>Subscription Form</span>-->
+                    <!--</div>-->
+                    <!--<h3 style="letter-spacing: 0" class="text-subtitle-light">-->
+                        <!--ใบคำขอเปิดบัญชีเงินฝากและสมัครใช้บริการด้านการเงินผ่านช่องทางอิเล็กทรอนิกส์</h3>-->
+                <!--</div>-->
+
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(subscr_Form1)" #subscr_Form1="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-sm-12">-->
+                            <!--<p>-->
+                                <!--1.-->
+                                <!--ข้อมูลเพิ่มเติมเพื่อประกอบคำขอเปิดบัญชีเงินฝากและสมัครใช้บริการด้านการเงินผ่านช่องทางอิเล็กทรอนิกส์</p>-->
+                            <!--<div class="form-group col-sm-12 border" style="padding-top: 5px;padding-bottom: 5px">-->
+
+                                <!--<div class="row">-->
+                                    <!--<label class="col-sm-2 control-label">ชื่อ</label>-->
+                                    <!--<div class="col-sm "><b>{{register.ssu.nameTH}}</b></div>-->
+                                    <!--<label class="col-sm-3 control-label">นามสกุล</label>-->
+                                    <!--<div class="col-sm"><b>{{register.ssu.surnameTH}}</b></div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<label class="col-sm-4  control-label">เลขที่บัตรประชาชน</label>-->
+                                    <!--<div class="col-sm"><b>{{register.subscription.idCardNumber}}</b>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<p style="margin-bottom:5px">ที่อยู่ที่ทำงาน / สถานประกอบการ </p>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<div class="col-sm-12 col">-->
+                                    <!--<label class="control-label">-->
+                                        <!--<input type="radio" (click)="setDisableOfficeAddress(true)"-->
+                                               <!--name="officeType"-->
+                                               <!--[(ngModel)]="register.subscription.officeType"-->
+                                               <!--value="0">-->
+                                        <!--เหมือนที่อยู่ตามบัตรประชาชน-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                                <!--<div class="col-sm-12 col">-->
+                                    <!--<label class="control-label">-->
+                                        <!--<input type="radio" (click)="setDisableOfficeAddress(false)"-->
+                                               <!--name="officeType" [(ngModel)]="register.subscription.officeType"-->
+                                               <!--value="1">-->
+                                        <!--ที่อยู่ตามที่ระบุด้านล่าง-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+
+                            <!--<div [hidden]="register.subscription.officeType!='1'" class="address">-->
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label">เลขที่</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<input type="text" class="form-control" keyboard="en"-->
+                                               <!--[disabled]="disabledOfficeAddress" required-->
+                                               <!--name="subscr_office_no" [(ngModel)]="register.subscription.office.no">-->
+                                    <!--</div>-->
+                                    <!--<label class="control-label">หมู่</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<input type="text" class="form-control" keyboard="en"-->
+                                               <!--[disabled]="disabledOfficeAddress"-->
+                                               <!--name="subscr_office_moo"-->
+                                               <!--[(ngModel)]="register.subscription.office.moo">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label">หมู่บ้าน/อาคาร</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<input type="text" class="form-control" [disabled]="disabledOfficeAddress"-->
+                                               <!--name="subscr_office_village"-->
+                                               <!--[(ngModel)]="register.subscription.office.village">-->
+                                    <!--</div>-->
+                                    <!--<label class="control-label">ชั้น</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<input type="text" class="form-control" [disabled]="disabledOfficeAddress"-->
+                                               <!--keyboard="en"-->
+                                               <!--name="subscr_office_floor"-->
+                                               <!--[(ngModel)]="register.subscription.office.floor">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label">ซอย</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<input type="text" class="form-control" [disabled]="disabledOfficeAddress"-->
+                                               <!--name="subscr_office_alley"-->
+                                               <!--[(ngModel)]="register.subscription.office.alley">-->
+                                    <!--</div>-->
+                                    <!--<label class="control-label ">ถนน</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<input type="text" class="form-control" [disabled]="disabledOfficeAddress"-->
+                                               <!--name="subscr_office_street"-->
+                                               <!--[(ngModel)]="register.subscription.office.street">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label">ประเทศ</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<select class="form-control select" required name="subscr_office_country"-->
+                                                <!--data-title="ประเทศ"-->
+                                                <!--id="subscr_office_country"-->
+                                                <!--[(ngModel)]="register.subscription.office.country">-->
+                                            <!--<option value="ไทย" selected>ไทย</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                    <!--<label class="control-label">จังหวัด</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<select class="form-control select" required-->
+                                                <!--data-title="จังหวัด"-->
+                                                <!--id="subscr_office_province"-->
+                                                <!--name="subscr_office_province"-->
+                                                <!--[(ngModel)]="register.subscription.office.province"-->
+                                                <!--#subscr_office_province="ngModel">-->
+                                            <!--<option *ngFor="let p of locality;let i = index" [attr.index]="i"-->
+                                                    <!--[value]="p.name">{{p.name}}-->
+                                            <!--</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label">เขต/อำเภอ</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<select class="form-control select" required-->
+                                                <!--data-title="เขต/อำเภอ"-->
+                                                <!--id="subscr_office_district"-->
+                                                <!--name="subscr_office_district"-->
+                                                <!--[(ngModel)]="register.subscription.office.district">-->
+                                            <!--<option value="จตุจักร">จตุจักร</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                    <!--<label class="control-label label-center">แขวง/ตำบล</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<select class="form-control select"-->
+                                                <!--data-title="แขวง/ตำบล"-->
+                                                <!--required-->
+                                                <!--id="subscr_office_locality"-->
+                                                <!--name="subscr_office_locality"-->
+                                                <!--[(ngModel)]="register.subscription.office.locality">-->
+                                            <!--<option value="จอมพล">จอมพล</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label">รหัสไปรษณีย์</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<input type="text" class="form-control" required-->
+                                               <!--name="subscr_office_postcode"-->
+                                               <!--keyboard="number"-->
+                                               <!--[(ngModel)]="register.subscription.office.postcode">-->
+                                    <!--</div>-->
+                                    <!--<label class="control-label">เบอร์โทรศัพท์, <span-->
+                                            <!--style="font-size: 25px;display: block;line-height: 18px">(ที่ทำงาน)</span></label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<input type="text" keyboard="number" class="form-control"-->
+                                               <!--[disabled]="disabledOfficeAddress"-->
+                                               <!--required-->
+                                               <!--name="subscr_officePhone"-->
+                                               <!--[(ngModel)]="register.subscription.officePhone">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #ssu_new_customer_2 data-id="ssuNew2" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="">-->
+                    <!--<h1>&nbsp;</h1>-->
+                <!--</div>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(subscr_Form2)" #subscr_Form2="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<p class="">ที่อยู่ที่ติดต่อได้ / ไปรษณีย์</p>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<div class="col-sm-12 col">-->
+                                    <!--<label class="control-label">-->
+                                        <!--<input type="radio"-->
+                                               <!--(click)="setDisableAddressFrom(0)"-->
+                                               <!--name="subscr_current.address.Type"-->
+                                               <!--[(ngModel)]="register.subscription.current.address.Type"-->
+                                               <!--value="0">-->
+                                        <!--เหมือนที่อยู่ตามบัตรประชาชน-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                                <!--<div class="col-sm-12 col">-->
+                                    <!--<label class="control-label">-->
+                                        <!--<input type="radio"-->
+                                               <!--(click)="setDisableAddressFrom(1)"-->
+                                               <!--name="subscr_current.address.Type"-->
+                                               <!--[(ngModel)]="register.subscription.current.address.Type"-->
+                                               <!--value="1">-->
+                                        <!--เหมือนที่อยู่ที่ทำงาน / สถานประกอบการ-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                                <!--<div class="col-sm-12 col">-->
+                                    <!--<label class="control-label">-->
+                                        <!--<input type="radio"-->
+                                               <!--(click)="setDisableAddressFrom(2)"-->
+                                               <!--name="subscr_current.address.Type"-->
+                                               <!--[(ngModel)]="register.subscription.current.address.Type"-->
+                                               <!--value="2">-->
+                                        <!--ที่อยู่ตามที่ระบุด้านล่าง</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group  col-sm-12" [hidden]="disabledCurrentAddress">-->
+                            <!--<div class="row">-->
+                                <!--<label class="control-label">เลขที่</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<input type="text"-->
+                                           <!--class="form-control"-->
+                                           <!--keyboard="en"-->
+                                           <!--[disabled]="disabledCurrentAddress"-->
+                                           <!--required-->
+                                           <!--name="subscr_address_no"-->
+                                           <!--[(ngModel)]="register.subscription.address.no">-->
+                                <!--</div>-->
+                                <!--<label class="control-label">หมู่</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<input type="text"-->
+                                           <!--class="form-control"-->
+                                           <!--keyboard="en"-->
+                                           <!--[disabled]="disabledCurrentAddress"-->
+                                           <!--name="subscr_address_moo"-->
+                                           <!--[(ngModel)]="register.subscription.address.moo">-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+
+                            <!--<div class="row">-->
+                                <!--<label class="control-label">หมู่บ้าน/อาคาร</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<input type="text" class="form-control" [disabled]="disabledCurrentAddress"-->
+                                           <!--name="subscr_address_village"-->
+                                           <!--[(ngModel)]="register.subscription.address.village">-->
+                                <!--</div>-->
+                                <!--<label class="control-label">ชั้น</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<input type="text" class="form-control" [disabled]="disabledCurrentAddress"-->
+                                           <!--keyboard="en"-->
+                                           <!--name="subscr_address_floor"-->
+                                           <!--[(ngModel)]="register.subscription.address.floor">-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+
+                            <!--<div class="row">-->
+                                <!--<label class="control-label">ซอย</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<input type="text" class="form-control" [disabled]="disabledCurrentAddress"-->
+                                           <!--name="subscr_address_alley"-->
+                                           <!--[(ngModel)]="register.subscription.address.alley">-->
+                                <!--</div>-->
+                                <!--<label class="control-label">ถนน</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<input type="text" class="form-control" [disabled]="disabledCurrentAddress"-->
+                                           <!--name="subscr_address_street"-->
+                                           <!--[(ngModel)]="register.subscription.address.street">-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+
+                            <!--<div class="row">-->
+                                <!--<label class="control-label">ประเทศ</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<select class="form-control select"-->
+                                            <!--data-title="ประเทศ"-->
+                                            <!--required-->
+                                            <!--id="subscr_address_country"-->
+                                            <!--name="subscr_address_country"-->
+                                            <!--[(ngModel)]="register.subscription.address.country">-->
+                                        <!--<option value="ไทย">ไทย</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                                <!--<label class="control-label ">จังหวัด</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<select class="form-control select"-->
+                                            <!--data-title="จังหวัด"-->
+                                            <!--required-->
+                                            <!--id="subscr_address_province"-->
+                                            <!--name="subscr_address_province"-->
+                                            <!--[(ngModel)]="register.subscription.address.province">-->
+                                        <!--<option *ngFor="let oo of locality" [value]="oo.name">{{oo.name}}</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+
+                            <!--<div class="row">-->
+                                <!--<label class="control-label">เขต/อำเภอ</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<select class="form-control select" required-->
+                                            <!--data-title="เขต/อำเภอ"-->
+                                            <!--id="subscr_address_district"-->
+                                            <!--name="subscr_address_district"-->
+                                            <!--[(ngModel)]="register.subscription.address.district">-->
+                                        <!--<option value="จตุจักร">จตุจักร</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                                <!--<label class="control-label">แขวง/ตำบล</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<select class="form-control select"-->
+                                            <!--data-title="แขวง/ตำบล"-->
+                                            <!--id="subscr_address_locality"-->
+                                            <!--required-->
+                                            <!--name="subscr_address_locality"-->
+                                            <!--[(ngModel)]="register.subscription.address.locality">-->
+                                        <!--<option value="จอมพล">จอมพล</option>-->
+
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+
+                            <!--<div class="row">-->
+                                <!--<label class="control-label">รหัสไปรษณีย์</label>-->
+                                <!--<div class="col-sm-5">-->
+                                    <!--<input type="text" class="form-control" [disabled]="disabledCurrentAddress" required-->
+                                           <!--name="subscr_address_postcode"-->
+                                           <!--keyboard="number"-->
+                                           <!--[(ngModel)]="register.subscription.address.postcode">-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<div class="row">-->
+                                <!--<label class="control-label" style="padding-right: 0">Email Address</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<input type="text"-->
+                                           <!--class="form-control"-->
+                                           <!--name="subscr_email"-->
+                                           <!--keyboard="email"-->
+                                           <!--[(ngModel)]="register.subscription.email"-->
+                                           <!--maxlength="30"-->
+                                           <!--email-->
+                                           <!--#subscript_email="ngModel">-->
+                                    <!--<div style="color:#ff0000; height: 25px;display: inline" class="text-m">-->
+                                        <!--<p *ngIf="subscript_email.errors?.email"> รูปแบบอีเมล์ไม่ถูกต้อง </p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="row">-->
+                                <!--<label class="control-label" style="padding-right: 0 ;max-width: 28%;-->
+    <!--flex: 0 0 28%;letter-spacing: 0;">เบอร์โทรศัพท์มือถือ</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<input type="text" class="form-control" required name="subscr_phone"-->
+                                           <!--keyboard="number"-->
+                                           <!--maxlength="10"-->
+                                           <!--number-->
+                                           <!--[(ngModel)]="register.subscription.phone">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-right text-l text-next" (click)="onClickNextPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #ssu_new_customer_3 data-id="ssuNew3" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row ">-->
+                <!--<div class="header">-->
+                    <!--<div class="header-line">-->
+                        <!--<span>Subscription Form</span>-->
+                    <!--</div>-->
+                    <!--<h3 style="letter-spacing: 0" class="text-subtitle-light">-->
+                        <!--ใบคำขอเปิดบัญชีเงินฝากและสมัครใช้บริการด้านการเงินผ่านช่องทางอิเล็กทรอนิกส์</h3>-->
+                <!--</div>-->
+
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(subscr_Form3)" #subscr_Form3="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-sm-12">-->
+                            <!--<div class="form-group col-sm-12 border">-->
+                                <!--<div class="row">-->
+                                    <!--<span>&nbsp;&nbsp;ขอเปิดบัญชีเงินฝาก</span>-->
+                                    <!--<span class="col-sm"><b>{{ displayAccountGroup(register.subscription.accountGroup) }}</b></span>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<span>&nbsp;&nbsp;ประเภท</span>-->
+                                    <!--<span class="col-sm"><b>{{ register.subscription.accountType }}</b></span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<div class="row">-->
+                                <!--<label class="col-sm-2 control-label">ชื่อบัญชี</label>-->
+                                <!--<div class="col-sm col">-->
+                                    <!--<input type="text" class="form-control" required name="subscr_accountName"-->
+                                           <!--[(ngModel)]="register.accountName">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<p>เงื่อนไขการสั่งจ่าย</p>-->
+                            <!--<div class="row row-checkbox">-->
+                                <!--<label class="col-sm-12"><input type="radio" required-->
+                                                                <!--name="subscr_paymentType"-->
+                                                                <!--[(ngModel)]="register.subscription.paymentType"-->
+                                                                <!--value="0">-->
+                                    <!--ลงนามสั่งจ่ายคนเดียว </label>-->
+                                <!--<div class="col-sm-12">-->
+                                    <!--<div class="row row-option">-->
+                                        <!--<label class="control-label"><input type="radio" required-->
+                                                                            <!--name="subscr_paymentType"-->
+                                                                            <!--[(ngModel)]="register.subscription.paymentType"-->
+                                                                            <!--value="1"> อื่นๆ-->
+                                        <!--</label>-->
+                                        <!--<div class="col-sm" [hidden]="register.subscription.paymentType!=1">-->
+                                            <!--<div class="row">-->
+                                                <!--<label class="control-label">โปรดระบุ</label>-->
+                                                <!--<div class="col-sm">-->
+                                                    <!--<input type="text"-->
+                                                           <!--class="form-control"-->
+                                                           <!--[disabled]="register.subscription.paymentType!=1"-->
+                                                           <!--[required]="register.subscription.paymentType==1"-->
+                                                           <!--name="subscr_paymentTypeDesc"-->
+                                                           <!--[(ngModel)]="register.subscription.paymentTypeDesc">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group col-sm-12">-->
+                            <!--<p>โอนดอกเบี้ยเงินฝากประจำเข้าบัญชีเงินฝาก</p>-->
+                            <!--<div class="row">-->
+                                <!--<label class="control-label" style="padding-left: 15px">เลขที่</label>-->
+                                <!--<div class="col-sm">-->
+                                    <!--<input type="text" class="form-control" name="subscr_transferId"-->
+                                           <!--keyboard="number"-->
+                                           <!--[(ngModel)]="register.subscription.transferId">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div #ssu_new_customer_4 data-id="ssuNew4" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<h1>&nbsp;</h1>-->
+                <!--</div>-->
+                <!--<form class="flex-layout form-input" (ngSubmit)="onSubmit(subscr_Form4)" #subscr_Form4="ngForm">-->
+                    <!--<div class="row">-->
+                        <!--<div class="col-sm-12">-->
+                            <!--<div class="form-group col-sm-12">-->
+                                <!--<p>สมัครใช้บริการ KK Smart SMS ในบัญชีที่ขอเปิดนี้</p>-->
+                                <!--<div class="row">-->
+                                    <!--<label class="col-sm control-label"><input-->
+                                            <!--type="radio"-->
+                                            <!--name="subscr_smsLanguage"-->
+                                            <!--[(ngModel)]="register.subscription.smsLanguage"-->
+                                            <!--value="th"> ภาษาไทย-->
+                                    <!--</label>-->
+                                    <!--<label class="col-sm control-label"><input-->
+                                            <!--type="radio"-->
+                                            <!--name="subscr_smsLanguage"-->
+                                            <!--[(ngModel)]="register.subscription.smsLanguage"-->
+                                            <!--value="en"> ภาษาอังกฤษ-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label"-->
+                                           <!--style="padding-left: 15px">โดยหักบัญชีเงินฝากเลขที่</label>-->
+                                    <!--<div class="col-sm">-->
+                                        <!--<input type="text" class="form-control" name="subscr_smsFromId"-->
+                                               <!--keyboard="number"-->
+                                               <!--[(ngModel)]="register.subscription.smsFromId">-->
+                                    <!--</div>-->
+                                    <!--<label class="col-sm-12 display-5" style="line-height: 18px">เพื่อชำระค่าธรรมเนียม-->
+                                        <!--KK Smart-->
+                                        <!--SMS</label>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label"-->
+                                           <!--style="padding-left: 15px">วัตถุประสงค์ในการเปิดบัญชี</label>-->
+                                    <!--<div class="col-sm ">-->
+                                        <!--<select class="form-control select"-->
+                                                <!--data-title="วัตถุประสงค์ในการเปิดบัญชี"-->
+                                                <!--id="subscr_objective"-->
+                                                <!--name="subscr_objective"-->
+                                                <!--[(ngModel)]="register.subscription.objective">-->
+                                            <!--<option value="0">เลือกวัตถุประสงค์</option>-->
+                                            <!--<option value="1">ออมเงิน</option>-->
+                                            <!--<option value="2">เพื่อการลงทุน</option>-->
+                                            <!--<option value="3">เพื่อหมุนเวียนทางธุรกิจ</option>-->
+                                            <!--<option value="4">ชำระค่าสินค้า/บริการ</option>-->
+                                            <!--<option value="5">บัญชีเงินเดือน</option>-->
+                                            <!--<option value="6">อื่นๆ</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="row">-->
+                                    <!--<label class="control-label" style="padding-left: 15px"-->
+                                           <!--[hidden]="register.subscription.objective!=6">โปรดระบุ</label>-->
+                                    <!--<div class="col-sm " [hidden]="register.subscription.objective!=6">-->
+                                        <!--<input type="text" class="form-control" name="subscr_objectivedesc"-->
+                                               <!--[disabled]="register.subscription.objective!=6"-->
+                                               <!--[required]="register.subscription.objective==6"-->
+                                               <!--[(ngModel)]="register.subscription.objectiveDesc">-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="check-info">-->
+                <!--<img src="/assets/kiatnakin/image/icon_check_doc.png">-->
+                <!--<h1 class="display-1">กรุณาตรวจสอบข้อมูลให้ถูกต้อง<br>ก่อนทำในขั้นตอนถัดไป</h1>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-right text-l text-next" (click)="onClickNextPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div #user_authenemail_1 data-id="user_authenemail" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header">-->
+                    <!--<h1 class="text-blue">สร้างบัญชีเข้าระบบ</h1>-->
+                    <!--<h2>เพื่อใช้เข้าระบบด้วยชื่อผู้ใช้และรหัสผ่าน</h2>-->
+                <!--</div>-->
+                <!--<div class="col-sm-12" style="text-align: center;margin-top: 81px;margin-bottom: 36px">-->
+                    <!--<div class="user_card">-->
+                        <!--<img src="/assets/kiatnakin/image/user_card.png">-->
+                        <!--<div class="user_card_user"><span class="text-blue">ชื่อผู้ใช้</span> <span>username</span>-->
+                        <!--</div>-->
+                        <!--<div class="user_card_pass"><span class="text-blue">รหัสผ่าน</span> <span-->
+                                <!--style="padding-top: 7px">******</span></div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+    <!--</div>-->
+    <!--<div #user_authenemail_2 data-id="user_authenemail" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header space-bottom-50">-->
+                    <!--<h1>&nbsp;</h1>-->
+                <!--</div>-->
+                <!--<div class="display-1 space-bottom-40" style="text-align: center">-->
+                    <!--<div>กรอกอีเมล์ และ เบอร์โทรศัพท์</div>-->
+                    <!--<div>เพื่อขอรับ “ชื่อผู้ใช้ และ รหัสผ่าน”</div>-->
+                <!--</div>-->
+
+                <!--<form class="flex-layout form-input" #authenemail_Form="ngForm">-->
+                    <!--<div class="form-group col-sm-8 col-sm-offset-2 space-bottom-30">-->
+                        <!--<div class="row">-->
+                            <!--<label class="control-label col-sm-12 text-blue" style="text-align: center"><h1>อีเมล์</h1>-->
+                            <!--</label>-->
+                            <!--<div class="col-sm-12">-->
+                                <!--<input type="text"-->
+                                       <!--keyboard="email"-->
+                                       <!--class="form-control"-->
+                                       <!--name="authen_user"-->
+                                       <!--email-->
+                                       <!--#authen_user="ngModel"-->
+                                       <!--required-->
+                                       <!--[(ngModel)]="register.subscription.email"-->
+                                       <!--style="text-align: center"-->
+                                       <!--placeholder="กรอกอีเมล์">-->
+                            <!--</div>-->
+                            <!--<div style="color:#ff0000; height: 25px;text-align: center" class="col-sm-12 text-m">-->
+                                <!--<p *ngIf="register.subscription.email?.email"> รูปแบบอีเมล์ไม่ถูกต้อง </p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group col-sm-8  col-sm-offset-2 space-bottom-50">-->
+                        <!--<div class="row">-->
+                            <!--<label class="control-label col-sm-12 text-blue" style="text-align: center"><h1>-->
+                                <!--เบอร์โทรศัพท์มือถือ</h1>-->
+                            <!--</label>-->
+                            <!--<div class="col-sm-12">-->
+                                <!--<input type="text" keyboard="number" class="form-control" name="authen_phone"-->
+                                       <!--[(ngModel)]="register.subscription.phone"-->
+                                       <!--required-->
+                                       <!--minlength="10"-->
+                                       <!--maxlength="10"-->
+                                       <!--style="text-align: center"-->
+                                       <!--placeholder="0x-xxxxx-xxx">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="form-group col-sm-8  col-sm-offset-2 item-center">-->
+                        <!--<button-->
+                                <!--id="submit_authenemail"-->
+                                <!--name="submit_authenemail"-->
+                                <!--class="button-blue"-->
+                                <!--[disabled]="!authenemail_Form.valid"-->
+                                <!--(click)="onClickNextPage()">-->
+                            <!--ตกลง-->
+                        <!--</button>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+    <!--<div #user_authenpin_1 data-id="user_authenpin" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header space-bottom-30">-->
+                    <!--<h1 class="text-blue">สมัครบริการ MyPIN</h1>-->
+                    <!--<h2>เพื่อใช้เข้าระบบด้วยเลข 6 หลัก</h2>-->
+                <!--</div>-->
+                <!--<div class="col-md-12">-->
+                    <!--<div style="margin:0 auto;width:40%;">-->
+                        <!--<card-reader-device #PINDevice></card-reader-device>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+    <!--</div>-->
+    <!--<div #user_authenpin_2 data-id="user_authenpin" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div class="header space-bottom-50">-->
+                    <!--<h1>&nbsp;</h1>-->
+                <!--</div>-->
+                <!--<div class=" space-bottom-10" style="text-align: center">-->
+                    <!--<div id="pin-status" class="display-1">ตั้งรหัส MyPIN</div>-->
+                    <!--<br>-->
+                    <!--<div class="display-4" id="pin-desc">กดเลข 6 หลัก ตามด้วยปุ่ม "OK"</div>-->
+                <!--</div>-->
+                <!--<form class="flex-layout form-input" #authenpin_Form="ngForm">-->
+                    <!--<div class="form-group col-sm-12 space-bottom-30">-->
+                        <!--<div class="row ">-->
+                            <!--<div class="edc_pin item-center">-->
+                                <!--<div class="pin" id="pin-1"></div>-->
+                                <!--<div class="pin" id="pin-2"></div>-->
+                                <!--<div class="pin" id="pin-3"></div>-->
+                                <!--<div class="pin" id="pin-4"></div>-->
+                                <!--<div class="pin" id="pin-5"></div>-->
+                                <!--<div class="pin" id="pin-6"></div>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div id="errorPINMessage" class="text-red text-l col-sm-12 text-center">-->
+                    <!--</div>-->
+                <!--</form>-->
+                <!--&lt;!&ndash;<form class="form-horizontal form-input" #authen_Form2="ngForm">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-sm-8 col-sm-offset-2">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label class="col-sm-12  control-label"&ndash;&gt;-->
+                <!--&lt;!&ndash;style="text-align: center;">ตั้งรหัส PIN</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-sm-12">&ndash;&gt;-->
+                <!--&lt;!&ndash;<input id="pin"&ndash;&gt;-->
+                <!--&lt;!&ndash;type="password"&ndash;&gt;-->
+                <!--&lt;!&ndash;class="form-control"&ndash;&gt;-->
+                <!--&lt;!&ndash;name="authen_pin"&ndash;&gt;-->
+                <!--&lt;!&ndash;keyboard="number"&ndash;&gt;-->
+                <!--&lt;!&ndash;maxlength="6"&ndash;&gt;-->
+                <!--&lt;!&ndash;[(ngModel)]="register.PIN"&ndash;&gt;-->
+                <!--&lt;!&ndash;style="text-align: center;">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label class="col-sm-12  control-label"&ndash;&gt;-->
+                <!--&lt;!&ndash;style="text-align: center;">ยืนยันรหัส PIN</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-sm-12 ">&ndash;&gt;-->
+                <!--&lt;!&ndash;<input id="confirm-pin"&ndash;&gt;-->
+                <!--&lt;!&ndash;type="password"&ndash;&gt;-->
+                <!--&lt;!&ndash;class="form-control text-center"&ndash;&gt;-->
+                <!--&lt;!&ndash;name="confirm-pin"&ndash;&gt;-->
+                <!--&lt;!&ndash;keyboard="number"&ndash;&gt;-->
+                <!--&lt;!&ndash;maxlength="6"&ndash;&gt;-->
+                <!--&lt;!&ndash;[(ngModel)]="register.confirmPIN"&ndash;&gt;-->
+                <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-sm-12 text-center ">&ndash;&gt;-->
+                <!--&lt;!&ndash;<p *ngIf="register.confirmPIN != '' && (register.confirmPIN != register.PIN) "&ndash;&gt;-->
+                <!--&lt;!&ndash;class="text-m text-red">รหัส PIN ไม่ตรงกรุณาระบุอีกครั้ง</p>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</form>&ndash;&gt;-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="text-blue no-border corner-right text-l text-next" (click)="onClickNextPage()"></div>-->
+    <!--</div>-->
+
+    <!--<div #scanner_finger_left data-id="fingerScan" class="hard own-size">-->
+        <!--<div class="content-cover">-->
+            <!--<div class="content row">-->
+                <!--<div>-->
+                    <!--<h2 class="text-blue">เปิดบัญชีออมทรัพย์ เคเค เซฟวิ่งส์ พลัส</h2>-->
+                    <!--<h3>ยืนยันการทำรายการโดยการสแกนลายนิ้วมือ</h3>-->
+                <!--</div>-->
+                <!--<div style="margin:40px auto;width:40%;">-->
+                    <!--<finger-scan-device #fingerDevice [leftratio]="0.1"></finger-scan-device>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-left text-l text-back" (click)="onClickPreviuesPage()"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!-- <div #scanner_finger_right data-id="fingerScan" class="cover blue hard fixed back-side"> -->
+        <!--<div class="content-cover">-->
+            <!--<div class="content">-->
+                <!--<div class="col-md-12 text-blue" style="margin-bottom: 40px">-->
+                    <!--<div style="margin-top:30%;text-align: center;" class="text-blue">-->
+                        <!--<finger-scan-info #fingerInfo></finger-scan-info>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div [ngClass]="{'hidden': !fingerScanFailure}">-->
+                    <!--<div class="col-md-12" style="text-align: center">-->
+                        <!--<button class="btn  btn-lg btn-blue text-m" style="width: 286px"> ลองใหม่อีกครั้ง</button>-->
+                    <!--</div>-->
+                    <!--<div>&nbsp;</div>-->
+                    <!--<div class="col-md-12" style="text-align: center">-->
+                        <!--<button class="btn  btn-lg btn-blue text-m" style="width: 286px"> เลือกช่องทางอื่น</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="text-blue no-border corner-right text-l text-next button-success"-->
+                 <!--(click)="onClickOpenAccountSuccess()"></div>-->
+        <!--</div>-->
+    <!-- </div> -->
+
+<!--</template-flip-book>-->

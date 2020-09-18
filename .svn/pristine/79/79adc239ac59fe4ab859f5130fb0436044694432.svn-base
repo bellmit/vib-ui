@@ -1,0 +1,162 @@
+<div class="app-back" (click)="onClickBackMain()">
+    <p class="text-lll">กลับหน้าหลัก</p>
+</div>
+
+
+<select-bank-account *ngIf="isSelectAccount"
+                     :isChildView=true
+                     :title="{{titleSelectBankAccount}}"
+                     [isShowExternalAccount]="true"
+                     [minimumAmount]="0"
+                     (selectedAccount)="onSelectedAccount($event)"
+                     false>
+</select-bank-account>
+
+
+<div class="container page1200" *ngIf=" !isSelectAccount && paymentState===0 ">
+    <div class="row">
+        <div class="col-lg-12 mt-5">
+            <div class="row">
+                <div class="col-lg-2 offset-2">ชื่อ</div>
+                <div class="col-lg-2">name</div>
+                <div class="col-lg-2 ">นามสกุล</div>
+                <div class="col-lg-2">surname</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 offset-2">ทะเบียนรถยนต์</div>
+                <div class="col-lg-2">11-กก-1111</div>
+                <div class="col-lg-2 ">เลขบัญชี</div>
+                <div class="col-lg-2">11-กก-1111</div>
+            </div>
+            <div class="space-bottom-10">&nbsp;</div>
+            <div class="col-lg-8 offset-2" style="border: solid #979797 1px;">
+                <div class="row text-center" style="margin-top: 5%">
+                    <div class="col-lg-2 offset-lg-1">ชำระค่างวด</div>
+                    <div class="col-lg-2">12-12-2017</div>
+                    <div class="col-lg-2 offset-lg-2">20,000.00</div>
+                    <div class="col-lg-1">บาท</div>
+                    <div class="col-lg-2 offset-lg-1">ชำระค่างวด</div>
+                    <div class="col-lg-2">12-12-2017</div>
+                    <div class="col-lg-2 offset-lg-2">20,000.00</div>
+                    <div class="col-lg-1">บาท</div>
+                </div>
+                <div class="text-center" style="margin-top: 8%">ยอดชำระรวม</div>
+                <div class="col-lg-8 offset-2 text-center"
+                     style="border: solid #979797 1px;margin-top: 1%;margin-bottom: 1%">
+                    <h2 style="margin-top: 5%;margin-bottom: 5%">40,000.00 บาท</h2>
+                </div>
+            </div>
+            <div class="text-center" style="margin-top: 3%">
+                <h1>
+                    เลือกวิธีชำระเงิน
+                </h1>
+            </div>
+            <div class="col-lg-8 offset-lg-2" style="margin-top: 3%">
+                <div class="row">
+                    <div class="col-lg-3 offset-1">
+                        <button class="btn-lg" id="btn_1" style="width: 286px" (click)="isSelectAccount = true">
+                            หักบัญชี
+                        </button>
+                    </div>
+
+                    <div class="col-lg-3 offset-lg-2">
+                        <button class="btn-lg" id="btn_2" style="width: 286px" (click)="onClickSubmit(1)">
+                            เงินสด
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container page1200"  *ngIf="paymentState===1">
+    <div class="row">
+        <div class="col-lg-12 text-center" style="margin-top: 20%">
+            <img src="./assets/kiatnakin/image/loading.png" height="66" width="66"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 offset-3 text-center" style="margin-top: 2%">
+            <h1>กรุณาส่งเงินให้พนักงาน</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 offset-3 text-center" style="margin-top: 2%">
+            <button class="btn-lg btn-danger" id="btn_3" (click)="onClickSubmit(2)">
+                next
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="container" style="background-color: white;height: 700px" *ngIf="paymentState===2">
+    <div class="row">
+        <div class="col-lg-12 text-center" style="margin-top: 20%">
+            <img src="./assets/kiatnakin/image/loading.png" height="66" width="66"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 offset-3 text-center" style="margin-top: 5%">
+            <h2>ทำรายการสำเร็จ</h2>
+        </div>
+        <div class="col-lg-6 offset-3 text-center" style="margin-top: .5%">
+            <h2>ต้องการบันทึกเป็นรายการโปรดหรือไม่</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2" style="margin-top: 3%">
+            <div class="row">
+                <div class="col-lg-3 offset-1">
+                    <button class="btn-lg" id="btn_4" style="width: 286px" (click)="onClickSubmit(3)">
+                        ไม่บันทึก
+                    </button>
+                </div>
+                <div class="col-lg-3 offset-lg-2">
+                    <button class="btn-lg" id="btn_5" style="width: 286px" (click)="onClickSubmit(3)">
+                        บันทึก
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container page1200" *ngIf="paymentState===3">
+    <div class="row">
+        <div class="col-lg-12 text-center" style="margin-top: 20%">
+            <img src="./assets/kiatnakin/image/loading.png" height="66" width="66"/>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 offset-3 text-center" style="margin-top: 5%">
+            <h2>ต้องการใบเสร็จหรือไม่</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2" style="margin-top: 3%">
+            <div class="row">
+                <div class="col-lg-3 offset-1">
+                    <button class="btn-lg" id="btn_6" style="width: 286px" (click)="onClickSubmit()">
+                        ต้องการ
+                    </button>
+                </div>
+                <div class="col-lg-3 offset-lg-2">
+                    <button class="btn-lg" id="btn_7" style="width: 286px" (click)="onClickSubmit()">
+                        ไม่ต้องการ
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()"/>

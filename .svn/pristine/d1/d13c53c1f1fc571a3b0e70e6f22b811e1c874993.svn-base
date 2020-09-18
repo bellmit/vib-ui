@@ -1,0 +1,171 @@
+import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {Location, DatePipe} from '@angular/common';
+import {DataService} from "../../../_service/data.service";
+import {Cheque} from "../../../_model/index";
+import {isNullOrUndefined} from "util";
+import {Utils} from "../../../../share/utils";
+import {UserService} from "../../../_service/user.service";
+import {KeyboardService} from "../../../_service/keyboard.service";
+import {Modal} from "../../../_share/modal-dialog/modal-dialog.component";
+
+@Component({
+    selector: 'app-cheque-buy',
+    templateUrl: './cheque-buy.component.html',
+    styleUrls: ['./cheque-buy.component.sass']
+})
+export class ChequeBuyComponent implements OnInit, AfterViewInit {
+    public data: Cheque;
+    public currentStepInput: number = 0;
+    public isPrint: boolean = false;
+    public dataSlip: string;
+
+    constructor(private router: Router,
+                private location: Location,
+                private dataService: DataService,
+                private userService: UserService) {
+
+        const selectedBankAccount = dataService.selectedAccount;
+        // this.data = new Cheque();
+        this.data.accountName = selectedBankAccount.accountName || "นายสมปอง มาดี";
+        this.data.accountId = selectedBankAccount.accountNumber || "1-2-3458-91482351";
+        this.data.date = new Date();
+        this.data.receipt_date = this.getReciveDate(this.data.date);
+        this.data.receiver_idcard = this.userService.userLogin.idNumber || 1111111111119;
+        this.data.receiver_first_name = this.userService.userLogin.nameTH || "สมปอง";
+        this.data.receiver_last_name = this.userService.userLogin.surenameTH || "มาดี";
+
+        this.data.branch = "";
+        this.data.receipt_type = "0";
+    }
+
+    ngOnInit() {
+
+    }
+
+    ngAfterViewInit() {
+        KeyboardService.initKeyboardInputText();
+    }
+
+    private getReciveDate(date: Date): Date {
+        const result = new Date(date);
+        let i = 0;
+        do {
+            i++;
+            result.setDate(date.getDate() + i);
+        } while (result.getDay() === 0 || result.getDay() === 6);
+        return result;
+    }
+
+    public onClickBack() {
+
+        const that = this;
+        Modal.showConfirm(Modal.title.exit, function () {
+            that.location.back();
+            that.currentStepInput = 0;
+        }, null);
+
+    }
+
+    public onClickBackMain() {
+        this.router.navigate(["kk"]);
+    }
+
+    public checkID(id) {
+        if (this.data.receipt_type === '0') {
+            return true;
+        }
+        return Utils.validateNationalID(id);
+
+    }
+
+    public checkRecipt_type(num: string) {
+
+        if (num === "0") {
+
+            this.data.receiver_idcard = this.userService.userLogin.idNumber;
+            this.data.receiver_first_name = this.userService.userLogin.nameTH;
+            this.data.receiver_last_name = this.userService.userLogin.surenameTH;
+
+        } else {
+            this.data.receiver_idcard = null;
+            this.data.receiver_first_name = "";
+            this.data.receiver_last_name = "";
+        }
+    }
+
+    public onMoveStep(num: number) {
+        this.currentStepInput = num;
+        const that = this;
+
+        if (num === 0) {
+            KeyboardService.initKeyboardInputText();
+        } else if (num === 3) {
+
+            setTimeout(function () {
+                that.onRequestBuyCheque();
+            }, 3000);
+        }
+
+        if (num === 1) {
+
+            setTimeout(function () {
+                that.snapshotPrintData();
+            }, 500);
+
+        }
+
+    }
+
+    private onRequestBuyCheque() {
+        this.onRequestPrint();
+        this.onTransactionSuccess();
+
+    }
+
+    private onTransactionSuccess() {
+
+        if (this.userService.isLoggedin()) {
+            const that = this;
+            Modal.showConfirmWithButtonText(Modal.title.continue, "ทำรายการต่อ", "ออกจากระบบ", () => {
+                that.onClickBackMain();
+            }, function () {
+                that.userService.logout();
+            });
+        }
+        else {
+            this.onClickBackMain();
+        }
+    }
+
+    private snapshotPrintData() {
+
+        const datePipe = new DatePipe('en');
+        const data = {
+            "doc": "BUY_CHEQUE_SLIP",
+            "data": {
+                "doc_date": datePipe.transform(this.data.date, 'dd/MM/') + (parseInt(datePipe.transform(this.data.date, 'yyyy'), 4) + 543),
+                "doc_time": datePipe.transform(this.data.date, 'HH:mm:ss'),
+                "acc_no": this.data.accountId,
+                "acc_name": this.data.accountName,
+                "qty": $("#label-qty").text(),
+                "price": $("#label-price").text(),
+                "amount": $("#label-amount-total").text(),
+                "amount_str": $("#label-amount-total-bahttext").text(),
+                "receipt_date": datePipe.transform(this.data.receipt_date, 'dd/MM/') + (parseInt(datePipe.transform(this.data.receipt_date, 'yyyy'), 4) + 543),
+                "receipt_branch": this.data.branch,
+                "receiver_name": this.data.receiver_first_name + " " + this.data.receiver_last_name,
+                "receiver_id_card": this.data.receiver_idcard,
+            }
+        };
+
+        this.dataSlip = JSON.stringify(data);
+    }
+
+    private onRequestPrint() {
+
+
+    }
+
+
+}

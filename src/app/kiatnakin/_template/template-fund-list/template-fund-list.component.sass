@@ -1,0 +1,188 @@
+@import "./src/styles-master"
+
+.container
+  width: 1230px
+  position: fixed
+  top: 188px
+  bottom: 0px
+  left: 100px
+  right: 100px
+  padding-left: 0px
+  padding-right: 0px 
+  .tabBar
+    overflow-y: auto 
+    overflow-x: overlay
+    height: 75px
+    margin-right: 10px
+    .nav
+      display: -webkit-box
+      li.active
+        background: url("/assets/kiatnakin/image/investment/tab_holderlist_active.png") no-repeat
+        width: 360px 
+        margin-right: -9px
+        margin-left: 0
+        .label_unitholder
+          font-size: 17px 
+        .unitholder
+          font-size: 20px
+      li
+        background: url("/assets/kiatnakin/image/investment/tab_holderlist_inactive.png") no-repeat
+        width: 148px
+        height: 60px
+        padding: 10px 20px 0 25px
+        text-overflow: ellipsis
+        margin-right: -23px
+        .label_unitholder
+          color: white
+          font-size: 13px
+          margin: 0px
+        .unitholder
+          color: white
+          font-size: 11px
+  .content
+    background-color: $purple
+    position: fixed
+    top: 60px
+    bottom: 0px
+    left: 0px
+    right: 0px
+    border-top-right-radius: 10px
+    .body
+      margin: 10px 30px 0 30px
+      position: fixed
+      top: 60px
+      bottom: 0px
+      left: 0px
+      right: 0px
+      padding: 30px 17px 0 17px !important
+      .title-fund
+        height: 45px
+        margin-top: 10px
+      #rmf,#ltf,#myport,#mf 
+        height: 500px
+        overflow: auto 
+      #port 
+        height: 600px
+        overflow: auto
+
+.li-order
+  background-color: white
+  border-top-right-radius: 35px
+  border-top-left-radius: 15px
+  border: none
+  position: fixed
+  top: 20px
+  right: 8px
+  width: 140px
+  height: 60px
+  -webkit-transition: top 0.5s ease-in-out
+  -moz-transition: top 0.5s ease-in-out
+  -o-transition: top 0.5s ease-in-out
+  transition: top 0.5s ease-in-out
+
+.li-order.active
+  top: 0px
+  -webkit-transition: top 0.5s ease-in-out
+  -moz-transition: top 0.5s ease-in-out
+  -o-transition: top 0.5s ease-in-out
+  transition: top 0.5s ease-in-out
+
+.item-fund
+  height: 70px
+  cursor: pointer
+.item-fund > div
+  display: flex
+  align-items: center
+  justify-content: center
+  font-size: 20px
+  > a
+    text-decoration: underline
+.item-fund.even
+  background-color: #F7F7F7 !important
+.item-fund.odd
+  background-color: #FFFFFF !important
+.item-fund.selected
+  background-color: #AAA8CF !important
+
+input[type=checkbox]
+  background-size: auto !important
+
+.flext-end
+  justify-content: flex-end !important
+
+
+
+.fund-fact-sheet-container
+  margin: 0 auto
+  position: fixed
+  bottom: 0px
+  left: 0px
+  right: 0px
+  width: 1170px
+  height: 880px
+  background: url("/assets/kiatnakin/image/bg_login.png") no-repeat
+  div
+    padding-bottom: 10px
+  .content
+    overflow-y: auto
+    height: 750px 
+    position: absolute
+    top: 50px
+    left: 0
+    right: 0
+    bottom: 100px
+    pdf-viewer
+      
+.body
+  position: absolute
+  top: 70px
+  left: 0px
+  right: 0px
+  padding-right: 185px !important
+  padding-left: 185px !important
+  background-color: none
+  background: url("/assets/kiatnakin/image/investment/bg_fundlist.png") no-repeat
+.footer
+  position: absolute
+  left: 0px
+  right: 0px
+  width: 100%
+  bottom: 0
+  button
+    width: 250px
+    height: 80px
+.scroll
+  overflow-y: auto
+  top: 150px
+  bottom: 130px
+  left: 40px
+  right: 15px
+  position: absolute
+
+.nav-link
+  @extend .display-4
+  color: $purple
+.nav-link.active
+
+.nav-fundList
+  li
+    a 
+      margin-right: -20px
+      background: url("/assets/kiatnakin/image/investment/tab_fundlist_inactive.png") no-repeat
+      text-align: center
+      width: 200px 
+      padding: 0
+      color: white      
+      border: none      
+    a.active 
+      width: 260px 
+      background: url("/assets/kiatnakin/image/investment/tab_fundlist_active.png") no-repeat
+.button-cencel
+  width: 60px !important
+  height: 35px !important
+  font-size: 15px !important
+  background-color: $purple
+  border: none
+  color: white
+.button-cencel:disabled
+  background-color: gray

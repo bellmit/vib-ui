@@ -1,0 +1,269 @@
+../VIB-API/common/commonFn.js 24: 'path exists ', path
+../VIB-API/common/commonFn.js 40: 'path exists ', path
+../VIB-API/common/commonFn.js 61: 'path exists ', filePath
+../VIB-API/common/commonFn.js 175: request
+../VIB-API/common/commonFn.js 188: 'request----', atmXML
+../VIB-API/common/commonFn.js 202: decodeText
+../VIB-API/common/commonFn.js 249: data
+../VIB-API/common/commonFn.js 268: 'Array-----'
+../VIB-API/common/commonFn.js 321: 'Object----'
+../VIB-API/common/commonFn.js 370: docDefinition
+../VIB-API/common/commonFn.js 373: balance
+../VIB-API/common/commonFn.js 433: sum[0]
+../VIB-API/common/commonFn.js 491: 'Create directory error ', err
+../VIB-API/common/commonFn.js 502: 'writeFile__________', content
+../VIB-API/common/commonFn.js 504: "Cannot write file ", err
+../VIB-API/common/commonFn.js 505: "The file was successfully saved!"
+../VIB-API/common/commonFn.js 511: 'stats', stats
+../VIB-API/common/dbConfig-uat.js 74: '_______Call Procedure getRowProc_______'
+../VIB-API/common/dbConfig-uat.js 112: 'connect to____"%s"', connectTo.user
+../VIB-API/common/dbConfig.js 111: '_______Call Procedure getRowProc_______'
+../VIB-API/common/dbConfig.js 149: 'connect to____"%s"', connectTo.user
+../VIB-API/common/logDB.js 21: tx
+../VIB-API/common/logDB.js 50: 'updateLog----->', id, data
+../VIB-API/common/logDB.js 109: pdfFormDbPost
+../VIB-API/common/response.js 40: '%s__%s_______org_message :: %s________map_message :: %s', resCode, resType, message, mapMessage
+../VIB-API/common/response.js 43: '%s__%s_______org_message :: %s', resCode, resType, message
+../VIB-API/common/response.js 306: 'returnKKT_____', dataString
+../VIB-API/common/response.js 410: dataResult
+../VIB-API/common/response.js 420: 'returnResCodeIsZero_____', dataResult
+../VIB-API/common/schedule.js 36: dataFile[i].name
+../VIB-API/common/schedule.js 40: dataFile[i].name
+../VIB-API/common/schedule.js 45: 'Insert Biller ---- >', resultInsertBiller
+../VIB-API/common/schedule.js 50: 'Insert Category ---- >', resultInsertCategory
+../VIB-API/common/setParamPayFee.js 16: '_setParamPayFee ----',xml2jsresult
+../VIB-API/common/sftpClient.js 38: data
+../VIB-API/common/sftpClient.js 49: err, 'catch error'
+../VIB-API/common/soap.js 15: 'CallSoap______', nameService
+../VIB-API/common/soap.js 16: '_____',err, fn.lastRequest(reqData
+../VIB-API/common/soap.js 150: soapDataPinService.settings.soapHeaders
+../VIB-API/common/soap.js 377: ICustomerService.createCustomerIndividual
+../VIB-API/common/soap.js 422: ICreateCustomerService.createCustomerIndividual
+../VIB-API/common/soap.js 564: PinService.verifyPin
+../VIB-API/server/boot/role.js 4: RoleMapping
+../VIB-API/server/boot/role.js 12: 'Created role:', role
+../VIB-API/server/boot/role.js 29: 'Created principal:', principal
+../VIB-API/server/boot/root.js 60: 'After API name :: ', apiName
+../VIB-API/server/boot/root.js 102: 'Error API name :: ', apiName
+../VIB-API/server/create-lb-tables.js 38: 'Loopback tables [' + maTables + '] created in ', ds.adapter.name
+../VIB-API/server/models/AccountDetail/account-detail.js 134: ctx.result
+../VIB-API/server/models/AccountList/account-list.js 63: unused
+../VIB-API/server/models/AccountList/account-list.js 80: transactionDateTime
+../VIB-API/server/models/AccountList/account-list.js 85: request
+../VIB-API/server/models/AccountList/account-list.js 91: ctx.result
+../VIB-API/server/models/AccountList/account-list.js 437: ctx.result
+../VIB-API/server/models/AuthenticationUsername/authentication-username.js 28: result
+../VIB-API/server/models/AuthenticationUsername/authentication-username.js 100: ctx.result
+../VIB-API/server/models/BillPayment/bill-payment.js 77: JSON.stringify(data
+../VIB-API/server/models/BillPayment/bill-payment.js 79: 'BillPayment___________', resultSoap[1]
+../VIB-API/server/models/Catalog/post-product-detail.js 57: DataInsert
+../VIB-API/server/models/Catalog/post-product-list.js 30: catalogProductListPost
+../VIB-API/server/models/Catalog/put-product-detail.js 57: DataInsert
+../VIB-API/server/models/CheckCustomer/check-customer.js 46: resultSoapSl[1]
+../VIB-API/server/models/CheckCustomer/check-customer.js 52: resData
+../VIB-API/server/models/CheckCustomer/check-customer.js 65: resultSoapSl[1]
+../VIB-API/server/models/CheckEAccount/check-e-account.js 20: paramSpCheckEAccount
+../VIB-API/server/models/CheckInternetbankingIvrMyPin/check-internetbanking-ivr-mypin.js 33: arraySubcr
+../VIB-API/server/models/CheckInternetbankingIvrMyPin/check-internetbanking-ivr-mypin.js 38: 'SMS--->', SMS
+../VIB-API/server/models/CheckSanctionListAndKYCLevel/check-sanction-list-and-kyc-level.js 12: JSON.stringify(request
+../VIB-API/server/models/CheckSanctionListAndKYCLevel/check-sanction-list-and-kyc-level.js 53: JSON.stringify(request
+../VIB-API/server/models/CheckTransferAmount/check-transfer-amount.js 25: parseFloat(result.data.availBalanceNet
+../VIB-API/server/models/CheckTransferAmount/check-transfer-amount.js 167: ctx.result
+../VIB-API/server/models/CreateCustomerIndividual/create-customer-individual.js 48: body.address_info_list.length
+../VIB-API/server/models/CreateCustomerIndividual/create-customer-individual.js 208: resultSoap[1]
+../VIB-API/server/models/CreateCustomerIndividual/create-customer-individual.js 221: 'error catch--->', e
+../VIB-API/server/models/CreateMyPinByKKCisId/create-mypin-by-kkcis-id.js 47: 'SOP_SERVICE_ID : ', sopServiceTxnID, sopService.DESCRIPTION
+../VIB-API/server/models/DepositCashierChqtoCASA/deposit-cashier-chq-to-casa.js 31: 'DepositCashierChqtoCASA__________', DepositCashierChqtoCASA.from_brn_code
+../VIB-API/server/models/DepositCashtoCASA/deposit-cash-to-casa.js 39: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/DepositCashtoTD/deposit-cash-to-td.js 40: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/DepositChqtoCASA/deposit-chq-to-casa.js 59: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/DepositChqtoTD/deposit-chq-to-td.js 61: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/DocumentRequest/document-request.js 9: containers
+../VIB-API/server/models/FundTransferAnyID/fund-transfer-any-id.js 142: ctx.result
+../VIB-API/server/models/GenerateOTP/generate-otp.js 65: resultData.rows[0]
+../VIB-API/server/models/GetAccountDetailByAccountNo/get-account-detail-by-account-no.js 21: result.data.accountStatusCode
+../VIB-API/server/models/GetCert/get-cert.js 57: request, _dateRef.differenceDate(request.SearchParams.DATE_TO, request.SearchParams.DATE_FROM
+../VIB-API/server/models/GetCustomerProfileMain/get-customer-profile-main2.js 8: db
+../VIB-API/server/models/GetCustomerProfileMain/get-customer-profile-main2.js 23: err
+../VIB-API/server/models/GetCustomerProfileMain/get-customer-profile-main2.js 41: err
+../VIB-API/server/models/GetCustomerProfileMain/get-customer-profile-main2.js 43: p
+../VIB-API/server/models/GetCustomerProfileMain/get-customer-profile-main2.js 48: e
+../VIB-API/server/models/GetCustomerProfileMain/get-customer-profile-main2.js 92: ctx.result
+../VIB-API/server/models/GetCustomerProfileMain/get-customer-profile-main2.js 155: ctx.result
+../VIB-API/server/models/GetCustomerProfileSub/get-customer-profile2.js 9: db
+../VIB-API/server/models/GetCustomerProfileSub/get-customer-profile2.js 24: err
+../VIB-API/server/models/GetCustomerProfileSub/get-customer-profile2.js 42: err
+../VIB-API/server/models/GetCustomerProfileSub/get-customer-profile2.js 44: p
+../VIB-API/server/models/GetCustomerProfileSub/get-customer-profile2.js 49: e
+../VIB-API/server/models/GetCustomerProfileSub/get-customer-profile2.js 94: ctx.result
+../VIB-API/server/models/GetCustomerProfileSub/get-customer-profile2.js 157: ctx.result
+../VIB-API/server/models/GetJobId/get-job-id.js 21: JSON.stringify(resultSoap
+../VIB-API/server/models/GetJobId/get-job-id.js 24: ssInfo
+../VIB-API/server/models/GetOTPDev/get-otp-dev.js 13: 'responseParsed--1-->', responseParsed
+../VIB-API/server/models/GetOTPDev/get-otp-dev.js 14: responseParsed.html.body.table.tr
+../VIB-API/server/models/GetPassbook/get-passbook.js 38: 'passbookPrinted_____', passbookPrinted
+../VIB-API/server/models/GetPassbook/get-passbook.js 39: 'passbookPrint_____', passbookPrint
+../VIB-API/server/models/GetPromptPayForm/get-prompt-pay-form.js 49: request
+../VIB-API/server/models/GetStatementByFunding/get-statement-by-funding.js 38: result
+../VIB-API/server/models/GetStatementByFunding/get-statement-by-funding.js 46: result
+../VIB-API/server/models/GetStatementByFunding/get-statement-by-funding.js 51: result
+../VIB-API/server/models/GetStatementByFundingPdf/get-statement-by-funding-pdf.js 30: result
+../VIB-API/server/models/GetStatementByFundingPdf/get-statement-by-funding-pdf.js 38: result
+../VIB-API/server/models/GetStatementByFundingPdf/get-statement-by-funding-pdf.js 43: result
+../VIB-API/server/models/GetStatementTDByFunding/get-statement-td-by-funding.js 35: result
+../VIB-API/server/models/GetStatementTDByFunding/get-statement-td-by-funding.js 43: result
+../VIB-API/server/models/GetStatementTDByFunding/get-statement-td-by-funding.js 48: result
+../VIB-API/server/models/GetSubscriptionInfo/get-subscription-info.js 18: JSON.stringify(resultSoapSubcr[1]
+../VIB-API/server/models/GetTargetFee/get-target-fee.js 64: queryCodeSC.rows[i].COD_TXN_MNEMONIC, queryCodeSC.rows[i].COD_SC, request, data1
+../VIB-API/server/models/GetTargetFee/get-target-fee__v2.js 77: paramGetSC
+../VIB-API/server/models/GetTDPrematureRedeemtion/get-td-premature-redeemtion.js 81: ctx.result
+../VIB-API/server/models/GetTDRates/get-td-rates.js 86: ctx.result
+../VIB-API/server/models/GetTDTerm/get-td-term.js 90: ctx.result
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.1.js 34: resultAccountDetail.depositDetailList.depositDetail[i]
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.1.js 61: response
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.1.js 67: termDepositList
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.1.js 73: `Can not get TDPrematureRedeemtion ${err}`
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.1.js 80: termDepositList.test
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.1.js 85: termDepositList.test
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.1.js 88: `Can not get Account Detail ${err}`
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.1.js 129: ctx.result
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.1.js 224: ctx.result
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.js 62: `Can not get TDPrematureRedeemtion ${response[0]}`
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.js 73: 'Account Not TD or Not have depositDetailList ', result
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.js 79: 'Can not get Account Detail ', result
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.js 84: 'Can not connect FCR ', errSoap
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.js 121: ctx.result
+../VIB-API/server/models/GetTermDepositList/get-term-deposit-list.js 216: ctx.result
+../VIB-API/server/models/HP_InsertReceipt/hp-insert-receipt.js 20: xml2jsresult
+../VIB-API/server/models/InquiryCustomerProfile/customer-profile.js 24: result
+../VIB-API/server/models/InquiryCustomerProfile/customer-profile.js 62: ctx.result
+../VIB-API/server/models/InquiryCustomerProfile/customer-profile.js 127: ctx.result
+../VIB-API/server/models/InquiryDecision/inquiry-decision.js 80: ctx.result
+../VIB-API/server/models/LoginByIDCardAndMyPinWithProfile/login-by-idcard-and-mypin-with-profile.js 52: 'LOGIN_ID : ', loginId.LOGIN_ID, loginId.LOGIN_GROUP_DESC
+../VIB-API/server/models/LoginByIDCardAndPinWithProfile/login-by-idcard-and-pin-with-profile.js 41: `Connection to CAA Fail ${resultSoap1[0]}`
+../VIB-API/server/models/LoginByKKCisIdAndPinWithProfile/login-by-kkcis-id-and-pin-with-profile.js 52: 'LOGIN_ID : ', loginId.LOGIN_ID, loginId.LOGIN_GROUP_DESC
+../VIB-API/server/models/LoginByKKCisIdAndPinWithProfile/login-by-kkcis-id-and-pin-with-profile.js 57: `Connection to CAA Fail ${resultSoap[0]}`
+../VIB-API/server/models/LoginByUsername/login-by-username.js 55: ctx.result
+../VIB-API/server/models/LoginByUsername/login-by-username.js 91: ctx.result
+../VIB-API/server/models/LoginByUsernameWithProfile/login-by-username-with-profile.js 35: request2
+../VIB-API/server/models/LoginByUsernameWithProfile/login-by-username-with-profile.js 54: 'LOGIN_ID : ', loginId.LOGIN_ID, loginId.LOGIN_GROUP_DESC
+../VIB-API/server/models/LoginByUsernameWithProfile/login-by-username-with-profile.js 59: `Connection to CAA Fail ${resultSoap[0]}`
+../VIB-API/server/models/PayFees/pay-fees.js 84: 'test----', failTx
+../VIB-API/server/models/PayFees/pay-fees.js 89: dataToReverse
+../VIB-API/server/models/PayFeesFromCASA/pay-fees-from-casa.js 50: xmlToJsResult
+../VIB-API/server/models/PayFeesFromCASA/pay-fees-from-casa.js 95: dataToReverse
+../VIB-API/server/models/PayFeesFromCASA/pay-fees-from-casa.js 99: dataToReverse[i].faml.header.referenceno
+../VIB-API/server/models/PayFeesFromCASA/pay-fees-from-casa.js 108: responseParsed[i]
+../VIB-API/server/models/RegisterAnyIdByAccount/register-any-id-by-account.js 71: 'SOP_SERVICE_ID : ', sopServiceTxnID, sopService.DESCRIPTION
+../VIB-API/server/models/SaveFile/save-file.js 103: 'Close Con DB --', i, ' ', body.documents.length - 1
+../VIB-API/server/models/Subscription/save-subscription.js 117: 'SOP_SERVICE_ID : ', sopServiceTxnID, sopService.DESCRIPTION
+../VIB-API/server/models/Subscription/save-subscription.js 224: resSub
+../VIB-API/server/models/Subscription/save-subscription.js 225: 'id_no: ', body.id_no, 'id_type: ', body.id_type, 'ss_id: ', resSub.data.subscription_id, 'prod_type: ', prodType
+../VIB-API/server/models/Subscription/save-subscription.js 279: 'catch: ', isCreate, isSub, sopServiceTxnID, body.dummy_account_no
+../VIB-API/server/models/Subscription/save-subscription.js 300: 'SOP_SERVICE_ID', sopServiceTxnID
+../VIB-API/server/models/TellerAuthentication/teller-authentication.js 25: JSON.stringify(resultAth.data.userInfo.userRoles
+../VIB-API/server/models/TellerAuthentication/teller-authentication.js 53: tellerInfoPost
+../VIB-API/server/models/TransferCASAtoTDFund/transfer-casa-to-td-fund.js 54: 'httpUrl Request_RRFCT51 ---- ', httpUrl
+../VIB-API/server/models/TransferCASAtoTDFund/transfer-casa-to-td-fund.js 59: 'responseParsed--1-->', responseParsed
+../VIB-API/server/models/TransferCASAtoTDFund/transfer-casa-to-td-fund.js 79: 'httpUrl2 Request_RRRGG51 ---- ', httpUrl2
+../VIB-API/server/models/TransferCASAtoTDFund/transfer-casa-to-td-fund.js 84: 'responseParsed--2-->', responseParsed
+../VIB-API/server/models/TransferCASAtoTDFund/transfer-casa-to-td-fund.js 90: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/TransferCASAtoTDFund/transfer-casa-to-td-fund.js 97: 'Not Pass'
+../VIB-API/server/models/TransferCASAtoTDFund/transfer-casa-to-td-fund.js 102: `Connection to CAA Fail ${errSoap}`
+../VIB-API/server/models/TransferCASAtoTDFund/transfer-casa-to-td-fund__v2.js 121: 'Not Pass'
+../VIB-API/server/models/TransferCASAtoTDFund/transfer-casa-to-td-fund__v2.js 131: `Connection to CAA Fail ${errSoap}`
+../VIB-API/server/models/TransferFund/transfer-fund.js 36: i
+../VIB-API/server/models/TransferFund/transfer-fund.js 37: i.FEE_CODE,
+../VIB-API/server/models/TransferTDtoCASAFund/transfer-td-to-casa-fund.js 33: 'httpUrl Request_RRFTC51 --- >', httpUrl
+../VIB-API/server/models/TransferTDtoCASAFund/transfer-td-to-casa-fund.js 38: 'responseParsed--1-->', responseParsed
+../VIB-API/server/models/TransferTDtoCASAFund/transfer-td-to-casa-fund.js 58: 'httpUrl2 Request_RRRGG51 --- >', httpUrl2
+../VIB-API/server/models/TransferTDtoCASAFund/transfer-td-to-casa-fund.js 63: 'responseParsed--2-->', responseParsed
+../VIB-API/server/models/TransferTDtoCASAFund/transfer-td-to-casa-fund.js 68: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/TransferTDtoCASAFund/transfer-td-to-casa-fund__v2.js 33: txhVibLogTpl
+../VIB-API/server/models/TransferTDtoCASAFund/transfer-td-to-casa-fund__v2.js 39: txhVibLogPost
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 56: 'httpUrl Request_RRFTG51', httpUrl
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 61: 'responseParsed--1-->', responseParsed
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 86: 'httpUrl2 Request_RRFGT51-->', httpUrl2
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 91: 'responseParsed--2-->', responseParsed
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 113: 'httpUrl3 Request_RRRGG51 -->', httpUrl3
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 118: 'responseParsed--3  GG-->', responseParsed
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 124: `Got error GT: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 130: `Got error TG: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 137: 'Not Pass'
+../VIB-API/server/models/TransferTDtoTDFund/transfer-td-to-td-fund.js 142: `Connection to CAA Fail ${errSoap}`
+../VIB-API/server/models/UpdateCustomer/update-customer.js 168: '-----approve'
+../VIB-API/server/models/UpdateCustomer/update-customer.js 171: '-----updated'
+../VIB-API/server/models/ValidateDepositTDAccount/validate-deposit-td-account.js 66: ctx.result
+../VIB-API/server/models/ValidateDepositTDAccount/validate-deposit-td-account.js 161: ctx.result
+../VIB-API/server/models/VerifyOTP/Verify-otp.js 59: ctx.result
+../VIB-API/server/models/VerifyOTP/Verify-otp.js 122: ctx.result
+../VIB-API/server/models/WithdrawalCAtoCashWithChq/withdrawal-ca-to-cash-with-chq.js 41: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/WithdrawalCAtoCashWithoutChq/withdrawal-ca-to-cash-without-chq.js 45: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/WithdrawalCAtoChequeWithChq/withdrawal-ca-to-cheque-with-chq.js 63: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/WithdrawalCAtoChequeWithoutChq/withdrawal-ca-to-cheque-without-chq.js 45: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/WithdrawalSAtoCash/withdrawal-sa-to-cash.js 45: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/WithdrawalSAtoCheque/withdrawal-sa-to-cheque.js 68: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/WithdrawalSAtoCheque/withdrawal-sa-to-cheque__v2.js 19: 'WithdrawalSAtoCheque_____to_brn_code::', WithdrawalSAtoCheque.to_brn_code
+../VIB-API/server/models/WithdrawalTDtoCash/withdrawal-td-to-cash.js 41: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/WithdrawalTDtoCheque/withdrawal-td-to-cheque.js 63: `Got error: ${responseParsed.faml.status.errormessage}`
+../VIB-API/server/models/_MutualFund/suitability/get-suit-answer.js 29: 'MFSInquiryCustSuitAnswer---->', request
+../VIB-API/server/models/_MutualFund/suitability/get-suit-score.js 45: 'CUST_SUIT.CustSuitScore-->', res.data
+../VIB-API/server/server.js 38: 'Web server listening at: %s', baseUrl
+../VIB-API/server/server.js 41: 'Browse your REST API at %s%s', baseUrl, explorerPath
+../VIB-API/unit-test-jest/request.js 17: options
+../VIB-API/unit-test-jest/request.js 20: options, error, response
+../VIB-API/unit-test-jest/test/mutualfund.test.js 27: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 50: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 59: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 68: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 77: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 87: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 96: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 105: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 114: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 130: nameSE, JSON.stringify(SE
+../VIB-API/unit-test-jest/test/mutualfund.test.js 131: nameOrderSell, JSON.stringify(OrderSell
+../VIB-API/unit-test-jest/test/mutualfund.test.js 132: nameOrderSell, 'parameter', JSON.stringify(MFSOrderSell.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 145: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 154: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 163: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 172: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 182: name, JSON.stringify(body
+../VIB-API/unit-test-jest/test/mutualfund.test.js 194: nameGUID, 'parameter', JSON.stringify(MFS[nameGUID].parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 195: nameGUID, 'res', JSON.stringify(GUID
+../VIB-API/unit-test-jest/test/mutualfund.test.js 203: nameFund, 'parameter', JSON.stringify(MFSFund.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 204: nameFund, 'res', JSON.stringify(Fund
+../VIB-API/unit-test-jest/test/mutualfund.test.js 214: HolderBalance
+../VIB-API/unit-test-jest/test/mutualfund.test.js 215: nameHolder, 'parameter', JSON.stringify(MFSoptionsHolder.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 216: nameHolder, 'res', JSON.stringify(Holder
+../VIB-API/unit-test-jest/test/mutualfund.test.js 224: '-', nameFundExchange, '\n + parameter', JSON.stringify(dataFundExchange.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 230: '-', nameSuitScore, '\n + parameter', JSON.stringify(MFS[nameSuitScore].parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 238: nameBU, 'parameter', JSON.stringify(MSFTran.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 239: nameBU, 'res', JSON.stringify(TransactionEffectiveDate
+../VIB-API/unit-test-jest/test/mutualfund.test.js 245: nameInsertOrderBuy, 'parameter', JSON.stringify(MFS[nameInsertOrderBuy].parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 246: nameInsertOrderBuy, 'res', JSON.stringify(InsertOrderBuy
+../VIB-API/unit-test-jest/test/mutualfund.test.js 262: nameGUID, 'parameter', JSON.stringify(MFS[nameGUID].parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 263: nameGUID, 'res', JSON.stringify(GUID
+../VIB-API/unit-test-jest/test/mutualfund.test.js 272: nameFundRD, 'parameter', JSON.stringify(MFSFundRedeem.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 273: nameFundRD, 'res', JSON.stringify(FundRD
+../VIB-API/unit-test-jest/test/mutualfund.test.js 285: HolderBalance
+../VIB-API/unit-test-jest/test/mutualfund.test.js 286: nameHolder, 'parameter', JSON.stringify(MFSoptionsHolder.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 287: nameHolder, 'res', JSON.stringify(Holder
+../VIB-API/unit-test-jest/test/mutualfund.test.js 295: nameSE, 'parameter', JSON.stringify(TranSE.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 296: nameSE, 'res', JSON.stringify(SE
+../VIB-API/unit-test-jest/test/mutualfund.test.js 314: nameOrderSell, 'parameter', JSON.stringify(MFSOrderSell.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 315: nameOrderSell, 'res', JSON.stringify(OrderSell
+../VIB-API/unit-test-jest/test/mutualfund.test.js 323: nameOrderStatus, 'parameter', JSON.stringify(MFSOrderStatus.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 324: nameOrderStatus, 'res', JSON.stringify(OrderStatus
+../VIB-API/unit-test-jest/test/mutualfund.test.js 334: namePortTran, 'parameter', JSON.stringify(MFSPortTran.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 335: namePortTran, 'res', JSON.stringify(PortTran
+../VIB-API/unit-test-jest/test/mutualfund.test.js 343: namePortSum, 'parameter', JSON.stringify(MFSPortSum.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 344: namePortSum, 'res', JSON.stringify(PortSum
+../VIB-API/unit-test-jest/test/mutualfund.test.js 352: namePortDetail, 'parameter', JSON.stringify(MFSPortDetail.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 353: namePortDetail, 'res', JSON.stringify(PortDetail
+../VIB-API/unit-test-jest/test/mutualfund.test.js 370: '-', nameGUID, '\n + parameter', JSON.stringify(MFS[nameGUID].parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 387: '-', nameFundSI, '\n + parameter', JSON.stringify(dataSI.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 397: '-', nameHolder, '\n + HolderAvailableUnit', JSON.stringify(HolderAvailableUnit
+../VIB-API/unit-test-jest/test/mutualfund.test.js 405: '-', nameFundExchange, '\n + parameter', JSON.stringify(dataFundExchange.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 413: '-', nameTranEffectDateSO, '\n + parameter', JSON.stringify(dataTranEffectDateSO.parameter
+../VIB-API/unit-test-jest/test/mutualfund.test.js 429: '-', nameOrderSwitch, '\n + parameter', JSON.stringify(dataOrderSwitch.parameter

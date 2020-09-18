@@ -1,0 +1,708 @@
+/* You can add global styles to this file, and also import other style files */
+@import "styles-master"
+
+@font-face
+  font-family: 'Quark-Bold'
+  src: url('/assets/fonts/Quark/Quark-Bold.eot') format('eot')
+  src: url('/assets/fonts/Quark/Quark-Bold.woff2') format('woff2')
+  src: url('/assets/fonts/Quark/Quark-Bold.woff') format('woff')
+  src: url('/assets/fonts/Quark/Quark-Bold.ttf') format('truetype')
+  src: url('/assets/fonts/Quark/Quark-Bold.svg#Quark-Bold') format('svg')
+  src: url('/assets/fonts/Quark/Quark-Bold.eot?#iefix') format('embedded-opentype')
+  font-weight: normal
+  font-style: normal
+
+@font-face
+  font-family: 'Kanit'
+  src: url('/assets/fonts/Kanit/Kanit-Regular.ttf') format('truetype')
+  font-weight: normal
+  font-style: normal
+
+@font-face
+  font-family: 'Tahoma'
+  src: url('/assets/fonts/Tahoma/tahoma.ttf') format('truetype')
+  font-weight: normal
+  font-style: normal
+
+.none-touch-action
+  touch-action: none
+  -webkit-user-select: none
+
+html, body
+  @extend .none-touch-action
+  height: 100%
+  overflow: hidden
+  transition: transform 0.3s
+
+textarea
+  @extend .none-touch-action
+
+body
+  font-family: "Cordia New"
+  background-image: url(./assets/kiatnakin/image/bg.png)
+  background-color: black !important
+
+///////////// Class //////////////
+.app-back
+  width: 263px
+  height: 259px
+  background-image: url(./assets/kiatnakin/image/back.png)
+  background-repeat: no-repeat
+  color: #A1A1A1
+  font-size: 30px
+  padding: 40px 10px 20px 30px
+  position: fixed
+  top: 0
+  left: 0
+  span
+    cursor: pointer
+
+.app-back-bottom
+  width: 120px
+  height: 120px
+  position: fixed
+  bottom: 0px
+  left: 0px
+  cursor: pointer
+
+.container
+  align-items: center
+  height: 100%
+
+.vertical-center
+  display: flex
+  vertical-align: middle
+  align-items: center
+
+///////BUTTON COLOR/////////////
+
+.kk-button
+  border: none
+  color: white
+  padding: 5px 20px
+  border-radius: 4px
+  font-size: 48px !important
+  display: inline-block
+  margin-bottom: 0
+  font-weight: normal
+  line-height: 1.42857143
+  text-align: center
+  white-space: nowrap
+  vertical-align: middle
+  -ms-touch-action: manipulation
+  touch-action: manipulation
+  cursor: pointer
+  -webkit-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  letter-spacing: 1px
+  min-width: 120px
+  &:disabled
+    background: $gray
+
+.button-blue
+  @extend .kk-button
+  &:not(:disabled)
+    background: $blue
+  &:active
+    background: $blue
+    color: white !important
+
+.button-gray
+  @extend .kk-button
+  background-color: $gray
+
+.button-red
+  @extend .kk-button
+  background-color: $red
+
+.button-purple
+  @extend .kk-button
+  background-color: $purple
+  margin: 30px
+
+.button-purple-light
+  @extend .kk-button
+  background-color: $purple_light
+  color: black !important
+
+.button-white
+  @extend .kk-button
+  background-color: $white
+  color: black !important
+
+.btn-color
+  @extend .kk-button
+  background-color: #ccccff !important
+  color: black !important
+/////////////////////////////////
+
+.bg-blue
+  background-color: $blue
+.bg-gray
+  background-color: $gray
+.bg-white
+  background-color: $white
+  width: 200px
+  height: 200px
+  
+.text-warp
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+///////////// TEXT COLOR ////////
+.text-white
+  color: #ffffff
+
+.text-green
+  color: $green
+
+.text-blue
+  color: $blue !important
+
+.text-purple
+  color: $purple !important
+
+.text-blackblue
+  color: #332A87 !important
+
+.text-black
+  color: $black !important
+
+.text-gray
+  color: $gray !important
+
+.text-dark-gray
+  color: $dark-gray !important
+
+.text-red
+  color: $red !important
+
+.text-violet
+  color: #332A87 !important
+
+.text-orange
+  color: $orange !important
+
+.text-dark-blue
+  color: $dark-blue !important
+
+.text-white
+  color: white
+//////////// MODAL //////////////
+
+.modal-backdrop.show
+  opacity: 0.7 !important
+
+#modal-dialog-progress
+  width: 250px !important
+  margin: 0 auto
+
+.modal-dialog
+  border-radius: 20px
+  width: 70% !important
+  min-width: 950px !important
+
+.modal-footer
+  text-align: center !important
+  border-top: none !important
+
+.vertical-alignment-helper
+  display: table
+  height: 100%
+  pointer-events: none
+  margin: 0 auto
+
+.vertical-align-center
+  /* To center vertically */
+  display: table-cell
+  vertical-align: middle
+  pointer-events: none
+
+.modal-content
+  /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+  width: inherit
+  height: inherit
+  /* To center horizontally */
+  margin: 0 auto
+  pointer-events: all
+
+.modal-body
+  margin: 20px
+
+.modal-footer
+  margin: 0 auto
+  button
+    width: 250px
+    height: 80px
+
+.fade-scale
+  transform: scale(0)
+  opacity: 0
+  -webkit-transition: all .25s linear
+  -o-transition: all .25s linear
+  transition: all .25s linear
+
+.fade-scale.show
+  opacity: 1
+  transform: scale(1)
+
+.cssload-thecube
+  width: 300px
+  height: 300px
+  margin: 0 auto
+  margin-top: 138px
+  position: relative
+  transform: rotateZ(45deg)
+  -o-transform: rotateZ(45deg)
+  -ms-transform: rotateZ(45deg)
+  -webkit-transform: rotateZ(45deg)
+  -moz-transform: rotateZ(45deg)
+  .cssload-cube
+    position: relative
+    transform: rotateZ(45deg)
+    -o-transform: rotateZ(45deg)
+    -ms-transform: rotateZ(45deg)
+    -webkit-transform: rotateZ(45deg)
+    -moz-transform: rotateZ(45deg)
+    float: left
+    width: 50%
+    height: 50%
+    position: relative
+    transform: scale(1.1)
+    -o-transform: scale(1.1)
+    -ms-transform: scale(1.1)
+    -webkit-transform: scale(1.1)
+    -moz-transform: scale(1.1)
+    &:before
+      content: ""
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      background-color: rgb(43, 160, 199)
+      animation: cssload-fold-thecube 2.76s infinite linear both
+      -o-animation: cssload-fold-thecube 2.76s infinite linear both
+      -ms-animation: cssload-fold-thecube 2.76s infinite linear both
+      -webkit-animation: cssload-fold-thecube 2.76s infinite linear both
+      -moz-animation: cssload-fold-thecube 2.76s infinite linear both
+      transform-origin: 100% 100%
+      -o-transform-origin: 100% 100%
+      -ms-transform-origin: 100% 100%
+      -webkit-transform-origin: 100% 100%
+      -moz-transform-origin: 100% 100%
+  .cssload-c2
+    transform: scale(1.1) rotateZ(90deg)
+    -o-transform: scale(1.1) rotateZ(90deg)
+    -ms-transform: scale(1.1) rotateZ(90deg)
+    -webkit-transform: scale(1.1) rotateZ(90deg)
+    -moz-transform: scale(1.1) rotateZ(90deg)
+  .cssload-c3
+    transform: scale(1.1) rotateZ(180deg)
+    -o-transform: scale(1.1) rotateZ(180deg)
+    -ms-transform: scale(1.1) rotateZ(180deg)
+    -webkit-transform: scale(1.1) rotateZ(180deg)
+    -moz-transform: scale(1.1) rotateZ(180deg)
+  .cssload-c4
+    transform: scale(1.1) rotateZ(270deg)
+    -o-transform: scale(1.1) rotateZ(270deg)
+    -ms-transform: scale(1.1) rotateZ(270deg)
+    -webkit-transform: scale(1.1) rotateZ(270deg)
+    -moz-transform: scale(1.1) rotateZ(270deg)
+  .cssload-c2:before
+    animation-delay: 0.35s
+    -o-animation-delay: 0.35s
+    -ms-animation-delay: 0.35s
+    -webkit-animation-delay: 0.35s
+    -moz-animation-delay: 0.35s
+  .cssload-c3:before
+    animation-delay: 0.69s
+    -o-animation-delay: 0.69s
+    -ms-animation-delay: 0.69s
+    -webkit-animation-delay: 0.69s
+    -moz-animation-delay: 0.69s
+  .cssload-c4:before
+    animation-delay: 1.04s
+    -o-animation-delay: 1.04s
+    -ms-animation-delay: 1.04s
+    -webkit-animation-delay: 1.04s
+    -moz-animation-delay: 1.04s
+
+@keyframes cssload-fold-thecube
+  0%, 10%
+    transform: perspective(385px) rotateX(-180deg)
+    opacity: 0
+
+  25%,
+  75%
+    transform: perspective(385px) rotateX(0deg)
+    opacity: 1
+
+  90%,
+  100%
+    transform: perspective(385px) rotateY(180deg)
+    opacity: 0
+
+@-o-keyframes cssload-fold-thecube
+  0%, 10%
+    -o-transform: perspective(385px) rotateX(-180deg)
+    opacity: 0
+
+  25%,
+  75%
+    -o-transform: perspective(385px) rotateX(0deg)
+    opacity: 1
+
+  90%,
+  100%
+    -o-transform: perspective(385px) rotateY(180deg)
+    opacity: 0
+
+@-ms-keyframes cssload-fold-thecube
+  0%, 10%
+    -ms-transform: perspective(385px) rotateX(-180deg)
+    opacity: 0
+
+  25%,
+  75%
+    -ms-transform: perspective(385px) rotateX(0deg)
+    opacity: 1
+
+  90%,
+  100%
+    -ms-transform: perspective(385px) rotateY(180deg)
+    opacity: 0
+
+@-webkit-keyframes cssload-fold-thecube
+  0%, 10%
+    -webkit-transform: perspective(385px) rotateX(-180deg)
+    opacity: 0
+
+  25%,
+  75%
+    -webkit-transform: perspective(385px) rotateX(0deg)
+    opacity: 1
+
+  90%,
+  100%
+    -webkit-transform: perspective(385px) rotateY(180deg)
+    opacity: 0
+
+@-moz-keyframes cssload-fold-thecube
+  0%, 10%
+    -moz-transform: perspective(385px) rotateX(-180deg)
+    opacity: 0
+
+  25%,
+  75%
+    -moz-transform: perspective(385px) rotateX(0deg)
+    opacity: 1
+
+  90%,
+  100%
+    -moz-transform: perspective(385px) rotateY(180deg)
+    opacity: 0
+
+////////////////////////////////
+
+.header-line
+  background-color: #646464
+  color: #ffffff
+  position: relative
+  left: -50px
+  top: 0px
+  padding: 5px 0 5px 50px
+  font-size: 40px
+  height: 60px
+
+.text-title
+  font-size: 30px
+
+.text-subtitle
+  font-size: 25px
+
+.text-subtitle-light
+  font-family: 'Quark-Light'
+  font-size: 25px
+
+.vertical-center
+  display: flex
+  vertical-align: middle
+  align-items: center
+
+.text-right
+  text-align: right !important
+
+.text-left
+  text-align: left !important
+
+.text-center
+  text-align: center !important
+
+.control-label.text-left
+  text-align: left !important
+
+.check-info
+  text-align: center
+  margin-top: 100px
+  img
+    width: 110px
+
+.address
+  .row
+    padding: 0px !important
+
+.user_card
+  position: relative
+  .user_card_user
+    position: absolute
+    bottom: 110px
+    left: 0
+    width: 100%
+  .user_card_pass
+    position: absolute
+    bottom: 50px
+    left: 0
+    width: 100%
+  span
+    width: 120px
+    line-height: 30px
+    height: 30px
+    display: inline-block
+    vertical-align: middle
+    text-align: left
+
+.edc_pin
+  width: auto
+  margin: 0 auto
+  .pin
+    border: 3px solid #635F98
+    background-color: #ffffff
+    width: 68px
+    height: 95px
+    margin: 5px
+    float: left
+    font-size: 100px
+    line-height: 150px
+    vertical-align: middle
+    font-family: "Quark-Bold"
+
+.form-input
+  padding-top: 5px
+  .control-label
+    font-family: "Cordia New"
+  p
+    margin-bottom: 15px
+  .form-group
+    font-family: "Cordia New"
+    font-size: 20px
+    margin-bottom: 20px
+    padding: 0 15px
+    .row
+      padding: 5px 0
+      .control-label
+        padding-left: 15px
+    &.border
+      border: 1px solid #D8D8D8
+      border-radius: 15px
+      padding: 20px
+    .row-option
+      .row
+        padding-top: 0
+        padding-bottom: 0
+    .row-checkbox
+      padding-left: 30px !important
+    .control-label
+      text-align: left
+      padding-top: 0
+      margin-bottom: 5px
+    .control-label.label-right
+      text-align: right
+    .control-label.label-center
+      text-align: center
+    .col
+      padding-left: 0
+      padding-right: 5px
+    .col2
+      padding: 0 5px
+
+    .col3
+      padding: 0
+    .form-control
+      padding: 0
+      font-size: 80px
+      font-family: "Cordia New"
+
+.form-input
+  padding-top: 5px
+
+.control-label
+  font-family: "Cordia New"
+
+p
+  margin-bottom: 15px
+
+.form-group
+  font-family: "Cordia New"
+  font-size: 20px
+  margin-bottom: 20px
+  padding: 0 15px
+  .row
+    padding: 5px 0
+    .control-label
+      padding-left: 15px
+  &.border
+    border: 1px solid #D8D8D8
+    border-radius: 15px
+    padding: 20px
+  .row-option
+    .row
+      padding-top: 0
+      padding-bottom: 0
+  .row-checkbox
+    padding-left: 30px !important
+  .control-label
+    text-align: left
+    padding-top: 0
+    margin-bottom: 5px
+  .control-label.label-right
+    text-align: right
+  .control-label.label-center
+    text-align: center
+  .col
+    padding-left: 0
+    padding-right: 5px
+  .col2
+    padding: 0 5px
+
+  .col3
+    padding: 0
+  .form-control
+    padding: 0
+    font-size: inherit
+
+.frame
+  padding: 0
+  margin-top: 2%
+
+.page1200
+  background-color: white
+  height: 680px
+  width: 1250px
+  @extend .shadow
+  .header
+    height: 60px
+    width: 100%
+    background-color: $light-blue
+    color: white
+
+.page-white
+  background-color: white
+
+.border-blue
+  border: 3px solid #635F98
+
+.border-purple
+  border: 3px solid $purple
+
+.border-purple-light
+  border: 3px solid $purple_light
+
+.border-white
+  border: 3px solid $white
+
+.btn-size-XL
+  width: 370px
+  height: 80px
+  border-radius: 10px
+  font-size: 48px !important
+
+.btn-size-L
+  width: 247px
+  height: 60px
+  border-radius: 10px
+  font-size: 32px !important
+
+.btn-size-M
+    width: 150px
+    height: 50px
+    border-radius: 10px
+    font-size: 24px !important
+
+.btn-size-S
+  width: 80px
+  height: 40px
+  border-radius: 5px
+  font-size: 18px !important
+
+.bold
+  font-weight: bold
+
+.buttonClose
+  max-width: 100%
+  z-index: 1
+  position: absolute
+  top: -25px
+  right: -25px
+
+#button_login
+  width: 300px
+  height: 80px
+
+.p-absolute
+  position: absolute
+
+.p-fixed
+  position: fixed
+
+.loading
+  -webkit-animation: rotation 2s infinite linear
+
+@-webkit-keyframes rotation 
+		from 
+				-webkit-transform: rotate(0deg)
+		to 
+				-webkit-transform: rotate(359deg)
+
+q
+  quotes: '\201c' '\201d'
+q:before
+  content: open-quote
+  color: $blue
+  font-size: 18px
+q:after
+  content: close-quote
+  color: $blue
+  font-size: 18px
+
+::-webkit-scrollbar
+    width: 2px
+    height: 2px
+    overflow: overlay
+/* Track */
+::-webkit-scrollbar-track
+    background: $light-gray
+ 
+/* Handle */
+::-webkit-scrollbar-thumb 
+    background: $blue
+
+::-webkit-scrollbar:vertical
+    width: 2px
+    overflow: overlay
+/* Track */
+::-webkit-scrollbar-track:vertical
+    background: $light-gray
+ 
+/* Handle */
+::-webkit-scrollbar-thumb:vertical
+    background: $blue
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+    background: transparent
+
+.ng2-pdf-viewer-container > div
+  position: relative

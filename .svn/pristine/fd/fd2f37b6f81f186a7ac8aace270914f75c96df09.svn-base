@@ -1,0 +1,168 @@
+../src/app/kiatnakin/service-module/asset-catalog/catalog.component.ts
+line 56: value
+
+../src/app/kiatnakin/service-module/bank-account/create-bank-account/create-bank-account.component.ts
+line 242: Modal.title.required
+line 249: Modal.title.required
+line 256: Modal.title.required
+line 263: Modal.title.required
+line 270: Modal.title.required
+line 277: Modal.title.required
+line 287: Modal.title.required
+
+../src/app/kiatnakin/service-module/cheque/cheque-scanner/cheque-scanner.component.ts
+line 364: 'ขออภัยระบบไม่สามารถทำการถอนเงินจาก แคชเชียร์เช็คได้'
+line 398: 'ขออภัยเช็คต่างธนาคารไม่อยู่ในช่วงเวลาทำการ'
+line 413: 'ขออภัยระบบไม่สามารถทำการถอนเงินจาก เช็คต่างธนาคารได้'
+
+../src/app/kiatnakin/service-module/investment/fund-list/fund-list.component.ts
+line 192: e
+line 247: "Unit ไม่เพียงพอสำหรับทำรายการ"
+line 258: "ไม่พบเลขบัญชีที่ผูกไว้กับหน่วยลงทุน"
+
+../src/app/kiatnakin/service-module/investment/purchase/purchase.component.ts
+line 290: `ชื้อครั้งแรก ขั้นต่ำ ${fund.FirstMinAmount} บาท`
+line 296: `ขั้นต่ำ ${fund.MinimumAmount} บาท แต่ไม่เกิน ${fund.MaximumAmount } บาท`
+
+../src/app/kiatnakin/service-module/investment/redeem/redeem.component.ts
+line 190: `ขายเกินจำนวนขั้นต่ำ`
+line 196: `สับเปลี่ยนเกินจำนวนขั้นต่ำ`
+
+../src/app/kiatnakin/service-module/investment/suitability/suitability.component.ts
+line 259: "กรุณาตอบคำถามให้ครบถ้วน"
+
+../src/app/kiatnakin/service-module/investment/switch/switch.component.ts
+line 174: `สับเปลี่ยนเกินจำนวนขั้นต่ำ`
+line 180: `สับเปลี่ยนเกินจำนวนขั้นต่ำ`
+
+../src/app/kiatnakin/service-module/login/card/card-atm/card-atm.component.ts
+line 155: "Authenication not match"
+
+../src/app/kiatnakin/service-module/login/card/card-email-pwd/card-email-pwd.component.ts
+line 57: "Authenication not match"
+
+../src/app/kiatnakin/service-module/login/card/card-id-card/card-id-card.component.ts
+line 91: "Authenication not match"
+
+../src/app/kiatnakin/service-module/login/card/card-id-number/card-id-number.component.ts
+line 56: "Authenication not match"
+
+../src/app/kiatnakin/service-module/subscription/subscription-account/subscription-account.component.ts
+line 605: 'กรุณาระบุ อีเมล'
+line 613: 'กรุณาระบุ อีเมลให้ถูกต้อง'
+line 621: 'กรุณาระบุ โทรศัพท์มือถือ'
+line 629: 'กรุณาระบุ โทรศัพท์มือถือให้ถูกต้อง'
+line 638: 'กรุณาระบุ โทรศัพท์บ้านให้ถูกต้อง'
+line 647: 'กรุณาระบุ โทรสารให้ถูกต้อง'
+line 655: 'กรุณาระบุ ประเภทที่อยู่ที่ติดต่อได้'
+line 661: 'กรุณาระบุ เลขที่'
+line 668: 'กรุณาระบุ ประเทศ'
+line 676: 'กรุณาระบุ จังหวัด'
+line 683: 'กรุณาระบุ เขต/อำเภอ'
+line 690: 'กรุณาระบุ แขวง/ตำบล'
+line 697: 'กรุณาระบุ รหัสไปรษณีย์'
+line 704: 'กรุณาระบุ สถานะภาพการสมรสทางกฏหมาย'
+line 711: 'กรุณาระบุ คำนำหน้าชื่อคู่สมรส ภาษาไทย'
+line 718: 'กรุณาระบุ ชื่อคู่สมรส ภาษาไทย'
+line 725: 'กรุณาระบุ นามสกุลคู่สมรส ภาษาไทย'
+line 732: 'กรุณาระบุ นามสกุลคู่สมรส ภาษาอังกฤษ'
+line 739: 'กรุณาระบุ ชื่อคู่สมรส ภาษาอังกฤษ'
+line 746: 'กรุณาระบุ นามสกุลคู่สมรส ภาษาอังกฤษ'
+line 756: 'กรุณาระบุ ความสัมพันธ์เพิ่มเติม'
+line 763: 'กรุณาระบุ คำนำหน้าชื่อผู้ติดต่อ'
+line 768: 'กรุณาระบุ ชื่อผู้ติดต่อ'
+line 773: 'กรุณาระบุ นามสกุลชื่อผู้ติดต่อ'
+line 779: 'กรุณาระบุ เบอร์โทรศัพท์ผู้ติดต่อ'
+line 789: 'กรุณาระบุ ความสัมพันธ์เพิ่มเติม'
+line 795: 'กรุณาระบุ คำนำหน้าชื่อผู้ติดต่อ'
+line 800: 'กรุณาระบุ ชื่อผู้ติดต่อ'
+line 805: 'กรุณาระบุ นามสกุลชื่อผู้ติดต่อ'
+line 811: 'กรุณาระบุ เบอร์โทรศัพท์ผู้ติดต่อ'
+line 821: 'กรุณาระบุ รายได้ต่อปี'
+line 825: 'กรุณาระบุ ระดับการศึกษาสูงสุด'
+line 831: 'กรุณาระบุ อาชีพ'
+line 838: 'กรุณาระบุ ประเภทที่อยู่ที่ทำงาน'
+line 844: 'กรุณาระบุ เลขที่'
+line 851: 'กรุณาระบุ ประเทศ'
+line 858: 'กรุณาระบุ จังหวัด'
+line 864: 'กรุณาระบุ เขต/อำเภอ'
+line 871: 'กรุณาระบุ แขวง/ตำบล'
+line 878: 'กรุณาระบุ รหัสไปรษณีย์'
+line 885: 'กรุณาระบุ ประเภทธุรกิจ'
+line 893: 'กรุณาระบุ ประเภทธุรกิจให้ครบถ้วน'
+line 901: 'กรุณาระบุ แหล่งที่มาของรายได้หลักมาจาก'
+line 906: 'กรุณาระบุ รายละเอียดแหล่งที่มาของรายได้หลักมาจาก'
+line 914: 'กรุณาระบุ ประเทศที่มาของรายได้หลักมาจาก'
+line 919: 'กรุณาระบุ ข้อมูลให้ครบถ้วน'
+line 926: 'กรุณาระบุ แหล่งที่มาของรายได้หลักมาจาก ให้ครบถ้วน'
+line 934: 'กรุณาระบุ ประเทศที่มาของรายได้หลัก ให้ครบถ้วน'
+line 941: 'กรุณาระบุ บุคคลที่ได้รับผลประโยชน์ ให้ครบถ้วน'
+line 954: 'กรุณาระบุ ข้อมูลให้ครบถ้วน'
+line 962: 'กรุณาระบุประเภทของที่อยู่'
+line 968: 'กรุณาระบุ เลขที่'
+line 975: 'กรุณาระบุ ประเทศ'
+line 981: 'กรุณาระบุ จังหวัด'
+line 987: 'กรุณาระบุ เขต/อำเภอ'
+line 993: 'กรุณาระบุ แขวง/ตำบล'
+line 999: 'กรุณาระบุ รหัสไปรษณีย์'
+line 1007: 'กรุณาระบุ รหัสไปรษณีย์ให้ถูกต้อง'
+line 1015: 'กรุณาระบุ ชื่อบัญชี'
+line 1021: 'กรุณาเลือก เงื่อนไขการสั่งจ่าย'
+line 1027: 'กรุณาเลือก ประเภทหลักฐานการรับฝากเงิน'
+line 1033: 'กรุณาระบุ วัตถุประสงค์การเปิดบัญชี'
+line 1038: 'กรุณาระบุ วัตถุประสงค์การเปิดบัญชี'
+line 1045: 'กรุณาเลือกบัญชีรับดอกเบี้ย'
+line 2582: e
+line 2588: "ท่านยังไม่มีบัญชีกับธนาคาร เกียรตินาคิน"
+line 2848: 'กรุณาระบุ รหัสประชาชนให้ถูกต้อง'
+line 2854: 'กรุณาระบุ คำนำหน้าชื่อ'
+line 2860: 'กรุณาระบุ คำนำหน้าชื่อ'
+line 2866: 'กรุณาระบุ ชื่อภาษาไทย'
+line 2872: 'กรุณาระบุ ชื่อภาษาอังกฤษ'
+line 2878: 'กรุณาระบุ นามสกุลภาษาไทย'
+line 2884: 'กรุณาระบุ นามสกุลภาษาอังกฤษ'
+line 2892: 'กรุณาระบุ วัน ของวันเกิด'
+line 2899: 'กรุณาระบุ เดือน ของวันเกิด'
+line 2906: 'กรุณาระบุ ปี ของวันเกิด'
+line 2914: 'กรุณาระบุ สัญชาติ'
+line 2920: 'กรุณาระบุ เลขที่'
+line 2926: 'กรุณาระบุ ประเทศ'
+line 2932: 'กรุณาระบุ จังหวัด'
+line 2938: 'กรุณาระบุ เขต/อำเภอ'
+line 2944: 'กรุณาระบุ แขวง/ตำบล'
+line 2950: 'กรุณาระบุ รหัสไปรษณีย์'
+line 2958: 'กรุณาระบุ วัน ของวันที่ออกบัตร'
+line 2965: 'กรุณาระบุ เดือน ของวันที่ออกบัตร'
+line 2972: 'กรุณาระบุ ปี ของวันที่ออกบัตร'
+line 2979: 'กรุณาระบุ วัน ของวันที่บัตรหมดอายุ'
+line 2986: 'กรุณาระบุ เดือน ของวันที่บัตรหมดอายุ'
+line 2993: 'กรุณาระบุ ปี ของวันที่บัตรหมดอายุ'
+line 3000: 'กรุณาระบุ เลขหลังบัตรให้ถูกต้อง'
+line 3006: 'กรุณาระบุ เลขหลังบัตรให้ถูกต้อง'
+line 3012: 'กรุณาระบุ เลขหลังบัตรให้ถูกต้อง'
+line 3063: 'กรุณาระบุหมายเลขโทรศัพท์ให้ถูกต้อง'
+line 3363: 'กรุณาระบุ MyPIN ให้ถูกต้อง'
+line 3644: 'Convert Date Error'
+line 3825: "กรุณาระบุ บัญชีที่หักค่าธรรมเนียม"
+line 4380: "กรุณาระบุ ชื่อ-นามสกุล ให้ถูกต้อง"
+
+../src/app/kiatnakin/service-module/transfer/transfer.component.ts
+line 448: "ขออภัยระบบไม่สามารถทำการโอนเงินมากกว่า 20 ล้านบาทได้ กรุณาติดต่อพนักงาน"
+
+../src/app/kiatnakin/user-module/select-bank-account/select-bank-account.component.ts
+line 142: "บัญชีไม่สามารถทำรายการได้ กรุณาติดต่อเจ้าหน้าที่"
+
+../src/app/kiatnakin/user-module/select-bank-account-by-number/select-bank-account-by-number.component.ts
+line 41: "ไม่สามารถระบุหมายเลขบัญชีที่เหมือนปลายทาง กรุณาทำรายการใหม่อีกครั้ง"
+
+../src/app/kiatnakin/user-module/select-interbank-account/select-interbank-account.component.ts
+line 161: "ไม่สามารถระบุหมายเลขบัญชีที่เหมือนต้นทาง กรุณาทำรายการใหม่อีกครั้ง"
+line 185: 'รหัสบัตรประชาชนผิดพลาด'
+line 196: 'โปรดกรอกรหัสบัตรประชาชน หรือ หมายเลขโทรศัพท์ ให้ถูกต้อง'
+
+../src/app/kiatnakin/user-module/transaction-type/transactiontype.component.ts
+line 36: "ขออภัยระบบยังไม่เปิดให้บริการ"
+
+../src/app/kiatnakin/_share/deposit-term-picker/deposit-term-picker.component.ts
+line 115: "กรุณาระบุจำนวนเงินอย่างน้อย 5,000 บาท"
+

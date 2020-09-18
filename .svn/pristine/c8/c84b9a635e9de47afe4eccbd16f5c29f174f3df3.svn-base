@@ -1,0 +1,26 @@
+<div id="input-modal" class="modal fade-scale" role="dialog">
+  <div class="vertical-alignment-helper">
+    <div class="modal-dialog modal-lg  vertical-align-center">
+      <!-- Modal content-->
+      <div id="input-modal-dialog" class="modal-content text-center">
+
+        <div class="modal-body">
+          <p class="modal-title display-4">กรุณาระบุบัญชีรับดอกเบี้ย</p>
+          <input id="account-number" type="text" class="text-center display-1 input-acc-no h-75 w-75" keyboard="number"
+            placeholder="{{ 'input_account_no' | translate }}" maxlength="10" [(ngModel)]="accountNumber">
+        </div>
+        <hr>
+        <div class="modal-footer text-center">
+          <button id="input-modal-confirm-button-ok" type="button" class="button-white border-blue text-blue display-5"
+            data-dismiss="modal" style="margin: 30px" (click)="onConfirmClicked()" [disabled]="checkDisableBtnConfirm()">
+            {{ 'ok' | translate }}
+          </button>
+          <button id="input-modal-confirm-button-cancel" type="button" class="button-blue display-5" data-dismiss="modal"
+            style="margin: 30px">
+            {{ 'cancel' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

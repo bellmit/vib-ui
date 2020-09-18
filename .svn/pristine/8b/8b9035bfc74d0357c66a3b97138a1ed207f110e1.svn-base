@@ -1,0 +1,24 @@
+<div class="container" style="background-color: white;height: 700px">
+    <div class="row text-center">
+       <div class="col-lg-12 ">
+        <div class="col-lg-12 mt-5">
+            <img src="https://www.wpclipart.com/signs_symbol/business/barcodes/barcode_code39.png">
+        </div>
+        <div class="col-lg-12 mt-5" style="margin-top: 3%">
+            <button class="btn-lg" id="button1" style="width: 286px" (click)="onClickScanBarcode()">
+                Scan barcode
+            </button>
+        </div>
+
+        <div class="col-lg-12 mt-5" style="margin-top: 3%">
+            <button class="btn-lg" id="button2" style="width: 286px" (click)="onClickInputBarcode()">
+                Input barcode
+            </button>
+        </div>
+        <div class="space-bottom-10">&nbsp;</div>
+       </div>
+    </div>
+</div>
+
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

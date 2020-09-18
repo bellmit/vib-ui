@@ -1,0 +1,46 @@
+<div class="container page1200">
+
+        <div class="header ">
+
+        </div>
+        <div class="body">
+            <div class="row text-center">
+                <label class="col-12 text-blue display-2 mt-3"> {{ dataService.transaction.from.accountNumber }}</label>
+                <label class="col-12 text-black display-3 mt-2">
+                    กรุณากรอกลำดับของรายการฝากเงินฝากประจำที่ท่านต้องการถอน </label>
+                <div class="col-12 mt-3">
+                    <input #input_index
+                           id="input-dep-no"
+                           type="text"
+                           class="text-center display-1 h-75 w-75"
+                           keyboard="number"
+                           minlength="1"
+                           maxlength="3"
+                           [(ngModel)]="selectedIndex"
+                           required
+                           placeholder="ลำดับ">
+                </div>
+            </div>
+        </div>
+        <div class="footer text-center">
+            <div class="row">
+                <div class="col-12  text-center">
+                    <button id="button-submit"
+                            class="button-blue button-submit"
+                            type="submit"
+                            (click)="onSubmit()"
+                            [disabled]="selectedIndex.length === 0">
+                        <h2> {{ 'ok' | translate }}</h2>
+                    </button>
+                </div>
+                <!--<div class="col-lg-12 text-center btn-login text-black mt-4 display-4">-->
+                    <!--<label class="label-login" (click)="onClickLogin()">{{ 'login' | translate }}</label>-->
+                <!--</div>-->
+            </div>
+        </div>
+</div>
+
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()"/>
+
+

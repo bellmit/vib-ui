@@ -1,0 +1,27 @@
+<div [id]="'progress' + progressId" style="transform:translateY(50%); text-align: center; display: none">
+    <div id="floatingCirclesG" class="loading">
+        <div class="f_circleG" id="frotateG_01"></div>
+        <div class="f_circleG" id="frotateG_02"></div>
+        <div class="f_circleG" id="frotateG_03"></div>
+        <div class="f_circleG" id="frotateG_04"></div>
+        <div class="f_circleG" id="frotateG_05"></div>
+        <div class="f_circleG" id="frotateG_06"></div>
+        <div class="f_circleG" id="frotateG_07"></div>
+        <div class="f_circleG" id="frotateG_08"></div>
+    </div>
+    <div id="success">
+        <img class="pt-2" src="./assets/kiatnakin/image/icon_success.png">
+    </div>
+    <div id="error" class="error">
+        <img class="pt-2" src="./assets/kiatnakin/image/icon_error.png">
+    </div>
+    <label id="progress-message" class="display-3"></label>
+
+    <div class="error">
+        <button id="button_close" class="button-white border-blue text-blue display-5" (click)="onClickBack()">
+            <h2>
+                {{ 'back' | translate }}
+            </h2>
+        </button>
+    </div>
+</div>

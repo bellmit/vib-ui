@@ -1,0 +1,89 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "vib-application"
+  },
+  "apps": [
+    {
+      
+      "root": "src",
+      "outDir": "./VIB-Node-Server/dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.json",
+      "testTsconfig": "tsconfig.spec.json",
+      "prefix": "",
+      "styles": [
+        "styles.sass",
+        "styles-flex.sass",
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
+
+        "../src/library/css/bookblock.css",
+        "../src/library/css/keyboard-greywyvern.css",
+        "../src/library/css/jquery-selector.css",
+        "../src/library/css/animate.css"
+      ],
+      "scripts": [
+        "../src/library/js/jquery-2.2.4.min.js",
+        "../src/library/js/jquery-migrate-1.4.1.min.js",
+        "../src/library/js/jquery.caret-1.5.1.min.js",
+        "../node_modules/tether/dist/js/tether.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+
+        "../node_modules/socket.io-client/dist/socket.io.js",
+        "../node_modules/dateformat/lib/dateformat.js",
+        "../node_modules/moment/moment.js",
+        "../src/library/js/modernizr.2.5.3.min.js",
+        "../src/library/js/modernizr.custom.js",
+        "../src/library/js/interact.min.js",
+        "../src/library/js/jquery-ui.min.js",
+        "../src/library/js/jquery.bookblock.js",
+        "../src/library/js/jquery-selector.min.js",
+        "../src/library/js/tweene-velocity.min.js",
+        "../src/library/js/velocity.min.js",
+        "../src/library/js/sly.min.js",
+        "../src/library/js/turn.js",
+        "../src/library/js/keyboard-greywyvern.js",
+        "../src/library/js/cobrows.js"
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": { 
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts",
+        "staging": "environments/environment.staging.ts"
+      }
+    }
+  ],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "lint": [
+    {
+      "files": "src/**/*.ts",
+      "project": "src/tsconfig.json"
+    },
+    {
+      "files": "e2e/**/*.ts",
+      "project": "e2e/tsconfig.json"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "sass",
+    "build": {
+      "showCircularDependencies": false      
+    }
+  }
+}

@@ -1,0 +1,94 @@
+@import "./src/styles-master"
+
+#container_form_withdraw
+  background-color: white
+  width: 1250px
+  height: 730px
+  @extend .shadow
+  #header
+    height: 70px
+    width: 100%
+    color: white
+    padding: 0px !important
+    .row
+      height: 100%
+      margin: 0px
+      #header-logo
+        margin: 0 0 1px
+      #header-desc
+
+.container
+  justify-content: center
+  align-items: center
+  height: 100%
+  margin-top: 5%
+
+.vertical-center
+  display: flex
+  vertical-align: middle
+  align-items: center
+
+.form-in
+  height: 250px
+  margin: 0 30px 0 30px
+  padding: 0px
+
+.non-border
+  border: #EEEEEE solid 3px !important
+
+.container
+  align-items: center
+  height: 100%
+  margin-top: 5%
+
+.content-border
+  border: 3px solid #FFE6E9 !important
+  background-color: #FFE6E9 !important
+
+.confirm-bg
+  background-color: #FFFFFF
+  color: #000000
+
+.frame
+  padding-top: 50px
+  margin-left: 14px
+  .slidee
+    margin: 0
+    padding: 0
+    list-style: none
+    height: 200px
+    li
+      float: left
+      margin: 0 100px 0 0
+      padding: 0
+      width: 152px
+      transform: scale(1)
+      transition: all .2s ease-in-out
+      opacity: .6
+      @extend .gray-scale
+    li.active
+      opacity: 1 !important
+      transform: scale(1.6)
+      @extend .non-gray-scale
+
+.service-image
+  margin-top: 5%
+  font-weight: bold
+
+.bankImage
+  width: 100px
+  height: 100px
+
+.border_top_withdraw_page
+  border-style: solid
+  border-top-style: dashed
+  border-top-color: #D8D8D8
+  border-left-color: white
+  border-right-color: white
+
+.withdraw_page
+  justify-content: center
+  background-color: #F0EFEF
+  height: 430px
+  width: 1110px
+  @extend .shadow

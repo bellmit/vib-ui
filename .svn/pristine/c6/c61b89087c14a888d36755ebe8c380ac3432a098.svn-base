@@ -1,0 +1,70 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/VIB-Node-Server/dist
+/VIB-Node-Server/teller-dist
+/tmp
+
+# dependencies
+/node_modules
+/vib-node-server/node_modules
+/vib-api/node_modules
+/vib-api/logs/*
+/package-lock.json
+/.scannerwork
+*.log
+
+# hardware dependencies
+/VIB-Hardware-Web-Tester/node_modules
+/VIB-Hardware-Server/node_modules
+/VIB-Hardware-Server/package-lock.json
+/VIB-Hardware-Server/app/log/testmode
+/VIB-Hardware-Server/detect_region.jpg
+/VIB-Hardware-Server/image.jpg
+/VIB-Hardware-Server/vib-modules/hardware-modules/hardware/module/image-processing/lib
+/VIB-Hardware-Server/*.log
+/VIB-Hardware-Server/vib-modules/hardware-modules/hardware/module/printer/temp
+/VIB-Hardware-Server/vib-modules/hardware-modules/hardware/module/printer/output
+/VIB-Hardware-Server/vib-modules/hardware-modules/output/barcode1_barcode.jpg
+/VIB-Hardware-Server/vib-modules/hardware-modules/output/cheque1_micr.jpg
+/VIB-Hardware-Server/vib-modules/hardware-modules/output/doc1_paper.jpg
+/VIB-Hardware-Server/vib-modules/hardware-modules/output/qrcode1_qrcode.jpg
+/VIB-Hardware-Server/setup-script/files/printer-env.txt
+/VIB-Hardware-Server/vib-automate-test/db.json
+/VIB-Hardware-Server/vib-modules/hardware-modules/files/*.gz
+
+
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+#System Files
+.DS_Store
+Thumbs.db
+yarn.lock

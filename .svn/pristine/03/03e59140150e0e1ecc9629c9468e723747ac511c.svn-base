@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="col-md-12">
+        <div id="frame" class="frame col-md-5">
+            <ul id="scrollbar" class="slidee">
+                <li *ngFor="let data of dataList" id="{{data.PROD_ID}}">
+                    <div class="book-cover {{dataService.selectedDepositType}}">
+                        <img [ngStyle]="data.PROD_TYPE === 'D' && {'width': '500px'}"
+                            src="./assets/kiatnakin/image/{{bookCover}}" />
+                        <div class="display-5-1 Quark" [ngClass]="(data.PROD_TYPE === 'S')?'text-white':'text-blue'"
+                            style="position: absolute;top: 28%;right: 10%;font-weight: bold;font-size: 30px">
+                            {{data.PROD_NAME}}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <div class="paper">
+                <div class="container" id="content">
+                    <div *ngIf="productD" class="scroll">
+
+                        <div *ngIf="productD.conImgHeader" class="detail-image-main-r1 mb-3 text-center">
+                            <img id="detail-image-main-02" style="width: 95%;margin-bottom:20px"
+                                src="{{productD.conImgHeader}}" />
+                        </div>
+
+                        <div class="product-recommend-wrapper mgCen" id="product-recommend-wrapper_03_id">
+                            <div class="container pt-0">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="detail-image-main-l1 mb-3">
+                                            <img src="{{productD.coverProduct}}" />
+                                        </div>
+                                        <div class="detail-icon-list">
+                                            <div class="row mt-3">
+                                                <div *ngIf="productD.keySellingPoint.length > 0"
+                                                    class="detail-icon-list col-lg-12">
+                                                    <div class="row">
+                                                        <div *ngFor="let productKeySell of productD.keySellingPoint"
+                                                            [ngClass]="[
+                                                                    productD.keySellingPoint.length ===4 ? 'col-lg-3' : '',
+                                                                    productD.keySellingPoint.length ===3 ? 'col-lg-4' : '',
+                                                                    productD.keySellingPoint.length ===2 ? 'col-lg-6' : ''
+                                                                ]" class="p-0">
+                                                            <div class="col-lg-12">
+                                                                <div *ngIf="productKeySell.imgBullet" class="row">
+                                                                    <div class="text-right" [ngClass]="[
+                                                                        productD.keySellingPoint.length === 2?'col-lg-3':'col-lg-5'
+                                                                        ]">
+                                                                        <img id="icon-01" class="icon-list"
+                                                                            src="{{productKeySell.imgBullet}}" />
+                                                                    </div>
+                                                                    <div class="col-lg-7" [ngClass]="[
+                                                                            productD.keySellingPoint.length === 3?'p-0':''
+                                                                            ]">
+                                                                        <div id="icon-label-01"
+                                                                            class="icon-label display-7-5 Quark"
+                                                                            style="width: 140px">
+                                                                            {{productKeySell.labelBullet}}</div>
+                                                                        <div id="icon-detail-01"
+                                                                            class="icon-detail color-blue display-7-8 Quark"
+                                                                            style="width: 120px">
+                                                                            {{productKeySell.labelDetail}}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-recommend-wrapper mgCen" id="product-recommend-wrapper_01">
+                            <div class="container pt-0">
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <div class="detail-list-01"
+                                            [ngClass]="(!productD.conImgHeader)?'margin-top:20% !important':''">
+                                            <h4 class="text-violet text-bold display-6 Quark"
+                                                id="detail-list-header-01">
+                                                <span class="text-blue mb-3">{{productD.conTitle1}}</span>
+                                                {{productD.conTitleSub1}}
+                                            </h4>
+                                            <ul class="detail-list-ul mt-3 display-7 Quark p-0">
+                                                <p [innerHTML]="productD.conDesc1"></p>
+                                            </ul>
+                                        </div>
+
+                                        <div class="detail-list-02 mt-3">
+
+                                            <h4 class="detail-list-header text-violet mb-3 text-bold display-6 Quark"
+                                                style="display:inline-block" id="detail-list-header-02">
+                                                {{productD.conTitle2}}
+                                            </h4>
+                                            <ul class="detail-list-ul condition-container display-7 Quark p-0">
+                                                <span [innerHTML]="productD.conDesc2">
+                                                </span>
+                                            </ul>
+                                        </div>
+
+                                        <div class="buttom-footer" style="text-align:center;">
+                                            <button id="openAccount" class="btn button-blue btn-open-acc text-m Quark"
+                                                (click)="onClickOpenAccount()">
+                                                <h2>{{"เปิดบัญชี"}}</h2>
+                                            </button>
+                                            <!--สนใจสมัครบริการ-->
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

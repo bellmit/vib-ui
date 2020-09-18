@@ -1,0 +1,13 @@
+@import "./src/styles-master"
+
+input
+    cursor: pointer
+    color:  black 
+
+.txt-ssu
+  @extend .display-5
+  @extend .text-dark-black-gray
+  font-size: 27px !important
+
+.down
+  bottom: -15% !important

@@ -1,0 +1,116 @@
+<div id="suit_expired_container" >
+    <div  class="text-center container popup-container">
+        <div style="margin-top: 200px !important" class="p-4">
+            <img src="./assets/kiatnakin/image/investment/icon_calendar.png"  />
+        </div>
+        <div *ngIf="currentCustomerSuitScore" class="display-2 text-bold text-italic"> คะแนน Suitability ของคุณหมดอายุ</div>
+        <div *ngIf="currentCustomerSuitScore" class="display-2 text-red text-italic"> เมื่อ {{currentCustomerSuitScore.EXPIRY_DATE}} </div>
+        <div class="display-2"> กรุณาทำ Suitability ก่อนทำการซื้อกองทุน </div>
+    </div>
+    <div class="footer text-center">
+        <button class="button-purple" (click)="onClickAcceptTodoSuit()">
+            <h2> ตกลง </h2>
+        </button>
+    </div>
+</div>
+
+<div id="suit_summary_container"  style="display: none">
+
+    <div class="text-center container popup-container">
+        <div style="margin-top: 120px !important" class="p-4"></div>
+        <div class="display-1 text-bold text-italic"> ระดับการยอมรับความเสี่ยง</div>
+        <div *ngIf="currentCustomerSuitScore" class="display-1 text-purple"> ระดับ {{currentCustomerSuitScore.CUST_SUIT_LEVEL}} {{summaySuitScore.riskTitle}} </div>
+        <div class="display-3"> สัดส่วนการลงทุน </div>
+        <div class="display-2 text-left row mt-3">
+            
+            <div class="col-7 offset-2">
+                เงินฝากและตราสารหนี้
+            </div>
+            <div class="col-3 text-purple">  
+                {{summaySuitScore.assetAllocation.bankDeposit}}
+            </div>
+            <div class="col-7 offset-2">
+                ตราสารภาครัฐที่มีอายุมากกว่า 1ปี
+            </div>
+            <div class="col-3 text-purple">  
+                {{summaySuitScore.assetAllocation.governmentInstrument}}
+            </div>
+            <div class="col-7 offset-2">
+                ตราสารทุน
+            </div>
+            <div class="col-3 text-purple">  
+                    {{summaySuitScore.assetAllocation.privateInstrument}}
+            </div>
+            <div class="col-7 offset-2">
+                ตราสารหนี้    
+            </div>
+            <div class="col-3 text-purple">  
+                {{summaySuitScore.assetAllocation.equityInstrument}}
+            </div>
+            <div class="col-7 offset-2">
+                การลงทุนทางเลือก
+            </div>
+            <div class="col-3 text-purple">  
+                {{summaySuitScore.assetAllocation.alternativeFund}}
+            </div>
+        </div>
+    </div>
+    <div class="footer text-center">
+        <button class="button-purple" (click)="onClickAccept()">
+            <h2> ตกลง </h2>
+        </button>
+    </div>
+</div>
+
+<template-flip-book id="flipBook" #flipBook
+    style="display:none"
+    (onFlipInit)="onFlipInit($event)" 
+    (onStart)="onStart($event)" 
+    (onTurning)="onTurning($event)" 
+    (onTurned)="onTurned($event)"
+    (onEnd)="onEnd($event)">
+
+
+    <img src="./assets/kiatnakin/image/close.png" (click)="onClickClose()" ignore="1" *ngIf="isShowCloseButton" style="  max-width: 100%;z-index: 900;position: absolute;top: -25px;left: 1350px">
+
+    <div class="hard cover">
+        <div class="cover-page">
+            <div class="logo">
+                <img src="" width="100%">
+            </div>
+        </div>
+    </div> 
+
+        <ng-container *ngFor="let questionList of suitQuestion; let k = index">
+                <div class="cover blue hard "[ngClass]="{'fixed': currentPageIndex > '3', 'front-side' : k== 0 ,'own-size' : k > 0 && suitQuestion.length - 1 != k, 'back-side fixed' : suitQuestion.length - 1 == k}" >
+                    <div class="content-cover">
+                            <div class="container pt-5 ">
+                                <div *ngIf="k == 0" class="ribbon_gray_left">
+                                    <label class="text-white pl-39px pt-2 display-4"> Suitability </label>
+                                </div>
+                                <div class="col-12 row pl-5 pt-3" *ngFor="let question of questionList; let i = index">
+                                    <label class="display-6"> {{question.QUEST_SEQ}}. {{question.QUEST_DESC}} </label>
+                                    <input type="hidden" name="question" id="{{question.QUEST_ID}}" />
+                                    <div class="col-12 pt-1" *ngFor="let answer of question.ANSWER.SuitAnswerDetail; let j = index">
+                                      
+                                        <label for="answer_{{answer.ANSWER_ID}}">
+                                            <input type="{{question.QUEST_TYPE == 'R' ? 'radio' : 'checkbox'}}"  value="{{question.QUEST_ID}}|{{answer.ANSWER_ID}}"  name="{{k}}{{i}}" id='answer_{{answer.ANSWER_ID}}'>
+                                            {{answer.ANSWER_DESC}}
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div *ngIf="suitQuestion.length - 1 == k" class="text-center">
+                                        <button class="button-blue btn-size-M" (click)="onClickSubmitAnswer()">
+                                                <h2> {{'accept' | translate }}</h2>
+                                        </button>
+                                </div>
+                            </div>
+                    </div>
+                </div> 
+
+        </ng-container>
+ 
+</template-flip-book>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

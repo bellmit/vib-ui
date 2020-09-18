@@ -1,0 +1,115 @@
+import { Component, EventEmitter, OnInit, Output, AfterContentInit } from '@angular/core';
+import { KeyboardService } from "../../../../_service/keyboard.service";
+import { AccountService } from "../../../../_service/api/account.service";
+import { Modal } from "../../../../_share/modal-dialog/modal-dialog.component";
+import { Utils } from "../../../../../share/utils";
+import { ActivatedRoute, Router } from "@angular/router";
+import { DataService } from "../../../../_service/data.service";
+import { UserService } from "../../../../_service/user.service";
+import { isNullOrUndefined } from 'util';
+import { AppConstant } from '../../../../../share/app.constant';
+
+@Component({
+    selector: 'card-otp',
+    templateUrl: './card-otp.component.html',
+    styleUrls: ['./card-otp.component.sass']
+})
+export class CardOtpComponent implements OnInit, AfterContentInit {
+
+    @Output() onAuthenticate: EventEmitter<boolean> = new EventEmitter<boolean>();
+    public userLogin = {
+        otp: "",
+        referenceNo: "",
+        tokenUUID: "",
+    };
+
+    constructor(private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private accountService: AccountService,
+        private userService: UserService,
+        private dataService: DataService) {
+    }
+
+    ngOnInit() {
+    }
+
+    ngAfterContentInit() {
+        setTimeout(() => {
+            this.onGenerateOTP();
+        }, 100);
+
+    }
+
+    onClickRetry() {
+        $("#img_retry").addClass("rotate");
+        this.userLogin = {
+            otp: "",
+            referenceNo: "",
+            tokenUUID: "",
+        };
+        this.onGenerateOTP();
+    }
+
+    onInputOTP(otp) {
+        if (otp.length === 6) {
+            this.userLogin.otp = otp;
+            KeyboardService.hide();
+            this.onClickVerifyOTP();
+        }
+    }
+
+    onGenerateOTP() {
+
+        console.log("onGenerateOTP");
+        setTimeout(() => {
+            $("#img_retry").removeClass("rotate");
+        }, 1000);
+        const txn_type = AppConstant.OTP_TRANSFER_TH;
+        const idNumber = !isNullOrUndefined(this.userService.getUser()) ? this.userService.getUser().idNumber.toString() : this.userService.userAuthen.idNumber.toString()
+        const idType = !isNullOrUndefined(this.userService.getUser()) ? this.userService.getUser().idType.toString() : this.userService.userAuthen.idType.toString()
+        if (this.userLogin.tokenUUID.length === 0) {
+            this.accountService
+                .generateOTP(this.dataService.transaction, idNumber, txn_type, idType)
+                .subscribe(
+                    otp => {
+                        this.userLogin.referenceNo = otp.data.GenerateOTPDetail.ReferenceNo;
+                        this.userLogin.tokenUUID = otp.data.GenerateOTPDetail.TokenUUID;
+                    },
+                    error => {
+                        Modal.showAlert(error.responseStatus.responseMessage);
+                    }
+                );
+        }
+    }
+
+    testGetOTP() {
+        this.accountService
+            .getotp()
+            .subscribe(
+                otp => {
+                },
+                error => {
+                }
+            );
+    }
+
+    onClickVerifyOTP() {
+        Modal.showProgress();
+
+        setTimeout(() => {
+
+            this.accountService
+                .verifyOTP(this.userLogin.tokenUUID, this.userLogin.referenceNo, this.userLogin.otp)
+                .subscribe(
+                    data => {
+                        this.dataService.isAuthenticated = true;
+                        this.onAuthenticate.emit(true);
+                    },
+                    error => {
+                        this.userLogin.otp = "";
+                        Modal.showAlert(error.responseStatus.responseMessage);
+                    });
+
+        }, 2000);
+    }
+}

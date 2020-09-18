@@ -1,0 +1,186 @@
+
+<div id="modal" class="modal fade-scale KK" role="dialog">
+  <div class="vertical-alignment-helper">
+    <div class="modal-dialog modal-lg  vertical-align-center">
+      <!-- Modal content-->
+      <div id="modal-dialog-progress" class=" text-center">
+        <div>
+        </div>
+        <!--<div class="cssload-thecube">-->
+          <!--<div class="cssload-cube cssload-c1"></div>-->
+          <!--<div class="cssload-cube cssload-c2"></div>-->
+          <!--<div class="cssload-cube cssload-c4"></div>-->
+          <!--<div class="cssload-cube cssload-c3"></div>-->
+        <!--</div>-->
+
+        <div class="loader">
+          <div class="inner one"></div>
+          <div class="inner two"></div>
+          <div class="inner three"></div>
+        </div>
+
+
+        <div class="modal-body">
+          <p class="modal-title  display-4"></p>
+        </div>
+      </div>
+
+      <div id="modal-dialog-progress-title" class="modal-content text-center" style="background: #FFFFFF">
+        <div>
+        </div>
+        <div id="floatingCirclesG" class="animated fadeIn">
+          <div class="f_circleG" id="frotateG_01"></div>
+          <div class="f_circleG" id="frotateG_02"></div>
+          <div class="f_circleG" id="frotateG_03"></div>
+          <div class="f_circleG" id="frotateG_04"></div>
+          <div class="f_circleG" id="frotateG_05"></div>
+          <div class="f_circleG" id="frotateG_06"></div>
+          <div class="f_circleG" id="frotateG_07"></div>
+          <div class="f_circleG" id="frotateG_08"></div>
+        </div>
+        <div class="modal-body">
+          <p class="modal-title  display-4"></p>
+        </div>
+      </div>
+
+      <div id="modal-dialog-success" class="modal-content text-center" style="background: #FFFFFF">
+        <div>
+        </div>
+        <div >
+          <img class="pt-2"  src="./assets/kiatnakin/image/icon_success.png">
+        </div>
+        <div class="modal-body">
+          <p class="modal-title  display-4"></p>
+        </div>
+      </div>
+
+      <div id="modal-dialog-failure" class="modal-content text-center" style="background: #FFFFFF">
+        <div>
+        </div>
+        <div  >
+          <img class="pt-2" src="./assets/kiatnakin/image/icon_error.png">
+        </div>
+        <div class="modal-body">
+          <p class="modal-title  display-4"></p>
+        </div>
+      </div>
+
+      <div id="modal-dialog-alert" class="modal-content text-center">
+
+        <div class="modal-body">
+          <p id="modal-title" class="modal-title  display-4"></p>
+        </div>
+
+        <div class="modal-footer text-center">
+
+          <button id="modal-alert-button-ok"
+                  type="button"
+                  class="button-blue display-5"
+                  data-dismiss="modal"
+                  style="margin: 30px"
+                  (click)="backToPreviousLocation()">
+            {{ 'ok' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div id="modal-dialog-alert-mfs" class="modal-content background-purple text-center">
+
+        <div class="modal-body">
+          <h4 id="modal-title" class="modal-title text-white display-1"></h4>
+        </div>
+
+        <div class="modal-footer text-center">
+
+          <button id="modal-alert-button-ok"
+                  type="button"
+                  class="button-white display-5"
+                  data-dismiss="modal"
+                  style="margin: 30px"
+                  (click)="backToPreviousLocation()">
+            {{ 'ok' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div id="modal-dialog-confirm" class="modal-content text-center">
+
+        <div class="modal-body ">
+          <h4 class="modal-title  display-1"></h4>
+          <h2 id="count-timeout" style="display: none"></h2>
+        </div>
+
+        <div class="modal-footer text-center">
+
+          <button id="modal-confirm-button-ok"
+                  type="button"
+                  class="button-white border-blue text-blue display-5"
+                  data-dismiss="modal"
+                  style="margin: 30px">
+            {{ 'ok' | translate }}
+          </button>
+          <button id="modal-confirm-button-cancel"
+                  type="button"
+                  class="button-blue display-5"
+                  data-dismiss="modal"
+                  style="margin: 30px">
+            {{ 'cancel' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div id="modal-dialog-confirm-mfs" class="modal-content background-purple text-center">
+
+        <div class="modal-body">
+          <h4 class="modal-title text-white display-1"></h4>
+          <h2 id="count-timeout" style="display: none"></h2>
+        </div>
+
+        <div class="modal-footer text-center">
+
+          <button id="modal-confirm-button-left"
+                  type="button"
+                  class="button-white border-purple-light display-5"
+                  data-dismiss="modal"
+                  style="margin: 30px">
+          </button>
+          <button id="modal-confirm-button-right"
+                  type="button"
+                  class="button-purple-light border-white display-5"
+                  data-dismiss="modal"
+                  style="margin: 30px">
+          </button>
+        </div>
+      </div>
+
+
+
+
+
+      <div id="modal-dialog-confirm-mfs-white" class="modal-content text-center">
+
+        <div class="modal-body">
+          <h4 class="modal-title display-1"></h4>
+          <h2 id="count-timeout" style="display: none"></h2>
+        </div>
+
+        <div class="modal-footer text-center">
+
+          <button id="modal-confirm-button-left-white"
+                  type="button"
+                  class="button-white border-purple-light display-5"
+                  data-dismiss="modal"
+                  style="margin: 30px">
+          </button>
+          <button id="modal-confirm-button-right-white"
+                  type="button"
+                  class="button-purple  display-5"
+                  data-dismiss="modal"
+                  style="margin: 30px">
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

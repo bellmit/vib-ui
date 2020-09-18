@@ -1,0 +1,66 @@
+<div class="container page1200">
+
+    <div id="header" class="header">
+        <div class="triangle-up" (click)="onScrollToTop()"></div>
+    </div>
+    <div id="wrapper" class="wrapper text-center display-5">
+
+        <div class="header row ">
+            <div class="col-3 border-right">Placement No.</div>
+            <div class="col-3 border-right">Principal</div>
+            <div class="col-3 border-right">Redeem Amount</div>
+            <div class="col-3">Select</div>
+        </div>
+        <div class="wrapper content">
+            <div class="body row body-border">
+                <div class="col-3 border-right"></div>
+                <div class="col-3 border-right"></div>
+                <div class="col-3 border-right"></div>
+                <div class="col-3 "></div>
+            </div>
+            <div class="body row mt-3">
+
+                <div class="scroll">
+                    <div *ngFor="let termDeposit of termDepositList; let i = index"
+                         class="row col-12 transaction "
+                         [ngClass]="{'odd': i%2 === 0, 'select': dataService.transaction.selectedIndexPrincipal == i}">
+
+                        <div class="col-3">
+                            <label class="text-black">
+                                {{ termDeposit.tdSequence }}
+                            </label>
+                        </div>
+
+                        <div class="col-3 float-right text-right"> {{ termDeposit.originalAmount | number:'.2-2' }}</div>
+                        <div class="col-3 float-right text-right" > {{ termDeposit.ledgerBalance | number:'.2-2' }}</div>
+
+                        <div class="col-3 text-center" style="top: 20%">
+                            <input *ngIf="termDeposit.accountStatusCode === accountStatusCodeActive || termDeposit.accountStatusCode === accountStatusCodeOpenToday"
+                                   #checkboxPrincipal
+                                   type="checkbox"
+                                   name="td"
+                                   value="{{ i }}"
+                                   [checked]="dataService.transaction.selectedIndexPrincipal == i"
+                                   (change)="checkboxPrincipal.checked ? dataService.transaction.selectedIndexPrincipal = checkboxPrincipal.value : dataService.transaction.selectedIndexPrincipal = null"
+                                   class="checkbox-principal">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="footer text-center">
+                <button  class="button-blue" (click)="onSubmit()"
+                        [disabled]="dataService.transaction.selectedIndexPrincipal == null">
+                    <h2>{{ 'accept' | translate }}</h2>
+                </button>
+            </div>
+        </div>
+        <div class="footer"></div>
+
+    </div>
+    <div id="footer" class="footer">
+    </div>
+</div>
+
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()"/>

@@ -1,0 +1,21 @@
+<div style="margin-top: 5%">
+    <p class="display-0 text-center text-white">{{ 'select_entry' | translate }}</p>
+</div>
+
+<!-- FROM ACCOUNT BOOKBANK ALL -->
+<div id="container_form">
+    <div (click)="onSelectType('tr_bookbank')">
+        <div class="obj_left">
+            <img id="gr_bookbank" class="resize" src="./assets/kiatnakin/image/my_saving.png">
+        </div>
+    </div>
+    <!-- <div class="arrow">
+        <img style="width: 150px; height: 130px;" src="./assets/kiatnakin/image/investment/arrow_purple.png">
+    </div> -->
+    <!-- CONDITION SHOW FUND LIST ALL -->
+    <div (click)="onSelectType('tr_service')">
+        <div class="obj_right">
+            <img id="gr_patara" class="resize" src="./assets/kiatnakin/image/my_invest.png">
+        </div>
+    </div>
+    <img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

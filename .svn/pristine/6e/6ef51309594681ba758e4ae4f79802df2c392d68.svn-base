@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="./js/jquery.min.js"></script>
+  <style>
+    .center-cropped {
+      width: auto;
+      height: 1060px;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+  </style>
+  <script>
+    var PATH_IMG = "./ads_pic/";
+    var IMAGE_FILE_TYPE = ".jpg";
+    var SPEED = 1500;
+    var TIMEOUT = 5000; //milliseconds
+    var START_IMG_INDEX = 1;
+    var LIMIT_IMG_INDEX = 8;
+
+    $(document).ready(function() {
+      var imgIndex = START_IMG_INDEX;
+      var imgUrl = "";
+      window.setInterval(function() {
+        $("div").fadeOut(SPEED, function() {
+          if (imgIndex == LIMIT_IMG_INDEX) {
+            imgIndex = 1;
+          }
+          imgUrl =  PATH_IMG + imgIndex + IMAGE_FILE_TYPE;
+          $("div").css('background-image', 'url(' + imgUrl + ')');
+          $("div").fadeIn(SPEED);
+          imgIndex++;
+        });
+      }, TIMEOUT);
+    });
+  </script>
+</head>
+
+<body>
+  <center>
+    <div class="center-cropped">
+    </div>
+  </center>
+</body>
+
+</html>

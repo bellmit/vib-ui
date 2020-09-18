@@ -1,0 +1,18 @@
+<div class="user-online slideDown">
+    <div class="user-info col-lg-12">
+        <div class="display-6 text-warp">{{userService.getUserNameTH()}}</div>
+        <div class="display-6 text-warp">{{userService.getUserSurenameTH()}}</div>
+        <!-- <div class="user-name">
+            <button class="btn-data background-light-blue text-white display-5"
+                    (click)="onClickEditProfile()">
+                {{'แก้ไขข้อมูล'}}
+            </button>
+        </div> -->
+        <div class="user-logout mt-1">
+            <button class="btn-data background-white text-blue blue-border display-5"
+                    (click)="onClickLogout()">
+                {{'ออกจากระบบ'}}
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+
+<div *ngIf="inputCurrentYear !== '9999'" id="container" style="background-color:white">
+    <input id="{{type + '_day_id'}}"  type="text" [(ngModel)]="inputCurrentDay" readonly (click)="onClickSelect('day')" class="text-center txt-ssu" [style.width]="inputdayWidth"> /
+    <input id="{{type + '_month_id'}}" type="text" [(ngModel)]="inputCurrentMonth" readonly (click)="onClickSelect('month')" class="text-center txt-ssu"  [style.width]="inputmonthWidth"> /
+    <input id="{{type + '_year_id'}}" type="text" [(ngModel)]="inputCurrentYear" readonly (click)="onClickSelect('year')" class="text-center txt-ssu"  [style.width]="inputyearWidth">
+</div>
+<div *ngIf="inputCurrentYear === '9999'" id="container"  style="background-color:white">
+    <input id="{{type + '_day_id'}}"  type="text" value="ตลอดชีพ" readonly (click)="onClickSelect('day')" class="text-center txt-ssu" [style.width]="inputExiredDateWidth"> 
+</div>
+<selector-dialog 
+    *ngIf="showSelector" 
+    class="p-0 seletor-content2" 
+    (onSelector)="onSelectData($event)" 
+    (showSelector2)="onUpdateSelectState($event)" 
+    [InDiv]="true"
+    [id]="selectedId" 
+    [Title]="selectedTitle"
+    [DataList]="selectDataList"
+    [idClose]="idClose"
+    [ActiveNow]="selectActive">
+</selector-dialog>

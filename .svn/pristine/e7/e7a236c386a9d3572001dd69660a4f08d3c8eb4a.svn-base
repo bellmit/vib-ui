@@ -1,0 +1,46 @@
+<div id="myModal" class="modal" role="dialog">
+  <div class="text-white text-center display-0 mt-5">
+    <!--{{ isLogin ? 'กรุณาเลือกรูปแบบการยืนยันตัวตน' : 'กรุณาเข้าระบบ' }}-->
+  </div>
+
+  <div id="container" class="container">
+    <img  src="./assets/kiatnakin/image/close.png" id="buttonClose"
+          data-dismiss="modal" style="max-width: 100%; z-index: 9; position: absolute; top: -35px; right: -30px">
+
+    <div class="body" style="width: 1170px; height: 550px; overflow-y: auto;">
+      <pdf-viewer
+        [src]="pdfSrc">
+      </pdf-viewer>
+    </div>
+    <div class="row m-0 col-lg-12 footer">
+      <div style="width: 100%;" *ngIf="name_confirm; else mypin_confirm">
+          <div class="display-5 text-center">
+            กรุณาพิมพ์ชื่อและนามสกุลของท่านเพื่อยืนยันการทำรายการ
+          </div>
+
+          <div class="col-lg-12 text-center page-dialog-confirm-button-area">
+              <button class="button-blue page-dialog-confirm-button"
+                  data-target="#myModal" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                      (click)="showPDFConfirm()">
+                  <!--(click)="showPDFConfirm()">-->
+                  <div class="display-6">ยืนยันการทำรายการ</div>
+              </button>
+          </div>
+      </div>
+
+      <ng-template #mypin_confirm>
+          <div class="display-5">กรุณากรอกรหัสส่วนตัว MyPIN เพื่อยืนยันการทำรายการ</div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>
+
+<!--<div id="myModal1" class="modal" role="dialog">-->
+    <!--<div class="text-white text-center display-0 mt-5">-->
+        <!--&lt;!&ndash;{{ isLogin ? 'กรุณาเลือกรูปแบบการยืนยันตัวตน' : 'กรุณาเข้าระบบ' }}&ndash;&gt;-->
+    <!--</div>-->
+
+    <!--<div id="container1" class="container">-->
+    <!--</div>-->
+<!--</div>-->

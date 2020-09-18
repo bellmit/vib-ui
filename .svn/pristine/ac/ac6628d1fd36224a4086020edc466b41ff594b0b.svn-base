@@ -1,0 +1,51 @@
+<div class="vertical-center display-5" style="justify-content: center;margin-top: 5%">
+  <div *ngIf="currentStatus == status.scan_wait" class="bg_white">
+
+    <div class="text-black display-3 text-center content" style="margin: 20%;">
+      <div class="col-lg">
+        <img src="./assets/kiatnakin/image/card13.png">
+      </div>
+      <div class="col-lg mt-5">
+        <label class="display-1 text-italic text-bold">กรุณาวางบัตรประชาชน</label>
+      </div>
+      <div class="col-lg">
+        <label class="display-2">เพื่อการยืนยันข้อมูล</label>
+        <p class="display-4">ระบบทำการสแกนเอกสารภายในเวลา
+          <label class="display-2 text-bold">{{timer}}</label>วินาที </p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="currentStatus == status.scan_false" id="result_false" class="text-black display-3 text-center bg_white" style="margin: 0 auto">
+    <div id="img-result_false-area" style="margin-top: 10%">
+      <img id="img-result_false" src="./assets/kiatnakin/image/icon_error.png" style="width: 150px;height: 150px">
+    </div>
+    <div class="col-lg mt-5">
+      <label class="display-2 text-italic text-bold">ไม่สามารถอ่านข้อมูลได้</label>
+    </div>
+    <div class="col-lg mb-4">
+      <label class="display-4">กรุณาวางบัตรเพื่อทำรายการยืนยันอีกครั้ง</label>
+    </div>
+
+    <!-- <button class="text-white  button-blue display-3 button-submit" (click)="reStartTimer()">
+      <h2>{{'ok'|translate}}</h2>
+    </button> -->
+  </div>
+
+  <div *ngIf="currentStatus == status.scan_success" class="vertical-center" id="result" class="text-black display-3 text-center "
+    style="margin: 0 auto">
+    <div id="img-result-area">
+      <div class="content row mt-10">
+        <div class="col-lg-12 pt-5 m-0 text-center">
+          <img class="" src="./assets/kiatnakin/image/read_success.png" />
+        </div>
+        <div class="col-lg-12 mt-3 display-4 text-center text-bold text-white">
+          อ่านข้อมูลสำเร็จ
+        </div>
+      </div>
+      <!-- <img id="img-result" src="{{imageURL}}"> -->
+    </div>
+  </div>
+
+</div>
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

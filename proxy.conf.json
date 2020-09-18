@@ -1,0 +1,29 @@
+{
+    "/VIB/*": {
+        "target": "http://10.202.104.236:8090/VIB",
+        "secure": false,
+        "pathRewrite": {
+            "^/VIB": ""
+        },
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/vib-mfs-service/*": {
+        "target": "http://10.202.104.236:8090/vib-mfs-service",
+        "secure": false,
+        "pathRewrite": {
+            "^/vib-mfs-service": ""
+        },
+        "logLevel": "debug",
+        "changeOrigin": true
+    },
+    "/GET_HREF_LINK_PDF/*": {
+        "target": "https://market.sec.or.th",
+        "secure": true,
+        "pathRewrite": {
+            "^/GET_HREF_LINK_PDF": ""
+        },
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

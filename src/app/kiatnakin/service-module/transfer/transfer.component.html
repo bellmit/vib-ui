@@ -1,0 +1,1479 @@
+<div *ngIf="checkTransferType" class="col-lg-12">
+    <div id="transfer" class="container vertical-center display-5">
+
+        <div *ngIf="userService.isLoggedin() && dataService.transaction.currentStatus != status.complete">
+            <select-bank-account *ngIf="isSelectAccount" :ignoreAccountNO="{{ignoreAccountNO}}" :isChildView=true
+                :title="{{titleSelectBankAccount}}" [isShowInterBankMenu]="isShowInterBankMenu"
+                [minimumAmount]="isSelectFrom ? amount : 0" (selectedAccount)="onSelectedAccount($event)" false>
+            </select-bank-account>
+        </div>
+
+        <div *ngIf="!userService.isLoggedin()">
+            <select-interbank-account *ngIf="(isSelectAccount && !isSelectFrom)"
+                [queryParams]="{'returnUrl': 'transfer', 'selectAccount' : true}"
+                (selectedAccount)="onSelectedAccount($event)">
+            </select-interbank-account>
+
+            <select-bank-account-by-number *ngIf="(isSelectAccount && isSelectFrom)"
+                [queryParams]="{'returnUrl': 'transfer', 'selectAccount' : true}"
+                (selectedAccount)="onSelectedAccount($event)" [showLogin]="true">
+            </select-bank-account-by-number>
+        </div>
+
+        <div id="container_form_transfer"
+            *ngIf="!isSelectAccount && dataService.transaction.currentStatus != status.complete">
+            <img *ngIf="dataService.transaction.currentStatus != status.complete"
+                src="./assets/kiatnakin/image/close.png" class="button-close" (click)="onClickClose()" id="buttonClose">
+
+            <div id="header" class="pt-2 pl-3 bold"
+                [ngClass]="{'background-yellow': dataService.transaction.currentStatus !== status.complete}">
+
+                <div class="row" *ngIf="dataService.transaction.currentStatus != status.complete">
+                    <div id="header-logo" class="col-2 vertical-center background-white">
+                        <img src="./assets/kiatnakin/image/icon_logo_header.png">
+                    </div>
+                    <div id="header-desc" class="col p-0">
+                        <h2 class="float-right mr-5 vertical-center h-100 text-violet text-bold">
+                            {{'transfer_slip'|translate}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div id="body" *ngIf="!progressIsShow">
+                <!--step-2 Input-->
+                <div id="div-input-data" *ngIf="dataService.transaction.currentStatus == status.inputData"
+                    class="col-12 section-top">
+                    <div class="row form-in">
+
+                        <div class="col-12 row">
+                            <div class="col-5">
+                                <label class="text-black display-4"> {{ 'from' | translate }}</label>
+                            </div>
+                            <div class="col-5 offset-2 ">
+                                <label class="text-black display-4"> {{ 'to' | translate }}</label>
+                            </div>
+                        </div>
+
+                        <div id="div-select-account-from"
+                            class="BookBank_shadow BookBank-left col-5 row blue-border align-items-center"
+                            [ngClass]="{'light-white-gray': dataService.transaction.from.accountNumber }" [ngStyle]="{
+                                 'background-color': dataService.transaction.from.bank.bg_color,
+                                 'color':dataService.transaction.from.bank.font_color}"
+                            (click)="onClickSelectFromAccount()">
+
+                            <div class="col-4 ">
+                                <img class="logo" src="{{dataService.transaction.from.bank.image}}">
+                            </div>
+                            <div class="col-8">
+                                <div *ngIf="!dataService.transaction.from.accountNumber">
+                                    <div class="display-4 text-black text-bold text-italic">{{ 'touch' | translate }}
+                                    </div>
+                                    <div class="display-5 text-black">{{ 'source_account' | translate }}</div>
+                                </div>
+                                <div *ngIf="dataService.transaction.from.accountNumber" class="display-5">
+                                    <div>{{ dataService.transaction.from.accountName | translate }}</div>
+                                    <div>{{ dataService.transaction.from.accountNumber }}</div>
+                                    <div>{{ dataService.transaction.from.accountType | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arrow_img col-2 row align-items-center">
+                            <img src="./assets/kiatnakin/image/icon_arrow_transfer.png">
+                        </div>
+
+                        <div id="div-select-account-to"
+                            class="BookBank_shadow BookBank-right col-5 row blue-border align-items-center" [ngClass]="{'BookBankFix': dataService.transaction.toFix,
+                             'light-white-gray': dataService.transaction.to.accountNumber}" [ngStyle]="{'background-color': dataService.transaction.to.bank.bg_color,
+                             'color':dataService.transaction.to.bank.font_color}" (click)="onClickSelectToAccount()">
+                            <div class="col-4 align-items-center">
+                                <img class="logo" src="{{dataService.transaction.to.bank.image}}" />
+                            </div>
+                            <div class="col-8 ">
+                                <div *ngIf="!dataService.transaction.to.accountNumber">
+                                    <div class="display-4 text-black text-bold text-italic">{{ 'touch' | translate }}
+                                    </div>
+                                    <div class="display-5 text-black">{{ 'destination_account' | translate }}</div>
+                                </div>
+
+                                <div *ngIf="dataService.transaction.to.accountNumber" class="display-5">
+                                    <div>{{dataService.transaction.to.bank.name | translate }}</div>
+                                    <div>{{dataService.transaction.to.accountNumber}}</div>
+                                    <div *ngIf="dataService.transaction.to.accountType != 'INTER'">
+                                        {{dataService.transaction.to.accountType | translate}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-lg-12" style="height: 120px;margin-top: 4%">
+                        <div class="form-input" [ngSwitch]="dataService.transaction.transactionType">
+                            <div class="row form-group col-lg-12 pl-4">
+                                <div class="control-label display-4 col-lg-2  text-black float-left pl-0"
+                                    style=" transform: translateY(80%); position: absolute">
+                                    {{ 'amount' | translate}}
+                                </div>
+                                <div class="col mb-3">
+                                    <input id="input-amount" type="text" class="form-control text-money text-black"
+                                        keyboard="currency" [(ngModel)]="dataService.transaction.amount" maxlength="18"
+                                        required placeholder="0.00" data-max-decimal="2" #text_amount="ngModel"
+                                        [readonly]="dataService.transaction.from.accountType === 'T'"
+                                        autocomplete="off">
+                                </div>
+                                <div class="control-label display-4 col-lg-1  text-black"
+                                    style="text-align: right; transform: translateY(70%); position: absolute; right: 0px">
+                                    <label>{{'bath'|translate}}</label>
+                                </div>
+                                <div class="mt-2 col-12"></div>
+
+                                <!--CASA-CASA-->
+                                <div *ngSwitchCase="transferType.CASA_CASA" class="col-lg-12 p-0 ">
+                                </div>
+
+                                <!--CASA-TD-->
+                                <div *ngSwitchCase="transferType.CASA_TD" class="col-lg-12 p-0 ">
+                                    <deposit-term-picker id="container_deposit-term-picker_casaTotd"
+                                        class="col-lg-12 mt-5 p-0"
+                                        [accountNumber]="dataService.transaction.to.accountNumber"
+                                        [transactionDate]="dataService.transaction.transactionDateTime"
+                                        style="z-index: 3;">
+                                    </deposit-term-picker>
+                                </div>
+
+                                <!--TD-TD-->
+                                <div *ngSwitchCase="transferType.TD_TD" class="col-lg-12 p-0 ">
+                                    <deposit-term-picker id="container_deposit-term-picker_tdTotd"
+                                        class="col-lg-12 mt-5 p-0"
+                                        [accountNumber]="dataService.transaction.to.accountNumber"
+                                        [transactionDate]="dataService.transaction.transactionDateTime"
+                                        style="z-index: 3;">
+                                    </deposit-term-picker>
+                                </div>
+
+                                <!--TD-CASA-->
+                                <div *ngSwitchCase="transferType.TD_CASA" class="col-lg-12 p-0 ">
+
+                                </div>
+                                <div class="col-lg-12 text-center text-blue btn-inputData">
+                                    <button id="button-submit-fee" class="button-blue button-submit btn-size-XL"
+                                        type="submit" (click)="onClickSubmit()" [disabled]="!isInputAmount(text_amount.value) ||
+                                    !dataService.transaction.from.accountNumber ||
+                                    !dataService.transaction.to.accountNumber || !isSelectTerm()">
+                                        <h2> {{ 'ok' | translate }} </h2>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--step-3 Confirm-->
+                <div id="div-confirm-data" *ngIf="dataService.transaction.currentStatus == status.confirmation"
+                    class="detail col-lg-12 section-top">
+
+                    <div class="row form-in">
+                        <div class="col-12 row">
+                            <div class="col-5">
+                                <label class="text-black display-4">{{ 'from' | translate }}</label>
+                            </div>
+                            <div class="col-5 offset-2 ">
+                                <label class="text-black display-4">{{ 'to' | translate }}</label>
+                            </div>
+                        </div>
+
+                        <div class="BookBank BookBank-left col-5 row white-gray-border align-items-center"
+                            style=" background-color: white; color: black">
+                            <div class="col-4 ">
+                                <img class="logo" src="{{dataService.transaction.from.bank.image}}">
+                            </div>
+                            <div class="col-8 display-5">
+                                <div class="book-accname">{{dataService.transaction.from.accountName}}</div>
+                                <div class="book-accnum">{{dataService.transaction.from.accountNumber}}</div>
+                                <div>{{ dataService.transaction.from.accountType | translate}}</div>
+                            </div>
+                        </div>
+
+                        <div class="arrow_img col-2 row align-items-center">
+                            <img src="./assets/kiatnakin/image/icon_arrow_transfer.png">
+                        </div>
+
+                        <div class="BookBank BookBank-right col-5 row white-gray-border align-items-center"
+                            style=" background-color: white; color: black"
+                            [ngClass]="{'BookBankFix': dataService.transaction.toFix}">
+
+                            <div class="col-4 align-items-center">
+                                <img class="logo" src="{{dataService.transaction.to.bank.image}}">
+                            </div>
+                            <div class="col-8 display-5">
+                                <div class="book-accname">
+                                    {{ (dataService.transaction.to.accountName == null ?
+                                    dataService.transaction.to.bank.name : dataService.transaction.to.accountName)
+                                    | translate }}
+                                </div>
+                                <div class="book-accnum">{{dataService.transaction.to.accountNumber}}</div>
+                                <div *ngIf="dataService.transaction.to.accountType != 'INTER'">
+                                    {{ dataService.transaction.to.accountType | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--1 = CASA-CASA-->
+                    <div *ngIf="dataService.transaction.transactionType == transferType.CASA_CASA ||
+                                dataService.transaction.transactionType == transferType.CASA_InterBank ||
+                                dataService.transaction.transactionType == transferType.TD_CASA"
+                        class="row content-border col-lg-11">
+                        <div class="col-lg-12 form-input text-center" style="text-align: center;padding: 0">
+                            <div class="content-detail">
+                                <div class="row">
+                                    <span class="text-left col-lg-2 ">{{'amount'|translate}}</span>
+                                    <div class="col-lg text-right text-blue">
+                                        <b class="display-3" [id]="'amount'">
+                                            {{ dataService.transaction.amount | number:'.2-2'}}</b>
+                                    </div>
+                                    <span class="text-left col-md-1">{{'bath'|translate}}</span>
+                                    <div *ngIf="dataService.transaction.isShowFeePicker()" class="col-lg-1 p-0"></div>
+                                </div>
+                                <div class="row">
+                                    <span class="text-left col-lg-2">{{'fee'|translate}}</span>
+                                    <span class="text-left col-lg-6">
+                                        <label *ngIf="btnShow == true" class="text-gray" [id]="'effective_date'">
+                                            <div
+                                                *ngIf="dataService.transaction.fee.detail.transferType === '1D' || dataService.transaction.fee.detail.transferType === '2D'">
+                                                วันที่ตัดเงิน {{ this.dataService.transaction.DebitDate }}
+                                                วันที่ได้รับเงิน {{ this.dataService.transaction.CreditDate }}
+                                            </div>
+                                            <div
+                                                *ngIf="dataService.transaction.fee.detail.transferType !== '1D' && dataService.transaction.fee.detail.transferType !== '2D'">
+                                                โอนเงินทันที
+                                            </div>
+                                        </label>
+
+                                    </span>
+                                    <div class="col-lg text-right text-blue">
+                                        <b class="display-3" [id]="'fee'">
+                                            {{ dataService.transaction.fee.amount | number:'.2-2'}}
+                                        </b>
+                                    </div>
+                                    <span class="text-left col-md-1">{{'bath'|translate}}</span>
+
+                                    <fee-picker *ngIf="dataService.transaction.isShowFeePicker()" class="col-lg-1 p-0"
+                                        fee_picker (onSelectFee)="onSelectFee($event)"
+                                        [feeAmount]="dataService.transaction.fee.amount"
+                                        [feeDetailList]="dataService.transaction.fee.feeDetailList">
+                                    </fee-picker>
+                                </div>
+
+                            </div>
+
+                            <div class="content-total mt-2">
+                                <div class="row">
+                                    <span class="text-left col-md-2 text-sum"> {{ 'total_amount'|translate }}</span>
+                                    <div class="col-md text-right totalAmount">
+                                        <b [id]="'total_amount'">
+                                            {{ dataService.transaction.totalAmount | number:'.2-2'}}</b>
+                                    </div>
+                                    <span class="text-left col-md-1 text-sum"> {{'bath'|translate}}</span>
+                                    <div *ngIf="dataService.transaction.isShowFeePicker()" class="col-lg-1 p-0"></div>
+                                </div>
+                                <div class="row">
+                                    <span class="fee_condition">{{ 'condition_cal_fee'|translate }}</span>
+                                    <div class="col-lg control-label text-right bathtext">
+                                        ({{ dataService.transaction.totalAmount | bahttext }})&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div *ngIf="dataService.transaction.isShowFeePicker()" class="col-lg-1 p-0"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--CASA-TD-->
+                    <div *ngIf="dataService.transaction.transactionType == transferType.CASA_TD"
+                        class="row content-border col-lg-11 ">
+                        <div class="col-lg-12 form-input text-center" style="text-align: center;padding: 0">
+                            <div class="content-detail" style="padding: 5px 20px;">
+
+                                <div class="row">
+                                    <!-- ผลิตภัณฑ์ -->
+                                    <span class="text-left col-lg-3">{{'product'|translate}}</span>
+                                    <div class="col-lg-3 text-right">
+                                        <b class="display-4" style="color: #594F74">
+                                            {{ this.dataService.transaction.selectedTermProduct.LocalDesc }}</b>
+                                    </div>
+                                    <!-- อัตราดอกเบี้ย -->
+                                    <span class="text-left col-lg-3 ">{{'interest_rate'|translate}}</span>
+                                    <div class="col-lg-2 text-right">
+                                        <b class="display-5" style="color: #594F74">
+                                            {{ dataService.transaction.interestRate }} %
+                                        </b>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- ระยะเวลาในการฝาก -->
+                                    <span class="text-left col-lg-3 ">{{ 'duration_of_deposit'|translate }}</span>
+                                    <div class="col-lg-3 text-right">
+                                        <b class="display-5" style="color: #594F74">
+                                            {{ dataService.transaction.selectedTDTerm.nameTH}}
+                                        </b>
+                                    </div>
+                                    <!-- จำนวนเงิน -->
+                                    <span class="text-left col-lg-3">{{'amount'|translate}} </span>
+                                    <div class="col-lg-2 text-right">
+                                        <b [id]="'amount'" class="display-4" style="color: #594F74">
+                                            {{ dataService.transaction.amount|number:'.2-2' }}
+                                        </b>
+                                    </div>
+
+                                    <span class="text-left col-lg-1"> {{'bath'|translate}}</span>
+                                </div>
+
+                                <div class="row">
+                                    <!-- ความพี่ในการรับดอกเบี้ย -->
+                                    <span class="text-left col-lg-3">{{'frequency_of_interest'|translate}} </span>
+                                    <div class="col-lg-3 text-right">
+                                        <b class="display-5" style="color: #594F74">
+                                            {{ dataService.transaction.selectedFrequency?.frequencyDesc }}
+                                        </b>
+                                    </div>
+                                    <!-- ค่าธรรมเนียม -->
+                                    <span class="text-left col-lg-3">{{'fee'|translate}}</span>
+                                    <div class="col-lg-2 text-right">
+                                        <b class="display-4" style="color: #594F74" [id]="'fee'">
+                                            {{ dataService.transaction.fee.amount | number:'.2-2' }}
+                                        </b>
+                                    </div>
+                                    <span class="text-left col-lg-1"> {{'bath'|translate}}</span>
+                                </div>
+                                <div class="row">
+                                    <!-- บัญชีรับดอกเบี้ย -->
+                                    <span class="text-left col-lg-3">{{'account_interest'|translate}}</span>
+                                    <div class="col-md-9 text-left">
+                                        <b class="display-4" style="color: #594F74">
+                                            {{dataService.transaction.selectedAccountInterestTitle }}
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-total mt-2">
+                                <div class="row">
+                                    <span class="text-left col-md-2">{{ 'total_amount'|translate}} </span>
+                                    <div class="col-md-9 text-right totalAmount">
+                                        <b [id]="'total_amount'">
+                                            {{ dataService.transaction.totalAmount | number:'.2-2'}}</b>
+                                    </div>
+                                    <span class="text-left col-md-1 text-sum"> {{'bath'|translate}}
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <span class="fee_condition">{{ 'condition_cal_fee'|translate }}</span>
+                                    <div class="col-sm-12 control-label bathtext"
+                                        style="text-align: right;color: #1A1A1A">
+                                        ({{ dataService.transaction.totalAmount | bahttext }})&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--TD-TD-->
+                    <div *ngIf="dataService.transaction.transactionType == transferType.TD_TD"
+                        class="row content-border col-lg-11 ">
+                        <div class="col-lg-12 form-input text-center" style="text-align: center;padding: 0">
+                            <div class="content-detail" style="padding: 5px 20px;">
+                                <div class="row">
+                                    <!-- ผลิตภัณฑ์ -->
+                                    <span class="text-left col-lg-3">{{'product'|translate}}</span>
+                                    <div class="col-lg-3 text-right">
+                                        <b class="display-4" style="color: #594F74">
+                                            {{ this.dataService.transaction.selectedTermProduct.LocalDesc }}</b>
+                                    </div>
+                                    <!-- อัตราดอกเบี้ย -->
+                                    <span class="text-left col-lg-2">{{'interest_rate'|translate}}</span>
+                                    <div class="col-lg-3 text-right">
+                                        <b class="display-5" style="color: #594F74">
+                                            {{ dataService.transaction.interestRate }} %
+                                        </b>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- ระยะเวลาในการฝาก -->
+                                    <span class="text-left col-lg-3 ">{{'duration_of_deposit'|translate}}</span>
+                                    <div class="col-lg-3 text-right">
+                                        <b class="display-5" style="color: #594F74">
+                                            {{dataService.transaction.selectedTDTerm.nameTH}}
+                                        </b>
+                                    </div>
+                                    <!-- จำนวนเงิน -->
+                                    <span class="text-left col-lg-3">{{'amount'|translate}}</span>
+                                    <div class="col-md-2 text-right">
+                                        <b [id]="'amount'" class="display-4"
+                                            style="color: #594F74">{{dataService.transaction.amount|number:'.2-2'}}</b>
+                                    </div>
+                                    <span class="text-right col-md-1"> {{'bath'|translate}}</span>
+                                </div>
+                                <div class="row">
+                                    <!-- ความพี่ในการรับดอกเบี้ย -->
+                                    <span class="text-left col-lg-3">{{'frequency_of_interest'|translate}}</span>
+                                    <div class="col-md-3 text-right">
+                                        <b class="display-5" style="color: #594F74">
+                                            {{dataService.transaction.selectedFrequency?.frequencyDesc }}
+                                        </b>
+                                    </div>
+                                    <!-- ค่าธรรมเนียม -->
+                                    <span class="text-left col-lg-3">{{'fee'|translate}}</span>
+                                    <div class="col-md-2 text-right">
+                                        <b [id]="'fee'" class="display-4" style="color: #594F74">
+                                            {{dataService.transaction.fee.amount|number:'.2-2'}}
+                                        </b>
+                                    </div>
+                                    <span class="text-right col-md-1"> {{'bath'|translate}}</span>
+                                </div>
+                                <div class="row">
+                                    <!-- บัญชีรับดอกเบี้ย -->
+                                    <span class="text-left col-lg-3">{{'account_interest'|translate}}</span>
+                                    <div class="col-md-6 text-right">
+                                        <b class="display-4" style="color: #594F74">
+                                            {{dataService.transaction.selectedAccountInterestTitle }}
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class=" content-total mt-2">
+                                <div class="row">
+                                    <span class="text-left col-lg-3"
+                                        style="line-height: 35px;vertical-align: bottom;color: #1A1A1A">
+                                        {{'total_amount'|translate}}
+                                    </span>
+                                    <div class="col-lg-8 text-right td-total">
+                                        <b [id]="'total_amount'">
+                                            {{ dataService.transaction.totalAmount | number:'.2-2'}}</b>
+                                    </div>
+                                    <span class="text-left col-lg-1 "
+                                        style="line-height: 35px;vertical-align:bottom;color: #1A1A1A">
+                                        {{'bath'|translate}}
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <span class="fee_condition">{{ 'condition_cal_fee'|translate }}</span>
+                                    <div class="col-lg-12 control-label bathtext"
+                                        style="text-align: right; color: #1A1A1A">
+                                        ({{ dataService.transaction.totalAmount | bahttext }})&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--Btn-->
+                    <div class="col-12 text-center mt-3">
+
+                        <!--<div class="row" *ngIf="dataService.transaction.fee.amount > 0">-->
+                        <!--<label class="text-center col-lg-12 display-3">-->
+                        <!--{{'select_pay'|translate}}-->
+                        <!--</label>-->
+                        <!--<button id="button-confirm-transfer-via-deduction"-->
+                        <!--class="btn-size-XL button-white border-blue text-blue col-lg-4 offset-2"-->
+                        <!--(click)="onMoveStep(paymentType.FundTransfer)">-->
+                        <!--<h2>{{'deducted'|translate}}</h2>-->
+                        <!--</button>-->
+                        <!--&nbsp;&nbsp;-->
+                        <!--<button id="button-confirm-transfer-via-cash"-->
+                        <!--class="btn-size-XL button-blue col-lg-4"-->
+                        <!--(click)="onMoveStep(paymentType.Cash)">-->
+                        <!--<h2>{{'cash'|translate}}</h2>-->
+                        <!--</button>-->
+                        <!--</div>-->
+
+                        <!--<div class="row" class="col-12 text-center mt-3"-->
+                        <!--*ngIf="dataService.transaction.fee.amount == 0">-->
+                        <div class="row" class="col-12 text-center mt-3">
+                            <button id="button-confirm-transfer" class="btn-size-XL button-blue"
+                                (click)="onMoveStep(paymentType.FundTransfer)">
+                                <h2>{{'confirm'|translate}}</h2>
+                            </button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <progress-dialog #progress [progressId]="'transfer'" (onClickEmitter)="onClickBack()"
+                (isShowEmitter)="progressIsShow = $event">
+            </progress-dialog>
+        </div>
+    </div>
+    <app-complete-slip *ngIf="dataService.transaction.currentStatus == status.complete && !progressIsShow"
+        [queryParams]="{'transactionType' : 'Transfer'}" (PrintSlip)="onClickPrintSlip($event)">
+    </app-complete-slip>
+</div>
+
+
+
+<!-- FROM FUND -->
+<div *ngIf="checkFundType" class="col-lg-12">
+    <div id="transfer" class="container vertical-center display-5">
+        <div *ngIf="userService.isLoggedin() && dataService.transaction.currentStatus != status.complete">
+            <select-bank-account *ngIf="isSelectAccount" :ignoreAccountNO="{{ignoreAccountNO}}" :isChildView=true
+                :title="{{titleSelectBankAccount}}" [isShowInterBankMenu]="isShowInterBankMenu"
+                [minimumAmount]="isSelectFrom ? amount : 0" (selectedAccount)="onSelectedAccount($event)" false>
+            </select-bank-account>
+        </div>
+
+        <div *ngIf="!userService.isLoggedin()">
+            <select-interbank-account *ngIf="(isSelectAccount && !isSelectFrom)"
+                [queryParams]="{'returnUrl': 'transfer', 'selectAccount' : true}"
+                (selectedAccount)="onSelectedAccount($event)">
+            </select-interbank-account>
+            <select-bank-account-by-number *ngIf="(isSelectAccount && isSelectFrom)"
+                [queryParams]="{'returnUrl': 'transfer', 'selectAccount' : true}"
+                (selectedAccount)="onSelectedAccount($event)" [showLogin]="true">
+            </select-bank-account-by-number>
+        </div>
+
+        <!-- && !checkFundConditionRedeem -->
+        <div id="container_form_transfer"
+            *ngIf="!isSelectAccount && dataService.transaction.currentStatus != status.complete">
+            <img *ngIf="dataService.transaction.currentStatus != status.complete"
+                src="./assets/kiatnakin/image/close.png" class="button-close" (click)="onClickClose()" id="buttonClose">
+            <div id="header" class="pt-2 pl-3 bold background-purple">
+                <div class="row" *ngIf="dataService.transaction.currentStatus != status.complete">
+                    <div id="header-logo" class="col-2 vertical-center background-white">
+                        <img src="./assets/kiatnakin/image/icon_logo_header_violet.png">
+                    </div>
+                    <div id="header-desc" class="col p-0">
+                        <h2 *ngIf="!checkFundDetail && !checkSwichFundForm"
+                            class="float-right mr-5 vertical-center h-100 text-violet text-bold text-white">ใบซื้อกองทุน
+                        </h2>
+                        <h2 *ngIf="checkRedeemFund || checkRedeemDetail"
+                            class="float-right mr-5 vertical-center h-100 text-violet text-bold text-white">ใบขายกองทุน
+                        </h2>
+                        <h2 *ngIf="checkSwichFundForm"
+                            class="float-right mr-5 vertical-center h-100 text-violet text-bold text-white">
+                            ใบสับเปลี่ยนกองทุน
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div id="body" *ngIf="!progressIsShow">
+                <!--INPUT AMOUNT PURCHASE-->
+                <div id="div-input-data" *ngIf="!checkFundDetail" class="col-12 section-top">
+                    <div class="row form-in">
+                        <div class="col-12 row">
+                            <div class="col-5">
+                                <label class="text-black display-4">ซื้อกองทุนด้วย</label>
+                            </div>
+                            <div class="col-5 offset-2 ">
+                                <label class="text-black display-4">เข้า Unitholder</label>
+                            </div>
+                        </div>
+
+                        <div id="div-select-account-from"
+                            class="BookBank_shadow BookBank-left col-5 row blue-border align-items-center"
+                            [ngClass]="{'light-white-gray': dataService.transaction.from.accountNumber }" [ngStyle]="{
+                                 'background-color': dataService.transaction.from.bank.bg_color,
+                                 'color':dataService.transaction.from.bank.font_color}"
+                            (click)="onClickSelectFromAccount()">
+
+                            <div class="col-4 ">
+                                <img class="logo" src="{{dataService.transaction.from.bank.image}}">
+                            </div>
+                            <div class="col-8">
+                                <div *ngIf="!dataService.transaction.from.accountNumber">
+                                    <div class="display-4 text-black text-bold text-italic">{{ 'touch' | translate }}
+                                    </div>
+                                    <div class="display-5 text-black">{{ 'source_account' | translate }}</div>
+                                </div>
+                                <div *ngIf="dataService.transaction.from.accountNumber" class="display-5">
+                                    <div>{{ dataService.transaction.from.accountName | translate }}</div>
+                                    <div>{{ dataService.transaction.from.accountNumber }}</div>
+                                    <div>{{ dataService.transaction.from.accountType | translate}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="arrow_img col-2 row align-items-center">
+                            <img src="./assets/kiatnakin/image/icon_arrow_transfer.png">
+                        </div>
+                        <div id="div-select-account-to"
+                            class="background-purple BookBank_shadow col-5 row blue-border align-items-center"
+                            (click)="onClickBackToFundList('PURCHASE')">
+                            <div class="col-4 align-items-center">
+                                <img class="logo" src="{{dataService.transaction.to.bank.image}}" />
+                            </div>
+                            <div class="col-8 display-5 text-white">
+                                <div>{{fundSelect[0].fundNameTh}}</div>
+                                <div>{{fundSelect[0].fundNameEn}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-lg-12" style="height: 120px;margin-top: 4%">
+                        <div class="form-input">
+                            <div class="row form-group col-lg-12 pl-4">
+                                <div class="control-label display-4 col-lg-4  text-black float-left pl-0"
+                                    style=" transform: translateY(80%); position: absolute">
+                                    จำนวนเงิน
+                                </div>
+
+                                <div class="col mb-3">
+                                    <input id="input-amount" type="text" class="form-control text-money text-black"
+                                        keyboard="currency" [(ngModel)]="dataService.transaction.amountFund"
+                                        maxlength="18" required placeholder="0.00" data-max-decimal="2"
+                                        #text_amountFund="ngModel" autocomplete="off">
+                                </div>
+
+                                <div class="control-label display-4 col-lg-4  text-black"
+                                    style="text-align: right; transform: translate(20px, 70%); position: absolute; right: 0px">
+                                    <label>บาท</label>
+                                </div>
+                                <div class="mt-2 col-12"></div>
+                                <div class="col-lg-12 text-center text-blue btn-inputData">
+                                    <button class="button-blue button-submit btn-size-XL" type="submit"
+                                        (click)="prepareFundOrder('PURCHASE')" [disabled]="!text_amountFund.value ||
+                                    !dataService.transaction.from.accountNumber || checkPrepareBTN">
+                                        <h2> {{ 'ok' | translate }} </h2>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--INPUT AMOUNT REDEEM FUND-->
+                <div id="div-input-data" *ngIf="checkRedeemFund" class="col-12 section-top">
+                    <div class="row form-in">
+                        <div class="col-12 row">
+                            <div class="col-5">
+                                <label class="text-black display-4">ขายกองทุนจาก</label>
+                            </div>
+                            <div class="col-5 offset-2 ">
+                                <label class="text-black display-4">ไปยังบัญชีปลายทาง</label>
+                            </div>
+                        </div>
+
+                        <!-- SELECT DATA FUND FROM REDEEM -->
+                        <div id="div-select-account-from"
+                            class="background-purple BookBank_shadow col-5 row blue-border align-items-center"
+                            (click)="onClickBackToFundList('REDEEM')">
+                            <div class="col-4 align-items-center">
+                                <img class="logo" src="{{dataService.transaction.from.bank.image}}" />
+                            </div>
+                            <div class="col-8 display-5 text-white">
+                                <div>{{dataRedeem.fundNameTh}}</div>
+                                <div>{{dataRedeem.fundNameEn}}</div>
+                            </div>
+                        </div>
+
+
+                        <div class="arrow_img col-2 row align-items-center">
+                            <img src="./assets/kiatnakin/image/icon_arrow_transfer.png">
+                        </div>
+
+                        <!-- SELECT BANK ACCOUNT TO REDEEM -->
+                        <div id="div-select-account-to"
+                            class="BookBank_shadow BookBank-right col-5 row blue-border align-items-center" [ngClass]="{'BookBankFix': dataService.transaction.toFix,
+                             'light-white-gray': dataService.transaction.to.accountNumber}" [ngStyle]="{'background-color': dataService.transaction.to.bank.bg_color,
+                             'color':dataService.transaction.to.bank.font_color}">
+                            <div class="col-4 align-items-center">
+                                <img class="logo" src="{{dataService.transaction.to.bank.image}}" />
+                            </div>
+                            <div class="col-8 ">
+                                <div *ngIf="!dataService.transaction.to.accountNumber">
+                                    <div class="display-4 text-black text-bold text-italic">{{ 'touch' | translate }}
+                                    </div>
+                                    <div class="display-5 text-black">{{ 'destination_account' | translate }}</div>
+                                </div>
+
+                                <div *ngIf="dataService.transaction.to.accountNumber" class="display-5">
+                                    <div>{{dataService.transaction.to.bank.name | translate }}</div>
+                                    <div>{{dataService.transaction.to.unitHolderName}}</div>
+                                    <div>{{dataService.transaction.to.accountNumber}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FROM INPUT DATA FROM REDEEM -->
+                    <div class="col col-lg-12" style="height: 120px;margin-top: 1%">
+                        <!-- <div class="form-input"> -->
+                        <!-- <div class="row form-group col-lg-12 pl-4"> -->
+                        <!-- <div class="containerx"> -->
+                        <div class="row col-lg-12 pl-4">
+                            <div class="control-label display-4 col-lg-4  text-black float-left pl-0"
+                                style=" transform: translateY(70%); position: absolute">
+                                <label>มูลค่าทรัพย์สินสุทธิ</label>
+                            </div>
+                            <div class="col-lg-1"></div>
+                            <div class="col mb-3">
+                                <input id="input-amount-redeem" type="text"
+                                    class="form-control text-money text-black display-4"
+                                    value="{{dataRedeem.availableBalanceUnitForSell | number:'.4-4'}}"
+                                    autocomplete="off" readonly
+                                    style="border-bottom: 0px solid #594F74 !important; transform: translateY(20%);  position: absolute;">
+                            </div>
+
+                            <div class="control-label display-4 text-black"
+                                style="text-align: right; transform: translateY(70%);  position: absolute; right: 500px">
+                                <label>หน่วย หรือ</label>
+                            </div>
+
+                            <div class="col mb-3">
+                                <input id="input-amount-redeem" type="text"
+                                    class="form-control text-money text-black display-4"
+                                    value="{{dataRedeem.availableBalanceAmountForSell | number:'.2-2'}}"
+                                    autocomplete="off" readonly
+                                    style="border-bottom: 0px solid #594F74 !important; transform: translateY(20%);  position: absolute;">
+                            </div>
+                            <div class="control-label display-4 col-lg-2  text-black"
+                                style="text-align: right; transform: translate(20px, 70%); position: absolute; right: 0px">
+                                <label>บาท</label>
+                            </div>
+                        </div>
+                        <div class="row col-lg-12 pl-4">
+                            <div class="control-label display-5 col-lg-4  text-black float-left pl-0"
+                                style=" transform: translateY(80%);">
+                                <label>(as of {{dataRedeem.dataDate}})</label>
+                            </div>
+                        </div>
+                        <br>
+
+                        <!-- RADIO BUTTON REDEEM-->
+                        <div class="container-fluid">
+                            <label (click)="checkTapRedeemAndSwich('redeemAmount')"
+                                class="custom-control custom-radio display-4 customradio">
+                                <input type="radio" [checked]="redeemAmount" id="amount" name="customRadio"
+                                    class="custom-control-input">
+                                <span class="custom-control-label" for="amount">บาท</span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label (click)="checkTapRedeemAndSwich('redeemUnit')"
+                                class="custom-control custom-radio display-4 customradio">
+                                <input type="radio" [checked]="redeemUnit" id="units" name="customRadio"
+                                    class="custom-control-input">
+                                <span class="custom-control-label" for="units">หน่วย</span>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label (click)="checkTapRedeemAndSwich('redeemAllUnit')"
+                                class="custom-control custom-radio display-4 customradio">
+                                <input type="radio" [checked]="redeemAllUnit" id="all" name="customRadio"
+                                    class="custom-control-input">
+                                <span class="custom-control-label" for="all">ขายทั้งหมด</span>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                        <!-- TAP PANES REDEEM-->
+                        <div id="amountx" class="container" [ngClass]="{'hide': !redeemAmount}">
+                            <div class="form-input">
+                                <div class="row form-group col-lg-12 pl-4">
+                                    <div class="control-label display-4 col-lg-4  text-black float-left pl-0"
+                                        style=" transform: translateY(80%); position: absolute">
+                                        จำนวนที่ต้องการ
+                                    </div>
+
+                                    <div class="col mb-3">
+                                        <input id="input-amount" type="text" class="form-control text-money text-black"
+                                            keyboard="currency" [(ngModel)]="dataService.transaction.amountRedeem"
+                                            maxlength="18" required placeholder="0.00" data-max-decimal="2"
+                                            #text_amountRedeem="ngModel" autocomplete="off" [disabled]="!redeemAmount">
+                                    </div>
+
+                                    <div class="control-label display-4 col-lg-4  text-black"
+                                        style="text-align: right; transform: translateY(70%); position: absolute; right: -35px">
+                                        <label>บาท</label>
+                                    </div>
+                                    <div class="mt-2 col-12"></div>
+                                    <div class="col-lg-12 text-center text-blue btn-inputData">
+                                        <button class="button-blue button-submit btn-size-XL" type="submit"
+                                            (click)="prepareFundOrder('REDEEM')"
+                                            [disabled]="!text_amountRedeem.value || checkPrepareBTN">
+                                            <h2> {{ 'ok' | translate }} </h2>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="unitsx" class="container" [ngClass]="{'hide': !redeemUnit}">
+                            <div class="form-input">
+                                <div class="row form-group col-lg-12 pl-4">
+                                    <div class="control-label display-4 col-lg-4  text-black float-left pl-0"
+                                        style=" transform: translateY(80%); position: absolute">
+                                        จำนวนที่ต้องการ
+                                    </div>
+
+                                    <div class="col mb-3">
+                                        <input id="input-amount" type="text" class="form-control text-money text-black"
+                                            keyboard="currency" [(ngModel)]="dataService.transaction.unitRedeem"
+                                            maxlength="18" required placeholder="0.0000" data-max-decimal="4"
+                                            #text_unitRedeem="ngModel" autocomplete="off" [disabled]="!redeemUnit">
+                                    </div>
+
+                                    <div class="control-label display-4 col-lg-4  text-black"
+                                        style="text-align: right; transform: translateY(70%); position: absolute; right: -35px">
+                                        <label>หน่วย</label>
+                                    </div>
+                                    <div class="mt-2 col-12"></div>
+                                    <div class="col-lg-12 text-center text-blue btn-inputData">
+                                        <button class="button-blue button-submit btn-size-XL" type="submit"
+                                            (click)="prepareFundOrder('REDEEM')"
+                                            [disabled]="!text_unitRedeem.value || checkPrepareBTN">
+                                            <h2> {{ 'ok' | translate }} </h2>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="allx" class="container" [ngClass]="{'hide': !redeemAllUnit}">
+                            <div class="form-input">
+                                <div class="row form-group col-lg-12 pl-4">
+                                    <div class="control-label display-4 col-lg-4  text-black float-left pl-0"
+                                        style=" transform: translateY(80%); position: absolute">
+                                        จำนวนที่ต้องการ
+                                    </div>
+                                    <div class="col mb-3">
+                                        <input type="text"
+                                            class="form-control text-money text-black" keyboard="currency"
+                                            value="{{dataRedeem.availableBalanceUnitForSell | number:'.4-4'}}"
+                                            maxlength="18" required placeholder="0.00" data-max-decimal="2"
+                                            autocomplete="off" readonly
+                                            style="border-bottom: 0px solid #594F74 !important">
+                                    </div>
+                                    <div class="control-label display-4 col-lg-4  text-black"
+                                        style="text-align: right; transform: translateY(70%); position: absolute; right: -35px">
+                                        <label>หน่วย</label>
+                                    </div>
+                                    <div class="mt-2 col-12"></div>
+                                    <div class="col-lg-12 text-center text-blue btn-inputData">
+                                        <button class="button-blue button-submit btn-size-XL" type="submit"
+                                            (click)="prepareFundOrder('REDEEM')"
+                                            [disabled]="!redeemAllUnit || checkPrepareBTN">
+                                            <h2> {{ 'ok' | translate }} </h2>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--INPUT AMOUNT SWICH FUND-->
+                <div id="div-input-data" *ngIf="checkSwichFundForm" class="col-12 section-top">
+                    <div class="row form-in">
+                        <div class="col-12 row">
+                            <div class="col-5">
+                                <label class="text-black display-4">สับเปลี่ยนกองทุนจาก</label>
+                            </div>
+                            <div class="col-5 offset-2 ">
+                                <label class="text-black display-4">ไปยังกองทุน</label>
+                            </div>
+                        </div>
+
+                        <!-- SELECT FUND FROM SWICH OUT-->
+                        <div id="div-select-account-from"
+                            class="background-purple BookBank_shadow col-5 row blue-border align-items-center"
+                            (click)="onClickBackToFundList('SWITCH_OUT')">
+                            <div class="col-4 align-items-center">
+                                <img class="logo" src="{{dataService.transaction.from.bank.image}}" />
+                            </div>
+                            <div class="col-8 display-5 text-white">
+                                <div>{{dataSwichOut.fundNameTh}}</div>
+                                <div>{{dataSwichOut.fundNameEn}}</div>
+                            </div>
+                        </div>
+
+
+                        <div class="arrow_img col-2 row align-items-center">
+                            <img src="./assets/kiatnakin/image/icon_arrow_transfer.png">
+                        </div>
+
+                        <!-- SELECT FUND TO SWICH IN -->
+                        <div id="div-select-account-to"
+                            class="{{dataService.transaction.to.bank.bg_color}} BookBank_shadow BookBank-right col-5 row blue-border align-items-center"
+                            (click)="onClickBackToFundList('SWITCH_IN')">
+                            <div class="col-4 align-items-center">
+                                <img class="logo" src="{{dataService.transaction.to.bank.image}}" />
+                            </div>
+                            <div class="col-8 ">
+                                <div *ngIf="!checkFundToSwich">
+                                    <div class="display-4 text-black text-bold text-italic">{{ 'touch' | translate }}
+                                    </div>
+                                    <div class="display-5 text-black">{{ 'destination_account' | translate }}</div>
+                                </div>
+
+                                <div *ngIf="checkFundToSwich" class="display-5 text-white">
+                                    <div>{{dataSwichIn.fundNameTh}}</div>
+                                    <div>{{dataSwichIn.fundNameEn}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FROM INPUT DATA FROM SWICH OUT -->
+                    <div class="col col-lg-12" style="height: 120px;margin-top: 1%">
+                        <div class="containerx">
+                            <div class="row col-lg-12 pl-4">
+                                <div class="control-label display-4 col-lg-4  text-black float-left pl-0"
+                                    style=" transform: translateY(70%); position: absolute">
+                                    <label>มูลค่าทรัพย์สินสุทธิ</label>
+                                </div>
+                                <div class="col-lg-1"></div>
+                                <div class="col mb-3">
+                                    <input id="input-amount-redeem" type="text"
+                                        class="form-control text-money text-black display-4"
+                                        value="{{dataSwichOut.availableBalanceUnitForSell | number:'.4-4'}}"
+                                        autocomplete="off" readonly
+                                        style="border-bottom: 0px solid #594F74 !important; transform: translateY(20%);  position: absolute;">
+                                </div>
+
+                                <div class="control-label display-4 text-black"
+                                    style="text-align: right; transform: translateY(70%);  position: absolute; right: 500px">
+                                    <label>หน่วย หรือ</label>
+                                </div>
+
+                                <div class="col mb-3">
+                                    <input id="input-amount-redeem" type="text"
+                                        class="form-control text-money text-black display-4"
+                                        value="{{dataSwichOut.availableBalanceAmountForSell | number:'.2-2'}}"
+                                        autocomplete="off" readonly
+                                        style="border-bottom: 0px solid #594F74 !important; transform: translateY(20%);  position: absolute;">
+                                </div>
+                                <div class="control-label display-4 col-lg-2  text-black"
+                                    style="text-align: right; transform: translate(20px, 70%); position: absolute; right: 0px">
+                                    <label>บาท</label>
+                                </div>
+                            </div>
+                            <div class="row col-lg-12 pl-4">
+                                <div class="control-label display-5 col-lg-4  text-black float-left pl-0"
+                                    style=" transform: translateY(80%);">
+                                    <label>(as of {{dataSwichOut.dataDate}})</label>
+                                </div>
+                            </div>
+                            <br>
+
+                            <!-- RADIO BUTTON SWITCH -->
+                            <div class="container-fluid switch">
+                                <label (click)="checkTapRedeemAndSwich('swichAmount')"
+                                    class="custom-control custom-radio display-4 customradio">
+                                    <input type="radio" [checked]="swichAmount" id="amountSwich" name="customRadio"
+                                        class="custom-control-input">
+                                    <span class="custom-control-label" for="amount">บาท</span>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label (click)="checkTapRedeemAndSwich('swichUnit')"
+                                    class="custom-control custom-radio display-4 customradio">
+                                    <input type="radio" [checked]="swichUnit" id="unitSwich" name="customRadio"
+                                        class="custom-control-input">
+                                    <span class="custom-control-label" for="units">หน่วย</span>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label (click)="checkTapRedeemAndSwich('swichAllUnit')"
+                                    class="custom-control custom-radio display-4 customradio">
+                                    <input type="radio" [checked]="swichAllUnit" id="allSwich" name="customRadio"
+                                        class="custom-control-input">
+                                    <span class="custom-control-label" for="all">สับเปลี่ยนทั้งหมด</span>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+
+                            <!-- Tab panes -->
+                            <div id="amountx" class="container" [ngClass]="{'hide': !swichAmount}">
+                                <div class="form-input">
+                                    <div class="row form-group col-lg-12 pl-4">
+                                        <div class="control-label display-4 col-lg-4  text-black float-left pl-0"
+                                            style=" transform: translateY(80%); position: absolute">
+                                            จำนวนที่ต้องการ
+                                        </div>
+
+                                        <div class="col mb-3">
+                                            <input id="input-amount" type="text"
+                                                class="form-control text-money text-black" keyboard="currency"
+                                                [(ngModel)]="dataService.transaction.amountSwich" maxlength="18"
+                                                required placeholder="0.00" data-max-decimal="2"
+                                                #text_amountSwich="ngModel" autocomplete="off">
+                                        </div>
+
+                                        <div class="control-label display-4 col-lg-4  text-black"
+                                            style="text-align: right; transform: translateY(70%); position: absolute; right: -35px">
+                                            <label>บาท</label>
+                                        </div>
+                                        <div class="mt-2 col-12"></div>
+                                        <div class="col-lg-12 text-center text-blue btn-inputData">
+                                            <button class="button-blue button-submit btn-size-XL" type="submit"
+                                                (click)="prepareFundOrder('SWICH')"
+                                                [disabled]="!text_amountSwich.value || fundType !== 'SI' || checkPrepareBTN">
+                                                <h2> {{ 'ok' | translate }} </h2>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="unitsx" class="container" [ngClass]="{'hide': !swichUnit}">
+                                <div class="form-input">
+                                    <div class="row form-group col-lg-12 pl-4">
+                                        <div class="control-label display-4 col-lg-4  text-black float-left pl-0"
+                                            style=" transform: translateY(80%); position: absolute">
+                                            จำนวนที่ต้องการ
+                                        </div>
+
+                                        <div class="col mb-3">
+                                            <input id="input-amount" type="text"
+                                                class="form-control text-money text-black" keyboard="currency"
+                                                [(ngModel)]="dataService.transaction.unitSwich" maxlength="18" required
+                                                placeholder="0.0000" data-max-decimal="4" #text_unitSwich="ngModel"
+                                                autocomplete="off">
+                                        </div>
+
+                                        <div class="control-label display-4 col-lg-4  text-black"
+                                            style="text-align: right; transform: translateY(70%); position: absolute; right: -35px">
+                                            <label>หน่วย</label>
+                                        </div>
+                                        <div class="mt-2 col-12"></div>
+                                        <div class="col-lg-12 text-center text-blue btn-inputData">
+                                            <button class="button-blue button-submit btn-size-XL" type="submit"
+                                                (click)="prepareFundOrder('SWICH')"
+                                                [disabled]="!text_unitSwich.value || fundType !== 'SI' || checkPrepareBTN">
+                                                <h2> {{ 'ok' | translate }} </h2>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="allx" class="container" [ngClass]="{'hide': !swichAllUnit}">
+                                <div class="form-input">
+                                    <div class="row form-group col-lg-12 pl-4">
+                                        <div class="control-label display-4 col-lg-4  text-black float-left pl-0"
+                                            style=" transform: translateY(80%); position: absolute">
+                                            จำนวนที่ต้องการ
+                                        </div>
+                                        <div class="col mb-3">
+                                            <input type="text"
+                                                class="form-control text-money text-black" keyboard="currency"
+                                                value="{{dataSwichOut.availableBalanceUnitForSell | number:'.4-4'}}"
+                                                maxlength="18" required placeholder="0.00" data-max-decimal="2"
+                                                autocomplete="off" readonly
+                                                style="border-bottom: 0px solid #594F74 !important">
+                                        </div>
+                                        <div class="control-label display-4 col-lg-4  text-black"
+                                            style="text-align: right; transform: translateY(70%); position: absolute; right: -35px">
+                                            <label>หน่วย</label>
+                                        </div>
+                                        <div class="mt-2 col-12"></div>
+                                        <div class="col-lg-12 text-center text-blue btn-inputData">
+                                            <button class="button-blue button-submit btn-size-XL" type="submit"
+                                                (click)="prepareFundOrder('SWICH')"
+                                                [disabled]="!swichAllUnit || fundType !== 'SI' || checkPrepareBTN">
+                                                <h2> {{ 'ok' | translate }} </h2>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <!-- && !checkFundConditionRedeem  -->
+                <!-- CONFIRM ORDER AND DATADETAIL PURCHASE FUND || REDEEM FUND-->
+                <div *ngIf="checkFundDetail && !checkRedeemFund && !checkSwichFundForm">
+                    <div id="div-confirm-data" class="detail col-lg-12 section-top">
+                        <div class="row form-in">
+                            <div class="col-12 row">
+                                <div class="col-5">
+                                    <label *ngIf="!checkRedeemDetail && !checkSwichDetail"
+                                        class="text-black display-4">ซื้อกองทุนด้วย</label>
+                                    <label *ngIf="checkRedeemDetail" class="text-black display-4">ขายกองทุนจาก</label>
+                                    <label *ngIf="checkSwichDetail"
+                                        class="text-black display-4">สับเปลี่ยนกองทุนจาก</label>
+                                </div>
+                                <div class="col-5 offset-2 ">
+                                    <label *ngIf="!checkRedeemDetail && !checkSwichDetail"
+                                        class="text-black display-4">เข้า Unitholder</label>
+                                    <label *ngIf="checkRedeemDetail"
+                                        class="text-black display-4">ไปยังบัญชีปลายทาง</label>
+                                    <label *ngIf="checkSwichDetail" class="text-black display-4">ไปยังกองทุน</label>
+                                </div>
+                            </div>
+
+                            <!-- SHOW DATA DETAIL FOR PURCHASE FUND FROM BANK ACCOUNT-->
+                            <div *ngIf="!checkRedeemDetail && !checkSwichDetail"
+                                class="BookBank BookBank-left col-5 row white-gray-border align-items-center"
+                                style=" background-color: white; color: black">
+                                <div class="col-4 ">
+                                    <img class="logo" src="{{dataService.transaction.from.bank.image}}">
+                                </div>
+                                <div class="col-8 display-5">
+                                    <div class="book-accname">{{dataService.transaction.from.accountName}}</div>
+                                    <div class="book-accnum">{{dataService.transaction.from.accountNumber}}</div>
+                                    <div>{{ dataService.transaction.from.accountType | translate}}</div>
+                                </div>
+                            </div>
+
+                            <!-- SHOW DATA DETAIL FOR REDEMM FUND FROM-->
+                            <div *ngIf="checkRedeemDetail"
+                                class="background-purple BookBank_shadow col-5 row blue-border align-items-center">
+                                <div class="col-4 ">
+                                    <img class="logo" src="{{dataService.transaction.from.bank.image}}">
+                                </div>
+                                <div *ngIf="checkRedeemDetail" class="col-8 display-5 text-white">
+                                    <div>{{dataRedeem.fundNameTh}}</div>
+                                    <div>{{dataRedeem.fundNameEn}}</div>
+                                </div>
+                            </div>
+
+                            <!-- SHOW DATA DETAIL FOR SWICH OUT FUND FROM-->
+                            <div *ngIf="checkSwichDetail"
+                                class="background-purple BookBank_shadow col-5 row blue-border align-items-center">
+                                <div class="col-4 ">
+                                    <img class="logo" src="{{dataService.transaction.from.bank.image}}">
+                                </div>
+                                <div *ngIf="checkSwichDetail" class="col-8 display-5 text-white">
+                                    <div>{{dataSwichOut.fundNameTh}}</div>
+                                    <div>{{dataSwichOut.fundNameEn}}</div>
+                                </div>
+                            </div>
+
+                            <div class="arrow_img col-2 row align-items-center">
+                                <img src="./assets/kiatnakin/image/icon_arrow_transfer.png">
+                            </div>
+
+                            <!-- SHOW DATA DETAIL FROM PURCHASE FUND TO-->
+                            <div *ngIf="!checkRedeemDetail && !checkSwichDetail" id="div-select-account-to"
+                                class="background-purple BookBank_shadow col-5 row blue-border align-items-center">
+                                <div class="col-4 align-items-center">
+                                    <img class="logo" src="{{dataService.transaction.to.bank.image}}" />
+                                </div>
+                                <div class="col-8 display-5 text-white">
+                                    <div>{{fundSelect[0].fundCode}}</div>
+                                    <div class="display-6"><span>Unitholder</span></div>
+                                    <div>{{unitHolderId.unitHolderId}}</div>
+                                </div>
+                            </div>
+
+                            <!-- SHOW DATA DETAIL FROM REDEMM FUND TO BANK ACCOUNT-->
+                            <div *ngIf="checkRedeemDetail"
+                                class="BookBank BookBank-right col-5 row white-gray-border align-items-center"
+                                style=" background-color: white; color: black"
+                                [ngClass]="{'BookBankFix': dataService.transaction.toFix}">
+                                <div class="col-4 align-items-center">
+                                    <img class="logo" src="{{dataService.transaction.to.bank.image}}" />
+                                </div>
+                                <div class="display-5">
+                                    <div>{{dataService.transaction.to.bank.name | translate }}</div>
+                                    <div>{{dataService.transaction.to.accountNumber}}</div>
+                                    <div>{{dataService.transaction.to.accountType | translate}}</div>
+                                </div>
+                            </div>
+
+
+                            <!-- SHOW DATA DETAIL FROM SWICH IN FUND TO -->
+                            <div *ngIf="checkSwichDetail"
+                                class="background-purple BookBank BookBank-right col-5 row white-gray-border align-items-center"
+                                style=" background-color: white; color: black"
+                                [ngClass]="{'BookBankFix': dataService.transaction.toFix}">
+                                <div class="col-4 align-items-center">
+                                    <img class="logo" src="{{dataService.transaction.to.bank.image}}" />
+                                </div>
+                                <div class="col-8 display-5 text-white">
+                                    <!-- <div *ngIf="checkSwichFundForm" class="col-8 display-5 text-white"> -->
+                                    <div>{{dataSwichIn.fundNameTh}}</div>
+                                    <div>{{dataSwichIn.fundNameEn}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--FUND DETAIL PURCHASE && REDEEM && SWICH-->
+                    <div *ngIf="checkFundDetail && !checkRedeemFund && !checkSwichFundForm"
+                        class="row content-border col-lg-11">
+                        <div class="col-lg-12 form-input text-center" style="text-align: center;padding: 0">
+                            <div class="content-detail">
+                                <div class="row">
+                                    <span class="text-left col-lg-2 ">ผู้จัดการกองทุน</span>
+                                    <div class="col-lg text-right text-purple">
+                                        <b *ngIf="!checkRedeemDetail && !checkSwichDetail" class="display-3"
+                                            [id]="'amount'">{{fundSelect[0].amcNameTh}}</b>
+                                        <b *ngIf="checkRedeemDetail" class="display-3"
+                                            [id]="'amount'">{{dataRedeem.fundNameTh}}</b>
+                                        <b *ngIf="checkSwichDetail" class="display-3"
+                                            [id]="'amount'">{{dataSwichOut.fundNameTh}}</b>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <span *ngIf="!checkRedeemDetail && !checkSwichDetail"
+                                        class="text-left col-md-2">จำนวนเงิน</span>
+                                    <span *ngIf="checkRedeemDetail && redeemAmount"
+                                        class="text-left col-md-2">จำนวนเงิน</span>
+                                    <span *ngIf="checkSwichDetail && swichAmount"
+                                        class="text-left col-md-2">จำนวนเงิน</span>
+                                    <span *ngIf="checkRedeemDetail && redeemUnit || checkRedeemDetail && redeemAllUnit"
+                                        class="text-left col-md-2">จำนวนหน่วย</span>
+                                    <span *ngIf="checkSwichDetail && swichUnit || checkSwichDetail && swichAllUnit"
+                                        class="text-left col-md-2">จำนวนหน่วย</span>
+
+                                    <div class="col-lg text-right text-purple">
+                                        <b *ngIf="!checkRedeemDetail && !checkSwichDetail"
+                                            class="display-3">{{fundAmount | number:'.2-2'}}
+                                        </b>
+                                        <b *ngIf="checkRedeemDetail && redeemAmount"
+                                            class="display-3">{{amountRedeem | number:'.2-2'}}
+                                        </b>
+                                        <b *ngIf="checkRedeemDetail && redeemUnit || checkRedeemDetail && redeemAllUnit"
+                                            class="display-3">
+                                            {{unitRedeem | number:'.4-4'}}
+                                        </b>
+                                        <b *ngIf="checkSwichDetail && swichAmount"
+                                            class="display-3">{{amountSwich | number:'.2-2'}}
+                                        </b>
+                                        <b *ngIf="checkSwichDetail && swichUnit || checkSwichDetail && swichAllUnit"
+                                            class="display-3" [id]="'fee'" data-max-decimal="2">
+                                            {{unitSwich | number:'.4-4'}}
+                                        </b>
+                                    </div>
+                                    <span *ngIf="!checkRedeemDetail && !checkSwichDetail"
+                                        class="text-left col-md-1">{{'bath'|translate}}</span>
+                                    <span *ngIf="checkRedeemDetail && redeemAmount"
+                                        class="text-left col-md-1">{{'bath'|translate}}</span>
+                                    <span *ngIf="checkSwichDetail && swichAmount"
+                                        class="text-left col-md-1">{{'bath'|translate}}</span>
+                                    <span *ngIf="checkRedeemDetail && redeemUnit || checkRedeemDetail && redeemAllUnit"
+                                        class="text-left col-md-1">หน่วย</span>
+                                    <span *ngIf="checkSwichDetail && swichUnit || checkSwichDetail && swichAllUnit"
+                                        class="text-left col-md-1">หน่วย</span>
+                                </div>
+                                <div class="row">
+                                    <span class="text-left col-lg-2">ค่าธรรมเนียม</span>
+                                    <div class="col-lg text-right text-purple">
+                                        <b *ngIf="!checkRedeemDetail && !checkSwichDetail" class="display-3"
+                                            [id]="'fee'">
+                                            {{ dataService.transaction.fee.amountFund | number:'.2-2'}}
+                                        </b>
+                                        <b *ngIf="checkRedeemDetail" class="display-3" [id]="'fee'">
+                                            0.00
+                                        </b>
+                                        <b *ngIf="checkSwichDetail" class="display-3" [id]="'fee'">
+                                            0.00
+                                        </b>
+                                    </div>
+                                    <span class="text-left col-md-1">{{'bath'|translate}}</span>
+                                </div>
+
+                                <div class="row">
+                                    <span class="text-left col-lg-2">วันที่ทำรายการ</span>
+                                    <div class="col-lg text-right text-purple">
+                                        <b *ngIf="!checkRedeemDetail && !checkSwichDetail" class="display-3"
+                                            [id]="'fee'">{{resPrepareOrder.effectiveDate}}</b>
+                                        <b *ngIf="checkRedeemDetail" class="display-3"
+                                            [id]="'fee'">{{resPrepareOrder.effectiveDate}}</b>
+                                        <b *ngIf="checkSwichDetail" class="display-3"
+                                            [id]="'fee'">{{resPrepareOrder.effectiveDate}}</b>
+                                    </div>
+                                    <span class="text-left col-md-1"></span>
+                                </div>
+                            </div>
+
+                            <div class="content-total mt-2">
+                                <div class="row">
+                                    <span *ngIf="!checkRedeemDetail && !checkSwichDetail"
+                                        class="text-left col-md-2">Amount</span>
+                                    <span *ngIf="checkRedeemDetail && redeemAmount"
+                                        class="text-left col-md-2">Amount</span>
+                                    <span *ngIf="checkSwichDetail && swichAmount"
+                                        class="text-left col-md-2">Amount</span>
+                                    <span *ngIf="checkRedeemDetail && redeemUnit || checkRedeemDetail && redeemAllUnit"
+                                        class="text-left col-md-2">Unit</span>
+                                    <span *ngIf="checkSwichDetail && swichUnit || checkSwichDetail && swichAllUnit"
+                                        class="text-left col-md-2">Unit</span>
+
+                                    <div class="col-md text-right totalAmount text-purple">
+                                        <b *ngIf="!checkRedeemDetail && !checkSwichDetail" [id]="'total_amount'">
+                                            {{dataService.transaction.fundTotalAmount | number:'.2-2'}}
+                                        </b>
+                                        <b *ngIf="checkRedeemDetail && redeemAmount" [id]="'total_amount'">
+                                            {{amountRedeem | number:'.2-2'}}
+                                        </b>
+                                        <b *ngIf="checkRedeemDetail && redeemUnit || checkRedeemDetail && redeemAllUnit"
+                                            [id]="'total_amount'">
+                                            {{unitRedeem | number:'.4-4'}}
+                                        </b>
+                                        <b *ngIf="checkSwichDetail && swichAmount" [id]="'total_amount'">
+                                            {{amountSwich | number:'.2-2'}}
+                                        </b>
+                                        <b *ngIf="checkSwichDetail && swichUnit || checkSwichDetail && swichAllUnit"
+                                            [id]="'total_amount'">
+                                            {{unitSwich | number:'.4-4'}}
+                                        </b>
+                                    </div>
+                                    <span *ngIf="!checkRedeemDetail && !checkSwichDetail"
+                                        class="text-left col-md-1">{{'bath'|translate}}</span>
+                                    <span *ngIf="checkRedeemDetail && redeemAmount"
+                                        class="text-left col-md-1">{{'bath'|translate}}</span>
+                                    <span *ngIf="checkSwichDetail && swichAmount"
+                                        class="text-left col-md-1">{{'bath'|translate}}</span>
+                                    <span *ngIf="checkRedeemDetail && redeemUnit || checkRedeemDetail && redeemAllUnit"
+                                        class="text-left col-md-1">หน่วย</span>
+                                    <span *ngIf="checkSwichDetail && swichUnit || checkSwichDetail && swichAllUnit"
+                                        class="text-left col-md-1">หน่วย</span>
+                                    <!-- <span class="text-left col-md-1 text-sum">{{'bath'|translate}}</span>
+                                    <span class="text-left col-md-1 text-sum">หน่วย</span> -->
+                                </div>
+                                <div class="row">
+                                    <span class="fee_condition"></span>
+                                    <div *ngIf="!checkRedeemDetail && !checkSwichDetail"
+                                        class="col-lg control-label text-right bathtext">
+                                        ({{ dataService.transaction.fundTotalAmount | bahttext }})
+                                    </div>
+                                    <div *ngIf="checkRedeemDetail && redeemAmount"
+                                        class="col-lg control-label text-right bathtext">
+                                        ({{ dataService.transaction.fundTotalAmount | bahttext }})
+                                    </div>
+                                    <div *ngIf="checkSwichDetail && swichAmount"
+                                        class="col-lg control-label text-right bathtext">
+                                        ({{ dataService.transaction.fundTotalAmount | bahttext }})
+                                    </div>
+                                    <span class="text-left col-md-1 text-sum"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div *ngIf="checkFundDetail && !checkRedeemFund && !checkSwichFundForm">
+                    <!--BTN CONFIRM ORDER PURCHASE FUND-->
+                    <div class="col-12 text-center mt-3" *ngIf="!checkRedeemDetail && !checkSwichDetail">
+                        <div class="row" class="col-12 text-center mt-3">
+                            <button id="button-confirm-transfer" class="btn-size-XL button-blue"
+                                (click)="confirmPurchaseFund()" [disabled]="checkConfirmBTN">
+                                <h2><b>{{'confirm'|translate}}</b></h2>
+                            </button>
+                        </div>
+                    </div>
+                    <!--BTN CONFIRM ORDER REDEM FUND-->
+                    <div class="col-12 text-center mt-3" *ngIf="checkRedeemDetail">
+                        <div class="row" class="col-12 text-center mt-3">
+                            <button id="button-confirm-transfer" class="btn-size-XL button-blue"
+                                (click)="confirmRedeemFund()">
+                                <h2><b>{{'confirm'|translate}}</b></h2>
+                            </button>
+                        </div>
+                    </div>
+                    <!--BTN CONFIRM ORDER SWICH FUND-->
+                    <div class="col-12 text-center mt-3" *ngIf="checkSwichDetail">
+                        <div class="row" class="col-12 text-center mt-3">
+                            <button id="button-confirm-transfer" class="btn-size-XL button-blue"
+                                (click)="confirmSwichFund()">
+                                <h2><b>{{'confirm'|translate}}</b></h2>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL PROGRESS PURCHASE FUND-->
+            <progress-dialog #progress [progressId]="'transfer-fund'" (onClickEmitter)="onClickBack()"
+                (isShowEmitter)="progressIsShow = $event">
+            </progress-dialog>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+
+<!-- cancelFund -->
+<div *ngIf="cancelFund" class="col-lg-12">
+    <div id="transfer" class="container vertical-center display-5">
+        <div id="container_form_transfer"
+            *ngIf="!isSelectAccount && dataService.transaction.currentStatus != status.complete">
+            <img *ngIf="dataService.transaction.currentStatus != status.complete"
+                src="./assets/kiatnakin/image/close.png" class="button-close" (click)="onClickClose()" id="buttonClose">
+            <div id="header" class="pt-2 pl-3 bold background-purple">
+                <div class="row" *ngIf="dataService.transaction.currentStatus != status.complete">
+                    <div id="header-logo" class="col-2 vertical-center background-white">
+                        <img src="./assets/kiatnakin/image/icon_logo_header_violet.png">
+                    </div>
+                    <div id="header-desc" class="col p-0">
+                        <h2 class="float-right mr-5 vertical-center h-100 text-violet text-bold text-white">
+                            ใบยกเลิกรายการ
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <progress-dialog #progress [progressId]="'transfer-fund'" (onClickEmitter)="onClickBack()"
+                (isShowEmitter)="progressIsShow = $event">
+            </progress-dialog>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- FUND CONDITION  -->
+<!-- <div *ngIf="checkFundConditionRedeem && !checkFundDetail && !checkRedeemFund && !checkFundType">
+    <div id="transfer" class="container vertical-center display-5">
+        <div id="transfer" class="container vertical-center display-5">
+            <div id="container_form_transfer"
+                *ngIf="!isSelectAccount && dataService.transaction.currentStatus != status.complete">
+                <img *ngIf="progressIsShow" src="./assets/kiatnakin/image/close.png" class="button-close"
+                    (click)="onClickClose()" id="buttonClose">
+                <div id="header" class="pt-2 pl-3 bold background-purple">
+                    <div class="row" *ngIf="dataService.transaction.currentStatus != status.complete">
+                        <div id="header-logo" class="col-2 vertical-center background-white">
+                            <img src="./assets/kiatnakin/image/icon_logo_header_violet.png">
+                        </div>
+                        <div id="header-desc" class="col p-0">
+                            <h2 class="float-right mr-5 vertical-center h-100 text-violet text-bold text-white">
+                                ใบขายกองทุน1111
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div id="body" *ngIf="!progressIsShow">
+                    <div id="containerCondition" class="container container-condition">
+                        <div class="body-condition text-center">
+                            <label class="display-1 text-black">ความยินยิมในการเปิดเผยข้อมูลลูกค้าและบัญชีกองทุนแก่
+                                TSD</label>
+                        </div>
+                        <div class="scroll-condition content-font-name" (scroll)="onScroll($event)">
+                            <p innerHtml="{{dataFundCondition}}"></p>
+                        </div>
+                        <div class="footer text-center">
+                            <button class="button-blue display"
+                                (click)="onClickBackToTransactionMutualfund('REDEEM')">ยกเลิก</button>
+                            <button class="button-purple display" (click)="prepareFundOrder('REDEEM')">ยอมรับ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <progress-dialog #progress [progressId]="'transfer-fund'" (onClickEmitter)="onClickBack()"
+                (isShowEmitter)="progressIsShow = $event">
+            </progress-dialog>
+        </div>
+    </div>
+</div> -->
+
+<!-- SLIP ORDER PURCHASE FUND -->
+<app-complete-slip *ngIf="checkSlipInvesment && !progressIsShow"
+    [queryParams]="{ 'transactionType': transactionType, 'transactionCancel': transactionCancel }"
+    (PrintSlip)="printSlipInvesment($event)">
+</app-complete-slip>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="buttonBack" (click)="onClickBack()" />

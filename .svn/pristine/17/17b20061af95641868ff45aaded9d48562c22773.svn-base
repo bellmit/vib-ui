@@ -1,0 +1,18 @@
+<div>
+    <p class="display-0 text-center text-white">{{ 'กรุณาเลือกรายการ' }}</p>
+</div>
+<div id="container_form">
+    <div (click)="onSelectType('tr_bookbank')">
+        <div class="obj_left">
+            <img id="gr_bookbank" class="resize" src="./assets/kiatnakin/image/my_saving.png">
+        </div>
+    </div>
+    <!-- <div (click)="onSelectType('tr_service')"> -->
+    <div>
+        <div class="obj_right">
+            <img id="gr_patara" class="resize" src="./assets/kiatnakin/image/my_invest.png">
+        </div>
+    </div>
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

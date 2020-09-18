@@ -1,0 +1,175 @@
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
+import { KeyboardService } from '../../_service/keyboard.service';
+import { Utils } from '../../../share/utils';
+import { UserService } from '../../_service/user.service';
+import { CardOtpComponent } from './card/card-otp/card-otp.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from '../../_service/data.service';
+import { Modal } from '../../_share/modal-dialog/modal-dialog.component';
+import { LoginService } from '../../_service/api/login.service';
+import { CardIdCardComponent } from './card/card-id-card/card-id-card.component';
+import { isNullOrUndefined } from 'util';
+import { CardAtmComponent } from './card/card-atm/card-atm.component';
+import { TransferService } from '../../_service';
+
+@Component({
+  selector: 'login-component',
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.sass'],
+  providers: [LoginService]
+})
+export class LoginComponent implements OnInit, AfterViewInit {
+  @ViewChild('card_otp') cardOTPComponent: CardOtpComponent;
+  @ViewChild('card_id_card') cardIdCardComponent: CardIdCardComponent;
+  @ViewChild('card_atm') cardATMComponent: CardAtmComponent;
+
+  public authenticationList = {
+    id_card: 'idcard+mypin',
+    id_number: 'idno+mypin',
+    username: 'usernamepassword',
+    atm: 'atmcard+pin',
+    my_pin: 'mypin',
+    otp: 'otp'
+  };
+
+  private loginMode;
+  public selectedAuthenType;
+  public availableAuthenType = new Array();
+  public isLogin: boolean;
+  public authenticationFactor1: boolean;
+  public authenticationFactor2: boolean;
+
+  constructor(
+    private location: Location,
+    private userService: UserService,
+    private dataService: DataService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private tranferService: TransferService
+  ) {
+    const objectParams = this.activatedRoute.snapshot.queryParams;
+    this.loginMode = objectParams.mode;
+    this.getAvailableAuthenType();
+  }
+
+  ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.getAvailableAuthenType();
+      const authenticate_mode = params.mode;
+      const that = this;
+
+      this.isLogin = this.userService.isLoggedin();
+      this.authenticationFactor2 = authenticate_mode === 'authenticate-factor2';
+      this.authenticationFactor1 = authenticate_mode === 'authenticate';
+
+      // if ((!this.isLogin && this.userService.getUser() == null) && this.authenticationFactor2) {
+      //     // this.router.navigate(["/kk/"]);
+      //     this.onClickBack()
+      //     return;
+      // }
+
+      this.selectedAuthenType = !this.authenticationFactor2
+        ? this.authenticationList.id_card
+        : this.authenticationList.otp;
+
+      if (that.availableAuthenType.length > 0) {
+        this.selectedAuthenType = this.availableAuthenType[0];
+        if (
+          this.availableAuthenType.indexOf(this.authenticationList.id_card) > -1
+        ) {
+          this.selectedAuthenType = this.authenticationList.id_card;
+        }
+      }
+      Utils.animate('#container', 'slideInUp').then(() => {
+        KeyboardService.initKeyboardInputText();
+      });
+    });
+  }
+
+  ngAfterViewInit() {
+    this.onClickSelectLoginType(this.selectedAuthenType);
+  }
+
+  public onClickBack() {
+    Utils.animate('#container', 'slideOutDown').then(() => {
+      if (
+        !isNullOrUndefined(this.dataService.transaction) &&
+        !isNullOrUndefined(this.dataService.transaction.currentStatus)
+      ) {
+        this.dataService.transaction.currentStatus = this.dataService.transaction.status.inputData;
+      }
+      this.location.back();
+    });
+  }
+
+  getAvailableAuthenType() {
+    this.availableAuthenType = new Array();
+    if (
+      !isNullOrUndefined(this.dataService.authenList) &&
+      this.dataService.authenList.length > 0
+    ) {
+      this.dataService.authenList.map((value: any, key) => {
+        for (const data in value) {
+          if (!isNullOrUndefined(data)) {
+            const authGroupName = data.toLocaleLowerCase();
+            this.availableAuthenType.push(authGroupName.replace('+otp', ''));
+          }
+        }
+      });
+    }
+  }
+
+  displayAuthentication(type) {
+    if (isNullOrUndefined(this.dataService.authenList)) {
+      return true;
+    }
+
+    return this.availableAuthenType.indexOf(type) > -1;
+  }
+
+  onClickSelectLoginType(authenticationType: string) {
+    this.selectedAuthenType = authenticationType;
+    KeyboardService.initKeyboardInputText();
+  }
+
+  onAuthenticate($result) {
+    if ($result === false) {
+      return;
+    }
+
+    this.tranferService.resendMachineOtt().subscribe(
+      data => {
+        this.dataService.tokenOtt = data.data.ott;
+        this.userService.isLoggedIn = true
+      },
+      error => {
+        this.userService.loginSuccess(null);
+
+        Modal.showAlert(error.responseStatus.responseMessage);
+        return;
+      },
+      () => {
+        Utils.animate('#container', 'slideOutDown').then(() => {
+          Utils.removeClass('#container', 'slideOutDown');
+          Modal.hide();
+          const objectParams = this.activatedRoute.snapshot.queryParams;
+          const returnUrl = objectParams.returnUrl || '';
+          const queryParams = {};
+          for (const key in objectParams) {
+            if (key !== 'returnUrl') {
+              queryParams[key] = objectParams[key];
+            }
+          }
+
+          this.router.navigate(['/kk/' + returnUrl], {
+            queryParams: queryParams,
+            replaceUrl: true
+          });
+
+        });
+
+      }
+    );
+  }
+}

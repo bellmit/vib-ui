@@ -1,0 +1,64 @@
+<div class="col-lg-12">
+    <div class="container animated bounceInRight vertical-center display-5 " style="justify-content: center"
+         id="container_form2">
+
+        <div class="col-lg-12" style="top:-25.5%">
+
+            <div class="text-center text-blackblue display-3 mt-2" style="font-weight: bold">
+                {{"cheque"|translate}}
+            </div>
+
+            <div class="row">
+                <div class="col-lg-5 offset-1 mt-3 display-5 text-blackblue">
+                    <div class="text-left">{{"cheque_type"|translate}}</div>
+                </div>
+                <div class="col-lg-4 mt-3 display-5 text-blackblue text-right txt_date">
+                    {{"date"|translate}}
+                </div>
+                <div class="col-lg-2 mt-3 display-5 text-blackblue text-left txt_datenow">
+                    {{dateNow}}
+                </div>
+                <div class="col-lg-3 offset-1" (click)="onSelector('chequeType')">
+                    <input type="text" class="text-center none-keyboard display-4 form-control"
+                           [(ngModel)]="chequeType" name="chequeType" id="ChequeType" readonly="true">
+                </div>
+                <selector-dialog
+                        *ngIf="showSelector"
+                        class="p-0"
+                        selector_dialog
+                        (onSelector)="onSet($event)"
+                        [id]="selected"
+                        [Title]="titleTypeList"
+                        [DataList]="dataList"
+                        [ActiveNow]="ActiveNow">
+                </selector-dialog>
+            </div>
+            <div class="row">
+                <div class="mt-5 offset-1">
+                    <div class="col-lg-6 display-5 text-blackblue text-left">
+                        {{"from"|translate}}
+                    </div>
+                </div>
+                <div class="col-lg-10 offset-1">
+                    <input id="input-name-surname" type="text" style="height:60px;font-size: 30px"
+                           class="border_dark_blue form-control text-black text-center display-1"
+                           keyboard="th" maxlength="64" [(ngModel)]="accountName"
+                           required placeholder="ชื่อ-นามสกุล">
+                </div>
+
+                <div class="col-lg-10 offset-1">
+                    <input class="border_dark_blue form-control text-black text-center display-1"
+                           keyboard="number" maxlength="64" [(ngModel)]="micrResult" placeholder="เลขที่เช็ค">
+                </div>
+            </div>
+
+            <div class="mt-4 co-lg-12 text-center" style="position: absolute;top: 133%;left: 34%">
+                <button id="button-cheque" class="btn-size-XL button-blue" (click)="onSelectedAccount()"
+                        type="submit" [disabled]="accountName.length <= 0 || !chequeType">
+                    <h2>{{'ok'|translate}}</h2>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

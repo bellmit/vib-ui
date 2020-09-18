@@ -1,0 +1,126 @@
+<div class="app-back" (click)="onClickMainMenu()">
+  <p class="text-lll m-0">กลับหน้าหลัก</p>
+</div>
+
+<div id="container" class="container CurrentTop">
+  <div class="row mutualfund-account-container">
+    <div id="mutualfund-account-detail" class="mutualfund-account-detail">
+      <div class="mutualfund-account-detail-item">
+        <div class="mutualfund-account-detail-section p-4">
+          <!-- <div class="row m-0 p-4 align-items-center">
+            <img
+              class="align-self-start phatra-logo"
+              src="{{ imgPart + 'investment/patara_white.png' }}"
+            />
+            <div class="ml-3 offset-1 align-self-end text-left">
+              <p class="phatra-text1">
+                Phatra
+              </p>
+              <p class="m-0 phatra-text2">Asset Management</p>
+            </div>
+          </div> -->
+
+          <div class="holder-detail text-gray row m-0 pt-2 pb-2">
+            <div class="row m-0">
+              <div class="col-7 text-left">
+                <span>เลขที่ผู้ถือหน่วย:</span>
+                <span class="text-dark-purple">
+                  {{ unitHolderId }}
+                </span>
+              </div>
+              <div class="col-5 text-right text-ellipsis">
+                <span>ชื่อผู้ถือหน่วย:</span>
+                <span class="text-dark-purple" data-toggle="tooltip" data-placement="bottom"
+                  title="{{ unitHolderName }}"> {{ unitHolderName }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row m-0">
+              <div class="col-7 text-left">
+                <span>Unitholder No:</span>
+                <span class="text-dark-purple">
+                  {{ unitHolderId }}
+                </span>
+              </div>
+              <div class="col-5 text-right text-ellipsis">
+                <span>Unitholder Name:</span>
+                <span class="text-dark-purple" data-toggle="tooltip" data-placement="bottom"
+                  title="{{ unitHolderName }}"> {{ unitHolderName }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="assets-detail text-gray row m-0 pt-3 pb-2">
+            <div class="col-6 text-left">
+              <div class="text-left">
+                <span>มูลค่าทรัพย์สินสุทธิ (บาท)</span>
+              </div>
+
+              <div *ngIf="netAssetValueStr" class="text-left">
+                <span class="text-dark-purple">
+                  {{ netAssetValueStr }}
+                </span>
+              </div>
+
+              <div *ngIf="!netAssetValueStr" class="text-left">
+                <span class="text-dark-purple">
+                  0.00
+                </span>
+              </div>
+
+            </div>
+            <div class="col-6 text-right">
+              <div class="text-right">
+                <span>กำไรขาดทุนสุทธิ (บาท)</span>
+              </div>
+
+              <div *ngIf="netProfitStr" class="text-right" [ngClass]="{
+                  'text-success': netProfit >= 0,
+                  'text-danger': netProfit < 0
+                }">
+                <span *ngIf="netProfit > 0">+</span><span>{{ netProfitStr }}</span>
+              </div>
+
+              <div *ngIf="!netProfitStr" class="text-right text-success">
+                <span>+</span><span>0.00</span>
+              </div>
+
+            </div>
+          </div>
+
+          <div *ngIf="outstandingList" class="top-magin">
+            <div class="fund-list text-left col-12 pt-3 pb-4 m-0">
+              <span>กองทุน</span>
+            </div>
+
+            <div class="scroll">
+              <div *ngFor="let fund of outstandingList; let i = index" class="row m-0 pt-2 pb-2 fund"
+                [ngClass]="i % 2 === 0 ? 'fund-evenx' : 'fund-oddx'" (click)="onClickNAV(fund)">
+                <div class="col-6 text-left p-0">
+                  <span>
+                    {{ fund.fundCode }}
+                  </span>
+                </div>
+                <div class="col-6 text-right">
+                  <span>
+                    {{ fund.individualAssetValueStr }}
+                  </span>
+                </div>
+                <div class="col-12 text-right" [ngClass]="{
+                    'text-success': fund.individualProfit >= 0,
+                    'text-danger': fund.individualProfit < 0
+                  }">
+                  <span *ngIf="fund.individualProfit > 0">+</span><span>{{ fund.individualProfitStr }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<menu-fund-management (cancelFund)="goToCancelFund($event)"></menu-fund-management>
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

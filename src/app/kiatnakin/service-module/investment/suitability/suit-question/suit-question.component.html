@@ -1,0 +1,90 @@
+<template-flip-book class="suit-question" (onFlipInit)="onFlipInit($event)" (onStart)="onStart($event)"
+  (onTurning)="onTurning($event)" (onTurned)="onTurned($event)" (onEnd)="onEnd($event)">
+  <img src="./assets/kiatnakin/image/close.png" (click)="onClickClose()" ignore="1" *ngIf="isShowCloseButton"
+    class="btn-close" />
+
+  <div class="hard cover">
+    <div class="cover-page">
+      <div class="book-logo">
+        <img src="{{ imgPart + 'investment/patara_purple.png' }}" width="100%" />
+      </div>
+    </div>
+  </div>
+
+  <div *ngFor="let questionList of suitQuestion; let k = index" class="cover hard" [ngClass]="{
+      'fixed': k == suitQuestion.length - 1,
+      'purple': k == 0 || k == suitQuestion.length - 1,
+      'front-side': k == 0,
+      'back-side': k == suitQuestion.length - 1,
+      'own-size': !(k == 0 || k == suitQuestion.length - 1)
+    }">
+    <div class="content-cover">
+      <div class="product-recommend-wrapper">
+        <div class="container pt-0">
+          <div class="row">
+            <div class="col-12 p-0">
+              <div *ngIf="k == 0" class="ribbon_purple_left mr-6">
+                <label class="text-white pl-39px pt-2 display-4">Suitability</label>
+              </div>
+              <!-- a question is below -->
+              <div *ngFor="let question of questionList; let i = index" class="col-12 pt-2 pl-5 pr-4" [ngClass]="{
+                  'pt-3': k == 0 && i == 0,
+                  'pt-4': k != 0 && i == 0
+                }">
+                <label class="col-12 p-0 question">{{ question.seq }}. {{ question.description }}</label>
+                <input *ngIf="question.id" type="hidden" name="question" id="{{ question.id }}" />
+                <!-- 4 answers is below -->
+                <div *ngIf="question.id" class="col-12 row pl-4 pr-0">
+                  <!-- an answer is below -->
+                  <div *ngFor="
+                      let answer of question.answerDataList;
+                      let j = index
+                    " class="p-0 col-12 pt-1 flex" [ngClass]="{
+                      'col-3':
+                        (k == 0 && i == 0) ||
+                        (k == 0 && i == 4) ||
+                        (k == 1 && i == 2) ||
+                        (k == 1 && i == 4) ||
+                        (k == 1 && i == 5),
+                      'col-6':
+                        (k == 0 && i == 2) ||
+                        (k == 0 && i == 3) ||
+                        (k == 1 && i == 1),
+                      'col-12':
+                        (k == 0 && i == 1) ||
+                        (k == 0 && i == 5) ||
+                        (k == 1 && i == 0) ||
+                        (k == 1 && i == 3)
+                    }">
+                    <input class="input" type="{{ question.type == 'R' ? 'radio' : 'checkbox' }}"
+                      value="{{ question.id }}|{{ answer.id }}" name="{{ k }}{{ i }}" id="answer_{{ answer.id }}" />
+                    <label id="label" for="answer_{{ answer.id }}" class="p-0" [ngClass]="{
+                        'col-10':
+                          (k == 0 && i == 2) ||
+                          (k == 0 && i == 3) ||
+                          (k == 1 && i == 1),
+                        'col-11': (k == 1 && i == 0) || (k == 1 && i == 3),
+                        'col-8': k == 1 && i == 2
+                      }">
+                      {{ answer.description }}
+                    </label>
+                  </div>
+                  <!-- an answer is above -->
+                </div>
+                <!-- 4 anwser is above -->
+              </div>
+              <!-- a question is above -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img *ngIf="k == 0" src="{{ imgPart + 'tick_front.png' }}" class="tick_book_font" />
+    <img *ngIf="k == suitQuestion.length - 1" src="{{ imgPart + 'tick_back.png' }}" class="tick_book_back" />
+    <div *ngIf="k == suitQuestion.length - 1" class="btn-submit">
+      <button class="btn-size-S button-purple" (click)="onClickSubmitAnswer()">
+        {{ 'accept' | translate }}
+      </button>
+    </div>
+  </div>
+</template-flip-book>

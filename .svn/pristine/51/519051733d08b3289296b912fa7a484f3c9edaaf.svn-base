@@ -1,0 +1,79 @@
+<div class="table-responsive">
+    <div style="text-align:center;margin-top: 7%">
+
+        <div *ngIf="isSelectingCategory" >
+            <div class="col-lg-4 offset-4 text-center font-head display-1">
+                {{"กรุณาเลือกบริการที่จะชำระเงิน"}}
+            </div>
+            <div id="frame1" class="frame1">
+                <ul class="slidee">
+                    <li class="bg-service-billpay" style="display: none" *ngFor="let data of datList">
+                        <div class="col-lg-12">
+                            <div class="col-lg-10 offset-lg-1">
+                                <div style="margin-top:10%;font-weight:bold">
+                                    <!--<img src="/assets/kiatnakin/image/{{data.imageName}}">-->
+                                    <img src="./assets/kiatnakin/image/insurance_ic.png">
+                                    <div class="display-4" style="margin-top:8%;font-weight: bold">
+                                        {{ data.name_th }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin-top:8%">
+                                <form class="form-horizontal form-input" #authen="ngForm" autocomplete="off">
+                                    <div class="space-bottom-10">&nbsp;</div>
+                                    <div style="text-align: center;margin-top: -50px">
+                                        <button (click)="onClickDetail(data)"
+                                                class="btn-size-L border-blue btn-service">
+                                            {{"service_detail"|translate}}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div *ngIf="!isSelectingCategory" class="bg-service col-lg-12 m-auto">
+            <div class="col-lg-6 offset-3 text-center">
+
+                <div class="display-2 pt-2 text-bold serviceName">
+                    {{ dataService.selectedService.name_th }}
+                </div>
+                <div class="display-3 pt-2">
+                    {{ 'select_company'|translate }}
+                </div>
+            </div>
+
+            <div id="repay" class="frame1">
+                <ul class="slidee">
+                    <li *ngFor="let data of datList"  style="display: none"  class="text-center" id="{{data.code}}">
+
+                        <div class="col-lg-12">
+                            <div class="col-lg-10 offset-lg-1">
+                                <div style="margin-top:10%;font-weight:bold">
+                                    <!--<img src="/assets/kiatnakin/image/{{data.imageName}}">-->
+                                    <img src="./assets/kiatnakin/image/insurance_ic.png">
+                                    <div class="display-4" style="margin-top:8%;font-weight: bold">
+                                        {{ data.name_th }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+            <div style="bottom: 20px; left: 0px; right: 0px margin: 0 auto; position: absolute" class="w-100">
+                <button (click)="onClickDetail(data)"
+                        class="btn-size-L border-blue btn-service">{{"ok"|translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()"/>

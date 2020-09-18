@@ -1,0 +1,109 @@
+@import "./src/styles-master"
+
+.container
+  justify-content: center
+  align-items: center
+  margin-top: 7%
+
+.frame
+  padding-top: 50px
+  margin-left: 14px
+  .slidee
+    margin: 0
+    padding: 0
+    list-style: none
+    height: 200px
+    li
+      float: left
+      margin: 0 100px 0 0
+      padding: 0
+      width: 152px
+      transform: scale(1)
+      transition: all .2s ease-in-out
+      opacity: .6
+      @extend .gray-scale
+    li.active
+      opacity: 1 !important
+      transform: scale(1.6)
+      @extend .non-gray-scale
+
+.service-image
+  margin-top: 5%
+  font-weight: bold
+
+.btn-payment
+  background-color: white
+  color: #2AA8D3
+  font-family: 'Cordia New'
+  font-size: 40px
+  font-weight: bold
+  line-height: 0px
+
+.container_form_deposit
+  background-color: white
+  width: 1250px
+  height: 730px
+  @extend .shadow
+  .header
+    height: 70px
+    width: 100%
+    color: white
+    padding: 0px !important
+    .row
+      height: 100%
+      margin: 0px
+      .header-logo
+        margin: 0 0 1px
+      .header-desc
+
+.text-money
+  height: 70px !important
+  text-align: center
+
+.content-border
+  border: 3px solid $white-blue !important
+  background-color: $white-blue !important
+
+.bankImage
+  width: 100px
+  height: 100px
+
+.buttonClose
+  position: absolute
+  max-width: 100%
+  z-index: 900
+  top: -37px
+  right: -25px
+
+.content-border
+  border-radius: 15px
+  border: 3px solid $white-gray !important
+  background-color: $white-gray !important
+  padding: 0
+  margin: 20px 0px 10px 45px
+
+.content-detail
+  background-color: white
+  border-radius: 15px 15px 0 0
+  padding: 5px 20px
+  .row
+    line-height: 40px
+    vertical-align: bottom
+
+.kk-logo
+  position: absolute
+  height: 99px !important
+  width: 270px !important
+  margin-top: 20px
+  margin-left: 40px
+
+.kk-logo-center
+  height: 99px !important
+  width: 270px !important
+
+.fee_picker
+  background: url('/assets/kiatnakin/image/icon_fee_picker.png') no-repeat
+  width: 105px
+  height: 40px
+  position: absolute
+  right: -17px

@@ -1,0 +1,530 @@
+import { Injectable } from '@angular/core';
+import { API, AppConstant } from "../../../share/app.constant";
+import { APIService } from "./api.service";
+import { Utils, Environment } from "../../../share/utils";
+import { UserService } from '../../_service/user.service';
+import { BankAccount } from 'app/kiatnakin/_model';
+import { Transaction } from "../../_model/transaction";
+import { Investment } from "../../_model/investment";
+import { isNullOrUndefined } from 'util';
+
+@Injectable()
+export class InvestmentService {
+
+    public fundlistMode = {
+        buy: "AO",
+        new: "NF",
+        redeem: "RD",
+        switchOut: "SO",
+        switchIn: "SI"
+    }
+
+    public transactionType = {
+        purchase: "BU",
+        redeem: "SE",
+        switch_out: "SO",
+        switch_in: "SO"
+    }
+
+    constructor(private apiService: APIService, private userService: UserService) {
+
+    }
+
+    getGUID() {
+
+        const json = {
+            "card_id": this.userService.getUser().idNumber,
+        };
+
+        const url = API.GetGUID;
+
+        return this
+            .apiService
+            .post(url, json)
+            .map(response => {
+
+                //this.userService.getUser().GUID = "15d7d783-31e8-457a-9748-3075b1082b50"// response.data[0].PortGuid
+                //this.userService.getUser().GUID = "9c7e5d6f-fedf-478c-8598-bd870aa533e9" // สำหรับเทสให้ Phatara
+                this.userService.getUser().GUID = response.data[0].PortGuid
+                return response
+            });
+    }
+
+    getSuitQuestion() {
+
+        const json = {
+            "suitabilty_code": "",
+        };
+
+        const url = API.GetSuitQuestion;
+
+        return this
+            .apiService
+            .post(url, json).map(res => {
+                const question = []
+                let list = []
+                const totalQuestion = res.data.QUESTION.SuitQuestionDetail.length;
+                res.data.QUESTION.SuitQuestionDetail.forEach((item, index) => {
+                    if (index !== 0 && index % 3 === 0) {
+                        question.push(list)
+                        list = []
+                    }
+
+                    list.push(item)
+
+                    if (index + 1 === totalQuestion) {
+
+                        question.push(list)
+                        list = []
+                    }
+                })
+                res.question = question
+                return res
+            });
+    }
+
+    getSuitAnswer() {
+        const userInfo = this.userService.getUser()
+
+        const json = {
+            "card_no": userInfo.idNumber,
+            "cif_id": userInfo.kkcisid,
+            "id_type": userInfo.idType,
+            "suitability_code": "101",
+            "version": "",
+        };
+
+        const url = API.GetSuitAnswer;
+
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    submitSuitAnswer(answer) {
+
+        const userInfo = this.userService.getUser()
+
+        const json = {
+            "card_no": userInfo.idNumber,
+            "id_type": userInfo.idType,
+            "by_pass": "",
+            "cif_id": userInfo.kkcisid,
+            "created_by": userInfo.nameTH,
+            "suitability_code": "101",
+            "cust_suit_answer": answer
+        }
+
+        const url = API.SubmitSuitAnswer;
+
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    getSuitScore() {
+
+        const userInfo = this.userService.getUser()
+        const json = {
+            "card_id": userInfo.idNumber,
+            "id_type": userInfo.idType,
+            "cif_id": userInfo.kkcisid
+        };
+
+        const url = API.GetSuitScore;
+
+        return this
+            .apiService
+            .post(url, json)
+            .map(response => {
+                try {
+                    userInfo.updateSuitScore(response.data.CUST_SUIT.CustSuitScore[0])
+                } catch (e) {
+                    console.log("exception get json from getSuitScore")
+                }
+                return response
+            });
+    }
+
+    getPortDetail() {
+        const userInfo = this.userService.getUser()
+        const json = {
+            "port_guid": userInfo.GUID,
+        };
+
+        const url = API.GetPortDetail;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    getPortSummary() {
+        const userInfo = this.userService.getUser()
+        const json = {
+            "port_guid": userInfo.GUID,
+        };
+
+        const url = API.GetPortSummary;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+
+    GetFundFactByFundCode(fundCode) {
+
+        const json = {
+            "fund_code": fundCode,
+        };
+
+        const url = API.GetFundFactByFundCode;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    getPortTransaction(unitHolderNo = null, fundCode = null, pageNumber = 1, pageSize = 100) {
+        const userInfo = this.userService.getUser()
+        const json = {
+            "port_guid": userInfo.GUID,
+            "fund_code": fundCode,
+            "unit_holde_no": unitHolderNo,
+            "page_number": pageNumber,
+            "page_size": pageSize,
+        };
+
+        const url = API.GetPortTransaction;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    getOrderStatus() {
+
+        const userInfo = this.userService.getUser()
+        const json = {
+            "port_guid": userInfo.GUID
+        };
+
+        const url = API.GetOrderStatus;
+        return this
+            .apiService
+            .post(url, json);
+
+    }
+
+    getBuyFundList() {
+        return this.getFundList(this.fundlistMode.buy, "")
+    }
+
+    getNewFundList() {
+        return this.getFundList(this.fundlistMode.new, "")
+    }
+
+    getRedeemFundList() {
+        return this.getFundList(this.fundlistMode.redeem, "")
+    }
+
+    getSwitchInFundList(fundCode) {
+        return this.getFundList(this.fundlistMode.switchIn, fundCode)
+    }
+
+    getSwitchOutFundList() {
+        return this.getFundList(this.fundlistMode.switchOut, "")
+    }
+
+    getHolderList(fundCode = null) {
+        const userInfo = this.userService.getUser()
+        const json = {
+            "port_guid": userInfo.GUID,
+            "fund_code": fundCode
+        };
+
+        const url = API.GetHolderList;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    getFundSuitAndExchange(fundCode) {
+        const json = {
+            "fund_code": fundCode
+        };
+
+        const url = API.GetFundSuitAndExchange;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    insertOrderBuyAndPrePayment(transaction) {
+
+        const customerInfo = this.userService.getUser()
+        const customerSuitScore = customerInfo.suitScore
+        const holder = transaction.selectedHolder
+        const fund = transaction.selectedFund
+        const { ExchangeFlag, FIFFlag, FundSuitLevel, LTFFlag } = transaction.fundSuitAndExchange
+        const { EstimateEffectiveDate, CutOffTime, OrderDate } = transaction.estimateEffectiveDate
+        const { accecptLTFCondition } = transaction
+        const unitHolderSuitLevel = customerSuitScore.CUST_SUIT_LEVEL
+        const unitHolderSuitFlag = "Y"
+        const accountFrom: BankAccount = transaction.from
+
+        const json = {
+
+            "unit_holder_no": holder.Unitholder,
+            "order_date": OrderDate,
+            "effective_date": EstimateEffectiveDate,
+            "fund_code": fund.FundCode,
+            "amount_baht": Utils.toStringNumber(transaction.amount),
+            "exchange_flag": transaction.fundSuitAndExchange.ExchangeFlag,
+            "unit_holder_suit_level": unitHolderSuitLevel,
+            "unit_holder_suit_flag": FundSuitLevel > unitHolderSuitLevel,
+            "bank_account_number": accountFrom.accountNumber,
+            "bank_name": accountFrom.bank.name,
+            "bank_branch": accountFrom.branchName,
+            "bank_branch_code": Utils.setPadZero(accountFrom.branchCode, 4),
+            "ltf_condition": accecptLTFCondition,
+            "refferral_no": "",
+            "agent_no": "",
+            "agent_name": "",
+            "agent_branch_no": "",
+            "pay_type": "01",
+            "ordering_branch": Environment.branchCode,
+            "ordering_bank_code": AppConstant.bankCode,
+            "sending_bank_code": accountFrom.bank.code,
+            "sending_account_no": accountFrom.accountNumber,
+            "sending_branch": Utils.setPadZero(accountFrom.branchCode, 4),
+            "sending_cheque_no": "",
+            "sending_pct_code": "",
+            "card_id": customerInfo.idNumber,
+            "cust_name": holder.UnitholderNameTH
+
+        };
+
+
+        const url = API.InsertOrderBuyAndPrePayment;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    insertOrderSell(transaction) {
+        const customerInfo = this.userService.getUser()
+        const customerSuitScore = customerInfo.suitScore
+        const holder = transaction.selectedHolder
+        const fund = transaction.selectedFund
+        const { EstimateEffectiveDate, CutOffTime, OrderDate } = transaction.estimateEffectiveDate
+        const { ExchangeFlag, FIFFlag, FundSuitLevel, LTFFlag } = transaction.fundSuitAndExchange
+        const unitHolderSuitLevel = customerSuitScore.CUST_SUIT_LEVEL
+        const accountTo: BankAccount = transaction.to
+
+        const json = {
+            "id_no": customerInfo.idNumber,
+            "id_type": customerInfo.idType,
+            "cust_tel_no": customerInfo.mobileNumber,
+            "cust_email": customerInfo.email,
+            "unit_holder_no": holder.Unitholder,
+            "order_date": OrderDate,
+            "effective_date": EstimateEffectiveDate,
+            "fund_code": fund.FundCode,
+            "cut_off_time": CutOffTime,
+            "amount_baht": "",
+            "amount_unit": Utils.toStringNumber(transaction.amount_unit),
+            "redeem_type": "U",
+            "bank_account_number": accountTo.accountNumber,
+            "bank_name": accountTo.bank.name,
+            "bank_name_code": accountTo.bank.code,
+            "bank_branch": accountTo.branchName,
+            "bank_branch_code": Utils.setPadZero(accountTo.branchCode, 4),
+            "marketing_id": "",
+            "refferral_no": "",
+            "agent_no": "",
+            "agent_name": "",
+            "agent_branch_no": "",
+            "exchange_flag": isNullOrUndefined(ExchangeFlag) ? "N" : ExchangeFlag,
+            "ltf_condtion": isNullOrUndefined(LTFFlag) ? "N" : LTFFlag,
+            "foreign_flg": isNullOrUndefined(FIFFlag) ? "N" : FIFFlag,
+            "accept_flg": "Y",
+            "unit_holder_suit_level": unitHolderSuitLevel,
+            "unit_holder_flag": FundSuitLevel > unitHolderSuitLevel,
+            "ordering_branch_name": "",
+            "ordering_branch_code": Environment.branchCode
+        };
+
+        const url = API.InsertOrderSell;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    insertOrderSwitch(transaction) {
+        const customerInfo = this.userService.getUser()
+        const customerSuitScore = customerInfo.suitScore
+        const { selectedHolder, selectedFund } = transaction
+        const { ExchangeFlag, FIFFlag, FundSuitLevel, LTFFlag } = transaction.fundSuitAndExchange
+        const { EstimateEffectiveDate, CutOffTime, OrderDate } = transaction.estimateEffectiveDate
+        const { selectedFundSwitchIn, selectedHolderSwitch, accecptUnitHolderSuitFlag, accecptExchangeFlag, accecptLTFCondition } = transaction
+
+        const unitHolderSuitLevel = customerSuitScore.CUST_SUIT_LEVEL
+        const json = {
+            "id_no": customerInfo.idNumber,
+            "id_type": customerInfo.idType,
+            "cust_tel_no": customerInfo.mobileNumber,
+            "cust_email": customerInfo.email,
+            "unit_holder_no": selectedHolder.Unitholder,
+            "order_date": OrderDate,
+            "cut_off_time": CutOffTime,
+            "effective_date": EstimateEffectiveDate,
+            "fund_code_out": selectedFund.FundCode,
+            "fund_code_in": selectedFundSwitchIn.FundCode,
+            "amount_baht": selectedHolder.EstimateAmount,
+            "amount_unit": selectedHolder.AvailableUnit,
+            "switch_type": "U", // U: Unit, B Baht
+            "exchange_flag": isNullOrUndefined(ExchangeFlag) ? "N" : ExchangeFlag,
+            "ltf_condtion": isNullOrUndefined(LTFFlag) ? "N" : LTFFlag,
+            "foreign_flg": isNullOrUndefined(FIFFlag) ? "N" : FIFFlag,
+            "accept_flg": "Y",
+            "unit_holder_suit_level": unitHolderSuitLevel,
+            "unit_holder_flag": FundSuitLevel > unitHolderSuitLevel,
+            "agent_name": "",
+            "ordering_branch_name": "",
+            "ordering_branch_code": Environment.branchCode,
+            "machine_id": Environment.machine_id,
+        };
+
+        const url = API.InsertOrderSwitch;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    paymentAndUpdateStatus(transaction) {
+        const customerInfo = this.userService.getUser()
+        const customerSuitScore = customerInfo.suitScore
+
+        const { refName, profileCode, insertOrderBuyAndPrePayment } = transaction
+        const { EstimateEffectiveDate, CutOffTime, OrderDate } = transaction.estimateEffectiveDate
+        const { ExchangeFlag, FIFFlag, FundSuitLevel, LTFFlag } = transaction.fundSuitAndExchange
+        const holder = transaction.selectedHolder
+        const fund = transaction.selectedFund
+        const accountFrom: BankAccount = transaction.from
+        const unitHolderSuitLevel = customerSuitScore.CUST_SUIT_LEVEL
+
+        const json = {
+            "id_no": customerInfo.idNumber,
+            "id_type": customerInfo.idType,
+            "cust_tel_no": customerInfo.mobileNumber,
+            "cust_email": customerInfo.email,
+            "machine_id": Environment.machine_id,
+            "cut_off_time": CutOffTime,
+            "unit_holder_no": holder.Unitholder,
+            "transaction_id": insertOrderBuyAndPrePayment.REF1,
+            "addition_profile_code": insertOrderBuyAndPrePayment.ADDITION_PROFILE_CODE,
+            "company_code": insertOrderBuyAndPrePayment.COMPANY_CODE,
+            "service_code": insertOrderBuyAndPrePayment.SERVICE_CODE,
+            "subservice_code": insertOrderBuyAndPrePayment.SUBSERVICE_CODE,
+            "ref1": insertOrderBuyAndPrePayment.REF1,
+            "ref2": insertOrderBuyAndPrePayment.REF2,
+            "ref3": insertOrderBuyAndPrePayment.REF3 === undefined ? null : insertOrderBuyAndPrePayment.REF3,
+            "ref4": insertOrderBuyAndPrePayment.REF4 === undefined ? null : insertOrderBuyAndPrePayment.REF4,
+            "ref5": insertOrderBuyAndPrePayment.REF5 === undefined ? null : insertOrderBuyAndPrePayment.REF5,
+            "pay_amt": insertOrderBuyAndPrePayment.PAY_AMT,
+            "pay_type": "01",  //01 = Transfer,	02 = Cash,15 = Internal Transfer
+            "fee_pay_type": "01",
+            "pay_effective_date": insertOrderBuyAndPrePayment.TOBE_EFFECTIVE_DATE,
+            "card_no": customerInfo.idNumber,
+            "cust_name": holder.UnitholderNameTH,
+            "duedate": EstimateEffectiveDate,
+            "ordering": {
+                "ordering_branch": Environment.branchCode,
+                "ordering_bank_code": AppConstant.bankCode,
+            },
+            "sending": {
+                "sending_bank_code": accountFrom.bank.code,
+                "sending_account_no": accountFrom.accountNumber,
+                "sending_bank_name": accountFrom.bank.name,
+                "sending_branch": Utils.setPadZero(accountFrom.branchCode, 4),
+                "cheque_no": "",
+                "pct_code": "",
+
+            },
+            "remark": insertOrderBuyAndPrePayment.REMARK,
+            "reconfirm_flag": "N",
+            "payment_ref_id": insertOrderBuyAndPrePayment.PAYMENT_REF_ID,
+            "fee_list": [
+                {
+                    "fee_code": insertOrderBuyAndPrePayment.FEE_LIST.FEE_INFO.FEE_CODE,
+                    "fee_detail": insertOrderBuyAndPrePayment.FEE_LIST.FEE_INFO.FEE_DETAIL,
+                    "cust_fee_amt": insertOrderBuyAndPrePayment.FEE_LIST.FEE_INFO.CUST_FEE_AMT,
+                    "vat": insertOrderBuyAndPrePayment.FEE_LIST.FEE_INFO.VAT,
+                    "tax": insertOrderBuyAndPrePayment.FEE_LIST.FEE_INFO.TAX,
+                    "waive_flag": insertOrderBuyAndPrePayment.FEE_LIST.FEE_INFO.WAIVE_FLAG,
+                    "sending": {
+                        "sending_bank_code": accountFrom.bank.code,
+                        "sending_account_no": accountFrom.accountNumber,
+                        "sending_branch": Utils.setPadZero(accountFrom.branchCode, 4),
+                    },
+                }
+            ],
+            "exchange_flag": isNullOrUndefined(ExchangeFlag) ? "N" : ExchangeFlag,
+            "ltf_condtion": isNullOrUndefined(LTFFlag) ? "N" : LTFFlag,
+            "foreign_flg": isNullOrUndefined(FIFFlag) ? "N" : FIFFlag,
+            "accept_flg": "Y",
+            "unit_holder_suit_level": unitHolderSuitLevel,
+            "unit_holder_flag": FundSuitLevel > unitHolderSuitLevel,
+            "agent_name": "",
+            "ordering_branch_name": ""
+        };
+
+
+        const url = API.PaymentAndUpdateStatus;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+
+    updateOrderCancel(unit_holder_no, transaction_id) {
+
+        const json = {
+            "unit_holder_no": unit_holder_no,
+            "transaction_id": transaction_id,
+            "system_flag": "N"
+        };
+
+        const url = API.UpdateOrderCancel;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    private getFundList(mode, fundCode = "") {
+        const userInfo = this.userService.getUser()
+        const json = {
+            "port_guid": userInfo.GUID,
+            "as_of": Utils.getCurrentDate("", "dd/mm/yyyy"),
+            "mode": mode,
+            "fund_code_out": fundCode
+        };
+
+        const url = API.GetFundList;
+        return this
+            .apiService
+            .post(url, json);
+    }
+
+    getTransactionEffectiveDate(fundCode, type) {
+
+        const json = {
+            "fund_code": fundCode,
+            "order_date": Utils.getCurrentDate("", "dd/mm/yyyy"),
+            "transaction_type_code": this.transactionType[type]
+        };
+
+        const url = API.GetTransactionEffectiveDate;
+        return this
+            .apiService
+            .post(url, json);
+    }
+}

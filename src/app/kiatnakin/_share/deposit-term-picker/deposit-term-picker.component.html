@@ -1,0 +1,148 @@
+<div id="div-select-deposit-term" class="mt-4 form-group col-lg-12 p-0" (click)="onShow()" style="z-index: 2;">
+    <div class="control-label display-4 col-lg-3 text-black float-left pl-0" style=" transform: translateY(-60%); position: absolute">
+        {{ 'title_term_and_promotion' | translate}}
+    </div>
+    <div class="col mb-3">
+        <input id="input-deposit-term" type="text" class="form-control text-black text-center none-keyboard" style="font-size: 40px;height: 70px !important;background-color:transparent"
+            readonly="true" value="{{ dataService.transaction.selectedTDTermTitle }}" placeholder="ระยะเวลาในการฝาก">
+    </div>
+    <div class="control-label display-4 col-lg-1  text-black" style="text-align: right;position: absolute; right: 0px;transform: translateY(-200%)">
+        <img src="./assets/kiatnakin/image/icon_calendar.png">
+    </div>
+</div>
+<div id="div-select-account-interest" class="mt-4 form-group col-lg-12 p-0" (click)="onShowAccountInterest()" style="z-index: 2;"
+    *ngIf="userService.isLoggedin()">
+    <div class="control-label display-4 col-lg-3 text-black float-left pl-0" style=" transform: translateY(-60%); position: absolute">
+        {{ 'account_interest' | translate}}
+    </div>
+    <div class="col mb-3">
+        <input id="input-account-interest" type="text" class="form-control text-black text-center none-keyboard" style="font-size: 40px;height: 70px !important;background-color:transparent"
+            readonly="true" value="{{ dataService.transaction.selectedAccountInterestTitle | translate }}" placeholder="โอนดอกเบี้ยเข้าบัญชี">
+    </div>
+    <div class="control-label display-4 col-lg-1  text-black" style="text-align: right;position: absolute; right: 0px;transform: translateY(-200%)">
+        <img src="./assets/kiatnakin/image/icon_calendar.png">
+    </div>
+</div>
+<div id="div-select-account-interest" class="mt-4 form-group col-lg-12 p-0" (click)="onShowInputAccountInterest()"
+    style="z-index: 2;" *ngIf="!userService.isLoggedin()">
+    <div class="control-label display-4 col-lg-3 text-black float-left pl-0" style=" transform: translateY(-60%); position: absolute">
+        {{ 'account_interest' | translate}}
+    </div>
+    <div class="col mb-3">
+        <input id="input-account-interest" type="text" class="form-control text-black text-center none-keyboard" style="font-size: 40px;height: 70px !important;background-color:transparent"
+            readonly="true" value="{{ dataService.transaction.selectedAccountInterestTitle }}" placeholder="โอนดอกเบี้ยเข้าบัญชี">
+    </div>
+    <div class="control-label display-4 col-lg-1  text-black" style="text-align: right;position: absolute; right: 0px;transform: translateY(-200%)">
+        <img src="./assets/kiatnakin/image/icon_calendar.png">
+    </div>
+</div>
+<input-dialog (onClickConfirm)="onConfirmAccountInterest($event)">
+</input-dialog>
+
+<div id="modal-picker" class="modal fade-scale KK" role="dialog">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog modal-lg  vertical-align-center">
+
+            <div class="modal-content ">
+
+                <div class="modal-body " style="z-index: 10">
+                    <div class="text-center display-3">
+                        {{ 'title_select_condition' | translate}}
+                    </div>
+                    <div [hidden]="progressIsShow" class="mt-3">
+                        <!-- product -->
+                        <div class=" col-lg-12 display-3">
+                            <img src="./assets/kiatnakin/image/black_calendar.png">
+                            <label>ผลิตภัณฑ์</label>
+                        </div>
+                        <div class="scrollbar mt-3">
+                            <div id="div-product" class="div-product-frame">
+                                <ul id="ui-product" class="slidee">
+                                    <li *ngFor="let product of productList" class="text-center" id="product-{{product.ProductCode}}">
+
+                                        <label class="text-white col-lg-12 text-center" style="position: absolute;font-size: 30px;margin-top: 15%">
+                                            {{product.ShortDesc}}
+                                        </label>
+
+                                        <!-- <label class="text-white" style="font-size: 20px;position: absolute; margin-top: 70%;margin-left: 75%">
+                                            {{ product.ProductTypeDesc }}
+                                        </label> -->
+
+                                        <img src="./assets/kiatnakin/image/icon_term_deposit_card.png" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- time -->
+                        <div class=" col-lg-12 display-3">
+                            <img src="./assets/kiatnakin/image/black_calendar.png">
+                            <label>ระยะเวลาในการฝาก</label>
+                        </div>
+
+                        <div class="scrollbar mt-3">
+                            <div id="div-term" class="div-term-frame">
+                                <ul id="ui-term" class="slidee">
+                                    <li *ngFor="let term of termList" class="text-center" id="term-{{term.Term}}">
+
+                                        <label class="text-white col-lg-12 text-center" style="position: absolute;font-size: 120px;margin-top: -10%">
+                                            {{term.Term}}
+                                        </label>
+                                        <label class="text-white" style="font-size: 20px;position: absolute; margin-top: 70%;margin-left: 75%">
+                                            {{ term.TermCodeDesc }}
+                                        </label>
+
+                                        <img src="./assets/kiatnakin/image/icon_term_deposit_card.png" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- frequence -->
+                        <div class="mt-3 col-lg-12 display-3">
+                            <img src="./assets/kiatnakin/image/black_coin.png">
+                            <label>ความถี่ในการรับดอกเบี้ย</label>
+                        </div>
+
+                        <div class="scrollbar">
+                            <div *ngIf="frequencyList != null && frequencyList.length == 0" class="text-center text-gray display-3">
+                                ไม่พบรายการ
+                            </div>
+
+                            <div id="div-frequency" class="div-frequency-frame">
+                                <ul id="ui-frequency" class="slidee">
+                                    <li *ngFor="let frequency of frequencyList" class="text-center" id="frequency-{{frequency.InterestTerm}}">
+
+                                        <label class="text-white col-lg-12 text-center" *ngIf="frequency.InterestTermCodeDesc !== 'เมื่อครบกำหนด'" style="position: absolute; margin-top: -10%; font-size: 120px">
+                                            {{frequency.InterestTerm}}
+                                        </label>
+                                        <label class="text-white" *ngIf="frequency.InterestTermCodeDesc !== 'เมื่อครบกำหนด'" style="font-size: 20px;position: absolute; margin-top: 70%;margin-left: 75%">
+                                            {{ frequency.InterestTermCodeDesc }}
+                                        </label>
+                                        <label class="text-white col-lg-12 text-center" *ngIf="frequency.InterestTermCodeDesc === 'เมื่อครบกำหนด'" style="position: absolute; margin-top: 15%; font-size: 35px">
+                                            {{frequency.InterestTermCodeDesc}}
+                                        </label>
+                                        <img src="./assets/kiatnakin/image/icon_term_deposit_card.png" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <progress-dialog #progress [progressId]="'term_picker'" (isShowEmitter)="progressIsShow = $event">
+                    </progress-dialog>
+
+                    <div class="col-lg-12 text-center text-blue btn-term" style="position: absolute;z-index: 0; bottom: 10px;">
+                        <button id="button-submit-term" class="button-blue button-submit" (click)="onSelectedTerm()">
+                            <h2> {{ 'ok' | translate }} </h2>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<selector-dialog *ngIf="showSelector" class="p-0" selector_dialog (onSelector)="onSetAccount($event)" (showSelector2)="eventStatusSelector($event)"
+    [id]="selectedAccountInterest" [Title]="titleTypeList" [DataList]="dataList" [RespondCode]="RespondCode"
+    [ActiveNow]="ActiveNow">
+</selector-dialog>

@@ -1,0 +1,165 @@
+<div id="speech">
+  <p *ngIf="checkSwichFund" class="display-1 text-center text-white">
+    กรุณาเลือกรายการกองทุน
+  </p>
+</div>
+
+<!-- FUND LIST SWITC IN -->
+
+<div *ngIf="paramType.type === 'switch_in' && checkSwichFund">
+  <p class="display-2 text-white">&nbsp;&nbsp;&nbsp; กองทุนที่ต้องการสับเปลี่ยนเข้า</p>
+</div>
+<div *ngIf="paramType.type === 'switch_out'">
+  <p class="display-2 text-white">&nbsp;&nbsp;&nbsp; กองทุนที่ต้องการสับเปลี่ยนออก</p>
+</div>
+<div class="{{maginTopClassOut}}">
+  <div
+    *ngIf="paramType.type === 'switch_in' && checkSwichFund && fundLtfRmfs.length > 0 || paramType.type === 'switch_out' && fundLtfRmfs.length > 0">
+    <p class="display-3 text-white">&nbsp;&nbsp;&nbsp; กองทุนรวมประเภท LTF/RMF</p>
+  </div>
+  <div id="frame" class="frame">
+    <ul class="slidee">
+      <li *ngFor="let fundLtfRmf of fundLtfRmfs" class="mr-5">
+        <div *ngIf="fundLtfRmfs.length > 0">
+          <!-- LTF RMF SWITCH IN -->
+          <div class="animated fadeIn" (click)="openFund(fundLtfRmf)">
+            <div *ngIf="paramType.type === 'switch_in' && checkSwichFund" class="p-3 text-center swich-fund-card-ltf">
+              <div class="fund-list-card">
+                <p class="m-0">{{fundLtfRmf.amcNameTh}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- LTF RMF SWITCH OUT -->
+          <div class="animated fadeIn" (click)="selectFund(fundLtfRmf)">
+            <div *ngIf="paramType.type === 'switch_out'" class="p-3 text-center swich-fund-card-ltf">
+              <div class="fund-list-card">
+                <p class="m-0">{{fundLtfRmf.amcNameTh}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+<div class="{{maginTopClass}}">
+  <div
+    *ngIf="paramType.type === 'switch_in' && checkSwichFund && fundLists.length > 0 || paramType.type === 'switch_out' && fundLists.length > 0">
+    <p class="display-3 text-white">&nbsp;&nbsp;&nbsp; กองทุนรวมประเภทอื่น</p>
+  </div>
+  <div id="frameIn" class="frameIn">
+    <ul class="slideeIn">
+      <li *ngFor="let fundList of fundLists" class="mr-5">
+        <!-- <div class="animated fadeIn" (click)="openFund(fundList.fundCode)"> -->
+        <!-- FUND LIST SWITCH IN -->
+        <div *ngIf="paramType.type === 'switch_in' && checkSwichFund" class="animated fadeIn"
+          (click)="openFund(fundList)">
+          <div class="p-3 text-center swich-fund-card">
+            <div class="fund-list-card">
+              <p class="m-0">{{fundList.fundNameTh}}<p>
+            </div>
+          </div>
+        </div>
+        <!-- FUND LIST SWITCH OUT -->
+        <div *ngIf="paramType.type === 'switch_out'" class="animated fadeIn" (click)="selectFund(fundList)">
+          <div class="p-3 text-center swich-fund-card">
+            <div class="fund-list-card">
+              <p class="m-0">{{fundList.fundNameTh}}<p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+<!-- FUND LIST SWITCH OUT  -->
+<!-- <div>
+  <div *ngIf="paramType.type === 'switch_out'">
+    <p class="display-2 text-white">&nbsp;&nbsp;&nbsp; กองทุนที่ต้องการสับเปลี่ยนออก</p>
+  </div>
+  <div *ngIf="paramType.type === 'switch_out' && fundLtfRmfs.length > 0">
+    <p class="display-3 text-white">&nbsp;&nbsp;&nbsp; กองทุนรวมประเภท LTF/RMF</p>
+  </div>
+  <div id="frameOutRL" class="frameOutRL">
+    <ul class="slideeOutRL">
+      <li *ngFor="let fundLtfRmf of fundLtfRmfs" class="mr-5">
+        <div *ngIf="fundLtfRmfs.length > 0" class="animated fadeIn" (click)="selectFund(fundLtfRmf)">
+          <div *ngIf="paramType.type === 'switch_out'" class="p-3 text-center swich-fund-card-ltf">
+            <div class="fund-list-card">
+              <p class="m-0">{{fundLtfRmf.amcNameTh}}</p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div> -->
+
+<!-- <div class="{{maginTopClassOut}}">
+  <div *ngIf="paramType.type === 'switch_out' && fundLists.length > 0">
+    <p class="display-3 text-white">&nbsp;&nbsp;&nbsp; กองทุนรวมประเภทอื่น</p>
+  </div>
+  <div id="frameOut" class="frameOut">
+    <ul class="slideeOut">
+      <li *ngFor="let fundList of fundLists" class="mr-5"> -->
+<!-- <div class="animated fadeIn" (click)="openFund(fundList.fundCode)"> -->
+<!-- <div class="animated fadeIn" (click)="selectFund(fundList)">
+          <div *ngIf="paramType.type === 'switch_out'" class="p-3 text-center swich-fund-card">
+            <div class="fund-list-card">
+              <p class="m-0">{{fundList.fundNameTh}}<p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div> -->
+
+
+
+
+
+
+<!-- FUND DESCRIPTION FOR PDF LINK-->
+<div *ngIf="checkFromPDFLink">
+  <div id="containerPDF" class="container">
+    <img src="./assets/kiatnakin/image/close.png" (click)="onClickBack()" ignore="1" class="btn-close">
+    <div *ngIf="!checkFundFact" class="scroll text-center">
+      <h1>{{srcfilePDFLink}}</h1>
+    </div>
+    <div *ngIf="checkFundFact" class="scroll text-center">
+      <ul>
+        <li>
+          <pdf-viewer src="{{srcfilePDFLink}}" render-text="true"></pdf-viewer>
+          <br>
+          <h1 *ngIf="showMsg">ไม่พบ Fund Fact Sheet</h1>
+        </li>
+      </ul>
+    </div>
+    <div class="footer text-center">
+      <button class="button-purple display" (click)="getFundCondition()">สับเปลี่ยนกองทุนนี้</button>
+    </div>
+  </div>
+</div>
+
+<!-- FUND CONDITION  -->
+<div *ngIf="checkFromConditionFund">
+  <div id="containerCondition" class="container">
+    <div class="body-condition text-center">
+      <label class="display-1 text-black">การยอมรับความเสี่ยง</label>
+    </div>
+    <div class="scroll-condition content-font-name" (scroll)="onScroll($event)">
+      <p innerHtml="{{dataFundCondition}}"></p>
+    </div>
+    <div class="footer text-center">
+      <button class="button-purple display" [disabled]="!disableBtn" (click)="orderBuyFund()">ยอมรับ</button>
+    </div>
+  </div>
+</div>
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

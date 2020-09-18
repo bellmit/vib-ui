@@ -1,0 +1,18 @@
+import {Injectable} from '@angular/core';
+import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot} from "@angular/router";
+import {DataService} from "../_service/data.service";
+
+@Injectable()
+export class HomeGuard implements CanActivate {
+
+    constructor(private dataService: DataService ) {
+
+    }
+
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+
+        this.dataService.resetData();
+        return true;
+
+    }
+}

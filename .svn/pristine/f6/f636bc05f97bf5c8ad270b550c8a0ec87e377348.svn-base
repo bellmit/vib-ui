@@ -1,0 +1,45 @@
+@import "./src/styles-master"
+
+.container
+  justify-content: center
+  align-items: center
+  height: 100%
+  margin-top: 5%
+
+.vertical-center
+  display: flex
+  vertical-align: middle
+  align-items: center
+
+.form-in
+  height: 250px
+  margin: 0 30px 0 30px
+  padding: 0px
+
+#container_form_investment
+  background-color: white
+  width: 1250px
+  height: 730px
+  @extend .shadow
+  #header
+    height: 70px
+    width: 100%
+    color: white
+    padding: 0px !important
+    .row
+      height: 100%
+      margin: 0px
+      #header-logo
+        margin: 0 0 1px
+      #header-desc
+        background-color: $purple
+
+.content-border
+  border: 3px solid $purple_white !important
+  background-color: $purple_white !important
+
+input[type=text]
+  border-bottom: 1px solid $purple !important
+
+.totalAmount
+  color: $purple

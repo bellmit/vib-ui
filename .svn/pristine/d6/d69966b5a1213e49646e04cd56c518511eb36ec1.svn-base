@@ -1,0 +1,344 @@
+<div class="app-back" (click)="onClickBackMain()">
+    <p class="text-lll">กลับหน้าหลัก</p>
+</div>
+
+<div class="cheque shadow display-6" id="chequebook">
+    <img src="./assets/kiatnakin/image/close.png" (click)="onClickBack()" id="buttonClose"
+         class="ignore-print"
+         style="max-width: 100%; z-index: 900; position: absolute; top: -30px; left: -30px">
+
+    <div class="cheque-header">
+        <div class="cheque-header-logo">
+            <img src="./assets/kiatnakin/image/logoKKgray.png" style="height: 62px">
+        </div>
+        <div class="cheque-header-content text-xl">
+            ใบขอซื้อสมุดเช็ค
+        </div>
+    </div>
+
+    <div #conten1 *ngIf="currentStepInput==0" class="content">
+        <div style="min-height: 453px">
+            <div class="row">
+
+                <div class="new-row">
+                    <div class="flex-layout form-input">
+                        <div class="col-sm-12">
+                            <div class="row display-6">
+                                <div class="col-sm-4"><span class="control-label">ชื่อบัญชี</span><span
+                                        class="control-label"><b>{{data.accountName}}</b></span>
+                                </div>
+                                <div class="col-sm-5" style="text-align: left"><span
+                                        class="control-label">เลขที่บัญชี</span><span
+                                        class="control-label"><b>{{data.accountId}}</b></span>
+                                </div>
+                                <div class="col-sm-3" style="text-align: right"><span
+                                        class="control-label">วันที่</span><span
+                                        class="control-label"><b>{{data.date | date: 'dd/MM/yyyy'}}</b></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="content-border" style="min-height: 350px;margin: 20px 0;padding: 10px 50px">
+                        <form class="flex-layout form-input" #cheque="ngForm" autocomplete="off">
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <div class="row">
+                                                <div class="col-sm-5 control-label">จำนวน</div>
+                                                <div class="col-sm-5">
+                                                    <input type="text" class="form-control text-center" name="qty" required
+                                                           [(ngModel)]="data.qty" minlength="1" maxlength="4"
+                                                           data-max-decimal="0"
+                                                           keyboard="number">
+                                                </div>
+                                                <div class="col-sm-2 control-label">เล่ม</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            &nbsp;
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="row">
+                                                <div class="col-sm-5 control-label">สาขาที่ต้องการรับ</div>
+                                                <div class="col-sm-7 col-sm">
+                                                    <select id="branch"
+                                                            data-title="สาขาที่ต้องการรับ"
+                                                            class="form-control select" name="branch" required
+                                                            [(ngModel)]="data.branch">
+                                                        <option value="สยามพารากอน">สยามพารากอน</option>
+                                                        <option value="เซ็นทรัลเวิลด์">เซ็นทรัลเวิลด์</option>
+                                                        <option value="เซ็นทรัลพลาซา พระราม 3">เซ็นทรัลพลาซา พระราม 3</option>
+                                                        <option value="พระราม 4">พระราม 4</option>
+                                                        <option value="มหานาค">มหานาค</option>
+                                                        <option value="อโศก">อโศก</option>
+                                                        <option value="ทองหล่อ">ทองหล่อ</option>
+                                                        <option value="เจริญกรุง">เจริญกรุง</option>
+                                                        <option value="สีลม">สีลม</option>
+                                                        <option value="สี่พระยา">สี่พระยา</option>
+                                                        <option value="เยาวราช">เยาวราช</option>
+                                                        <option value="วงเวียน 22 กรกฎา">วงเวียน 22 กรกฎา</option>
+                                                        <option value="เดอะมอลล์ท่าพระ">เดอะมอลล์ท่าพระ</option>
+                                                        <option value="นนทบุรี">นนทบุรี</option>
+                                                        <option value="สุขสวัสดิ์">สุขสวัสดิ์</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-12" style="margin-bottom: 0">
+                                    <div class="row">
+                                        <div class="col-sm-12 control-label"><b>ผู้รับสมุดเช็ค</b></div>
+                                        <label class="col-sm-3 control-label"><input type="radio"
+                                                                                     [(ngModel)]="data.receipt_type"
+                                                                                     (click)="checkRecipt_type('0')"
+                                                                                     name="recipient" value="0"> รับเอง
+                                        </label>
+                                        <label class="col-sm-3 control-label"><input type="radio"
+                                                                                     [(ngModel)]="data.receipt_type"
+                                                                                     name="recipient"
+                                                                                     (click)="checkRecipt_type('1')"
+                                                                                     value="1"> ให้ผู้อื่นไปรับ </label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12" [hidden]="data.receipt_type == '0'">
+                                    <div class="row">
+
+                                        <div class="col-sm-1 control-label">ชื่อ</div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control"
+                                                   [required]="data.receipt_type==1"
+                                                   style="height: 40px"
+                                                   name="receiver_first_name" [(ngModel)]="data.receiver_first_name">
+                                        </div>
+
+                                        <div class="col-sm-1 control-label">นามสกุล</div>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control"
+                                                   [required]="data.receipt_type==1"
+                                                   style="height: 40px"
+                                                   name="receiver_last_name" [(ngModel)]="data.receiver_last_name">
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 control-label">เลขที่บัตรประชาชน</div>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="receiver_idcard" #iDcard
+                                                   style="height: 40px"
+                                                   [required]="data.receipt_type==1" keyboard="number" maxlength="13"
+                                                   [(ngModel)]="data.receiver_idcard">
+                                            <label *ngIf=" (data.receiver_idcard != null ) && !checkID(data.receiver_idcard) " class="text-red display-6"> กรุณาระบุเลขที่บัตรประชาชนให้ถูกต้อง </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-12" style="text-align: center">
+            <button class="button-blue display-3 ignore-print" style="width: 500px" (click)="onMoveStep(1)"
+                    [disabled]="!cheque.valid||!checkID(data.receiver_idcard)">
+                <h2>ยืนยันการทำรายการ</h2>
+            </button>
+
+        </div>
+    </div>
+    <div #conten2 *ngIf="currentStepInput==1" class="content">
+        <div style="min-height: 453px">
+            <div class="row">
+                <div class="new-row">
+                    <div class="flex-layout form-input">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4"><span class="control-label">ชื่อบัญชี</span><span
+                                        class="control-label"><b>{{data.accountName}}</b></span>
+                                </div>
+                                <div class="col-sm-5" style="text-align: left"><span
+                                        class="control-label">เลขที่บัญชี</span><span
+                                        class="control-label"><b>{{data.accountId}}</b></span>
+                                </div>
+                                <div class="col-sm-3" style="text-align: right"><span
+                                        class="control-label">วันที่</span><span
+                                        class="control-label"><b id="label-date">{{data.date | date: 'dd/MM/yyyy'}}</b></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-layout form-input">
+
+                    <div class="new-row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <span class="control-label">ผู้รับ</span>
+                                    <span class="control-label"><b>{{data.receiver_first_name}} {{data.receiver_last_name}}</b></span>
+                                </div>
+                                <div class="col-sm-5">
+                                    <span class="control-label">เลขบัตรประชาชน</span>
+                                    <span class="control-label"><b>{{ data.receiver_idcard }}</b></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new-row">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <span class="control-label">สาขาที่รับ</span>
+                                    <span class="control-label"><b>{{data.branch}}</b></span>
+                                </div>
+                                <div class="col-sm-5">
+                                    <span class="control-label">วันที่รับ</span>
+                                    <span class="control-label"><b id="label-receipt_date">{{data.receipt_date| date: 'dd/MM/yyyy'}}</b></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="content-border"
+                             style="margin: 20px 0;padding:0;border-color:#D8D8D8;background-color: #E9E9E9">
+                            <div class="content-detail">
+                                <div class="row">
+                                    <div class="col-sm-4 control-label">สมุดเช็คราคาเล่มละ</div>
+                                    <div id="label-price" class="col-sm-7 control-label" style="text-align: right">250.00</div>
+                                    <div class="col-sm-1 control-label">บาท</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4 control-label">จำนวน</div>
+                                    <div id="label-qty" class="col-sm-7 control-label" style="text-align: right">{{data.qty | number }}</div>
+                                    <div class="col-sm-1 control-label">เล่ม</div>
+                                </div>
+                            </div>
+                            <div class="content-total">
+                                <div class="row">
+                                    <div class="col-sm-4 control-label" style="line-height: 35px">จำนวนเงินสุทธิ</div>
+                                    <div id="label-amount-total" class="col-sm-7 control-label"
+                                         style="text-align: right; font-size: 60px;line-height: 20px">{{
+                                        data.qty*250 |
+                                        number:'1.2-2'}}
+                                    </div>
+                                    <div class="col-sm-1 control-label" style="line-height: 35px">บาท</div>
+                                </div>
+                                <div class="row">
+                                    <div id="label-amount-total-bahttext" class="col-sm-12 control-label" style="text-align: right">({{ data.qty*250 |
+                                        bahttext }})
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-sm-12" style="text-align: center">
+            <button class="button-blue display-3 ignore-print" style="width: 500px" (click)="onMoveStep(2)">
+                <h2>ยืนยันการทำรายการ</h2>
+            </button>
+        </div>
+    </div>
+    <div #conten3 *ngIf="currentStepInput==2" class="content">
+        <div style="min-height: 453px">
+            <div class="row">
+                <div class="new-row" style="text-align: center">
+                    <h1 class="display-1">กรุณาเลือกวิธีการชำระเงิน</h1>
+                </div>
+                <div class="new-row" style="margin-top: 30px">
+                    <div class="col-sm-6" style="height: 250px;text-align: center">
+                        <div (click)="onMoveStep(3)">
+
+                            <div class="pay-img" style="position: relative">
+                                <div class="text-x"
+                                     style="position: absolute;text-align: center;display: block;width: 100%;margin-top: 25%;color: #ffffff;">
+                                    {{data.accountId}}
+                                </div>
+                                <img src="./assets/kiatnakin/image/icon_bookbank_smartbonus.png"
+                                     style="width: 100%;height: auto">
+                            </div>
+                            <h2>หักจากบัญชี</h2>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" style="height: 250px;text-align: center">
+                        <div (click)="onMoveStep(3)">
+                            <div class="pay-img">
+                                <img src="./assets/kiatnakin/image/Money.png" style="width: 100%;height: auto">
+                            </div>
+                            <h2>เงินสด</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div #conten4 *ngIf="currentStepInput==3" class="content">
+        <div class="row">
+            <div class="new-row" style="text-align: center">
+                <img src="./assets/kiatnakin/image/printer.png" style="margin: 60px auto 30px">
+            </div>
+            <div class="new-row" style="text-align: center">
+                <h1 class="display-1" style="margin-bottom: 10px">ทำรายการสำเร็จ</h1>
+                <h2 class="text-blue">กรุณารอรับใบเสร็จจากเครื่องพิมพ์</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="currentStepInput<3"
+     style=" position: fixed; top: 50px; width: 900px; left:calc(50% - 450px)">
+    <div class="section-step speech shadow">
+        <div class="col-sm-12  text-gray" style="text-align: center;">
+            <div class="row" style="margin-top: 20px">
+                <div class="col-sm-4 col"
+                     [ngClass]="{'text-blue': currentStepInput>=0}">
+
+                    <input type="image"
+                           [src]="currentStepInput==0 ? './assets/kiatnakin/image/icon_step_current.png' :
+                                          currentStepInput>0 ? './assets/kiatnakin/image/icon_step_success.png' : './assets/kiatnakin/image/icon_step_default.png'"
+                           class="button-step"
+                           (click)="onMoveStep(0)"/>
+                    <div>กรอกข้อมูลการสั่งซื้อ</div>
+                    <div style="position: absolute; height:6px; width: 260px; background-color: #E9E9E9; margin: -74px 166px auto; "></div>
+
+                </div>
+                <div class="col-sm-4 col"
+                     [ngClass]="{'text-blue': currentStepInput >= 1,
+                                    'text-gray': currentStepInput < 1}">
+
+                    <input type="image"
+                           [src]="currentStepInput == 1 ? './assets/kiatnakin/image/icon_step_current.png' :
+                                              currentStepInput > 1 ? './assets/kiatnakin/image/icon_step_success.png' : './assets/kiatnakin/image/icon_step_default.png'"
+                           class="button-step"
+                           [disabled]="currentStepInput < 1"
+                           (click)="onMoveStep(1)"/>
+                    <div>ตรวจสอบข้อมูล</div>
+                    <div style="position: absolute; height:6px; width: 233px; background-color: #E9E9E9; margin: -74px 169px auto; "></div>
+
+                </div>
+                <div class="col-sm-4 col"
+                     [ngClass]="{'text-blue': currentStepInput >= 2,
+                                    'text-gray': currentStepInput < 2}">
+
+                    <input type="image"
+                           [src]="currentStepInput == 2 ? './assets/kiatnakin/image/icon_step_current.png' :
+                                              currentStepInput >2 ? './assets/kiatnakin/image/icon_step_success.png' : './assets/kiatnakin/image/icon_step_default.png'"
+                           class="button-step"/>
+                    <div>เลือกวิธีการชำระเงิน</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

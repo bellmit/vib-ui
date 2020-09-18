@@ -1,0 +1,52 @@
+
+<div class="" style=" transform: scale(0.6); top:-90px; position: relative; opacity:0.3">
+    <div class="">
+        <div id="catalog_frame1" class="catalog_frame">
+            <ul class="slidee">
+                <li *ngFor="let catalog of catalogLists;let index = index">
+                    <div id="{{catalog.prodnType}}_0_i1" class="div-item-catalog" style="display:none" >
+                        <img src="./assets/kiatnakin/image/back_shelf.png" style="z-index: 0">
+                        <img *ngIf="index != 0 && index != 3" src="{{product.domainAPI +catalog.PRODN_IMG}}" class="item-catalog" style="z-index: 1;">
+                        <img src="./assets/kiatnakin/image/cover_shelf.png" style="z-index: 5">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="flexbox-container">
+    <div class="catalog-container">
+        <div id="catalog_frame2" class="catalog_frame">
+            <ul class="slidee">
+                <li *ngFor="let catalog of catalogLists">
+                    <div id="{{catalog.prodnType}}_1_id" class="div-item-catalog" style="display:none">
+                        <img src="./assets/kiatnakin/image/back_shelf.png" style="z-index: 0">
+                        <img src="{{product.domainAPI +catalog.PRODN_IMG}}" class="item-catalog" style="z-index: 1; " (click)="onProductList(catalog,catalog.PRODN_TYPE)">
+                        <img src="./assets/kiatnakin/image/cover_shelf.png" style="z-index: 5" (click)="onProductList(catalog,catalog.PRODN_TYPE)">
+                    </div>
+                </li>
+            </ul>
+            <div class="footer-bar"></div>
+        </div>
+    </div>
+</div>
+
+<div class="" style=" transform: scale(0.6); bottom:230px; position: relative; opacity:0.3">
+    <div class="">
+        <div id="catalog_frame3" class="catalog_frame">
+            <ul class="slidee">
+                <li *ngFor="let catalog of catalogLists;let index = index">
+                    <div id="{{catalog.prodnType}}_2_id" class="div-item-catalog" style="display:none" >
+                        <img src="./assets/kiatnakin/image/back_shelf.png" style="z-index: 0">
+                        <img *ngIf="index != 0 && index != 3" src="{{product.domainAPI +catalog.PRODN_IMG}}" class="item-catalog" style="z-index: 1; ">
+                        <img src="./assets/kiatnakin/image/cover_shelf.png" style="z-index: 5">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()"/>

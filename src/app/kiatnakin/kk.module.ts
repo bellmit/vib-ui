@@ -1,0 +1,269 @@
+/* Created by Palomar on 10/12/2016 AD.*/
+
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
+import { CustomFormsModule } from "ng2-validation";
+import { CarouselModule } from 'angular4-carousel';
+import { BahtTextPipe } from "./_pipe/bahttext.pipe";
+import {
+    LoggedInGuard,
+    SelectAccountGuard,
+    SelectMutualfundAccountGuard,
+    SelectOutstandingGuard,
+    HomeGuard,
+    AcceptedTermMutualFundGuard,
+    AuthenticationGuard
+} from "./_guard/index";
+
+import {
+    FingerScanDeviceComponent,
+    FingerScanInfoComponent,
+    CardReaderDeviceComponent,
+    CardReaderInfoComponent,
+    DepositTermPickerComponent,
+    ProgressDialogComponent,
+    Modal,
+    CustomDatePickerComponent
+} from './_share/index';
+
+import {
+    APIService,
+    UserService,
+    DataService,
+    HardwareService,
+    LoginService
+} from "./_service/index";
+
+import { MainComponent } from "./main.component";
+import { LoginComponent, ProfileCardComponent } from "./service-module/login/index";
+import { HomeComponent } from "./home/home.component";
+import { CreateBankAccountComponent } from './service-module/bank-account/create-bank-account/create-bank-account.component';
+import { DepositTypeComponent } from './service-module/bank-account/deposit-type/deposit-type.component';
+import { SelectBankAccountComponent } from "./user-module/select-bank-account/select-bank-account.component";
+import { SelectMutualfundAccountComponent } from "./user-module/select-mutualfund-account/select-mutualfund-account.component";
+import { TransactionBankComponent } from './user-module/transaction-bank/transaction-bank.component';
+import { TransactionMutualfundComponent } from './user-module/transaction-mutualfund/transaction-mutualfund.component';
+import { TransferComponent } from './service-module/transfer/transfer.component';
+import { ChequeScannerComponent } from './service-module/cheque/cheque-scanner/cheque-scanner.component';
+import { ChequeBuyComponent } from './service-module/cheque/cheque-buy/cheque-buy.component';
+import { CatalogComponent } from './service-module/asset-catalog/catalog.component';
+import { TemplateFlipBookComponent } from './_template/template-flip-book/template-flip-book.component';
+import { SelectInterbankAccountComponent } from "./user-module/select-interbank-account/select-interbank-account.component";
+import { ServiceComponent } from "./service-module/payment/service/service.component";
+import { ServiceDetailComponent } from "./service-module/payment/service/service-detail.component";
+import { SelectServiceGuard } from "./_guard/selectService.guard";
+import { PaymentMethodComponent } from "./service-module/payment/payment-method/payment-method.component";
+import { PaymentScanqrComponent } from "./service-module/payment/payment-scanqr/payment-scanqr.component";
+import { PaymentInputBarcodeComponent } from "./service-module/payment/payment-input-barcode/payment-input-barcode.component";
+import { CardEmailPwdComponent } from './service-module/login/card/card-email-pwd/card-email-pwd.component';
+import { PaymentDetailComponent } from "./service-module/payment/payment-detail/payment-detail.component";
+import { SelectBankAccountByNumberComponent } from './user-module/select-bank-account-by-number/select-bank-account-by-number.component';
+import { TransferService } from "./_service/api/transfer.service";
+import { AccountService } from "./_service/api/account.service";
+import { DepositComponent } from "./service-module/deposit/deposit.component";
+import { WithdrawComponent } from "./service-module/withdraw/withdraw.component";
+import { VIBLogger } from "./_service/logger/logger";
+import { DpDatePickerModule } from "ng2-date-picker";
+import { TranslateModule } from "ng2-translate";
+import { SelectTdPrincipalComponent } from './user-module/select-td-principal/select-td-principal.component';
+import { ToStringNumberPipe } from "./_pipe/toStringNumber.pipe";
+import { ChequeComponent } from './_share/cheque/cheque.component';
+import { WithdrawService } from "./_service/api/withdraw.service";
+import { DepositService } from "./_service/api/deposit.service";
+import { ChannelTypeComponent } from './user-module/channel-type/channel-type.component';
+import { FeePickerComponent } from './_share/fee-picker/fee-picker.component';
+import { MasterDataService } from "./_service/api/master-data.service";
+import { CardIdCardComponent } from './service-module/login/card/card-id-card/card-id-card.component';
+import { CardIdNumberComponent } from './service-module/login/card/card-id-number/card-id-number.component';
+import { CardMyPinComponent } from './service-module/login/card/card-my-pin/card-my-pin.component';
+import { CardOtpComponent } from './service-module/login/card/card-otp/card-otp.component';
+import { CardAtmComponent } from './service-module/login/card/card-atm/card-atm.component';
+import { ChequeService } from "./_service/api/cheque.service";
+import { CompleteSlipComponent } from './_share/complete-slip/complete-slip.component';
+import { EnquiryComponent } from './service-module/payment/enquiry/enquiry.component';
+import { TransactiontypeComponent } from './user-module/transaction-type/transactiontype.component';
+import { RequestComponent } from './service-module/request/request.component';
+import { SubscriptionAccountComponent } from './service-module/subscription/subscription-account/subscription-account.component';
+import { InvestmentComponent } from './service-module/investment/investment.component';
+import { SelectInvestmentPrincipalComponent } from './user-module/select-investment-principal/select-investment-principal.component';
+import { TransactionService } from "./_service/api/transaction.service";
+import { SelectorDialogComponent } from './_share/selector-dialog/selector-dialog.component';
+import { DynamicHTMLModule } from "ng-dynamic";
+import { DatePickerComponent } from "./_share/date-picker/date-picker.component";
+import { CashierChequeBuyComponent } from './service-module/cheque/cashier-cheque-buy/cashier-cheque-buy.component';
+import { CurrentChequeBuyComponent } from './service-module/cheque/current-cheque-buy/current-cheque-buy.component';
+import { PurchaseComponent } from './service-module/investment/purchase/purchase.component';
+import { RedeemComponent } from './service-module/investment/redeem/redeem.component';
+import { SwitchComponent } from './service-module/investment/switch/switch.component';
+import { TermMutualfundComponent } from './service-module/investment/term-mutualfund/term-mutualfund.component';
+import { InvestmentService } from "./_service/api/investment.service";
+import { RegisterService } from "./_service/api/register.service";
+import { FundListComponent } from './service-module/investment/fund-list/fund-list.component';
+import { TemplateFundListComponent } from './_template/template-fund-list/template-fund-list.component';
+import { RemoteComponent } from "./service-module/remote/remote.component";
+import { SubUsernamepasswordComponent } from './service-module/subscription/sub-usernamepassword/sub-usernamepassword.component';
+import { SubSmarsmsComponent } from './service-module/subscription/sub-smarsms/sub-smarsms.component';
+import { SubPhoneserviceComponent } from './service-module/subscription/sub-phoneservice/sub-phoneservice.component';
+import { SubMypinComponent } from './service-module/subscription/sub-mypin/sub-mypin.component';
+import { PageDialogComponent } from './_share/page-dialog/page-dialog.component';
+// import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { ProductService } from "app/kiatnakin/_service/api/product.service";
+import { AuthenticationNotFoundComponent } from "./service-module/authentication/authentication_not_found.component";
+import { CatalogDetailComponent } from './service-module/asset-catalog/catalog-detail/catalog-detail.component';
+import { AbsorptionComponent } from './service-module/absorption/absorption.component';
+import { SuitabilityComponent } from "app/kiatnakin/service-module/investment/suitability/suitability.component";
+import { TellerService } from "./_service/teller.service";
+import { TestComponentComponent } from "./user-module/test-component/test-component.component";
+import { StringToDatePipe } from "./_pipe/StringToDatePipe";
+import { IdCardPipe } from "./_pipe/idCard.pipe";
+import { InputDialogComponent } from "./_share/input-dialog/input-dialog.component";
+import { SuitQuestionComponent } from './service-module/investment/suitability/suit-question/suit-question.component';
+import { NavDetailComponent } from './user-module/nav-detail/nav-detail.component';
+import { PurchaseFundComponent } from './user-module/fund-management/purchase-fund/purchase-fund.component';
+import { MenuFundManagementComponent } from './user-module/fund-management/menu-fund-management/menu-fund-management.component';
+import { RedeemFundComponent } from './user-module/fund-management/redeem-fund/redeem-fund.component';
+import { SwitchFundComponent } from './user-module/fund-management/switch-fund/switch-fund.component';
+import { CancelFundComponent } from './user-module/cancel-fund/cancel-fund.component';
+import { RiskTableComponent } from './user-module/risk-table/risk-table.component';
+
+@NgModule({
+    declarations: [
+        StringToDatePipe,
+        BahtTextPipe,
+        ToStringNumberPipe,
+        HomeComponent,
+        MainComponent,
+        ProfileCardComponent,
+        LoginComponent,
+        CreateBankAccountComponent,
+        DepositTypeComponent,
+        SelectBankAccountComponent,
+        SelectMutualfundAccountComponent,
+        SelectInterbankAccountComponent,
+        TransactionBankComponent,
+        TransactionMutualfundComponent,
+        TransferComponent,
+        FingerScanDeviceComponent,
+        FingerScanInfoComponent,
+        CardReaderDeviceComponent,
+        CardReaderInfoComponent,
+        ChequeScannerComponent,
+        ChequeBuyComponent,
+        CatalogComponent,
+        TemplateFlipBookComponent,
+        ServiceComponent,
+        ServiceDetailComponent,
+        PaymentMethodComponent,
+        PaymentScanqrComponent,
+        PaymentInputBarcodeComponent,
+        PaymentDetailComponent,
+        CardEmailPwdComponent,
+        SelectBankAccountByNumberComponent,
+        DepositComponent,
+        WithdrawComponent,
+        SelectTdPrincipalComponent,
+        DepositTermPickerComponent,
+        ProgressDialogComponent,
+        Modal,
+        ChequeComponent,
+        ChannelTypeComponent,
+        FeePickerComponent,
+        CardIdCardComponent,
+        CardIdNumberComponent,
+        CardMyPinComponent,
+        CardOtpComponent,
+        CardAtmComponent,
+        CompleteSlipComponent,
+        EnquiryComponent,
+        TransactiontypeComponent,
+        RequestComponent,
+        SubscriptionAccountComponent,
+        InvestmentComponent,
+        SelectInvestmentPrincipalComponent,
+        SelectorDialogComponent,
+        DatePickerComponent,
+        CashierChequeBuyComponent,
+        CurrentChequeBuyComponent,
+        PurchaseComponent,
+        RedeemComponent,
+        SwitchComponent,
+        TermMutualfundComponent,
+        FundListComponent,
+        TemplateFundListComponent,
+        RemoteComponent,
+        SubUsernamepasswordComponent,
+        SubSmarsmsComponent,
+        SubPhoneserviceComponent,
+        SubMypinComponent,
+        PageDialogComponent,
+        // PdfViewerComponent,
+        CustomDatePickerComponent,
+        AuthenticationNotFoundComponent,
+        CatalogDetailComponent,
+        AbsorptionComponent,
+        SuitabilityComponent,
+        TestComponentComponent,
+        IdCardPipe,
+        InputDialogComponent,
+        SuitQuestionComponent,
+        NavDetailComponent,
+        PurchaseFundComponent,
+        MenuFundManagementComponent,
+        RedeemFundComponent,
+        SwitchFundComponent,
+        CancelFundComponent,
+        RiskTableComponent
+    ],
+    imports: [
+        RouterModule,
+        FormsModule,
+        CommonModule,
+        CustomFormsModule,
+        DpDatePickerModule,
+        TranslateModule,
+        DynamicHTMLModule.forRoot({
+            components: [
+                { component: FeePickerComponent, selector: 'fee-picker' },
+                { component: DatePickerComponent, selector: 'date-picker' },
+                { component: SelectorDialogComponent, selector: 'selector-dialog' }
+            ]
+        }),
+        CarouselModule,
+        PdfViewerModule
+    ],
+    providers: [
+        LoggedInGuard,
+        SelectAccountGuard,
+        SelectMutualfundAccountGuard,
+        SelectOutstandingGuard,
+        SelectServiceGuard,
+        HomeGuard,
+        AcceptedTermMutualFundGuard,
+        AuthenticationGuard,
+        AccountService,
+        APIService,
+        DataService,
+        UserService,
+        TransactionService,
+        TransferService,
+        WithdrawService,
+        DepositService,
+        HardwareService,
+        MasterDataService,
+        ChequeService,
+        InvestmentService,
+        VIBLogger,
+        RegisterService,
+        ProductService,
+        LoginService,
+        TellerService
+
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+
+export class KKModule {
+}

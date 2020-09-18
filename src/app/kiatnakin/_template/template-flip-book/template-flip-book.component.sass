@@ -1,0 +1,404 @@
+@import "./src/styles-master"
+
+$blue : #009AC6
+$gray : #A1A1A1
+$black : #646464
+$red : #C5251C
+
+// #saving-book
+//   position: relative
+//   margin: 0 auto
+//   margin-top: 35px
+//   display: flex
+//   flex-direction: column
+//   flex-wrap: wrap
+//   // overflow-y: auto
+
+.even .content
+  margin-left: 60px
+  margin-right: 30px
+.odd .content
+  margin-left: 30px
+  margin-right: 60px
+.cover
+
+.own-size
+  width: 680px
+  height: 944px
+
+.tick_book_font
+  position: absolute
+  width: 7px
+  top: 16.5px
+  left: 14px
+  height: 946px
+
+.tick_book_back
+  position: absolute
+  width: 7px
+  top: 16.5px
+  right: 14px
+  height: 946px
+
+.text-info
+  color: $blue
+.page-badges
+  display: inline-block
+  width: 51px
+  height: 51px
+  font-weight: 700
+  color: #fff
+  text-align: center
+  white-space: nowrap
+  vertical-align: middle
+  background-color: $blue
+  border-radius: 55%
+  margin-right: 10px
+
+.cover-page
+  width: 100%
+  height: 100%
+  background-color: #635F98
+  -webkit-box-shadow: inset -8px -8px 6px -7px rgba(79,79,79,1)
+  -moz-box-shadow: inset -8px -8px 6px -7px rgba(79,79,79,1)
+  box-shadow: inset -8px -8px 6px -7px rgba(79,79,79,1)
+  position: relative
+.cover-page
+  .logo
+    padding-top: 30%
+    text-align: center
+  .title
+    color: #ffffff
+    font-size: 160px
+    text-align: center
+    padding-top: 20px
+  .subtitle
+    color: #ffffff
+    font-size: 100px
+    text-align: center
+    padding-top: 10px
+
+h1, h2, h3, h4, h5, h6
+  font-family: KittithadaMedium65
+  margin: 0
+p
+  margin: 0
+  -webkit-margin-before: 0
+  -webkit-margin-after: 0
+  -webkit-margin-start: 0
+  -webkit-margin-end: 0
+.boxdesc
+  height: 370px
+  overflow-y: auto
+.boxcond
+  height: 600px
+  overflow-y: auto
+
+.content-cover
+  width: auto
+  height: auto
+.front-side .content-cover
+  width: 680px
+  height: 944px
+  top: 18px
+  right: 0px
+  position: absolute
+  background-color: #fff
+.back-side .content-cover
+  width: 680px
+  height: 944px
+  top: 18px
+  left: 0px
+  position: absolute
+  background-color: #fff
+.small-text
+  font-size: 28px
+
+.content
+  margin-top: 40px
+  padding: 0
+  background: none
+  color: $gray
+  font-size: 18px
+  h1
+    font-size: 44px
+    font-weight: 300
+  h2
+    font-size: 36px
+    font-weight: 100
+  h3
+    font-size: 28px
+    font-weight: 100
+
+.FATCA
+  font-size: 36px
+  line-height: 1.3
+  color: $black
+label
+  font-weight: 100
+
+.FATCA label
+  margin: 0 3px 0
+.form
+  font-size: 32px
+  line-height: 1.3
+.form-condition
+  font-size: 20px
+  line-height: 1.3
+.form-condition2
+  font-size: 19px
+  line-height: 1.3
+.form-input
+  font-size: 36px
+  line-height: 1.3
+  letter-spacing: 0
+  color: $black
+.form-input-small
+  font-size: 28px
+  line-height: 1.3
+  letter-spacing: 0
+  color: $black
+.header-icon
+  float: left
+  margin: 10px 10px 30px 0
+
+.padding_right0
+  padding-right: 0
+
+.padding_left0
+  padding-left: 0
+
+.video
+  background-color: #999999
+  margin: 35px auto
+  width: 98%
+  min-height: 180px
+.center
+  position: fixed
+  top: 50%
+  left: 50%
+  -webkit-transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%)
+  display: inline-block
+ 
+
+.item-center
+  text-align: center
+  align-items: center
+
+.header
+  margin-bottom: 10px
+
+.topic
+  font-family: KittithadaMedium65
+  font-size: 28px
+  color: $blue
+  letter-spacing: -0.58px
+
+.sub_topic
+  font-family: KittithadaMedium65
+  font-size: 20px
+  font-weight: 100
+  letter-spacing: -0.49px
+
+.text-blue
+  color: $blue
+.text-black
+  color: $black
+.text-gray
+  color: $gray
+.no-border
+  border: none
+  background: none
+
+.corner-right
+  position: absolute
+  bottom: 1px
+  right: 10px
+
+.corner-left
+  position: absolute
+  bottom: 1px
+  left: 10px
+
+.text-next:before
+  content: "→"
+
+.text-back:before
+  content: "←"
+
+.own-size.even
+  background: -webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #dadada))
+  background-image: -webkit-linear-gradient(left, #fff 95%, #dadada 100%)
+  background-image: -moz-linear-gradient(left, #fff 95%, #dadada 100%)
+  background-image: -ms-linear-gradient(left, #fff 95%, #dadada 100%)
+  background-image: -o-linear-gradient(left, #fff 95%, #dadada 100%)
+  background-image: linear-gradient(to right, #fff 95%, #dadada 100%)
+
+
+.own-size.odd
+  background: -webkit-gradient(linear, right top, left top, color-stop(0.95, #fff), color-stop(1, #cacaca))
+  background-image: -webkit-linear-gradient(right, #fff 95%, #cacaca 100%)
+  background-image: -moz-linear-gradient(right, #fff 95%, #cacaca 100%)
+  background-image: -ms-linear-gradient(right, #fff 95%, #cacaca 100%)
+  background-image: -o-linear-gradient(right, #fff 95%, #cacaca 100%)
+  background-image: linear-gradient(to left, #fff 95%, #cacaca 100%)
+
+.even .content-cover
+  background: -webkit-gradient(linear, left top, right top, color-stop(0.95, #fff), color-stop(1, #dadada))
+  background-image: -webkit-linear-gradient(left, #fff 95%, #dadada 100%)
+  background-image: -moz-linear-gradient(left, #fff 95%, #dadada 100%)
+  background-image: -ms-linear-gradient(left, #fff 95%, #dadada 100%)
+  background-image: -o-linear-gradient(left, #fff 95%, #dadada 100%)
+  background-image: linear-gradient(to right, #fff 95%, #dadada 100%)
+
+
+.odd .content-cover
+  background: -webkit-gradient(linear, right top, left top, color-stop(0.95, #fff), color-stop(1, #cacaca))
+  background-image: -webkit-linear-gradient(right, #fff 95%, #cacaca 100%)
+  background-image: -moz-linear-gradient(right, #fff 95%, #cacaca 100%)
+  background-image: -ms-linear-gradient(right, #fff 95%, #cacaca 100%)
+  background-image: -o-linear-gradient(right, #fff 95%, #cacaca 100%)
+  background-image: linear-gradient(to left, #fff 95%, #cacaca 100%)
+
+.blue.back-side
+  background: -moz-linear-gradient(120deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgb(89, 79, 115)), color-stop(100%, rgb(99, 95, 152))) /* safari4+,chrome */
+  background: -webkit-linear-gradient(120deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(120deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* opera 11.10+ */
+  background: -ms-linear-gradient(120deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* ie10+ */
+  background: linear-gradient(330deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgb(89, 79, 115)', endColorstr='rgb(99, 95, 152)',GradientType=0 ) /* ie6-9 */
+  -webkit-box-shadow: inset 1px 0px 10px 0px rgba(0,0,0,0.75)
+  -moz-box-shadow: inset 1px 0px 10px 0px rgba(0,0,0,0.75)
+  box-shadow: inset 1px 0px 10px 0px rgba(0,0,0,0.75)
+
+.blue.front-side
+  background: -moz-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgb(99, 95, 152)), color-stop(100%, rgb(89, 79, 115))) /* safari4+,chrome */
+  background: -webkit-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* opera 11.10+ */
+  background: -ms-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* ie10+ */
+  background: linear-gradient(148deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgb(99, 95, 152)', endColorstr='rgb(89, 79, 115)',GradientType=0 ) /* ie6-9 */
+  -webkit-box-shadow: inset -1px 0px 10px 0px rgba(0,0,0,0.75)
+  -moz-box-shadow: inset -1px 0px 10px 0px rgba(0,0,0,0.75)
+  box-shadow: inset -1px 0px 10px 0px rgba(0,0,0,0.75)
+
+.purple.back-side
+  background: -moz-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgb(99, 95, 152)), color-stop(100%, rgb(89, 79, 115))) /* safari4+,chrome */
+  background: -webkit-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* opera 11.10+ */
+  background: -ms-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* ie10+ */
+  background: linear-gradient(148deg, rgb(99, 95, 152) 0%, rgba(114,112,179,1) 100%) /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgb(99, 95, 152)', endColorstr='rgb(89, 79, 115)',GradientType=0 ) /* ie6-9 */
+  -webkit-box-shadow: inset -1px 0px 10px 0px rgba(0,0,0,0.75)
+  -moz-box-shadow: inset -1px 0px 10px 0px rgba(0,0,0,0.75)
+  box-shadow: inset -1px 0px 10px 0px rgba(0,0,0,0.75)
+
+.purple.front-side
+  background: -moz-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* ff3.6+ */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, rgb(99, 95, 152)), color-stop(100%, rgb(89, 79, 115))) /* safari4+,chrome */
+  background: -webkit-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* safari5.1+,chrome10+ */
+  background: -o-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* opera 11.10+ */
+  background: -ms-linear-gradient(302deg, rgb(99, 95, 152) 0%, rgb(89, 79, 115) 100%) /* ie10+ */
+  background: linear-gradient(148deg, rgb(99, 95, 152) 0%, rgba(114,112,179,1) 100%) /* w3c */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='rgb(99, 95, 152)', endColorstr='rgb(89, 79, 115)',GradientType=0 ) /* ie6-9 */
+  -webkit-box-shadow: inset -1px 0px 10px 0px rgba(0,0,0,0.75)
+  -moz-box-shadow: inset -1px 0px 10px 0px rgba(0,0,0,0.75)
+  box-shadow: inset -1px 0px 10px 0px rgba(0,0,0,0.75)
+
+.shadow
+  -webkit-transition: -webkit-box-shadow 0.5s
+  -moz-transition: -moz-box-shadow 0.5s
+  -o-transition: -webkit-box-shadow 0.5s
+  -ms-transition: -ms-box-shadow 0.5s
+  -webkit-box-shadow: 0 0 10px #999
+  -moz-box-shadow: 0 0 10px #999
+  -ms-box-shadow: 0 0 10px #999
+  -o-box-shadow: 0 0 10px #999
+  box-shadow: 0 0 10px #999
+
+p
+  text-indent: 0
+
+
+.tab
+  cursor: pointer
+  width: 220px
+  min-height: 55px
+  padding-left: 30px
+  margin-bottom: 20px !important
+  font-size: 2.3em
+  text-align: left
+  color: #9B9B9B
+  letter-spacing: -0.54px
+  background-color: #FFE9AD
+  position: relative
+  left: -10%
+  -webkit-transition: all 0.3s ease-out
+
+.tab-active
+  background-color: $blue
+  color: white
+  left: 0
+  padding-left: 15px
+
+.btn-open-acc
+  -webkit-tap-highlight-color: rgba(0,0,0,0)
+  position: absolute
+  bottom: 60px
+  right: 25px
+  font-family: Quark-Light
+  letter-spacing: 2px
+  background-color: white
+  //background-color: $red
+  //border: 1px solid #C5251C
+  color: white
+  border-radius: 2px
+  font-size: 30px
+  //padding: 7px 88px
+  img
+    width: 272px
+    height: 55px
+button.btn-open-acc:focus,
+button.btn-open-acc:active
+  outline: 0
+  border: none
+  background-color: white
+
+
+.img-bg
+  background-repeat: no-repeat
+  background-size: cover
+
+.even .content-cover .gradient
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background: -webkit-gradient(linear, left top, right top, color-stop(0.95, rgba(0,0,0,0)), color-stop(1, rgba(0,0,0,0.2)))
+  /* background-image:-webkit-linear-gradient(left,rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%); */
+  background-image: -moz-linear-gradient(left, rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%)
+  background-image: -ms-linear-gradient(left, rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%)
+  background-image: -o-linear-gradient(left, rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%)
+  background-image: linear-gradient(to right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.2) 100%)
+
+
+.odd .content-cover .gradient
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background: -webkit-gradient(linear, right top, left top, color-stop(0.95, rgba(0,0,0,0)), color-stop(1, rgba(0,0,0,0.15)))
+  background-image: -webkit-linear-gradient(right,rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%)
+  background-image: -moz-linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%)
+  background-image: -ms-linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%)
+  background-image: -o-linear-gradient(right, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%)
+  background-image: linear-gradient(to left, rgba(0,0,0,0) 95%, rgba(0,0,0,0.15) 100%)
+
+.hard
+  background-color: #ffffff

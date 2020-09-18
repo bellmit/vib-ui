@@ -1,0 +1,196 @@
+<div class="vertical-center display-5" style="justify-content: center;margin-top: 5%">
+    <div *ngIf="!micrResult.bank_code && currentStatus != status.scan_false && currentStatus != status.inputCheque"
+         class="bg_white">
+        <div class="text-black display-3 text-center content" style="margin: 20%;">
+            <div class="col-lg">
+                <img src="./assets/kiatnakin/image/scan_doc.png">
+            </div>
+            <div class="col-lg mt-5">
+                <label class="display-1 text-italic text-bold">กรุณาวางใบเช็คบนหน้าจอ</label>
+            </div>
+            <div class="col-lg">
+                <label class="display-2">เพื่อสแกนข้อมูล</label>
+                <p class="display-4">ระบบทำการสแกนเอกสารภายในเวลา <label class="display-2 text-bold">{{timer}}</label>
+                    วินาที </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="vertical-center display-5 justify-content-sm-center">
+    <div *ngIf="micrResult.bank_code && currentStatus !== status.inputCheque">
+        <div class="vertical-center" id="result" class="text-black display-3 text-center "
+             style="margin: 0 auto">
+
+            <!--<div *ngIf="show">-->
+            <!--<div class="row col-lg-12 mt-5">-->
+            <!--<div class="display-4 text-white col-lg-4 offset-1">เลขที่เช็ค :</div>-->
+            <!--<div class="col-lg-6">-->
+            <!--<input class="display-4" style="height: 50px" [(ngModel)]="micrResult.cheque_no"-->
+            <!--keyboard="number">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row col-lg-12">-->
+            <!--<div class="display-4 text-white col-lg-4 offset-1">รหัสธนาคาร :</div>-->
+            <!--<div class="col-lg-6">-->
+            <!--<input class="display-4" style="height: 50px" [(ngModel)]="micrResult.bank_code"-->
+            <!--keyboard="number">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row col-lg-12">-->
+            <!--<div class="display-4 text-white col-lg-4 offset-1">รหัสสาขา :</div>-->
+            <!--<div class="col-lg-6">-->
+            <!--<input class="display-4" style="height: 50px" [(ngModel)]="micrResult.branch_code"-->
+            <!--keyboard="number">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row col-lg-12 mb-3">-->
+            <!--<div class="display-4 text-white col-lg-4 offset-1">เลขที่บัญชี :</div>-->
+            <!--<div class="col-lg-6">-->
+            <!--<input class="display-4" style="height: 50px" [(ngModel)]="micrResult.accountNumber"-->
+            <!--keyboard="number">-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row col-lg-12 mb-3">-->
+            <!--<div class="display-4 text-white col-lg-4 offset-1">ประเภทเช็ค :</div>-->
+            <!--<div class="col-lg-6" style="background-color: white !important;left: 12px;bottom: 12px">-->
+            <!--<select class="form-control select display-4" required id="chequeType"-->
+            <!--data-title="ประเภทเช็ค" [(ngModel)]="micrResult.chequeType">-->
+            <!--<option value="01" class="display-5">Current Cheque</option>-->
+            <!--<option *ngIf="withdrawChq" value="02" class="display-5">Cashier Cheque</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div id="img-result-area">
+                <img id="img-result" src="{{imageURL}}">
+            </div>
+            <p style="max-height: 100px;" class="display-4 text-white mt-5 ">เลขที่เช็ค :
+                {{micrResult.cheque_no}}</p>
+            <p style="max-height: 100px;" class="display-4 text-white  ">รหัสธนาคาร : {{micrResult.bank_code}}</p>
+            <p style="max-height: 100px;" class="display-4 text-white mb-5">เลขที่บัญชี :
+                {{micrResult.account_no}}</p>
+        </div>
+
+        <button id="button-startTimerMICR" type="submit"
+                class="button-white border-blue text-blue button-submit btn-size-XL"
+                (click)="reStartTimerMICR()">
+            <h2> {{ 'สแกนใหม่อีกครั้ง' | translate }} </h2>
+        </button>
+
+        <button id="button-onCheckAvailableCheque" type="submit"
+                class="button-blue button-submit btn-size-XL"
+                (click)="onCheckAvailableCheque()">
+            <h2> {{ 'ok' | translate }} </h2>
+        </button>
+
+        <!--<button *ngIf="countScan > refreshScan" id="button-onSelectedAccount" type="submit"-->
+        <!--class="button-blue button-submit btn-size-XL"-->
+        <!--(click)="onSelectedAccount('onChooseAnother')">-->
+        <!--<h2> {{ 'กรอกเลขที่เช็ค' | translate }} </h2>-->
+        <!--</button>-->
+    </div>
+
+    <div *ngIf="currentStatus == status.scan_false"
+         id="result_false" class="text-black display-3 text-center"
+         style="margin: 0 auto">
+        <div id="img-result_false-area" style="margin-top: 20%">
+            <img id="img-result_false" src="./assets/kiatnakin/image/icon_error.png"
+                 style="width: 150px;height: 150px">
+        </div>
+        <div class="col-lg mt-5">
+            <label class="display-2 text-white text-italic text-bold">ทำรายการไม่สำเร็จ</label>
+        </div>
+        <!--<div class="col-lg mb-4">-->
+            <!--<label class="display-4 text-white">กรุณาลองใหม่อีกครั้ง หรือ เลือกระบุเลขที่เช็ค</label>-->
+        <!--</div>-->
+
+        <button class="text-white  button-blue display-3 button-submit" (click)="reStartTimerMICR()">
+            <h2>{{'try_again'|translate}}</h2>
+        </button>
+        <button class="text-white  button-blue display-3 button-submit" (click)="onSelectedAccount('onChooseAnother')">
+            <h2>{{'choose_another_channel'|translate}}</h2>
+        </button>
+    </div>
+
+    <div *ngIf="currentStatus == status.inputCheque" id="container_form">
+        <div class="col-12 section-detail" id="div-input-chuque">
+            <div class="row mt-5" style=" height: 250px;margin: 0 30px 0 30px">
+
+                <div class="col-lg-12 text-center">
+                    <img src="./assets/kiatnakin/image/cheque_icon 2.png" height="111" width="240"/>
+                </div>
+                <div class="mt-4 col-lg-12 text-center mt-5">
+                    <div class="display-3 text-bold">กรุณากรอกข้อมูลของเช็คเพื่อทำรายการ</div>
+                </div>
+
+                <div class="col-lg-12 mt-5 text-center text-blue display-6 row">
+                    <div class="col-lg-2 p-0" style="left: 120px">
+                        |เช็คเลขที่ Cheque No.
+                    </div>
+
+                    <div class="col-lg-4 p-0" style="left: 135px">
+                        | สาขาเลขที่ Branch No. / Code
+                    </div>
+
+                    <div class="col-lg-3 p-0" style="left: 100px">
+                        | บัญชีเลขที่ Account No.
+                    </div>
+                </div>
+
+                <div class="col-lg-12 mt-2 text-center">
+
+                    <img src="./assets/kiatnakin/image/micr/micr_C.png" class="micr_C_1"/>
+                    <input class="display-4 col-lg-2 input-micr input_cheque_no p-0"
+                           [(ngModel)]="micrResult.cheque_no"
+                           type="text"
+                           maxlength="8"
+                           keyboard="number">
+                    <img src="./assets/kiatnakin/image/micr/micr_C.png" class="micr_C_2"/>
+
+
+                    <input class="display-4 col-lg-1 input-micr input_bank_code p-0"
+                           [(ngModel)]="micrResult.bank_code"
+                           type="text"
+                           maxlength="3"
+                           keyboard="number">
+                    <img src="./assets/kiatnakin/image/micr/micr_D.png" class="micr_D"/>
+                    <input class="display-4 col-lg-1 input-micr input_branch_code p-0"
+                           [(ngModel)]="micrResult.branch_code"
+                           type="text"
+                           maxlength="4"
+                           keyboard="number">
+                    <img src="./assets/kiatnakin/image/micr/micr_A.png" class="micr_A"/>
+
+                    <input class="display-4 col-lg-3 input-micr input_account_no p-0"
+                           [(ngModel)]="micrResult.account_no"
+                           type="text"
+                           maxlength="15"
+                           keyboard="number">&nbsp;&nbsp;
+                    <img src="./assets/kiatnakin/image/micr/micr_C.png" class="micr_C_3"/>
+                    <input class="display-4 col-lg-2  input-micr input_chequeType p-0"
+                    [(ngModel)]="micrResult.chequeType"
+                    type="text"
+                    maxlength="2"
+                    keyboard="number">
+
+                </div>
+
+                <div class="col col-lg-12" style="height: 120px;margin-top: 4%">
+                    <div class="col-lg-12 text-center text-blue btn-inputData">
+                        <button id="button-submit-fee" type="submit"
+                                class="button-blue button-submit btn-size-XL"
+                                [disabled]="!micrResult.cheque_no || !micrResult.bank_code || !micrResult.branch_code"
+                                (click)="onCheckAvailableCheque()">
+                            <h2> {{ 'ทำรายการต่อ' | translate }} </h2>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<img src="/assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()"/>

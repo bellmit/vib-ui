@@ -1,0 +1,49 @@
+@import "./src/styles-master"
+
+.container
+  justify-content: center
+  align-items: center
+  height: 100%
+  margin-top: 5%
+
+#container_form_cheques
+  background-color: white
+  width: 1250px
+  height: 730px
+  @extend .shadow
+  #header
+    height: 70px
+    width: 100%
+    color: white
+    padding: 0px !important
+    .row
+      height: 100%
+      margin: 0px
+      #header-logo
+        margin: 0 0 1px
+      #header-desc
+
+.vertical-center
+  display: flex
+  vertical-align: middle
+  align-items: center
+
+.form-in
+  height: 250px
+  margin: 0 30px 0 30px
+  padding: 0px
+
+.deposit_page
+  justify-content: center
+  background-color: #F0EFEF
+  height: 430px
+  width: 1110px
+  @extend .shadow
+
+.content-border
+  border: 3px solid #F0EFEF !important
+  background-color: #F0EFEF !important
+
+.bathTxt
+  text-align: right
+  color: #1A1A1A

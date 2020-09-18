@@ -1,0 +1,89 @@
+
+<div class="row m-0 col-lg-12">
+    <div class="col-lg-3">
+      <img src="./assets/kiatnakin/image/login/icon_atm_topic.png">
+    </div>
+    <div class="col-lg-9">
+      <label class="display-2 text-bold">Debit Card & PIN</label> <br>
+      <label class="display-5">กรุณาเสียบบัตร และกรอกรหัสบัตร Debit Card </label>
+    </div>
+    <div *ngIf="userLogin.atmNo" class="row col-lg-12 mt-5 text-center">
+      
+      <div class="display-3 display-12 col-lg-12">
+        รหัส Debit Card 
+      </div>
+  
+      <div class="display-3 col-lg-12 mt-3">
+        <input id="atm"
+               type="text"
+               name="security-dot"
+               keyboard="pin"
+               style="margin: 0 auto; width: 50%"
+               class="text-center"
+               maxlength="6"
+               [(ngModel)]="userLogin.pin">
+      </div>
+      <div class="col-lg-12 mt-2 text-center">
+        <div class="col-lg-12 mt-1 text-blue">
+            หมายเลขบัตร {{userLogin.atmNo}}
+        </div>
+        <div class="col-lg-12 mt-2">
+          <button class="btn" (click)="retry()">อ่านบัตรอีกครั้ง</button>
+        </div>
+      </div>
+      <div class=" col-lg-12 mt-4">
+          <button id="button_login"  class="button-submit button-blue  display-3"
+                    (click)="onClickLogin()"
+                    type="submit"
+                    [disabled]="!userLogin.pin">
+              <h2>{{ 'ok' | translate}}</h2>
+          </button>
+      </div>
+  
+    </div>
+
+
+    <div *ngIf="isRequesting || readCardResults != null" class="row col-lg-12  text-center">
+        
+        <div *ngIf="readCardResults === null || (readCardResults.code === '1000' || readCardResults.code === '1003') " class=" col-lg-12 text-center">
+            <div class="col-lg-12 pt-4 m-0 text-center">
+                <img src="./assets/kiatnakin/image/subscription/icon_id_card.png" />
+            </div>
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                กรุณาเสียบบัตร Debit Card 
+            </div>
+        </div>
+
+        <div   *ngIf="readCardResults != null"  class=" col-lg-12 text-center">  
+          <div *ngIf="(readCardResults.code  === '1103' || readCardResults.code  === '1109') ">
+              <div class="col-lg-12 pt-5 m-0 text-center">
+                  <img class="loading" src="./assets/kiatnakin/image/loading.png" />
+              </div>
+              <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                  กรุณารอสักครู่
+              </div>
+              <div class="col-lg-12 display-5 text-center text-dark-black-gray text-italic text-bold">
+                  ระบบกำลังดึงข้อมูล
+              </div>
+          </div> 
+          <div *ngIf="(readCardResults.code === '9105'  || readCardResults.code === '1110' || readCardResults.code === '9103' || readCardResults.code === '9005') ">
+              <div class="content row">
+                  <div class="col-lg-12 m-0 text-center">
+                      <img src="./assets/kiatnakin/image/read_false.png" />
+                  </div>
+                  <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                      ไม่สามารถอ่านบัตรได้
+                  </div>
+    
+                  <div class=" col-lg-12 mt-3 text-center">
+                      <button class="btn btn-blue text-center" (click)="retry()">
+                          กรุณาเสียบบัตรอีกครั้ง
+                      </button>
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    
+    
+  </div>

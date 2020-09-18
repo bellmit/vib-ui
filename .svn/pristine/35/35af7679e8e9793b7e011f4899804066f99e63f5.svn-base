@@ -1,0 +1,11 @@
+{
+    "/VIB/*":{
+        "target": "http://10.202.104.236:8081/VIB",
+        "secure":false,
+        "pathRewrite":{
+            "^/VIB":""
+        },
+        "logLevel":"debug",
+        "changeOrigin": true
+    }
+}

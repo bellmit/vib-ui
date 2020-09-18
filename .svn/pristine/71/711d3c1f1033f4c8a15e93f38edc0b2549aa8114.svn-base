@@ -1,0 +1,45 @@
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom " id="back" (click)="onClickBack()">
+
+<div id="titleSelectAccountType" class="container  speech" style="position:fixed; top: -200px; left: calc(50% - 400px); height: 100px; width: 800px; background-color: #4A4A4A; opacity: 0; border-radius: 10px;text-align: center;padding-top: 18px">
+    <p class="display-4 Quark" style="color: white;"> {{ titleSelectAccountType }} </p>
+</div>
+
+<div class="vertical-center">
+
+    <img id="cover_folder1" class="folder folder1" src="./assets/kiatnakin/image/folder1.png" (click)="onClick('deposit',animationState.open,'deposit')">
+
+    <div id="saving_book" class="deposit deposit1" style="z-index: 3;" (click)="onClick('Saving',animationState.open,'deposit')">
+        <img src="./assets/kiatnakin/image/saving_book.png">
+    </div>
+    <div id="fixed_book" class="deposit deposit2" style="z-index: 2;" (click)="onClick('Fixed',animationState.open,'deposit')">
+        <img src="./assets/kiatnakin/image/fixed_book.png">
+    </div>
+    <div id="current_book" class="deposit deposit3" style="z-index: 1;" (click)="onClick('Current',animationState.open,'deposit')">
+        <img src="./assets/kiatnakin/image/bookbank/CurrentPassbook.png">
+    </div>
+
+    <img id="cover_folder2" class="folder" style="z-index: 4;" src="./assets/kiatnakin/image/folder2.png" (click)="onClick('deposit',animationState.open,'deposit')">
+
+    <img id="catalog" class="cover-catalog" src="./assets/kiatnakin/image/bookhomepage.png" (click)="onClick('catalog',animationState.open,'catalog')">
+
+    <div class="cover-book" id="bookBank" (click)="onClick('bookbank',animationState.open,'bookbank')">
+        <div class="cover-text"></div>
+    </div>
+
+    <!-- <img class="bookCheque" id="bookCheque" (click)="onClick('transfer5',animationState.open,'transfer')" src="/assets/kiatnakin/image/buy_current_cheque.png">
+
+    <img id="investment" class=" transfer transfer5 " src="/assets/kiatnakin/image/slip/slip_investment.png" (click)="onClick('investment',animationState.open,'investment')">
+
+    <img id="cheque" class=" transfer transfer1 " src="/assets/kiatnakin/image/slip/slip_chq.png" (click)="onClick('cheque',animationState.open,'transfer')">
+
+    <img id="transfer" class=" transfer transfer2 " src="/assets/kiatnakin/image/slip/slip_tr.png" (click)="onClick('transfer',animationState.open,'transfer')">
+
+    <img id="withdraw" class=" transfer transfer3 " src="/assets/kiatnakin/image/slip/slip_wit.png" (click)="onClick('withdraw',animationState.open,'transfer')">
+
+    <img id="deposit" class=" transfer transfer4 " src="/assets/kiatnakin/image/slip/slip_dep.png" (click)="onClick('deposit',animationState.open,'transfer')"> -->
+
+    <!--<img id="investment" class=" transfer transfer1 " src="/assets/kiatnakin/image/slip/slip_investment.png" (click)="onClick('investment',animationState.open,'investment')">-->
+
+    <img id="transfer" class=" transfer transfer4 " src="./assets/kiatnakin/image/slip/slip_tr.png" (click)="onClick('transfer',animationState.open,'transfer')">
+</div>
+  

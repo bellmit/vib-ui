@@ -1,0 +1,26 @@
+<!--LOGIN COVER-->
+<profile-card *ngIf="userService.isLoggedin() && dataService.config.displayLoginCard"></profile-card>
+<!--////////-->
+<div class="kk">
+    <app-absorption *ngIf="dataService.absorption"></app-absorption>
+    <router-outlet *ngIf="!dataService.absorption"></router-outlet>
+</div>
+<div class="text-white text-lg-right " style="position: absolute; top: 0px; left: 250px">
+    <!-- <p> [ Remaining session time: {{ idleTime}} Sec ]</p> -->
+</div>
+
+<div id="bell" class="icon-bell" #divBell></div>
+<!-- <div id="bell" class="icon-bell" #divBell (click)="onClickCallAssistant()"></div> -->
+<div *ngIf="windowVideoCall != null" id="video-call-waiting" class="video-call-waiting row">
+
+    <div class="text-l text-white text-center w-100 display-3" style="height: 130px">
+        {{messageCalling}}
+    </div>
+
+    <button class="display-4 text-white button-red button-cancel-video" (click)="onClickStopCallAssistant()">
+        {{messageButtonCalling}}
+    </button>
+ 
+
+</div>
+<modal-dialog></modal-dialog>

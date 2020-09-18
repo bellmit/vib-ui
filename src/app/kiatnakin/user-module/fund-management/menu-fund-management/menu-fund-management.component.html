@@ -1,0 +1,24 @@
+<div class="menu-btn col-lg-12">
+  <div [ngClass]="{ 'd-none': !isAllowToInvest }">
+    <div class="content-btn" (click)="onOrderFund('purchase')">
+      <img src="./assets/kiatnakin/image/investment/buy.png">
+      <!-- <button type="button" class="btn btn-lg text-white background-purple">ซื้อกองทุน</button> -->
+    </div>
+    <div class="content-btn" (click)="onOrderFund('redeem')">
+      <img src="./assets/kiatnakin/image/investment/menu-redeem.png">
+      <!-- <button type="button" class="btn btn-lg text-white background-purple">ขายกองทุน</button> -->
+    </div>
+    <div class="content-btn" (click)="onOrderFund('switch_out')">
+      <img src="./assets/kiatnakin/image/investment/menu-swich.png">
+      <!-- <button type="button" class="btn btn-lg text-white background-purple">สับเปลี่ยนกองทุน</button> -->
+    </div>
+    <div class="content-btn" (click)="onOrderFund('cancel')">
+      <img src="./assets/kiatnakin/image/investment/cancel.png">
+      <!-- <button type="button" class="btn btn-lg text-white background-purple">ยกเลิกรายการ</button> -->
+    </div>
+  </div>
+  <div class="content-btn" (click)="onOrderFund('risk')">
+    <img src="./assets/kiatnakin/image/investment/suitability.png">
+    <!-- <button type="button" class="btn btn-lg text-white background-purple">แบบประเมินความเสี่ยง</button> -->
+  </div>
+</div>

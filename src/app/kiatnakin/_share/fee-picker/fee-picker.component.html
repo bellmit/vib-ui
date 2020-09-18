@@ -1,0 +1,47 @@
+<div class="fee_picker text-center">
+
+    <label class="text-white display-7" (click)="onOpenFeePicker()">
+        โอนแบบอื่น
+    </label>
+
+    <div class="bg" (click)="onClickDismiss()"></div>
+    <div id="fee_picker_content" class=" text-left fee-picker-content display-3">
+
+        <div class="col-lg-12 mt-2">
+            <img class="icon" src="./assets/kiatnakin/image/icon_baht.png" />
+            <label class="display-1 text-bold">รูปแบบการโอน และ อัตราค่าธรรมเนียม</label>
+        </div>
+
+        <div *ngFor="let fee of feeDetailList" class="col-lg-12 ">
+
+            <div *ngIf="fee.transferType === '1D' || fee.transferType === '2D' ;else elseBlock" class="col-lg-12 mt-3 fee_row row" [ngClass]="{'active': feeAmount == fee.FeeDetailList.totalFeeAmount()}">
+
+                <div class="col-lg-12 row p-0" (click)="onClickSelectFee(fee.transferType)">
+                    <div class="col-lg-9">
+                        <img class="icon" src="./assets/kiatnakin/image/icon_fee_bullet{{ feeAmount == fee.FeeDetailList.totalFeeAmount() ? '_active': '' }}.png"
+                        />
+                        <label class="display_show">วันที่ตัดเงิน {{ fee.debitDate | date:'dd/MM/yyyy' }}
+                        </label>
+                        <label class="display_show margin10">วันที่ได้รับเงิน {{ fee.creditDate | date:'dd/MM/yyyy' }}
+                        </label>
+                    </div>
+                    <div class="col-lg-3 text-right" (click)="onClickSelectFee(fee.transferType)">
+                        <span class="text-bold"> {{ fee.FeeDetailList.totalFeeAmount() }} </span> {{ 'bath' | translate}}
+                    </div>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <div class="col-lg-12 mt-3  fee_row row" (click)="onClickSelectFee(fee.transferType)" [ngClass]="{'active': feeAmount == fee.FeeDetailList.totalFeeAmount()}">
+                    <div class="col-lg-9">
+                        <img class="icon" src="./assets/kiatnakin/image/icon_fee_bullet{{ feeAmount == fee.FeeDetailList.totalFeeAmount() ? '_active': '' }}.png"
+                        />
+                        <label class="display_show">โอนเงินทันที</label>
+                    </div>
+                    <div class="col-lg-3 text-right">
+                        <span class="text-bold"> {{fee.FeeDetailList.totalFeeAmount()}} </span> {{ 'bath' | translate}}
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

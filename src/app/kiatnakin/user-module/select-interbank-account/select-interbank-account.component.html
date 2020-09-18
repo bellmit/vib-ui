@@ -1,0 +1,60 @@
+<div id="div-container" class="container p-0" style="justify-content: center">
+    <img src="./assets/kiatnakin/image/icon_cover_interbank.png" style="position: absolute; z-index: -1">
+
+    <div id="div-login" style="z-index: 1" (click)="onClickLogin()" *ngIf="!userService.isLoggedin()">
+        <img src="./assets/kiatnakin/image/login_bt.png">
+        <img src="./assets/kiatnakin/image/icon_cover_book_login_key.png" class="key">
+        <label class="text-white display-6">
+            {{ 'เข้าระบบ' }}<br>
+            {{ 'เพื่อเลือกบัญชี' }}
+        </label>
+    </div>
+
+    <div class="row ">
+        <div class="col-12 text-black display-3 text-center mt-5 bold">
+            <div *ngIf="title">{{ 'title_select_bank' | translate}}</div>
+        </div>
+
+        <div class="col-lg-12" style="height: 400px">
+            <div class="scrollbar">
+                <div id="frame" class="frame">
+                    <ul id="scrollbar" class="slidee">
+                        <li *ngFor="let bank of bankList" class="text-center bank" style="display: none"
+                            id="{{bank.code}}">
+                            <img src="{{bank.image}}" style="width: 100px;height: 100px;"/>
+                            <div class="mt-2 display-6">
+                                {{ bank.name | translate }}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-12">
+            <!--<div class="col-lg-12 label-no float-left display-5">{{ placeholder | translate }}</div>-->
+            <div class="col-lg-12 input-no text-center mt-2">
+                <input id="account-number"
+                       type="text" #accountNumber
+                       keyboard="number"
+                       [minLength]="minlength"
+                       [maxLength]="maxlength"
+                       class="text-center display-1 w-75 h-75"
+                       [(ngModel)]="inputAccountNumber"
+                       placeholder="{{ placeholder | translate }}"
+                       autocomplete="off">
+            </div>
+
+            <div class=" col-lg-12 text-center">
+                <button id="button-submit"
+                        type="submit"
+                        class="text-xl text-white  button-blue button-submit display-4"
+                        (click)="onSelectedAccount(accountNumber.value.toString())"
+                        [disabled]="accountNumber.value.length < minlength">
+                    <h2> {{ 'ok' | translate }} </h2>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,349 @@
+<div *ngIf="!container" class="col-lg-12">
+    <div id="currentChqBuy" class="container vertical-center display-5">
+
+        <div *ngIf="userService.isLoggedin()">
+            <select-bank-account *ngIf="dataService.transaction.currentStatus !== status.complete &&
+            isSelectAccount && !isSelectType && !isScanCheque"
+                                 :ignoreAccountNO="{{ignoreAccountNO}}"
+                                 :isChildView=true
+                                 :title="{{titleSelectBankAccount}}"
+                                 [isShowInterBankMenu]="isShowInterBankMenu"
+                                 [minimumAmount]="isSelectFrom ? amount : 0"
+                                 (selectedAccount)="onSelectedAccount($event)"
+                                 false>
+            </select-bank-account>
+        </div>
+
+        <div *ngIf="!userService.isLoggedin()">
+            <select-bank-account-by-number
+                    *ngIf="isSelectAccount && !isSelectFrom && isSelectTo && !isSelectType && !isScanCheque"
+                    [queryParams]="{'returnUrl': 'currentChqBuy', 'selectAccount' : true}"
+                    (selectedAccount)="onSelectedAccount($event)">
+            </select-bank-account-by-number>
+        </div>
+
+
+        <app-channel-type *ngIf="(isSelectAccount && !isSelectFrom && isSelectTo && isSelectType && !isScanCheque)"
+                          [queryParams]="{'returnUrl': 'currentChqBuy'}"
+                          (selectedAccount)="onSelectedType($event)">
+        </app-channel-type>
+
+        <div id="container_form_cheques" *ngIf="!isSelectAccount">
+            <img *ngIf="dataService.transaction.currentStatus != status.complete"
+                 src="./assets/kiatnakin/image/close.png" class="button-close"
+                 (click)="onClickClose()" id="buttonClose">
+
+            <div id="header" class="pt-2 pl-3 bold"
+                 [ngClass]="{'background-dark-gray': dataService.transaction.currentStatus !== status.complete}">
+
+                <div class="row" *ngIf="dataService.transaction.currentStatus != status.complete">
+                    <div id="header-logo" class="col-2 vertical-center background-white">
+                        <img src="./assets/kiatnakin/image/icon_logo_header.png">
+                    </div>
+                    <div id="header-desc" class="col p-0">
+                        <h2 class="float-right mr-5 vertical-center h-100 text-white text-bold">
+                            {{'current_cheque_slip'|translate}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div id="body" *ngIf="!progressIsShow">
+                <!--step-1-->
+                <div *ngIf="dataService.transaction.currentStatus === dataService.transaction.status.inputData"
+                     class="col-12 section-detail" id="div-input-data" style="top: 15px">
+                    <div class="row form-in">
+
+                        <div class="col-12 row">
+                            <div class="col-5 offset-3">
+                                <label class="text-black display-4"> {{ 'pay_by' | translate }}</label>
+                            </div>
+                        </div>
+
+                        <!--TO-->
+                        <div id="div-select-account-to"
+                             class="BookBank_shadow BookBank-right col-5 row blue-border align-items-center"
+                             [ngClass]="{'light-white-gray': dataService.transaction.to.accountType }"
+                             [ngStyle]="dataService.transaction.to.accountType === 'CA' && {
+                                            'background-image': 'url(' + dataService.transaction.to.bank.bg_image + ')',
+                                            'color':dataService.transaction.to.bank.font_color} ||
+                                        dataService.transaction.to.accountType === paymentType.Cheque && {
+                                            'background-image': 'url(' + dataService.transaction.to.bank.bg_image + ')',
+                                            'color':dataService.transaction.to.bank.font_color}"
+                             (click)="onClickSelectToAccount()">
+
+                            <div class="col-4">
+                                <img class="logo" src="{{dataService.transaction.to.bank.image}}">
+                            </div>
+
+                            <div class="col-8">
+                                <div *ngIf="!dataService.transaction.to.accountType">
+                                    <div class="display-4 text-black text-bold text-italic">
+                                        {{ 'touch' | translate }}
+                                    </div>
+                                    <div class="display-5 text-black">{{ 'source_withdraw_type' | translate }}</div>
+                                </div>
+                                <div *ngIf="dataService.transaction.to.accountType !== paymentType.Cheque"
+                                     class="display-5">
+                                    <div>{{ dataService.transaction.to.accountName | translate }}</div>
+                                    <div>{{ dataService.transaction.to.accountNumber }}</div>
+                                    <div>{{ dataService.transaction.to.accountType | translate}}</div>
+                                </div>
+                                <div *ngIf="dataService.transaction.to.accountType === paymentType.Cheque"
+                                     class="display-5">
+                                    <div class="text-black display-3">
+                                        {{dataService.transaction.to.micrResult}}
+                                    </div>
+                                    <div class="text-black display-3">
+                                        {{dataService.transaction.to.chequeType}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col col-lg-12" style="height: 120px;margin-top: 4%">
+                            <div class="form-input">
+                                <div class="row form-group col-lg-12 pl-4">
+                                    <div class="control-label display-6 col-lg-2  text-black float-left pl-0"
+                                         style="position: absolute">
+                                        {{ 'จำนวน/เล่ม' | translate}}
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <input id="input-amount"
+                                               type="text"
+                                               class="form-control display-4 text-money text-black"
+                                               keyboard="currency" data-max-decimal="2"
+                                               [(ngModel)]="dataService.transaction.amount" maxlength="10"
+                                               required placeholder="1">
+                                    </div>
+                                    <div class="control-label display-6 col-lg-2  text-black float-left branch_txt">
+                                        {{'สาขาที่ต้องการรับ'| translate}}
+                                    </div>
+                                    <div class="col-lg-6 mb-3" (click)="onSelector('branch_code')">
+                                        <input type="text"
+                                               class="text-center branch_dropdown none-keyboard display-4 form-control"
+                                               [(ngModel)]="dataService.transaction.branch_code" name="branch_code"
+                                               id="branch_code" readonly="true">
+                                    </div>
+                                    <selector-dialog
+                                            *ngIf="showSelector"
+                                            class="p-0"
+                                            selector_dialog
+                                            (onSelector)="onSet($event)"
+                                            [id]="selected"
+                                            [Title]="titleTypeList"
+                                            [DataList]="dataList"
+                                            [ActiveNow]="ActiveNow">
+                                    </selector-dialog>
+                                </div>
+                                <div class="row form-group col-lg-12 pl-4">
+                                    <div class="col-lg-6 mb-3">
+                                        <input id="name"
+                                               type="text" required
+                                               class="form-control text-black display-4 text-center"
+                                               keyboard="th" [(ngModel)]="dataService.transaction.trName"
+                                               placeholder="ชื่อผู้รับเอกสาร"
+                                               maxlength="64">
+                                    </div>
+                                    <div class="col-lg-6 mb-3">
+                                        <input id="id13"
+                                               type="text" required
+                                               class="form-control text-black display-4 text-center"
+                                               keyboard="number" [(ngModel)]="dataService.transaction.citizenId"
+                                               placeholder="รหัสบัตรประชาชน"
+                                               maxlength="13">
+                                    </div>
+                                </div>
+
+                                <div class="mt-2 col-12"></div>
+
+                                <div class="col-lg-12 text-center text-blue btn-inputData">
+                                    <button id="button_submit_account"
+                                            class="button-white border-blue button-submit btn-size-XL text-blue"
+                                            type="submit"
+                                            (click)="onClickSubmit(paymentType.FundTransfer)">
+                                        <h2> {{ 'หักจากบัญชี' | translate }} </h2>
+                                    </button>
+                                    <button id="button_submit_cash" class="button-blue button-submit btn-size-XL"
+                                            type="submit"
+                                            (click)="onClickSubmit(paymentType.Cash)">
+                                        <h2> {{ 'เงินสด' | translate }} </h2>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--step-2-->
+                <div *ngIf="dataService.transaction.currentStatus == dataService.transaction.status.confirmation"
+                     class="detail col-lg-12 section-top" id="div-confirm-data">
+                    <div class="row form-in">
+                        <div class="col-5">
+                            <label class="text-black display-4">{{ 'from' | translate }}</label>
+                        </div>
+                        <div class="col-5 offset-2 ">
+                            <label class="text-black display-4">{{ 'to' | translate }}</label>
+                        </div>
+
+                        <!--FROM-->
+                        <div class="BookBank BookBank-left col-5 row white-gray-border align-items-center"
+                             style=" background-color: white; color: black">
+                            <div class="col-4 ">
+                                <img class="logo" src="{{dataService.transaction.from.bank.image}}">
+                            </div>
+                            <div class="col-8 display-5">
+                                <div *ngIf="dataService.transaction.from.accountType == paymentType.Cash"
+                                     class="book-accname">
+                                    {{'cash'|translate}}
+                                </div>
+
+                                <div *ngIf="dataService.transaction.from.accountType !== paymentType.Cash">
+                                    <div class="book-accname">{{dataService.transaction.from.accountName}}</div>
+                                    <div class="book-accnum">{{dataService.transaction.from.accountNumber}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Arrow-->
+                        <div class="arrow_img col-2 row align-items-center">
+                            <img src="/assets/kiatnakin/image/icon_arrow_transfer.png">
+                        </div>
+                        <!--TO-->
+                        <div class="BookBank BookBank-right col-5 row white-gray-border align-items-center"
+                             style="'background-color': '#FFFFFF','color': '#000000' "
+                             [ngClass]="{'BookBankFix':  dataService.transaction.toFix}">
+
+                            <div class="col-4 align-items-center">
+                                <img class="logo"
+                                     src="{{dataService.transaction.to.bank.image}}">
+                            </div>
+                            <div class="col-8 display-5">
+                                <div class="book-accname">{{dataService.transaction.to.accountName}}</div>
+                                <div class="book-accnum">{{dataService.transaction.to.accountNumber}}</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--CASH-BankChq -->
+                    <div class="row content-border col-lg-11 mt-4">
+                        <div class="col-lg-12 form-input text-center" style="text-align: center;padding: 0">
+                            <div class="content-detail">
+                                <div class="row">
+                                    <span class="text-left col-lg-2 ">{{'amount'|translate}}</span>
+                                    <div class="col-lg-9 text-right text-blue">
+                                        <b class="display-3">{{ dataService.transaction.amount | number:'.2-2'}}</b>
+                                    </div>
+                                    <span class="text-left col-md-1">{{ 'bath'| translate }}</span>
+                                </div>
+                                <div class="row">
+                                    <span class="text-left col-lg-2">{{ 'fee'| translate }}</span>
+                                    <div class="col-lg-9 text-right text-blue">
+                                        <b class="display-3">{{dataService.transaction.fee.amount | number:'.2-2'}}</b>
+                                    </div>
+                                    <span class="text-left col-md-1">{{ 'bath' | translate }}</span>
+                                </div>
+                            </div>
+
+                            <div class="content-total mt-2">
+                                <div class="row">
+                                    <span class="text-left col-md-2 text-sum"> {{ 'total_amount'|translate }}</span>
+                                    <div class="col-md-9 text-right totalAmount">
+                                        <b> {{ dataService.transaction.totalAmount | number:'.2-2'}}</b>
+                                    </div>
+                                    <span class="text-left col-md-1 text-sum"> {{ 'bath' | translate }}</span>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 control-label bathTxt">
+                                        ({{ dataService.transaction.totalAmount | bahttext }})&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="dataService.transaction.currentStatus == dataService.transaction.status.confirmation"
+                         id="slip_deposit" class="container border_top_deposit_page deposit_page mt-5"
+                         style="position:absolute;left: 0px;">
+
+                        <label class="display-3 mt-5 col-lg-12 text-center" style="font-weight: bold">
+                            {{ 'กรุณากรอกเบอร์โทรศัพท์ และบัตรประชาชน เพื่อยืนยันการทำรายการ'|translate }}
+                        </label>
+                        <div class="row col-lg-12">
+                            <div class="control-label display-5 col-lg-4 offset-1 text-left text-black float-left pl-0">
+                                {{ 'phone_Number' | translate }}
+                            </div>
+
+                            <div class="control-label display-5 col-lg-4 offset-2 text-left text-black float-left pl-0">
+                                {{ 'NameSurname' | translate }}
+                            </div>
+
+                            <div class="col-lg-4 offset-1">
+                                <input id="input-id13Confirm" keyboard="currency"
+                                       type="text" class="form-control text-center text-black"
+                                       style="height: 60px;font-size: 25px"
+                                       maxlength="10" min="1" required
+                                       [(ngModel)]="dataService.transaction.phoneNumber"
+                                       placeholder="{{'phone_Number'|translate}}">
+                            </div>
+
+                            <div class="col-lg-4 offset-2">
+                                <input id="input-NameConfirm"
+                                       type="text" class="form-control text-center text-black"
+                                       style="height: 60px;font-size: 25px"
+                                       maxlength="64" min="1" required
+                                       [(ngModel)]="dataService.transaction.trName"
+                                       placeholder="{{'NameSurname'|translate}}">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 text-center text-blue btn-transfer mt-4"
+                             style="position: absolute;z-index: 0">
+                            <input type="hidden" id="refID" value="{{ref_id}}">
+                            <button id="button-submit-confirm-noid13" class="button-blue button-submit"
+                                    type="submit"
+                                    [disabled]="dataService.transaction.phoneNumber.length < 9 || !dataService.transaction.trName"
+                                    (click)="onMoveStep(dataService.transaction.status.Cashto)">
+                                <h2> {{ 'ok' | translate }} </h2>
+                            </button>
+                        </div>
+
+                        <div class="col-lg-4 offset-2 mb-3 mt-4">
+                        </div>
+                    </div>
+                </div>
+                <!--step-3-->
+                <div *ngIf="dataService.transaction.currentStatus == dataService.transaction.status.Cashto"
+                     id="div-deposit" class="detail col-lg-12 section-top">
+                    <div class="col-lg-12 text-center">
+                        <img class="logo mt-5"
+                             src="./assets/kiatnakin/image/pay_money.png"
+                             height="171" width="237"/>
+                        <div class="mt-5 display-1 text-bold">
+                            {{'กรุณาส่งเงินให้พนักงาน'}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <progress-dialog
+                    #progress
+                    [progressId]="'chequesbuy'"
+                    (onClickEmitter)="onClickBack()"
+                    (isShowEmitter)="progressIsShow = $event">
+            </progress-dialog>
+        </div>
+    </div>
+</div>
+
+<app-cheque-scanner *ngIf="isSelectAccount && !isSelectFrom && isSelectTo && !isSelectType && isScanCheque"
+                    [queryParams]="{'returnUrl': 'currentChqBuy'}">
+</app-cheque-scanner>
+
+<app-complete-slip *ngIf="container && dataService.transaction.currentStatus == status.complete && !progressIsShow"
+                   [queryParams]="{'transactionType' : 'Deposit'}"
+                   (PrintSlip)="onClickPrintSlip($event)">
+</app-complete-slip>
+
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="buttonBack"
+     (click)="onClickBack()"/>

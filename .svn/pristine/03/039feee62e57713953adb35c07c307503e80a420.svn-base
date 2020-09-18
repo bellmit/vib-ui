@@ -1,0 +1,340 @@
+<div   id="container" class="container">
+    <div id="div-tabbar" *ngIf="this.unitHolders.length > 0" class="tabBar" [ngStyle]="{width: templateType == type.portfolio ? '90%':'99%'}">
+        <ul id="ul-unitholder" class="nav nav-tabs">
+            <li *ngFor="let unit of unitHolders;let index = index" [ngClass]="{'active': unit.selected}" [id]="index" (click)='onClickSelectHolder(unit, index)'>
+                <label class="label_unitholder">UnitHolder</label>
+                <br/>
+                <label class="unitholder">{{unit.Unitholder}}</label>
+            </li> 
+        </ul> 
+        <div *ngIf="templateType == type.portfolio"  [ngClass]="{'active': isViewOrderTransaction}" class="li-order text-center" (click)="onClickViewOrder()">
+                <label class="text-black pt-2 display-4 text-bold">ORDER</label>
+        </div>
+    </div>
+    <div class="content">
+    
+        <ng-container *ngIf="!isViewOrderTransaction">
+            <div *ngIf="templateType == type.fundList" class="body">
+                <div class="row m-0 p-0 mt-3" style="height: 100px">
+                    <div class="display-3 text-black col-8 text-bold">กองทุนที่ท่านต้องการ{{titleInvestType}}</div>
+                    <div class="col-4 text-purple display-3"> {{customerName}}</div>
+                    <div *ngIf="customerSuitScore" class="offset-8 col-4 text-bold">My Suite Score {{customerSuitScore.CUST_SUIT_LEVEL}}</div>
+                    <div class="offset-8 col-4 text-bold">ราคา ณ วันที่ {{NavDate}}</div>
+                </div>
+                <div class="mt-2" style="height: 550px">
+                    <!-- Nav tabs -->
+                    <ul  class="nav nav-tabs nav-fundList" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tab_myport" role="tab">My Port</a>
+                        </li>
+                        <li *ngIf="transactionType =='purchase' " class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_lrf" role="tab">LTF</a>
+                        </li>
+                        <li *ngIf="transactionType =='purchase' " class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_rmf" role="tab">RMF</a>
+                        </li>
+                        <li *ngIf="transactionType =='purchase' " class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tab_mf" role="tab">MF</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!--MT PORT-->
+                        <div class="tab-pane active" id="tab_myport" role="tabpanel">
+
+                            <div class="row p-0 m-0 display-5 text-center  col-lg-12 text-white background-purple-fund">
+                                    <div class="col-2"> รหัสกองทุน</div>
+                                    <div class="col-2 justify-content-end"> มูลค่าเงินลงทุน</div>
+                                    <div class="col-2 justify-content-end"> มูลค่าหน่วยลงทุน</div>
+                                    <div class="col-2 justify-content-end"> จำนวนหน่วย</div>
+                                    <div class="col-2 justify-content-end"> มูลค่าทรัพย์สินสุทธิ</div>
+                                    <div class="col-2 justify-content-end"> กำไร/ขาดทุน</div>
+                            </div>
+                            <div id="myport" >
+                                <div *ngFor="let list of portList;let index =index;
+                                    let isOdd=odd;
+                                    let isEven=even" [class.odd]="isOdd" [class.even]="isEven" 
+                                    class="row col-lg-12 item-fund  m-0" (click)='onClickSelectFund(list)'>
+    
+                                    <div class="col-2 text-center ">
+                                            {{list.FundCode}}
+                                        </div>
+                                        <div class="col-2 justify-content-end">
+                                            {{list.Principal | number:'.2-2'}}
+                                        </div>
+                                        <div class="col-2 justify-content-end">
+                                                {{list.NavPerUnit}}
+                                            </div>
+                                        <div class="col-2 justify-content-end">
+                                            {{list.Unit}}
+                                        </div>
+                                        <div class="col-2 justify-content-end">
+                                            {{list.NetAsset | number:'.2-2'}}
+                                        </div>
+                                        <div class="col-2 justify-content-end">
+                                            {{list.PL | number:'.2-2'}}
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--LTF-->
+                        <div class="tab-pane" id="tab_lrf" role="tabpanel">
+
+                            <div class="row p-0 m-0 display-5 text-center  col-lg-12 text-white background-purple-fund">
+                                    <div class="col-3"> รหัสกองทุน</div>
+                                    <div class="col-7"> ชื่อกองทุน</div> 
+                                    <div class="col-2"> ราคาชื้อต่อหน่วย</div>
+                                    <!-- <div class="col-2"> Suit Score</div> -->
+                            </div>
+                            <div id="ltf" >
+
+                                <div *ngFor="let list of fundListLTF;let index =index;
+                                    let isOdd=odd;
+                                    let isEven=even" [class.odd]="isOdd" [class.even]="isEven"  
+                                    class="row col-lg-12 item-fund  m-0" (click)='onClickSelectFund(list)'>
+
+                                        <div class="col-3 text-center">
+                                            {{list.FundCode}}
+                                        </div>
+                                        <div class="col-7">
+                                            {{list.FundNameTH}}
+                                        </div>
+                                        <div class="col-2">
+                                            {{list.NavPerUnit}}
+                                        </div> 
+                                        <!-- <div class="col-2"> 
+                                        </div>  -->
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--RMF-->
+                        <div class="tab-pane" id="tab_rmf" role="tabpanel">
+
+                            <div class="row p-0  m-0 display-5 text-center  col-lg-12  text-white background-purple-fund">
+                                    <div class="col-3"> รหัสกองทุน</div>
+                                    <div class="col-7"> ชื่อกองทุน</div> 
+                                    <div class="col-2"> ราคาชื้อต่อหน่วย</div>
+                                    <!-- <div class="col-2"> Suit Score</div> -->
+                            </div>
+                            <div id="rmf" >
+                                <div *ngFor="let list of fundListRMF;let index =index;
+                                    let isOdd=odd;
+                                    let isEven=even" [class.odd]="isOdd" [class.even]="isEven"  
+                                    [ngClass]="{'selected': list.selected}" class="row col-lg-12 item-fund m-0 " (click)='onClickSelectFund(list)'>
+    
+                                    <div class="col-3 text-center">
+                                        {{list.FundCode}}
+                                    </div>
+                                    <div class="col-7">
+                                        {{list.FundNameTH}}
+                                    </div>
+                                    <div class="col-2">
+                                        {{list.NavPerUnit}}
+                                    </div> 
+                                    <!-- <div class="col-2"> 
+                                    </div>  -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- MF -->
+                        <div class="tab-pane" id="tab_mf" role="tabpanel">
+
+                                <div class="row p-0  m-0 display-5 text-center  col-lg-12 text-white background-purple-fund">
+                                        <div class="col-3"> รหัสกองทุน</div>
+                                        <div class="col-7"> ชื่อกองทุน</div> 
+                                        <div class="col-2"> ราคาชื้อต่อหน่วย</div>
+                                        <!-- <div class="col-2"> Suit Score</div> -->
+                                </div>
+                                <div id="mf" >
+                                    <div *ngFor="let list of fundListMF;let index =index;
+                                        let isOdd=odd;
+                                        let isEven=even" [class.odd]="isOdd" [class.even]="isEven"  
+                                        [ngClass]="{'selected': list.selected}" class="row col-lg-12 item-fund m-0 " (click)='onClickSelectFund(list)'>
+        
+                                        <div class="col-3 text-center">
+                                            {{list.FundCode}}
+                                        </div>
+                                        <div class="col-7">
+                                            {{list.FundNameTH}}
+                                        </div>
+                                        <div class="col-2">
+                                            {{list.NavPerUnit}}
+                                        </div> 
+                                        <!-- <div class="col-2"> 
+                                        </div>  -->
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+
+              
+            </div>
+
+            <div *ngIf="templateType == type.portfolio" class="body">
+                <div style="height: 750px">
+                    <div class="title-fund row p-0  m-0 display-5 text-center  col-lg-12 mt-2 text-white background-purple-fund">
+                        <div class="col-2"> รหัสกองทุน</div>
+                        <div class="col-2 justify-content-end"> มูลค่าเงินลงทุน</div>
+                        <div class="col-2 justify-content-end"> มูลค่าหน่วยลงทุน</div>
+                        <div class="col-2 justify-content-end"> จำนวนหน่วย</div>
+                        <div class="col-2 justify-content-end"> มูลค่าทรัพย์สินสุทธิ</div>
+                        <div class="col-2 justify-content-end"> กำไร/ขาดทุน</div>
+                    </div>
+                    <div id="port" style="height: 750px !important">
+                        <div *ngIf="fundListPortfolio.length == 0" class=" text-center display-2">
+                            ไม่พบข้อมูล
+                        </div>
+                        <div *ngFor="let list of fundListPortfolio;let index =index;
+                                                let isOdd=odd;
+                                                let isEven=even" [class.odd]="isOdd" [class.even]="isEven"  
+                            class="row col-lg-12 item-fund m-0">
+
+                            <div class="col-2 text-center">
+                                    {{list.FundCode}}
+                                </div>
+                                <div class="col-2 justify-content-end">
+                                    {{list.Principal | number:'.2-2'}}
+                                </div>
+                                <div class="col-2 justify-content-end">
+                                    {{list.NavPerUnit}}
+                                </div>
+                                <div class="col-2 justify-content-end">
+                                    {{list.Unit}}
+                                </div>
+                                <div class="col-2 justify-content-end">
+                                    {{list.NetAsset | number:'.2-2'}}
+                                </div>
+                                <div class="col-2 justify-content-end">
+                                    {{list.PL | number:'.2-2'}}
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isViewOrderTransaction">
+            <div class="body">
+                <div style="height: 700px">
+                        <ul class="nav nav-tabs nav-fundList" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#tab_order" role="tab">ORDER</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tab_history" role="tab">HISTORY</a>
+                                </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_order" role="tabpanel">
+                                <div class="title-fund row p-0  m-0 display-5 text-center  col-lg-12 text-white background-purple">
+                                
+                                    <div class="col-2 "> วันที่ทำรายการ</div>
+                                    <div class="col-2 "> ประเภท</div>
+                                    <div class="col-2 "> Fund Code</div>
+                                    <div class="col-2 "> Unitholder</div>
+                                    <div class="col-2 "> จำนวนเงิน</div>
+                                    <div class="col-1 "> สถานะ</div>
+                                    <div class="col-1 "> </div>
+                                </div>
+                                <div id="port" style="height: 620px !important" *ngIf="portOrderStatusList">
+                                    <div *ngIf="portOrderStatusList == null " class=" text-center display-2">
+                                        ไม่พบข้อมูล
+                                    </div>
+                                    <div *ngFor="let list of portOrderStatusList;let index =index;
+                                                            let isOdd=odd;
+                                                            let isEven=even" [class.odd]="isOdd" [class.even]="isEven"
+                                        class="row col-lg-12 item-fund m-0">
+                                        <div class="col-2 ">
+                                            {{list.EffectiveDate}}
+                                        </div>
+                                        <div class="col-2 ">
+                                            {{parsTransType(list.Activity)}}
+                                        </div>
+                                        <div class="col-2 ">
+                                            {{list.FundCode}}
+                                        </div>
+                                        <div class="col-2 ">
+                                            {{list.Unitholder}}
+                                        </div> 
+                                        <div class="col-2 ">
+                                            {{list.Amount | number:'.2-2'}}
+                                        </div>
+                                        <div class="col-1">
+                                            {{list.Status}}
+                                        </div>
+                                        <div class="col-1">
+                                            <button *ngIf="validateAllowCancelOrder(list)" class="button-cencel" [disabled]="!validateAllowCancelOrder(list)" (click)="didClickCancelOrder(list)" >ยกเลิก</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab_history" role="tabpanel">
+                                <div class="title-fund row p-0  m-0 display-5 text-center  col-lg-12  text-white background-purple">
+                                
+                                    <div class="col-2 "> วันที่ทำรายการ</div>
+                                    <div class="col-2 "> ประเภท</div>
+                                    <div class="col-2 "> ยูนิต</div>
+                                    <div class="col-2 "> ราคาต่อหน่วย</div>
+                                    <div class="col-2 "> จำนวนเงิน</div>
+                                    <div class="col-2 "> สถานะ</div>
+                                </div>
+                                <div id="port" style="height: 620px !important" *ngIf="portTransactionList">
+                                    <div *ngIf="portTransactionList == null " class=" text-center display-2">
+                                        ไม่พบข้อมูล
+                                    </div>
+                                    <div *ngFor="let list of portTransactionList;let index =index;
+                                                            let isOdd=odd;
+                                                            let isEven=even" [class.odd]="isOdd" [class.even]="isEven" [ngClass]="{'selected': list.selected}"
+                                        class="row col-lg-12 item-fund m-0">
+            
+                                        <div class="col-2 ">
+                                            {{list.TransDate}}
+                                        </div>
+                                        <div class="col-2 ">
+                                            {{parsTransType(list.TransType)}}
+                                        </div>
+                                        <div class="col-2 ">
+                                            {{list.Unit}}
+                                        </div>
+                                        <div class="col-2 ">
+                                            {{list.NavPerUnit}}
+                                        </div>
+                                        <div class="col-2 ">
+                                            {{list.Amount | number:'.2-2'}}
+                                        </div>
+                                        <div class="col-2">
+                                            {{list.TransStatus}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+
+<div style="display: none" id="fund-fact-sheet-container" class="fund-fact-sheet-container">
+  
+        <div  class="text-center content">
+            <div class="pt-3 text-center">
+                Fund Fact Sheet
+            </div>
+            <pdf-viewer *ngIf="pdfFectSheetData" style="width: 796px" [render-text]="true" src="{{pdfFectSheetData}}" [zoom]="1.25" >
+            </pdf-viewer>
+        </div>
+        <div class="footer text-center">
+            <button class="button-purple" (click)="onClickSubmit()">
+                <h2> ตกลง </h2>
+            </button>
+            <button class="button-purple" (click)="onDismissFactSheetAndClearSelectData()">
+                    <h2> ปิด </h2>
+                </button>
+        </div>
+ 
+</div>
+

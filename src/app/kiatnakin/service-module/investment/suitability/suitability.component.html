@@ -1,0 +1,103 @@
+<div id="container" class="container">
+  <div id="suit_not_found_container" *ngIf="!suitFound">
+    <div class="text-center body">
+      <div>
+        <img class="icon-calendar" src="./assets/kiatnakin/image/investment/icon_calendar.png" />
+      </div>
+      <div class="context-2">
+        <div class="display-1">ไม่พบข้อมูลการประเมินความเหมาะสมในการลงทุนของท่าน&emsp;กรุณาติดต่อเจ้าหน้าที่</div>
+      </div>
+      <div class="footer text-center">
+        <button class="display button-purple" (click)="onClickBackToTransactiontype()">
+          ตกลง
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="suit_summary_container" *ngIf="suitFound && !suitExpired">
+    <!-- <img *ngIf="fromMenuFundManagement && isShowCloseButton" class="btn-close" src="./assets/kiatnakin/image/close.png"
+      (click)="onClickBack()" ignore="1" /> -->
+    <div class="text-center body">
+      <div class="display-1 text-bold text-italic">
+        ระดับการยอมรับความเสี่ยง
+      </div>
+      <div class="riskProfile text-bold text-purple mt-4" [innerHTML]="
+          'ระดับ ' +
+          currentCustomerSuitScore.riskProfile +
+          ' ' +
+          summarySuitScore.riskTitle
+        "></div>
+      <div class="display-2 text-bold mt-4">สัดส่วนการลงทุนที่เหมาะสมกับคุณ</div>
+      <div class="display-2 context-4 text-bold text-left row mt-5">
+        <div class="col-7 offset-1">
+          เงินฝากและตราสารหนี้ระยะสั้น
+        </div>
+        <div class="col-2 text-right text-purple">
+          {{ summarySuitScore.assetAllocation.bankDeposit }}
+        </div>
+        <div class="col-7 offset-1">
+          ตราสารภาครัฐที่มีอายุมากกว่า 1 ปี
+        </div>
+        <div class="col-2 text-right text-purple">
+          {{ summarySuitScore.assetAllocation.governmentInstrument }}
+        </div>
+        <div class="col-7 offset-1">
+          ตราสารทุน
+        </div>
+        <div class="col-2 text-right text-purple">
+          {{ summarySuitScore.assetAllocation.privateInstrument }}
+        </div>
+        <div class="col-7 offset-1">
+          ตราสารหนี้เอกชน
+        </div>
+        <div class="col-2 text-right text-purple">
+          {{ summarySuitScore.assetAllocation.equityInstrument }}
+        </div>
+        <div class="col-7 offset-1">
+          การลงทุนทางเลือก
+        </div>
+        <div class="col-2 text-right text-purple">
+          {{ summarySuitScore.assetAllocation.alternativeFund }}
+        </div>
+      </div>
+      <div class="footer text-center">
+        <button *ngIf="!fromMenuFundManagement" class=" button-purple display" (click)="onClickAccept()">
+          ตกลง
+        </button>
+        <button *ngIf="fromMenuFundManagement" class="btn-size-XL btn-do-suit-question-again button-purple display"
+          (click)="getSuitQuestion()">
+          ทำแบบประเมินอีกครั้ง
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="suit_expired_container" *ngIf="suitFound && suitExpired">
+    <div class="text-center bodyexpired">
+      <div>
+        <img class="icon-calendar" src="./assets/kiatnakin/image/investment/icon_calendar.png" />
+      </div>
+      <div class="context-2">
+        <div class="display-1 text-italic" style="margin-bottom: 10.5px !important">
+          ผลการประเมินความเหมาะสมในการลงทุนของท่านหมดอายุ
+        </div>
+        <div class="display-1 text-red text-italic" style="margin-bottom: 10.5px !important">
+          เมื่อ {{ currentCustomerSuitScore.expiryDate }}
+        </div>
+        <div class="display-1">
+          กรุณาทำแบบประเมินความเหมาะสมในการลงทุน (Suitability Test) <br>
+          เพื่อทบทวนระดับความเสี่ยงให้เหมาะสมกับการลงทุนของท่าน
+        </div>
+      </div>
+      <div class="footer text-center">
+        <button class="display button-purple" (click)="getSuitQuestion()">
+          ตกลง
+        </button>
+      </div>
+      <!-- <button class="button-purple" (click)="getSuitQuestion(); onClickAcceptTodoSuit()"><h2> ตกลง </h2></button> -->
+    </div>
+  </div>
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

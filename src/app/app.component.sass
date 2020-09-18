@@ -1,0 +1,332 @@
+@import "./src/styles-master"
+
+.modal-content
+  height: 95%
+  width: 100%
+
+.btnFunction
+  width: 200px
+  height: 50px
+  margin-left: 15px
+
+.border_top_page
+  border-style: solid
+  border-top-color: $white
+  border-left-color: $white
+  border-right-color: $white
+
+.body
+  .scroll
+    overflow: auto
+    top: 40px
+    left: 26px
+    right: 0px
+    position: absolute
+
+//.KK
+//  font-family: 'Quark-Bold'
+//  font-size: 30px
+//  letter-spacing: .5px
+//  color: #646464
+//  height: 100%
+//  h1, h2, h3, h4, h5, h6
+//    margin-top: 15px
+//    margin-bottom: 10px
+//  h1
+//    font-size: 40px
+//  h2
+//    font-size: 30px
+//  h3
+//    font-size: 20px
+//  h4
+//    font-size: 10px
+//  h5
+//    font-size: 10px
+//  h6
+//    font-size: 10px
+//  .header-line
+//    background-color: #646464
+//    color: #ffffff
+//    position: relative
+//    left: -50px
+//    top: 0px
+//    padding: 5px 0 5px 50px
+//    font-size: 40px
+//    height: 60px
+//  .text-title
+//    font-size: 30px
+//  .text-subtitle
+//    font-size: 25px
+//  .text-subtitle-light
+//    font-family: 'Quark-Light'
+//    font-size: 25px
+//  .display-0
+//    font-size: 70px
+//    font-weight: 300
+//  .display-1
+//    font-size: 50px
+//    font-weight: 300
+//  .display-2
+//    font-size: 45px
+//    font-weight: 300
+//  .display-3
+//    font-size: 40px
+//    font-weight: 300
+//  .display-4
+//    font-size: 35px
+//    font-weight: 300
+//  .display-5
+//    font-size: 30px
+//    font-weight: 300
+//  .display-6
+//    font-size: 25px
+//  .display-7
+//    font-size: 20px
+//  button
+//    outline: none
+//
+//  button[disabled=disabled], button:disabled
+//    background-color: grey
+//
+//  input[type=text], input[type=password]
+//    border: none
+//    margin-left: 1px
+//    border-bottom: 1px solid #635F98
+//    box-shadow: none
+//  .form-input
+//    padding-top: 5px
+//    .control-label
+//      font-family: "Cordia New"
+//    p
+//      margin-bottom: 15px
+//    .form-group
+//      font-family: "Cordia New"
+//      font-size: 30px
+//      margin-bottom: 20px
+//      padding: 0 15px
+//      .row
+//        padding: 5px 0
+//        .control-label
+//          padding-left: 15px
+//      &.border
+//        border: 2px solid #D8D8D8
+//        border-radius: 15px
+//        padding: 20px
+//      .row-option
+//        .row
+//          padding-top: 0
+//          padding-bottom: 0
+//      .row-checkbox
+//        padding-left: 30px !important
+//      .control-label
+//        text-align: left
+//        padding-top: 0
+//        margin-bottom: 5px
+//      .control-label.label-right
+//        text-align: right
+//      .control-label.label-center
+//        text-align: center
+//      .col
+//        padding-left: 0
+//        padding-right: 5px
+//      .col2
+//        padding: 0 5px
+//
+//      .col3
+//        padding: 0
+//      .form-control
+//        padding: 0
+//        font-size: inherit
+//      input[type=text], input[type=password]
+//        height: 35px
+//        border-radius: 0
+//        box-shadow: none
+//        background-color: transparent
+//      input[type=text]:focus, input[type=password]:focus
+//        border-bottom: 3px solid #00c7ff
+//        border-radius: 0
+//        box-shadow: none
+//      input[type="radio"]
+//        float: left
+//        -webkit-appearance: none
+//        border: none
+//        outline: none
+//        width: 20px
+//        height: 20px
+//        margin-right: 15px
+//        background: url(../assets/kiatnakin/image/radiobox.png) left center no-repeat
+//        background-size: 20px
+//        margin-top: 13px
+//
+//      input[type="radio"]:checked
+//        background: url(../assets/kiatnakin/image/radiobox.png) left center no-repeat
+//        background-size: 20px
+//      select
+//        height: 35px
+//        font-size: inherit
+//        margin-left: 1px
+//        border: none
+//        //border-bottom: 1px solid #635F98
+//        box-shadow: none
+//        transition: box-shadow 0.3s
+//        border-radius: 0
+//        padding: 0.5em 3.5em 0.5em 1em
+//        -webkit-appearance: none
+//        -moz-appearance: none
+//        //background-image: url("/assets/kk/pics/select-arrow.png")
+//        background-position: calc(100% - 5px) 10px
+//        background-repeat: no-repeat
+//
+//      select:focus
+//        outline: none
+//        border-bottom: 3px solid #00c7ff
+//        border-radius: 0
+//        box-shadow: none
+//      input:-webkit-autofill,
+//      input:-webkit-autofill:hover,
+//      input:-webkit-autofill:focus,
+//      input:-webkit-autofill:active
+//        transition: background-color 5000s ease-in-out 0s
+//      input::-webkit-input-placeholder, input::-ms-input-placeholder, input::-moz-placeholder, input::-moz-placeholder
+//        color: #eeeeee !important
+//
+//  .vertical-center
+//    display: flex
+//    vertical-align: middle
+//    align-items: center
+//
+//  .control-label.text-left
+//    text-align: left !important
+//  .check-info
+//    text-align: center
+//    margin-top: 100px
+//    img
+//      width: 110px
+//  .address
+//    .row
+//      padding: 0px !important
+//  .user_card
+//    position: relative
+//    .user_card_user
+//      position: absolute
+//      bottom: 110px
+//      left: 0
+//      width: 100%
+//    .user_card_pass
+//      position: absolute
+//      bottom: 50px
+//      left: 0
+//      width: 100%
+//    span
+//      width: 120px
+//      line-height: 30px
+//      height: 30px
+//      display: inline-block
+//      vertical-align: middle
+//      text-align: left
+//  .edc_pin
+//    width: auto
+//    margin: 0 auto
+//    .pin
+//      border: 3px solid #635F98
+//      background-color: #ffffff
+//      width: 68px
+//      height: 95px
+//      margin: 5px
+//      float: left
+//      font-size: 100px
+//      line-height: 150px
+//      vertical-align: middle
+//      font-family: "Quark-Bold"
+
+
+.bg_white
+  position: fixed
+  top: 0px
+  left: 242px
+  width: 1411px
+  height: 956px
+  //width: 1920px
+  //height: 1080px
+  background-color: white
+
+#container_form
+  width: 1170px
+  height: 668px
+  background-image: url("/assets/kiatnakin/image/bg_chq.png")
+  @extend .shadow
+  #header
+    height: 70px
+    width: 100%
+    color: white
+    padding: 0px !important
+
+#img-result
+  max-height: 500px
+  max-width: 700px
+
+.section-detail
+  top: 15px
+
+.input-micr
+  height: 50px
+  font-family: 'MICR E' !important
+
+.img-micrsysbol
+  height: 22px
+  width: 22px
+
+.micr_A
+  position: absolute
+  top: 18px
+  left: 570px
+
+.micr_C_1
+  position: absolute
+  top: 18px
+  left: 120px
+
+.micr_C_2
+  position: absolute
+  top: 18px
+  left: 290px
+
+.micr_C_3
+  position: absolute
+  top: 18px
+  left: 940px
+
+.micr_D
+  position: absolute
+  top: 18px
+  left: 460px
+
+.input_cheque_no
+  position: absolute
+  top: 10px
+  left: 145px
+  width: 142px
+
+.input_bank_code
+  position: absolute
+  top: 10px
+  left: 385px
+  width: 60px
+
+.input_branch_code
+  position: absolute
+  top: 10px
+  left: 490px
+  width: 72px
+
+.input_account_no
+  position: absolute
+  top: 10px
+  left: 665px
+  width: 500px
+
+.input_chequeType
+  position: absolute
+  top: 10px
+  left: 965px
+  width: 50px

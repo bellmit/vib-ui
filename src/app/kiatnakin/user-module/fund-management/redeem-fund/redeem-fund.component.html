@@ -1,0 +1,25 @@
+<div id="speech" *ngIf="checkFromFundList">
+  <p class="display-1 text-center text-white">
+    กรุณาเลือกรายการกองทุน
+  </p>
+</div>
+
+<div class="speech">
+  <div *ngIf="checkFromFundList">
+    <p class="display-3 text-white">&nbsp;&nbsp;&nbsp; กองทุนที่ต้องการขาย</p>
+  </div>
+  <div id="frameOut" class="frameOut">
+    <ul class="slideeOut">
+      <li *ngFor="let fundList of fundLists" class="mr-5">
+        <div class="animated fadeIn" (click)="selectFund(fundList)">
+          <div *ngIf="checkFromFundList" class="p-3 text-center redeem-fund-card">
+            <div class="fund-list-card">
+              <p class="m-0">{{fundList.fundNameTh}}</p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

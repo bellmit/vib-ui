@@ -1,0 +1,27 @@
+  
+    <div style="right: -330px;position: fixed;top: 300px;" class="card" (click)="onSelectedTransaction('switch_out')">
+         <div class="header  text-white background-purple display-4 pl-2">
+             สับเปลี่ยนกองทุน
+         </div>
+    </div>
+    <div style="right: -360px;position: fixed;top: 400px;"  class="card" (click)="onSelectedTransaction('redeem')">
+        <div class="header  text-white background-purple display-4 pl-2">
+            ขายกองทุน
+        </div>
+    </div>
+    <div style="right: -390px;position: fixed;top: 500px;"  class="card" (click)="onSelectedTransaction('purchase')">
+        <div class="header  text-white background-purple display-4 pl-2">
+            ซื้อกองทุน
+        </div>
+    </div> 
+
+
+<template-fund-list 
+    [fundList]="fundList"
+    [holderList]="holderList"
+    [titleInvestType]="titleInvest" 
+    [templateType]="'portfolio'"
+    (onSelectedHolder)="onSelectedUnitHolder($event)">
+</template-fund-list> 
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="redirectToMain()"/>

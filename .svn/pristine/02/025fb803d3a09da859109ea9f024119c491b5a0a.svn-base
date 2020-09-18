@@ -1,0 +1,16 @@
+<div class="container text-center mt-5">
+    <!-- <div class="row"> -->
+    <!-- <div class="col-lg-12 text-center" style="width: 800px;height: 850px;" > -->
+    <!-- <carousel [sources]="imageSources" [config]="config"></carousel> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <div class="row mt-5">
+        <div class="col-lg-12 text-center" style="margin-top: 40%">
+            <button (click)="onCheckTellerAuthentication()" class="button-blue" id="authorized_id"> เปิดใช้งาน VIB </button>
+            <br>
+            <label *ngIf="envName !== 'PROD'">MachineID:{{machineId}} KKB:{{branchCode}} ENV:{{envName}} (Version:{{appVersion}})</label>
+        </div>
+    </div>
+
+</div>
+<modal-dialog></modal-dialog>

@@ -1,0 +1,21 @@
+<div class="process">
+    <div style="min-height: 150px" class="text-center">
+        <div class="checkmark" [ngClass]="{'hide': state==stateInfo.unready|| state==stateInfo.ready}">
+            <svg  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" x="0px" y="0px"
+        viewBox="0, 0, 100, 100" >
+                    <g>
+                        <circle id="process" fill="none" stroke="#7DB0D5" stroke-width="4" stroke-miterlimit="10" cx="50" cy="50" r="44"/>
+                        <line id="error_line"  fill="none" x1="49.5" y1="18" x2="49.5" y2="63" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10"/>
+                        <circle id="error_dot" fill="none" cx="49.5" cy="77.1" r="5.6"/>
+                        <polyline id="sucess_check" fill="none" stroke="#7DB0D5" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" points="70,35 45,65 30,52  "/>
+                    </g>
+                 </svg>
+        </div>
+        <div *ngIf="customIcon!=''" [innerHTML]="customIcon" style="width: 100%"></div>
+        <div [class]="textInfoClass" [innerHTML]="textInfo" id="textInfo"></div>
+    </div>
+
+</div>
+
+
+

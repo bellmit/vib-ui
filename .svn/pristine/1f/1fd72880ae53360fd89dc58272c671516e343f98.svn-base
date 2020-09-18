@@ -1,0 +1,46 @@
+<div id="container" class="container ">
+    <div class="display-2 text-white" style="position: absolute;left: 45px;top: 25px;z-index: 1">
+        {{investType_txt}}
+    </div>
+    <div class="header header-table row mt-10 display-4 text-center txt-center text-white">
+        <div class="col-lg-3">ประเภทกองทุน</div>
+        <div class="col-lg-4">ประเภทกลุ่ม</div>
+        <div class="col-lg-2">รหัส</div>
+        <div class="col-lg-2">ราคาหน่วย</div>
+        <div class="col-lg-1"></div>
+    </div>
+    <div class="body row mt-3">
+        <div class="scroll">
+            <div *ngFor="let list of investList;let index=index; let odd1=odd; let even=even;"
+                 class="row col-lg-12 transaction mt-2"
+                 [ngClass]="{ odd1: odd, even: even,'odd': index%2 === 0, 'select': dataService.transaction.selectedIndexPrincipal == index}">
+                <div class="col-lg-3 text-center display-5 text-dark-black-gray">{{list.type}}</div>
+                <div class="col-lg-4 text-left display-5 text-dark-black-gray">{{list.group_type}}</div>
+                <div class="col-lg-2 text-center display-5 text-dark-black-gray">{{list.code}}</div>
+                <div class="col-lg-2 text-right display-5 text-dark-black-gray">{{list.price | number:'.2-2'}}</div>
+                <div class="col-lg-1 text-right">
+                    <input #checkboxPrincipal
+                           type="checkbox"
+                           name="invest"
+                           id="checkbox_{{index}}"
+                           value="{{ index }}"
+                           [checked]="dataService.transaction.selectedIndexPrincipal == index"
+                           (change)="checkboxPrincipal.checked ? dataService.transaction.selectedIndexPrincipal = checkboxPrincipal.value : dataService.transaction.selectedIndexPrincipal = null"
+                           class="checkbox-principal">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center" style="margin-top: 77%">
+        <button class="button-purple text-white" style="width: 370px;height: 80px"
+                [disabled]="dataService.transaction.selectedIndexPrincipal == null"
+                type="submit"
+                id="select-principal"
+                (click)="onSubmit()">
+            <h2>{{ 'accept' | translate }}</h2>
+        </button>
+    </div>
+</div>
+<!-- <img src="/assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="buttonBack" (click)="onClickBack()"/> -->
+

@@ -1,0 +1,33 @@
+<div class="row col-lg-12">
+    <div class="col-lg-3">
+        <img src="./assets/kiatnakin/image/login/icon_otp_topic.png">
+    </div>
+    <div class="col-lg-9">
+        <label class="display-2 text-bold">OTP</label> <br>
+        <label class="display-5">กรุณากรอกรหัสผ่านแบบใช้ครั้งเดียว (OTP)</label>
+    </div>
+    <div class="row col-lg-12 mt-5  text-center">
+        <div class="display-3 display-12 col-lg-12">
+            <label> {{'title_reference_otp' | translate }} : </label>
+            <label class="text-blue">{{userLogin.referenceNo}}</label>
+        </div>
+        <div class="display-3 col-lg-12 mt-3">
+            <input id="pin"
+                   type="text"
+                   name="pin"
+                   keyboard="number"
+                   style="margin: 0 auto; width: 50%"
+                   class="text-center"
+                   maxlength="6"
+                   autocomplete="off"
+                   (ngModelChange)="onInputOTP($event)"
+                   [(ngModel)]="userLogin.otp">
+        </div>
+        <div class="col-lg-12 text-center mt-4">
+            <div (click)="onClickRetry()">
+                <img id="img_retry" src="./assets/kiatnakin/image/icon_refresh.png" class="mr-3">
+                <label class="text-blue"> {{ 'retry_request_otp' | translate}} </label>
+            </div>
+        </div>
+    </div>
+</div>

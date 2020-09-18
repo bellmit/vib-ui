@@ -1,0 +1,22 @@
+<div id="speech">
+  <p class="display-0 text-center text-white">
+    {{ 'select_mutualfund_account' | translate }}
+  </p>
+</div>
+
+<div id="frame" class="frame">
+  <ul class="slidee">
+    <li *ngFor="let mutualfundAccount of mutualfundAccountList" class="mr-5">
+      <div id="mutualfund-account-{{ mutualfundAccount.unitHolderId }}" class="mutualfund-account-cover animated fadeIn"
+        (click)="onSelectedMutualfundAccount(mutualfundAccount)">
+        <div class="p-3 text-center mutualfund-account-card-container">
+          <div class="mutualfund-account-card">
+            <p class="m-0">{{ mutualfundAccount.unitHolderId }}</p>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

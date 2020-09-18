@@ -1,0 +1,153 @@
+<div class="app-back" (click)="onClickMainMenu()">
+  <p class="text-lll">กลับหน้าหลัก</p>
+</div>
+
+<div id="speech">
+  <p class="display-0 text-center text-white">
+    {{ 'wait_for_an_action' | translate }}
+  </p>
+</div>
+
+<div id="container" class="container CurrentTop">
+  <div class="row mutualfund-account-container">
+    <div id="mutualfund-account-detail" class="mutualfund-account-detail">
+      <div class="mutualfund-account-detail-item">
+        <div class="mutualfund-account-detail-section p-4">
+          <div class="row m-0 pt-2 pb-2 text-gray holder-detail">
+            <div class="row m-0">
+              <div class="col-7 text-left font-kanit">
+                <span>เลขที่ผู้ถือหน่วย:</span>
+                <span class="text-dark-purple">
+                  {{ unitHolderId }}
+                </span>
+              </div>
+              <div class="col-5 text-right text-ellipsis font-kanit">
+                <span>ชื่อผู้ถือหน่วย:</span>
+                <span class="text-dark-purple" data-toggle="tooltip" data-placement="bottom"
+                  title="{{ unitHolderName }}"> {{ unitHolderName }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row m-0">
+              <div class="col-7 text-left font-kanit">
+                <span>Unitholder No:</span>
+                <span class="text-dark-purple">
+                  {{ unitHolderId }}
+                </span>
+              </div>
+              <div class="col-5 text-right text-ellipsis font-kanit">
+                <span>Unitholder Name:</span>
+                <span class="text-dark-purple" data-toggle="tooltip" data-placement="bottom"
+                  title="{{ unitHolderName }}"> {{ unitHolderName }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="assets-detail text-gray row m-0 pt-3 pb-2 font-kanit">
+            <div class="col-7 text-left">
+              <div class="text-left">
+                <span>มูลค่าทรัพย์สินสุทธิ (บาท)</span>
+              </div>
+              <div class="text-left">
+                <span class="text-dark-purple">
+                  {{ netAssetValueStr }}
+                </span>
+              </div>
+              <div class="text-left">
+                <span class="text-dark-purple size-font">ท่านสามารถทำรายการยกเลิกได้ภายในเวลา 15:28 น.</span>
+              </div>
+            </div>
+            <div class="col-5 text-right">
+              <div class="text-right">
+                <span>กำไรขาดทุนสุทธิ (บาท)</span>
+              </div>
+              <div class="text-right" [ngClass]="{
+                  'text-success': netProfit >= 0,
+                  'text-danger': netProfit < 0
+                }">
+                <span *ngIf="netProfit > 0">+</span><span>{{ netProfitStr }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- table header go here -->
+          <!-- <br> -->
+          <div class="fund-table col-12 pt-3 pb-4 font-kanit">
+            <div class="fund-table-headers row m-0 text-center col-12 pt-3 pb-4">
+              <div class="border-right-white col-6">
+                รายการกองทุน
+              </div>
+              <div class="border-right-white col-4">
+                จำนวนเงิน/จำนวนหน่วย
+              </div>
+              <div class="col-2">
+                ยกเลิก
+              </div>
+            </div>
+
+            <ul *ngIf="transactionHistoryList && checkBTN" class="fund-table-list p-0 text-white">
+              <li *ngFor="let fund of transactionHistoryList" class="row m-0">
+                <div class="border-right-white col-6 pb-4">
+                  <div class="fund-detail-container">
+                    <div class="text-left">{{ fund.fundCode }}</div>
+                    <div class="text-left">{{ fund.transType }}</div>
+                  </div>
+                </div>
+                <div class="border-right-white col-4 pb-4">
+                  <div class="fund-amount-container">
+                    <div *ngIf="fund.amount > 0" class="text-right">
+                      {{ fund.amount | number:'.2-2'}}  บาท
+                    </div>
+                    <div *ngIf="fund.unit > 0" class="text-right">
+                      {{ fund.unit | number:'.4-4'}}  หน่วย
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 pb-4" [ngClass]="{
+                  'visible': fund.channelName === 'VIB',
+                  'invisible': fund.channelName !== 'VIB'
+                  }">
+                  <div class="checkbox-container">
+                    <label class="checkbox">
+                      <input id="fund_{{ fund.mutualFundRef }}" type="radio" name="radio" value='{ 
+                          "referenceNo": "{{ fund.referenceNo }}", 
+                          "mutualFundRef": "{{ fund.mutualFundRef }}", 
+                          "transType": "{{ fund.transType }}", 
+                          "effectiveDate": "{{ fund.effectiveDate }}", 
+                          "amount": "{{ fund.amount }}", 
+                          "unit": "{{ fund.unit }}", 
+                          "fundCode": "{{ fund.fundCode }}",
+                          "toFundCode": "{{ fund.toFundCode }}",
+                          "accountNo": "{{ fund.accountNo }}"
+                        }' />
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <ul *ngIf="!checkBTN" class="fund-table-list">
+              <li class="row m-0">
+                <div class="col-12 text-center">
+                  <div class="fund-detail-container">
+                    <span class="text-center text-white" colspan="12">{{ transactionHistoryList }}</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div *ngIf="checkBTN" class="text-center">
+              <img src="./assets/kiatnakin/image/investment/confirm_bt.png" (click)="onClickSubmit()" />
+            </div>
+          </div>
+          <!-- submit btn go here -->
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

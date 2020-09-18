@@ -1,0 +1,62 @@
+@import "./src/styles-master"
+
+$height-header: 59px
+$content-header-color: #059DA6
+$content-footer-border-color: #332A87
+
+.transaction
+  height: 50px
+
+.inquiry-paper
+  background-image: url('/assets/kiatnakin/image/enquiry_paper.png')
+  width: 1189px !important
+  height: 955px !important
+
+.header
+  width: 1171px
+  margin-left: 4px
+  overflow: hidden
+  height: $height-header
+  background-color: $light-blue
+  color: white
+  display: flex
+  align-items: center
+
+.body
+  top: 0px
+  bottom: 110px
+  left: 0px
+  right: 0px
+  overflow: hidden
+  border-radius: 0px
+  .scroll
+    overflow: auto
+    top: 43%
+    bottom: 50px
+    left: 6px
+    right: 0px
+    position: absolute
+
+.container
+  justify-content: center
+  align-items: center
+  margin-top: 7%
+
+.content-border
+  border-radius: 15px
+  border: 3px solid $white-gray !important
+  background-color: $white-gray !important
+  padding: 0
+  margin: 20px 0px 10px 45px
+
+.txt-service
+  font-weight: bold
+  position: absolute
+  right: 51px
+  top: 61px
+
+.kk-logo
+  height: 99px !important
+  width: 270px !important
+  margin-top: 20px
+  margin-left: 40px

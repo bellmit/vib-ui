@@ -1,0 +1,29 @@
+<div class="container page1200">
+    <div class="row  text-center">
+        <div class="col-lg-12 mt-5">
+            <div>
+                <img src="https://www.wpclipart.com/signs_symbol/business/barcodes/barcode_code39.png">
+            </div>
+            <div style="margin-top: 3%" class="col-lg-12">
+                <h2>กรุณากรอกตัวเลขด้านล่างบาร์โค้ดแทน</h2>
+                <div class="col-lg-4 offset-4" style="margin-top: 5%">
+                    <form class="form-horizontal form-input" #authen="ngForm" autocomplete="off">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="barcode">
+                        </div>
+                        <div class="space-bottom-10">&nbsp;</div>
+                        <div class="col-lg-12 mt-lg-5" style="text-align: center">
+                            <button class="btn-lg" id="button_barcode" style="width: 286px" (click)="onClickSubmit()">
+                                send data
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="space-bottom-10">&nbsp;</div>
+        </div>
+    </div>
+</div>
+
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()"/>

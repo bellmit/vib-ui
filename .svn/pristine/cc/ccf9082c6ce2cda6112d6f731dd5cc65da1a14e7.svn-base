@@ -1,0 +1,10 @@
+.form-group input[type=text], .form-group input[type=password]
+  height: 55px
+  text-align: center
+  border: solid #979797 1px
+  -webkit-border-radius: 4px!important
+  -moz-border-radius: 4px!important
+  border-radius: 4px!important
+  box-shadow: none
+  button
+    font-size: 40px

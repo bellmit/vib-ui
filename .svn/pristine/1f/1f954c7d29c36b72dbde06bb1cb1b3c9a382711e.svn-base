@@ -1,0 +1,98 @@
+@import "./src/styles-master"
+
+#speech
+  margin-top: 5%
+
+.icon-select
+  position: absolute
+  width: 70px
+  height: 70px
+  background-color: white
+
+.button-submit-select-account
+  position: absolute
+  bottom: 50px
+
+.book-bank
+  width: 650px
+  .book-cover
+    position: relative
+    height: 408px
+
+.bubble-top
+  margin: 60px auto
+  border-radius: 29px
+  background-color: rgba(74, 74, 76, 0.8)
+  max-width: 1200px
+  height: 148px
+  text-align: center
+  left: calc(50% - 300px)
+  padding: 20px 50px
+  line-height: 110px
+  vertical-align: middle
+
+.speech
+  margin-top: 5%
+
+.frame
+  width: 100%
+  height: 750px
+  padding: 0 10px 0 10px
+  left: 0
+  position: fixed
+
+
+.frame
+  margin-top: 0%
+  .slidee
+    margin: 0
+    padding: 0
+    height: 100%
+    list-style: none
+    li
+      float: left
+      margin: 0px 5px 0 0
+      padding: 0
+      width: 650px
+      //height: 100%
+      transform: translateY(30%)
+
+.lifadein
+  animation: fadein .5s
+  -moz-animation: fadein .5s
+  /* Firefox
+  -webkit-animation: fadein .5s
+  /* Safari and Chrome
+  -o-animation: fadein .5s
+/* Opera
+
+@keyframes fadein
+  from
+    opacity: 0
+
+  to
+    opacity: 1
+
+@-moz-keyframes fadein
+  /* Firefox
+  from
+    opacity: 0
+
+  to
+    opacity: 1
+
+@-webkit-keyframes fadein
+  /* Safari and Chrome
+  from
+    opacity: 0
+
+  to
+    opacity: 1
+
+@-o-keyframes fadein
+  /* Opera
+  from
+    opacity: 0
+
+  to
+    opacity: 1

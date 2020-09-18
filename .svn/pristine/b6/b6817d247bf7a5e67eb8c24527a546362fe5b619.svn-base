@@ -1,0 +1,110 @@
+import {Component, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {DataService} from "../../../_service/data.service";
+import {Utils} from "../../../../share/utils";
+import {InvestmentService} from "../../../_service/api/investment.service"
+import {Modal} from "../../../_share/modal-dialog/modal-dialog.component";
+import { UserService } from 'app/kiatnakin/_service/user.service';
+import * as moment from 'moment';
+import { isNullOrUndefined } from 'util';
+@Component({
+    selector: 'term-mutualfund',
+    templateUrl: './term-mutualfund.component.html',
+    styleUrls: ['./term-mutualfund.component.sass']
+})
+
+export class TermMutualfundComponent implements OnInit {
+
+
+    constructor(private router: Router,
+                private dataService: DataService,
+                private userService: UserService,
+                private investmentService: InvestmentService, ) {
+
+    }
+
+    ngOnInit() {
+        Utils.animate("#container", "slideInUp");
+
+    }
+
+    public onClickBack() {
+
+        Utils.animate("#container", "slideOutDown")
+            .then(() => {
+                this.router.navigate(["kk"]);
+            });
+
+    }
+
+    onClickAcceptTerm() {
+        Modal.showProgress()
+        this.investmentService.getGUID()
+            .flatMap( data => {
+                Modal.showProgress()
+                return this.investmentService.getSuitScore()
+            })
+            .subscribe(
+                response => {
+                    const suitScore = this.userService.getUser().suitScore
+
+                    if (this.checkIsSuitExpired(suitScore)) {
+                        this.onGotoSuitability()
+                    }
+                    else {
+                        this.onGotoInvestmentPage()
+                    }
+                }
+            )
+    }
+
+    checkIsSuitExpired(suit) {
+        if (isNullOrUndefined(suit)) {
+            return true
+        }
+
+        const suiteExpireDate =  moment(suit.EXPIRY_DATE)
+        const today = moment()
+        // console.log("suiteExpireDate",suiteExpireDate)
+        // console.log("today",today)
+
+        // console.log("diff",today.diff(suiteExpireDate, 'days'))
+        // console.log("isExpired",today.diff(suiteExpireDate, 'days') > 0)
+        // return true // isExpired
+
+        return today.diff(suiteExpireDate, 'days') > 0
+
+    }
+
+    onGotoInvestmentPage() {
+        Utils.animate("#container", "slideOutDown")
+                        .then(() => {
+                            this.dataService.isAcceptedTermMutualFund = true;
+                            this.router.navigate(["kk", "investment"]);
+                        });
+    }
+
+    onGotoSuitability() {
+        Modal.showProgress()
+        this.investmentService
+            .getSuitQuestion()
+            .subscribe(
+                res => {
+                    this.dataService.suitQuestion = res.question
+                    Utils.animate("#container", "slideOutDown")
+                    .then(() => {
+                        this.dataService.isAcceptedTermMutualFund = true;
+                        this.router.navigate(["kk", "suitability"]);
+                    });
+                },
+                error => {
+                    Modal.showAlert(error.responseStatus.responseMessage)
+
+                }
+            )
+
+
+    }
+
+
+}

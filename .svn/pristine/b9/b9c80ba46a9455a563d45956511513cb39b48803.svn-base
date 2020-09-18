@@ -1,0 +1,13 @@
+<!--<div id="bluesapphire_selector"></div>-->
+<dynamic-html id="bluesapphire_selector" [content]="html"></dynamic-html>
+
+
+<!-- <img src="/assets/kiatnakin/image/back_arrow.png"
+     class="app-back-bottom" id="back" (click)="onClickBack()" /> -->
+
+<!-- <dp-date-picker class="text-blue offset-1"
+            [(ngModel)]="currentDate"
+            required
+            [theme]="'dp-material'"
+            [config]="configDatePicker">
+</dp-date-picker> -->

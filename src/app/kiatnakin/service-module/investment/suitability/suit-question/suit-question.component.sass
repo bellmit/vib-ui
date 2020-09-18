@@ -1,0 +1,90 @@
+@import "./src/styles-master"
+
+@font-face
+  font-family: 'Quark-Bold'
+  src: url('/assets/fonts/Quark/Quark-Bold.eot') format('eot')
+  src: url('/assets/fonts/Quark/Quark-Bold.woff2') format('woff2')
+  src: url('/assets/fonts/Quark/Quark-Bold.woff') format('woff')
+  src: url('/assets/fonts/Quark/Quark-Bold.ttf') format('truetype')
+  src: url('/assets//fonts/Quark/Quark-Bold.svg#Quark-Bold') format('svg')
+  src: url('/assets/fonts/Quark/Quark-Bold.eot?#iefix') format('embedded-opentype')
+  font-weight: normal
+  font-style: normal
+
+.btn-close
+  max-width: 100%
+  z-index: 900
+  position: absolute
+  top: -40px
+  left: 1360px
+
+.book-logo
+  margin: 0
+  position: absolute
+  top: 50%
+  left: 50%
+  -ms-transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%)
+
+.cover-page
+  background-color: #BCBAD9 !important
+
+.suit-question
+  font-size: 0.95em
+  font-family: 'Tahoma'
+  
+.ribbon_purple_left
+  position: relative
+  // position: absolute
+  // width: 450px
+  // height: 52px
+  height: 50px
+  margin-top: 5px
+  z-index: 1
+  background-color: $purple
+
+// .ribbon_purple_left::after
+//   content: ''
+//   position: absolute
+//   z-index: 2
+//   top: 13px
+//   right: -39px 
+//   border-left: 26px solid $purple
+//   border-right: 26px solid $purple
+//   border-bottom: 26px solid transparent
+//   display: inline-block
+//   transform: rotate(-90deg)
+
+input[type=radio], input[type=checkbox]
+  margin: 0 !important
+  margin-right: 15px !important
+  width: 30px !important
+  height: 30px !important
+  background: unset !important
+  border-radius: 50% !important
+  border: rgb(89, 79, 115) solid 2px !important
+
+input[type=radio]:checked, input[type=checkbox]:checked
+  background: rgb(89, 79, 115) url("/assets/kiatnakin/image/radiobox_checked.png") 15% 85% no-repeat !important
+
+input.input
+  display: inline !important
+
+#label
+  display: inline !important
+
+label
+  margin-bottom: 0 !important
+
+.question
+  margin-bottom: 5px !important
+
+.flex
+  display: flex
+  flex-wrap: wrap
+
+.btn-submit
+  position: absolute
+  bottom: 10px
+  left: 50%
+  transform: translate(-50%, 0)

@@ -1,0 +1,205 @@
+<div class="col-lg-12">
+    <div id="investment" class="container vertical-center display-5">
+
+        <select-bank-account *ngIf="isSelectAccount && dataService.transaction.currentStatus !== status.complete" :ignoreAccountNO="{{ignoreAccountNO}}"
+            :isChildView=true :title="{{titleSelectBankAccount}}" [isShowInterBankMenu]="isShowInterBankMenu" [minimumAmount]="isSelectFrom ? amount : 0"
+            (selectedAccount)="onSelectedAccount($event)" false>
+        </select-bank-account>
+
+        <div id="container_form_investment" *ngIf="!isSelectAccount">
+
+            <img src="./assets/kiatnakin/image/close.png" class="button-close" (click)="onClickBack()" id="buttonClose">
+
+            <div id="header" class="pt-2 pl-3 bold">
+                <div class="row">
+                    <div id="header-logo" class="col-2 vertical-center background-white">
+                        <img src="./assets/kiatnakin/image/icon_logo_header.png">
+                    </div>
+                    <div id="header-desc" class="col p-0">
+                        <h2 class="float-right mr-5 vertical-center h-100 text-white">
+                            {{headerDesc}}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+            <div id="body" *ngIf="!progressIsShow">
+                <div id="div-input-data" *ngIf="dataService.transaction.currentStatus == status.inputData" class="col-12 section-top">
+                    <div class="row form-in">
+
+                        <div class="col-12 row">
+                            <div class="col-5">
+                                <label class="text-black display-4"> {{ txtFrom | translate }}
+                                </label>
+                            </div>
+                            <div class="col-5 offset-2 ">
+                                <label class="text-black display-4"> {{ txtTo | translate }}</label>
+                            </div>
+                        </div>
+
+                        <div id="div-select-account-from" class="BookBank_shadow BookBank-right col-5 row background-purple align-items-center">
+                            <div class="col-4 align-items-center">
+                                <img class="logo" src="./assets/kiatnakin/image/investment/icon_invest_default2.png" />
+                            </div>
+                            <div class="col-8 ">
+                                <div *ngIf="dataService.transaction.selectedFund " class="display-5 text-white">
+                                    <div>{{dataService.transaction.selectedFund.FundCode}}</div>
+                                    <div>{{dataService.transaction.selectedHolder.Unitholder}}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="arrow_img col-2 row align-items-center">
+                            <img src="./assets/kiatnakin/image/investment/arrow_purple.png">
+                        </div>
+
+                        <div id="div-select-account-from" class="BookBank_shadow BookBank-right col-5 row background-purple align-items-center">
+                                <div class="col-4 align-items-center">
+                                    <img class="logo" src="./assets/kiatnakin/image/investment/icon_invest_default2.png" />
+                                </div>
+                                <div class="col-8 ">
+                                    <div *ngIf="dataService.transaction.selectedFundSwitchIn" class="display-5 text-white">
+                                        <div>{{dataService.transaction.selectedFundSwitchIn.FundCode }}</div>
+                                        <div>{{dataService.transaction.selectedHolderSwitchIn.Unitholder}}</div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="col col-lg-12" style="height: 120px;margin-top: 4%">
+                        <div class="form-input" [ngSwitch]="dataService.transaction.transactionType">
+                            <div class="row form-group col-lg-12 pl-4">
+                                <div class="control-label display-4 col-lg-2  text-black float-left pl-0" style=" transform: translateY(80%); position: absolute">
+                                    {{ 'amount_unit' | translate}}
+                                </div>
+                                <div class="col mb-3">
+                                    <input id="input-amount" type="text" class="form-control text-money text-black" keyboard="currency" [(ngModel)]="dataService.transaction.selectedHolder.AvailableUnit"
+                                        maxlength="10" required placeholder="0.00" data-max-decimal="2" #text_amount="ngModel"
+                                        readonly>
+                                </div>
+                                <div class="control-label display-4 col-lg-1  text-black"
+                                style="text-align: right; transform: translateY(70%); position: absolute; right: 0px">
+                                    <label>{{'unit'|translate}}</label>
+                                </div>
+                                <div class="mt-2 col-12"></div>
+
+                                <div class="col-12 text-center mt-2" *ngIf="dataService.transaction.to.accountType !== paymentType.Cash">
+
+                                    <button id="button-confirm-transfer-via-cash" class="btn-size-XL button-purple col-lg-4" [disabled]="!isInputAmount(text_amount.value) "
+                                        (click)="onClickSubmit(paymentType.Cash)">
+                                        <h2>{{'transaction'|translate}}</h2>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="div-confirm-data" *ngIf="dataService.transaction.currentStatus == status.confirmation" class="detail col-lg-12 section-top">
+
+                    <div class="row form-in">
+                        <div class="col-12 row">
+                            <div class="col-5">
+                                <label class="text-black display-4"> {{ txtFrom | translate }}</label>
+                            </div>
+                            <div class="col-5 offset-2 ">
+                                <label class="text-black display-4"> {{ txtTo | translate }}</label>
+                            </div>
+                        </div>
+                        <!--From-->
+
+                        <div   class="BookBank_shadow BookBank-right col-5 row background-purple align-items-center">
+                                <div class="col-4 align-items-center">
+                                    <img class="logo" src="./assets/kiatnakin/image/investment/icon_invest_default2.png" />
+                                </div>
+                                <div class="col-8 ">
+                                    <div *ngIf="dataService.transaction.selectedFund" class="display-5 text-white">
+                                        <div>{{dataService.transaction.selectedFund.FundCode}}</div>
+                                        <div>{{dataService.transaction.selectedHolder.Unitholder}}</div>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="arrow_img col-2 row align-items-center">
+                                <img src="./assets/kiatnakin/image/investment/arrow_purple.png">
+                            </div>
+    
+                            <div   class="BookBank_shadow BookBank-right col-5 row background-purple align-items-center">
+                                    <div class="col-4 align-items-center">
+                                        <img class="logo" src="./assets/kiatnakin/image/investment/icon_invest_default2.png" />
+                                    </div>
+                                    <div class="col-8 ">
+                                        <div *ngIf="dataService.transaction.selectedFundSwitchIn" class="display-5 text-white">
+                                            <div>{{dataService.transaction.selectedFundSwitchIn.FundCode }}</div>
+                                            <div>{{dataService.transaction.selectedHolderSwitchIn.Unitholder}}</div>
+                                        </div>
+                                    </div>
+                            </div>
+                    </div>
+
+                    <div class="row content-border col-lg-11">
+                        <div class="col-lg-12 form-input text-center" style="text-align: center;padding: 0">
+                            <div class="content-detail">
+                                <div class="row">
+                                    <span class="text-left col-lg-2 ">{{'amount_unit'|translate}}</span>
+                                    <div class="col-lg text-right text-purple">
+                                        <b class="display-3" [id]="'amount'">
+                                            {{ dataService.transaction.selectedHolder.AvailableUnit | number:'.1-9'}}</b>
+                                    </div>
+                                    <span class="text-left col-md-1">{{'unit'|translate}}</span>
+                                </div> 
+                                <div class="row">
+                                    <span class="text-left col-lg-2 ">วันที่ทำรายการ</span>
+                                    <div class="col-lg text-right text-purple">
+                                        <b *ngIf="dataService.transaction.insertOrderSwitch" class="display-3" [id]="'amount'">
+                                            {{ dataService.transaction.insertOrderSwitch.OrderDate }}
+                                        </b>
+                                    </div>
+                                </div> 
+                            </div>
+
+                            <div class="content-total mt-2">
+                                <div class="row mb-3">
+                                    <span class="text-left col-md-2 text-sum"> {{ 'amount_unit'|translate }}</span>
+                                    <div class="col-md text-right totalAmount">
+                                        <b [id]="'total_amount'">
+                                            {{ dataService.transaction.selectedHolder.AvailableUnit | number:'.1-9'}}</b>
+                                    </div> 
+                                    <span class="text-left col-md-1 text-sum"> {{'unit'|translate}}</span>
+                                </div> 
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--Btn-->
+                    <div class="col-lg-12 text-center">
+                        <button id="button-confirm-transfer" class="btn-size-XL button-purple" (click)="onMoveStep(paymentType.FundTransfer)">
+                            <h2>{{'transaction'|translate}}</h2>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="div-transaction-complete" *ngIf="dataService.transaction.currentStatus == status.complete" class=" text-center">
+                        <div class="pt-5 pb-5"></div>
+                        <div class="col-lg-12 text-bold text-italic pt-5 display-1">
+                            ทำรายการสำเร็จ
+                        </div>
+                        <div class="col-lg-12 text-italic p-3 display-3">
+                            กรุณาตรวจสอบรายการทางอีเมล์ 
+                        </div>
+                        <div class="col-lg-12 text-bold text-italic  p-3 display-3">
+                            ท่านต้องการทำรายการอื่นต่อหรือไม่
+                        </div>
+                        <div class="col-lg-12 text-bold text-italic p-3">
+                            <button class="btn-size-XL button-white botder-purple text-purple" (click)="userService.logout()"> ไม่ต้องการ</button>
+                            <button class="btn-size-XL button-purple" (click)="redirectToMain()"> ต้องการ</button>
+                        </div>
+                </div>
+            </div>
+            <progress-dialog #progress [progressId]="'investment'" (onClickEmitter)="onClickBack()" (isShowEmitter)="progressIsShow = $event">
+            </progress-dialog>
+        </div>
+    </div>
+</div>
+ 
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="buttonBack" (click)="onClickBack()" />

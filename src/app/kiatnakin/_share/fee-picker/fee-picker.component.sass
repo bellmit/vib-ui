@@ -1,0 +1,59 @@
+@import "./src/styles-master"
+
+.fee-picker-content
+  width: 1000px
+  height: 700px
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  margin: 0 auto
+  background: url('/assets/kiatnakin/image/background_fee_picker.png') no-repeat
+  z-index: 2
+  padding: 80px 100px 10px 100px
+
+.fee_picker
+  background: url('/assets/kiatnakin/image/icon_fee_picker.png') no-repeat
+  width: 105px
+  height: 40px
+
+.icon
+  padding-right: 30px
+
+.fee_row
+  cursor: pointer
+  color: black
+  height: 120px
+  background: transparent
+  *
+    margin: auto
+
+.fee_row.active
+  color: $light-blue
+  background: #E7E7ED
+
+.scroll
+  overflow-y: auto
+  top: 170px
+  bottom: 30px
+  left: 40px
+  right: 15px
+  position: absolute
+
+.bg
+  width: 100%
+  height: 100%
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  margin: 0 auto
+  z-index: 1
+  background: rgba(0, 0, 0, 0.36)
+
+.margin10 
+  margin-left : 14% !important
+
+.display_show
+  @extend .display-2
+  font-size: 42px !important

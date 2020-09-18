@@ -1,0 +1,92 @@
+
+<template-fund-list 
+    #templateFundList
+    [fundList]="fundList"
+    [holderList]="holderList"
+    [myPortList]="myPortList"
+    [titleInvestType]="titleInvest" 
+    [templateType]="'fundList'"
+    [transactionType]="transactionType"
+    (onSubmit)="onSubmitFund($event)">
+</template-fund-list> 
+
+
+<div style="display: none" id="alert_condition_container" class="alert_condition_container">
+  
+        <div  class="text-center content display-5 pl-4 text-left">
+            
+            <ng-container *ngIf="dataService.transaction.selectedFund">
+                <div class="col-lg-12 text-bold text-center">
+                            {{dataService.transaction.selectedFund.FundCode}}
+                </div>
+                <div  class="col-lg-12 text-center">
+                            {{dataService.transaction.selectedFund.FundNameTH}}
+                </div>
+            </ng-container>
+            
+            <div *ngIf="fundFlag.suit" class="col-lg-12">
+                
+                <div class="col-lg-12 text-center">
+                        Fund Suit Level <span class="text-bold">{{dataService.transaction.fundSuitAndExchange.FundSuitLevel}}</span> 
+                </div>
+                <div class="col-lg-12 text-left">
+                        <label for="suit_flag" class="text-underline">
+                            <input type="checkbox" id="suit_flag" [(ngModel)]="fundFlag.acceptsuit">
+                            กรณีลงทุนในกองทุนรวมที่มีระดับความเสี่ยงสูงกว่าระดับความเสี่ยงที่สามารถลงทุนได้    
+                        </label>
+                </div>
+                <p class="col-lg-12 display-6 text-left">
+                        ข้าพเจ้ารับทราบว่า กองทุนรวมที่ระบุไว้ในคำสั่งฉบับนี้เป็นกองทุนรวมที่มีระดับความเสี่ยงสูงกว่าระดับความเสี่ยงที่ข้าพเจ้า
+                        สามารถลงทุนได้และข้าพเจ้าได้รับคำชี้แจงเพิ่มเติมเกี่ยวกับระดับความเสี่ยงของกองทุนรวมที่ข้าพเจ้าประสงค์จะลงทุนตามที่ระบุไว้ในคำสั่งฉบับนี้แล้วและข้าพเจ้ายังคงมีความประสงค์ที่จะลงทุนในหน่วยลงทุนของ กองทุนรวมที่ระบุไว้ในคำสั่งฉบับนี้ ซึ่งเป็นการตัดสินใจลงทุนของข้าพเจ้าเอง
+                </p>
+            </div>
+            <div *ngIf="fundFlag.exchange" class="col-lg-12">
+                    <div class="col-lg-12  text-left">
+                            <label for="exchange_flag" class="text-underline">
+                                <input type="checkbox" id="exchange_flag"  [(ngModel)]="fundFlag.acceptexchange">
+                                กรณีกองทุนรวมที่มิได้ป้องกันความเสี่ยงด้านอัตราแลกเปลี่ยนทั้งจำนวน    
+                            </label>
+                    </div>
+                    <p class="col-lg-12  display-6  text-left">
+                             ข้าพเจ้ารับทราบว่า กองทุนรวมที่ระบุไว้ในคำสั่งฉบับนี้เป็นกองทุนรวมที่มิได้ป้องกันความเสี่ยงด้านอัตราแลกเปลี่ยนทั้งจำนวนซึ่งข้าพเจ้าอาจ
+                            ขาดทุนหรือได้รับกำไรจากอัตราแลกเปลี่ยน และ/หรือได้รับเงินคืนต่ำกว่าเงินลงทุนเริ่มแรกได้ และข้าพเจ้ายังคงมีความประสงค์ที่จะลงทุนในหน่วยลงทุนของกองทุนรวมที่ระบุไว้ในคำสั่งฉบับนี้ ซึ่งเป็นการตัดสินใจลงทุน
+                            ของข้าพเจ้าเอง
+                    </p>
+            </div>
+            <div *ngIf="fundFlag.fif" class="col-lg-12">
+                    <div class="col-lg-12   text-left">
+                            <label for="fif_flag" class="text-underline">
+                                <input type="checkbox" id="fif_flag"  [(ngModel)]="fundFlag.acceptfif">
+                                กรณีกองทุนรวมมีการลงทุนในต่างประเทศ   หากเป็นการลงทุนในกองทุนรวมที่ลงทุนในต่างประเทศ (FIF)
+                            </label>
+                    </div>
+                    <p class="col-lg-12  display-6  text-left">
+                             ข้าพเจ้ารับทราบและยอมรับความเสี่ยงทั้งหมดที่เกี่ยวข้องกับการลงทุนในต่างประเทศนั้นๆ เช่น ความผันผวน
+                            ของราคา/มูลค่าหลักทรัพย์หรือทรัพย์สินที่ลงทุน ความเสี่ยงด้านสภาพคล่อง ความเสี่ยงของประเทศที่ลงทุนหรือเกี่ยวข้องกับการลงทุน รวมไปถึงความเสี่ยงด้านอัตราแลกเปลี่ยนที่อาจส่งผลให้ข้าพเจ้าอาจได้รับกำไร หรือขาดทุนจากอัตราแลกเปลี่ยนจากการลงทุนในกองทุน หรืออาจได้รับคืนเงินต่ำกว่าเงินลงทุนเริ่มแรกได้ และข้าพเจ้าตกลงทำรายการตามที่ระบุไว้ในคำสั่งนี้ โดยจะไม่เพิกถอนคำสั่งนี้ไม่ว่ากรณีใดๆ ทั้งสิ้น เว้นแต่เป็น สิทธิของผู้ลงทุนที่ระบุไว้ในคู่มือผู้ลงทุน และขอให้คำรับรองและยืนยันต่อบริษัทจัดการตามข้อความที่ระบุไว้ด้านหลังคำสั่งนี้
+                    </p>
+            </div>
+            <div *ngIf="fundFlag.ltf" class="col-lg-12">
+                    <div class="col-lg-12  text-left">
+                            <label for="ltf_flag" class="text-underline">
+                                <input type="checkbox" id="ltf_flag"  [(ngModel)]="fundFlag.acceptltf">
+                                กรณีลงทุนในกองทุน LTF/RMF  
+                            </label>
+                    </div>
+                    <p class="col-lg-12  display-6  text-left">
+                            ข้าพเจ้าได้รับคู่มือการลงทุนที่ระบุรวมถึงรับทราบเงื่อนไขและภาระผูกพันเกี่ยวกับสิทธิประโยชน์ทางภาษีของกองทุนรวมเพื่อการเลี้ยงชีพหรือกองทุนรวมหุ้นระยะยาวแล้ว
+                    </p>
+            </div> 
+        </div>
+        <div class="footer text-center">
+
+            <button class="button-purple" (click)="onClickAccept()"  [disabled]="!fundFlag.acceptsuit || !fundFlag.acceptexchange || !fundFlag.acceptfif || !fundFlag.acceptltf">
+                <h2> ยอมรับ </h2>
+            </button>
+            <button class="button-purple" (click)="onDismissConfirmFundFlag()">
+                    <h2> ปิด </h2>
+            </button>
+        </div>
+ 
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()"/>

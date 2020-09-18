@@ -1,0 +1,118 @@
+<!-- <div class="text-white text-center display-0 mt-5">
+    {{ isLogin ? 'กรุณาเลือกรูปแบบการยืนยันตัวตน' : 'กรุณาเข้าระบบ' }}
+</div> -->
+
+<div id="container" class="container ">
+    <div class="body">
+        <div [ngSwitch]="selectedAuthenType">
+
+            <card-id-card #card_id_card (onAuthenticate)="onAuthenticate($event)"
+                *ngSwitchCase="authenticationList.id_card"></card-id-card>
+
+            <card-id-number #card_id_number (onAuthenticate)="onAuthenticate($event)"
+                *ngSwitchCase="authenticationList.id_number"></card-id-number>
+
+            <card-email-pwd #card_email (onAuthenticate)="onAuthenticate($event)"
+                *ngSwitchCase="authenticationList.username"></card-email-pwd>
+
+            <!-- <card-atm #card_atm (onAuthenticate)="onAuthenticate($event)"  *ngSwitchCase="authenticationList.atm"></card-atm> -->
+
+            <card-my-pin #card_mypin (onAuthenticate)="onAuthenticate($event)"
+                *ngSwitchCase="authenticationList.my_pin"></card-my-pin>
+
+            <card-otp #card_otp (onAuthenticate)="onAuthenticate($event)" *ngSwitchCase="authenticationList.otp">
+            </card-otp>
+        </div>
+    </div>
+    <div class="row  m-0 col-lg-12 footer ">
+        <div class="col-lg-12 text-center">
+            <label class="text-italic display-2">
+                {{ (authenticationFactor1 || authenticationFactor2) ? 'กรุณาเลือกรูปแบบการยืนยันตัวตน' : 'กรุณาเลือกรูปแบบการเข้าระบบ' }}
+
+            </label>
+        </div>
+        <div class="row col-lg-12" *ngIf="!authenticationFactor2; else elseBlock">
+
+            <div class="login col-lg p-0 text-center" id="login_id_card"
+                *ngIf="displayAuthentication(authenticationList.id_card)"
+                (click)="onClickSelectLoginType(authenticationList.id_card)">
+                <img class="img_authen"
+                    src="./assets/kiatnakin/image/login/icon_citizencard{{ selectedAuthenType == authenticationList.id_card ? '_active' : ''}}.png">
+                <div class="mt-4 ">
+                    <label class="text-bold"
+                        [ngClass]=" selectedAuthenType == authenticationList.id_card ? 'text-black' : 'text-blue'">
+                        {{"title_citizen_id_card" | translate }}
+                    </label>
+                </div>
+            </div>
+
+            <div class="login col-lg p-0 text-center" id="login_id_number"
+                *ngIf="displayAuthentication(authenticationList.id_number)"
+                (click)="onClickSelectLoginType(authenticationList.id_number)">
+                <img class="img_authen"
+                    src="./assets/kiatnakin/image/login/icon_citizenid{{ selectedAuthenType == authenticationList.id_number ? '_active' : ''}}.png">
+                <div class="mt-4 ">
+                    <label class="text-bold"
+                        [ngClass]=" selectedAuthenType == authenticationList.id_number ? 'text-black' : 'text-blue'">
+                        {{"title_citizen_id_number" | translate }}
+                    </label>
+                </div>
+            </div>
+
+            <div class="login col-lg p-0 text-center" id="login_username"
+                *ngIf="displayAuthentication(authenticationList.username)"
+                (click)="onClickSelectLoginType(authenticationList.username)">
+                <img class="img_authen"
+                    src="./assets/kiatnakin/image/login/icon_userpassword{{ selectedAuthenType == authenticationList.username ? '_active' : ''}}.png">
+                <div class="mt-4">
+                    <label class="text-bold"
+                        [ngClass]=" selectedAuthenType == authenticationList.username ? 'text-black' : 'text-blue'">
+                        {{"title_username_password" | translate }}
+                    </label>
+                </div>
+            </div>
+
+            <!-- <div *ngIf="displayAuthentication(authenticationList.atm)" class="login col-lg p-0 text-center" id="login_atm_card"
+                 (click)="onClickSelectLoginType(authenticationList.atm)">
+                <img class="img_authen"
+                     src="/assets/kiatnakin/image/login/icon_atm{{ selectedAuthenType == authenticationList.atm ? '_active' : ''}}.png">
+                <div class="mt-4 ">
+                    <label class="text-bold" [ngClass]=" selectedAuthenType == authenticationList.atm ? 'text-black' : 'text-blue'">
+                        {{"title_atm" | translate }}
+                    </label>
+                </div>
+            </div> -->
+
+        </div>
+
+        <ng-template class="row col-lg-12" #elseBlock>
+            <div class="col-lg-4"></div>
+            <div class="login col-lg-4 p-0 text-center" id="login_otp"
+                (click)="onClickSelectLoginType(authenticationList.otp)">
+                <img class="img_authen"
+                    src="./assets/kiatnakin/image/login/icon_otp{{ selectedAuthenType == authenticationList.otp ? '_active' : ''}}.png">
+                <div class="mt-4 ">
+                    <label class="text-bold"
+                        [ngClass]=" selectedAuthenType == authenticationList.otp ? 'text-black' : 'text-blue'">
+                        {{"title_otp" | translate }}
+                    </label>
+                </div>
+            </div>
+
+            <!-- <div class="login col-lg-3 p-0 text-center" id="login_my_pin"
+                 (click)="onClickSelectLoginType(authenticationList.my_pin)">
+                <img class="img_authen"
+                     src="/assets/kiatnakin/image/login/icon_mypin{{ selectedAuthenType == authenticationList.my_pin ? '_active' : ''}}.png">
+                <div class="mt-4 ">
+                    <label class="text-bold" [ngClass]=" selectedAuthenType == authenticationList.my_pin ? 'text-black' : 'text-blue'">
+                        {{"title_pin" | translate }}
+                    </label>
+                </div>
+            </div> -->
+            <div class="col-lg-3"></div>
+        </ng-template>
+    </div>
+</div>
+
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

@@ -1,0 +1,29 @@
+<div class="col-lg-12">
+  <div id="transfer" class="container vertical-center display-5">
+    <div class="col-lg-12">
+      <input id="input-name-surname" type="text" style="height:60px;font-size: 30px" class="border_dark_blue form-control text-black text-center display-1"
+        maxlength="64" keyboard="number" [(ngModel)]="accountName">
+
+      <div class="row text-center mt-3">
+
+        <div class="col-lg-4 offset-1">
+          <button *ngIf="hide" type="submit" id="printslip" class="btn-size-XL button-white text-blue border-blue" (click)="ShowLog('AAAAAAAAAA')">
+            <h2>AAAAAAAAAA</h2>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="Modal" *ngIf="Modal">
+    <div class="col-lg-12">
+      <input id="input-name-surname2" type="text" style="height:60px;font-size: 30px" class="border_dark_blue form-control text-black text-center display-1"
+        maxlength="64" keyboard="number" (click)="getKeyboard()" [(ngModel)]="accountName">
+      <div class="col-lg-4 offset-1">
+        <button type="submit" id="button-do-not-print-slip" class="btn-size-XL button-blue border-blue" (click)="ShowLog2('BBBBBBBBBB')">
+          <h2>BBBBBBBBBB</h2>
+        </button>
+      </div>
+    </div>
+</div>

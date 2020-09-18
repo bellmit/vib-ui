@@ -1,0 +1,174 @@
+<div class="app-back" (click)="onClickMainMenu()">
+  <p class="text-lll">กลับหน้าหลัก</p>
+</div>
+
+<div id="container" class="container CurrentTop">
+  <!-- <img
+    class="btn-close"
+    src="./assets/kiatnakin/image/close.png"
+    (click)="onClickBack()"
+    ignore="1"
+  /> -->
+  <div class="row mutualfund-account-container">
+    <div id="mutualfund-account-detail" class="mutualfund-account-detail">
+      <div class="mutualfund-account-detail-item">
+        <div class="mutualfund-account-detail-section p-4">
+          <!-- <div class="row m-0 p-4 align-items-center">
+            <img
+              class="align-self-start phatra-logo"
+              src="{{ imgPart + 'investment/patara_white.png' }}"
+            />
+            <div class="ml-3 offset-1 align-self-end text-left">
+              <p class="phatra-text1">
+                Phatra
+              </p>
+              <p class="m-0 phatra-text2">Asset Management</p>
+            </div>
+          </div> -->
+
+          <div class="holder-detail text-gray row m-0 pt-2 pb-2">
+            <div class="row m-0">
+              <div class="col-7 text-left">
+                <span>เลขที่ผู้ถือหน่วย:</span>
+                <span class="text-dark-purple">
+                  {{ selectedMutualfundAccount.unitHolderId }}
+                </span>
+              </div>
+              <div class="col-5 text-right text-ellipsis">
+                <span>ชื่อผู้ถือหน่วย:</span>
+                <span class="text-dark-purple" data-toggle="tooltip" data-placement="bottom"
+                  title="{{ selectedMutualfundAccount.unitHolderName }}">
+                  {{ selectedMutualfundAccount.unitHolderName }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row m-0">
+              <div class="col-7 text-left">
+                <span>Unitholder No:</span>
+                <span class="text-dark-purple">
+                  {{ selectedMutualfundAccount.unitHolderId }}
+                </span>
+              </div>
+              <div class="col-5 text-right text-ellipsis">
+                <span>Unitholder Name:</span>
+                <span class="text-dark-purple" data-toggle="tooltip" data-placement="bottom"
+                  title="{{ selectedMutualfundAccount.unitHolderName }}">
+                  {{ selectedMutualfundAccount.unitHolderName }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="suit-detail text-gray row m-0 pt-2 pb-2">
+            <div class="col-6 offset-6 text-right">
+              <span>คะแนน:</span>
+              <span class="text-dark-purple">
+                {{ suitScore.totalScore }}
+              </span>
+            </div>
+            <!-- <p class="p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </p> -->
+            <div class="col-3 text-center text-black p">
+                <img src="./assets/kiatnakin/image/investment/VIB-Enquiry.png" (click)="onClickRiskTable()" />
+                <!-- <span (click)="onClickRiskTable()">ตารางความเสี่ยง</span> -->
+              </div>
+            <div class="col-6 offset-3 text-right">
+              <span>ระดับความเสี่ยง:</span>
+              <span class="text-dark-purple">
+                {{ suitScore.riskProfile }}
+              </span>
+            </div>
+            <!-- <p class="p">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <img src="./assets/kiatnakin/image/investment/VIB-Enquiry.png" (click)="onClickRiskTable()" />
+            </p> -->
+            <div class="col-4 text-left text-black">
+              <span (click)="onClickRiskTable()">ตารางความเสี่ยง</span>
+            </div>
+            <div class="offset-1 col-7 text-right">
+              <span>เหมาะกับกองทุนที่มีความเสี่ยง: </span>
+              <span class="text-dark-purple">
+                ไม่เกินระดับ {{ score }}
+              </span>
+            </div>
+          </div>
+
+          <div class="fund-detail text-white">
+            <div class="fund-label">
+              <div class="fund-name text-left col-12 pt-3 pb-4 m-0">
+                <span>{{ selectedOutstanding.fundCode }}: </span>
+                <span>{{ selectedOutstanding.fundNameTh }}</span>
+              </div>
+            </div>
+
+            <div class="row m-0 pt-2 pb-2 fund-detail-oddx">
+              <div class="col-12 text-left">
+                <span>ระดับความเสี่ยง:</span>
+                <span>
+                  {{ selectedOutstanding.fundRisk }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row m-0 pt-2 pb-2">
+              <div class="col-12 text-left">
+                <span>ต้นทุนเฉลี่ย:</span>
+                <span>
+                  {{ selectedOutstanding.avarageCostStr }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row m-0 pt-2 pb-2 fund-detail-oddx">
+              <div class="col-12 text-left">
+                <span>จำนวนหน่วย:</span>
+                <span>
+                  {{ selectedOutstanding.unitBalance | number:'.4-4' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row m-0 pt-2 pb-2">
+              <div class="col-12 text-left">
+                <span>มูลค่าทรัพย์สินสุทธิ (บาท):</span>
+                <span>
+                  {{ selectedOutstanding.amount | number:'.2-2' }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row m-0 pt-2 pb-2 fund-detail-oddx">
+              <div class="col-12 text-left">
+                <span>กำไรขาดทุนสุทธิ (บาท):</span>
+                <span [ngClass]="{
+                    'text-success': selectedOutstanding.individualProfit >= 0,
+                    'text-danger': selectedOutstanding.individualProfit < 0
+                  }">
+                  <span
+                    *ngIf="selectedOutstanding.individualProfit > 0">+</span><span>{{ selectedOutstanding.individualProfitStr }}</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="row m-0 pt-2 pb-2">
+              <div class="col-12 text-left">
+                <span>Nav (บาท/หน่วย):</span>
+                <span>
+                  {{ selectedOutstanding.navValueStr }}
+                </span>
+                <span>
+                  (as of
+                  {{ selectedOutstanding.navDate }}
+                  )
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<menu-fund-management (cancelFund)="goToCancelFund($event)"></menu-fund-management>
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

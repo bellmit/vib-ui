@@ -1,0 +1,65 @@
+<div>
+    <p class="display-0 text-center text-white">{{dataService.transaction.titleSelectBankAccount}}</p>
+</div>
+<div style="margin-top: 50%" id="container_form">
+    <div *ngIf="CHEQUE" (click)="onSelectType(paymentType.Cheque)">
+        <div style="position: absolute;left: -16%" id="button_cheque">
+            <img src="./assets/kiatnakin/image/btn_cheque.png">
+        </div>
+        <div class="text-white display-1" style="position: absolute;top: 260%;left: 13%">
+            {{'cheque'|translate}}
+        </div>
+    </div>
+    <div *ngIf="CASH" (click)="onSelectType(paymentType.Cash)">
+        <div style="position: absolute;right: 0%" id="button_cash">
+            <img src="./assets/kiatnakin/image/btn_cash.png">
+        </div>
+        <div class="text-white display-1" style="position: absolute;top: 260%;right: 10%">
+            {{'cash'|translate}}
+        </div>
+    </div>
+    <div *ngIf="ScanChq" (click)="onSelectType(paymentType.Cheque)">
+        <div style="position: absolute;margin-left: 27%" id="button_scanChq">
+            <img src="./assets/kiatnakin/image/cheque.png">
+        </div>
+        <div class="text-white display-1" style="position: absolute;top: 260%;right: 10%">
+            {{'cheque'|translate}}
+        </div>
+    </div>
+    <div *ngIf="LTF" (click)="onSelectType(investType.LTF)">
+        <div style="position: absolute;left: -15%;bottom: -50%" id="button_LTF">
+            <img src="./assets/kiatnakin/image/investment/ltf.png">
+        </div>
+    </div>
+    <div *ngIf="RMF" (click)="onSelectType(investType.RMF)">
+        <div style="position: absolute;right: -15%;bottom: -50%" id="button_RMF">
+            <img src="./assets/kiatnakin/image/investment/rmf.png">
+        </div>
+    </div>
+    <div *ngIf="BookBank" (click)="onSelectType(paymentType.Bookbank)" id="button_bookbank">
+        <div style="position: absolute"
+             [ngStyle]="dataService.transaction.selectType === selecType.BookBank_CASH && {left: '-15%'} ||
+                    dataService.transaction.selectType === selecType.CHEQUE_BookBank && {left: '60%'}">
+            <img src="./assets/kiatnakin/image/bookbank/book_SA2.png">
+        </div>
+        <div class="text-white display-1"
+             style="position: absolute ; top: 260%"
+             [ngStyle]="dataService.transaction.selectType === selecType.BookBank_CASH && {left: '5%'} ||
+                    dataService.transaction.selectType === selecType.CHEQUE_BookBank && {left: '80%'}">
+            {{'bookbank'|translate}}
+        </div>
+    </div>
+    <div *ngIf="CABookBank" (click)="onSelectType(paymentType.Bookbank)" id="button_cabookbank">
+        <div style="position: absolute"
+             [ngStyle]="dataService.transaction.selectType === selecType.CABookBank_ScanChq && {left: '-15%'}">
+            <img src="./assets/kiatnakin/image/bookbank/book_cheque.png">
+        </div>
+        <div class="text-white display-1"
+             style="position: absolute ; top: 260%"
+             [ngStyle]="dataService.transaction.selectType === selecType.CABookBank_ScanChq && {left: '5%'}">
+            {{'bookbank'|translate}}
+        </div>
+    </div>
+</div>
+
+

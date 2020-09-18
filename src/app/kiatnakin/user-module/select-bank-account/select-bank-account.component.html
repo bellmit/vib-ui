@@ -1,0 +1,97 @@
+<div *ngIf="!isInputInterBank" id="speech">
+    <p class="display-0 text-center text-white">{{'select_account' | translate}}</p>
+</div>
+
+<select-interbank-account *ngIf="isInputInterBank" (selectedAccount)="onSelectedAccount($event)">
+</select-interbank-account>
+
+<div id="frame" class="frame" [hidden]="isInputInterBank">
+    <ul class="slidee">
+        <li *ngIf="isShowInterBankMenu && bankAccountList">
+            <div id="book-" class="book-size animated fadeIn" (click)="isInputInterBank = true">
+                <img src="./assets/kiatnakin/image/icon_other_bank.png" style="width: 650px; height: 408px;">
+            </div>
+        </li>
+
+        <li *ngFor="let account of bankAccountList">
+            <div id="book-{{account.accountNumber}}" class="book-cover animated fadeIn"
+                [ngClass]="{'gray-scale': !account.enable }" (click)="onSelectedAccount(account)">
+
+                <img *ngIf="account.accountType == 'D'" src="./assets/kiatnakin/image/bookbank/CurrentPassbook.png"
+                    style="width: 650px; height: 408px; position: absolute;" id="{{'CA'+account.accountNumber}}">
+
+                <img *ngIf="account.accountType == 'S'" src="./assets/kiatnakin/image/bookbank/book_SA.png"
+                    style="width: 650px; height: 408px; position: absolute;"
+                    id="{{'SA'+account.accountNumber+account.accountType}}">
+
+                <img *ngIf="account.accountType == 'T'" src="./assets/kiatnakin/image/bookbank/book_TD.png"
+                    style="width: 650px; height: 408px; position: absolute;"
+                    id="{{'TD'+account.accountNumber+account.accountType}}">
+
+                <img class="pt-2" class="icon-select" *ngIf="selectedAccountList.has(account.accountNumber)"
+                    src="./assets/kiatnakin/image/icon_success.png">
+
+                <div *ngIf="account.accountType == 'D'" [ngStyle]="{'color':'#594F74'}" class="row p-5">
+                    <div class="row col-lg-12 display-4 book_accountNumber">
+                        {{account.accountNumber}}
+                    </div>
+                    <div class=" display-6 book_accountName">
+                        {{ account.accountName }}
+                    </div>
+                    <div class="col-lg-12 display-total book_balance_txt">
+                        {{"ยอดเงิน"}}
+                    </div>
+                    <div class="col-lg-6 display-balance text-right book_balance">
+                        {{ account.balance | number:'.2-2' }}
+                        <label class="display-7" style="margin-top: 5px">{{'bath' | translate}}</label>
+                    </div>
+                </div>
+
+                <!-- this one -->
+                <div *ngIf="account.accountType == 'S'" [ngStyle]="{'color':'#FEFEFE'}" class="row p-5">
+                    <div class="row col-lg-12 display-4 book_accountNumber">
+                        {{account.accountNumber}}
+                    </div>
+                    <div class=" display-6 book_accountName">
+                        {{ account.accountName }}
+                    </div>
+                    <div class="col-lg-12 display-total book_balance_txt">
+                        {{ "ยอดเงิน" }}
+                    </div>
+                    <div class="col-lg-6 display-balance text-right book_balance">
+                        {{ account.balance | number:'.2-2' }}
+                        <label class="display-7" style="margin-top: 5px">{{'bath' | translate}}</label>
+                    </div>
+                </div>
+
+                <div *ngIf="account.accountType == 'T'" [ngStyle]="{'color':'#594F74'}" class="row p-5">
+                    <div class="row col-lg-12 display-4 book_accountNumber">
+                        {{account.accountNumber}}
+                    </div>
+                    <div class=" display-6 book_accountName">
+                        {{ account.accountName }}
+                    </div>
+                    <div class="text-bold col-lg-12 display-total book_balance_txt">
+                        {{ "ยอดเงิน" }}
+                    </div>
+                    <div class="col-6 display-5 text-right book_balance">
+                        {{ account.principalBalance | number:'.2-2' }}
+                        <label class="display-7" style="margin-top: 5px">{{'bath' | translate}}</label>
+                    </div>
+                </div>
+
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="col-lg-12 text-center button-submit-select-account" *ngIf="isSelectMultipleAccount && bankAccountList">
+    <button class="button-submit button-blue text-white" [disabled]="selectedAccountList.size === 0"
+        (click)="onSubmitWithMultipleAccount()">
+        <h2>
+            {{'ok' | translate }}
+        </h2>
+    </button>
+</div>
+
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

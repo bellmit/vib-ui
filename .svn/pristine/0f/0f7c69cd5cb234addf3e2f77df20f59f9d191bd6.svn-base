@@ -1,0 +1,32 @@
+import {Component, OnInit} from '@angular/core';
+import {UserService} from "../../../_service/user.service";
+import {Modal} from "../../../_share/modal-dialog/modal-dialog.component";
+
+@Component({
+    selector: 'profile-card',
+    templateUrl: 'profile-card.component.html',
+    styleUrls: ['profile-card.component.sass']
+})
+export class ProfileCardComponent implements OnInit {
+
+    constructor(public userService: UserService) {
+
+    }
+
+    ngOnInit() {
+    }
+
+    public onClickEditProfile() {
+
+    }
+
+    public onClickLogout() {
+
+        const that = this;
+        Modal.showConfirm("ต้องการออกจากระบบหรือไม่?", function () {
+            that.userService.logout();
+        }, null);
+
+
+    }
+}

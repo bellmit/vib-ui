@@ -1,0 +1,4 @@
+@import "./src/styles-master"
+
+.slide
+    width: auto !important

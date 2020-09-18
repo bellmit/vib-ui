@@ -1,0 +1,82 @@
+<!-- DATA FUND LIST AS BOUGHT-->
+<!-- <button class="btn btn-lg btn-danger" (click)="openFund('PHATRA ACT EQ')">TEST</button> -->
+<!-- <button class="btn btn-lg btn-danger" (click)="openFund('PHATRA ACT jade')">TEST11</button> -->
+<!-- <button class="btn btn-lg btn-danger" (click)="openFanfectSheetOffline('PHATRA ACT EQ')">TEST</button>  -->
+<!-- <button class="btn btn-lg btn-danger" (click)="openFanfectSheetOffline('PHATRA MP')">TEST11</button> -->
+<div id="speech">
+  <div *ngIf="checkFromFundList">
+    <p class="display-1 text-center text-white">กรุณาเลือกรายการกองทุน</p>
+  </div>
+</div>
+<div id="speech1x">
+  <div *ngIf="checkInquiryOutstanding">
+    <p class="display-3 text-white">&nbsp;&nbsp;&nbsp; กองทุนที่ซื้อไว้</p>
+  </div>
+  <div id="frameOut" class="frameOut">
+    <ul class="slideeOut">
+      <li *ngFor="let outStandingList of outStandingLists" class="mr-5">
+        <div class="animated fadeIn" (click)="openFund(outStandingList)">
+          <div *ngIf="checkInquiryOutstanding" class="p-3 text-center purchase-fund-card">
+            <div class="fund-list-card">
+              <p class="m-0">{{outStandingList.fundNameTh}}<p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- DATA FUND LIST AS NEVER BUY-->
+<div class="{{maginTopClass}}">
+  <div *ngIf="checkFromFundList">
+    <p class="display-3 text-white">&nbsp;&nbsp;&nbsp; กองทุนที่ไม่เคยซื้อ</p>
+  </div>
+  <div id="frame" class="frame">
+    <ul class="slidee">
+      <li *ngFor="let fundList of fundLists" class="mr-5">
+        <div class="animated fadeIn" (click)="openFund(fundList)">
+          <div *ngIf="checkFromFundList" class="p-3 text-center purchase-fund-card-notbuy">
+            <div class="fund-list-card">
+              <p class="m-0">{{fundList.amcNameTh}}</p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- FUND DESCRIPTION FOR PDF LINK-->
+<div *ngIf="checkFromPDFLink">
+  <div id="containerPDF" class="container">
+    <img src="./assets/kiatnakin/image/close.png" (click)="onClickBack()" ignore="1" class="btn-close">
+    <div *ngIf="!checkFundFact" class="scroll text-center">
+      <h1>{{srcfilePDFLink}}</h1>
+    </div>
+    <div *ngIf="checkFundFact" class="scroll text-center">
+      <pdf-viewer src="{{srcfilePDFLink}}" render-text="true"></pdf-viewer>
+      <br />
+      <h1 *ngIf="showMsg">ไม่พบ Fund Fact Sheet</h1>
+    </div>
+    <div class="footer text-center">
+      <button class="button-purple display" (click)="getFundCondition()">ซื้อกองทุนนี้</button>
+    </div>
+  </div>
+</div>
+
+<!-- FUND CONDITION  -->
+<div *ngIf="checkFromConditionFund">
+  <div id="containerCondition" class="container">
+    <div class="body-condition text-center">
+      <label class="display-1 text-black">การยอมรับความเสี่ยง</label>
+    </div>
+    <div class="scroll-condition content-font-name" (scroll)="onScroll($event)">
+      <p innerHtml="{{dataFundCondition}}"></p>
+    </div>
+    <div class="footer text-center">
+      <button class="button-purple display" [disabled]="!disableBtn" (click)="orderBuyFund()">ยอมรับ</button>
+    </div>
+  </div>
+</div>
+<img src="./assets/kiatnakin/image/back_arrow.png" class="app-back-bottom" id="back" (click)="onClickBack()" />

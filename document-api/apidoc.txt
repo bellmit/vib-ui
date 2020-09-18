@@ -1,0 +1,117 @@
+BillPayment : #_billpayment_remote
+CheckAuthen : #_checkauthen_remote
+CheckCustomer : #_checkcustomer_remote
+CheckTellerAuthen : #_checktellerauthen_remote
+DocumentRequest : #_documentrequest_upload
+GetBillerList : #_getbillerlist_remote
+GetCert : #_getcert_remote
+GetConfigList : #_getconfiglist_remote
+GetCustAddressListByValue : #_getcustaddresslistbyvalue_remote
+GET /GetDummyAccountNo : #_getdummyaccountno_method
+POST /GetFundFactByFundCode : #_getfundfactbyfundcode_method
+POST /GetFundList : #_getfundlist_method
+POST /GetFundSuitAndExchange : #_getfundsuitandexchange_method
+POST /GetGUID : #_getguid_method
+POST /GetHolderList : #_getholderlist_method
+POST /GetHolderListByCardNo : #_getholderlistbycardno_method
+GetListPDF : #_getlistpdf_remote
+GetPassbook : #_getpassbook_remote
+POST /GetPurchaseForm : #_getpurchaseform_method
+POST /GetRedemptionForm : #_getredemptionform_method
+GET /GetRequestTemplateSaveSubscription : #_getrequesttemplatesavesubscription_method
+POST /GetSwitchingForm : #_getswitchingform_method
+GetTitleList : #_gettitlelist_remote
+POST /GetTransactionEffectiveDate : #_gettransactioneffectivedate_method
+POST /PaymentAndUpdateStatus : #_paymentandupdatestatus_method
+PostProductDetail : #_postproductdetail_remote
+PostProductList : #_postproductlist_remote
+PostProductNeed : #_postproductneed_remote
+PutProductDetail : #_putproductdetail_remote
+ReadFileToInsert : #_readfiletoinsert_remote
+ReportSubScription : #_reportsubscription_csvexport
+ReprintPDF : #_reprintpdf_remote
+ReversePayment : #_reversepayment_remote
+POST /SaveSubscription : #_savesubscription_remote
+UpdateKYCLevel : #_updatekyclevel_remote
+POST /UpdateOrderCancel : #_updateordercancel_method
+POST /UpdateStatusPayment : #_updatestatuspayment_method
+Create a new instance of the model and persist it into the data source. : #_vibmachine_create
+Find all instances of the model matched by filter from the data source. : #_vibmachine_find
+Login a user with username/email and password. : #_vibmachine_login
+Logout a user with access token. : #_vibmachine_logout
+CheckCAStatus : #_checkcastatus_remote
+CheckEAccount : #_checkeaccount_remote
+CheckInternetbankingIvrMyPin : #_checkinternetbankingivrmypin_remote
+POST /checkkkanyid : #_checkkkanyid_method
+CheckSanctionListAndKYCLevel : #_checksanctionlistandkyclevel_remote
+InquiryDecision : #_checktargetfee_inquirydecision
+CheckTransferAmount : #_checktransferamount_remote
+CreateCustomerIndividual : #_createcustomerindividual_remote
+CreateMyPinByKKCisId : #_createmypinbykkcisid_remote
+Uploads a script : #_downloadfiles_downloadfiles
+POST /files : #_files_createcontainer
+GET /files : #_files_getcontainers
+GET /files/{container} : #_files_getcontainer
+DELETE /files/{container} : #_files_destroycontainer
+GET /files/{container}/download/{file} : #_files_download
+GET /files/{container}/files : #_files_getfiles
+GET /files/{container}/files/{file} : #_files_getfile
+DELETE /files/{container}/files/{file} : #_files_removefile
+POST /files/{container}/upload : #_files_upload
+GenerateOTP : #_generateotp_remote
+AccountDetail : #_getaccountdetailbyaccountno_remote
+AccountList : #_getaccountlistbyidcard_remote
+GetBarcodeElement : #_getbarcodeelement_remote
+GetCurrencyList : #_getcurrencylist_remote
+GetCustBySubcrKKCISID : #_getcustbysubcrkkcisid_remote
+GetCustomerAddress : #_getcustomeraddress_remote
+GetCustomerProfileMain : #_getcustomerprofilemain_remote
+GetCustomerProfileSub : #_getcustomerprofilesub_remote
+GetExchRate : #_getexchrate_remote
+GetFATCAForm : #_getfatcaform_remote
+GetJobId : #_getjobid_remote
+Uploads a script : #_getlistfiles_getistfiles
+GetMasterAppForm : #_getmasterappform_remote
+GetMasterATM : #_getmasteratm_remote
+GetMasterBank : #_getmasterbank_remote
+GetMaturityDate : #_getmaturitydate_remote
+GetOTPDev : #_getotpdev_remote
+GetPayInfo : #_getpayinfo_remote
+GetPrePayment : #_getprepayment_remote
+POST /getproductdetail : #_getproductdetail_method
+POST /getproductlist : #_getproductlist_method
+POST /getproductneed : #_getproductneed_method
+GetPromotionList : #_getpromotionlist_remote
+GetPromotionRate : #_getpromotionrate_remote
+GetPromptPayForm : #_getpromptpayform_remote
+GetRate : #_getrate_remote
+GetStatementByFunding : #_getstatementbyfunding_remote
+GetStatementTDByFunding : #_getstatementtdbyfunding_remote
+GetSubscriptionForm : #_getsubscriptionform_remote
+GetSubscriptionInfo : #_getsubscriptioninfo_remote
+GetTargetFee : #_gettargetfee_v2_remote
+GetTDPayoutFrequency : #_gettdpayoutfrequency_remote
+GetTDPrematureRedeemtion : #_gettdprematureredeemtion_remote
+GetTDRates : #_gettdrates_remote
+GetTDTerm : #_gettdterm_remote
+GetTermDepositList : #_gettermdepositlist_remote
+LoginByAtmNoAndAtmPin : #_loginbyatmnoandatmpin_remote
+LoginByIDCardAndMyPinWithProfile : #_loginbyidcardandmypinwithprofile_remote
+LoginByKKCisIdAndPinWithProfile : #_loginbykkcisidandpinwithprofile_remote
+LoginByUsernameAndPassword : #_loginbyusernamewithprofile_remote
+OpenAccount : #_openaccount_remote
+OrderChqBooks : #_orderchqbooks_remote
+PayFees : #_payfees_remote
+PayFeesFromCASA : #_payfeesfromcasa_remote
+POST /registeranyidbyaccount : #_registeranyidbyaccount_method
+POST /savefile : #_savefile_method
+POST /sendmail : #_sendmail_method
+TellerAuthentication : #_tellerauthentication_remote
+TransferCASAtoTDFund : #_transfercasatotdfund_v2_remote
+FundTransferAnyID : #_transferfund_remote
+TransferTDtoCASAFund : #_transfertdtocasafund_v2_remote
+TransferTDtoTDFund : #_transfertdtotdfund_v2_transfertdtotdfund
+UpdateCustomer : #_updatecustomer_remote
+ValidateDepositTDAccount : #_validatedeposittdaccount_remote
+VerifyIdCard : #_verifyidcard_remote
+VerifyOTP : #_verifyotp_remote

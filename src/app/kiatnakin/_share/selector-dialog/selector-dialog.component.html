@@ -1,0 +1,61 @@
+<div *ngIf="isShowInputText">
+    <input [id]="id" class="input-selector text-black w-100 display-6-2" type="text" (click)="onToggleDialog()"
+        readonly value="{{ActiveNow.value}}">
+</div>
+
+<div class="selector_content_bg" id="{{id}}_bg" (click)="onClickDismiss()"></div>
+<div id="seletor_content" class="text-left display-3" [ngClass]="InDiv == true ? 'seletor-content2' : 'seletor-content' ">
+
+    <div class="col-lg-12 mt-2">
+        <div class="ribbon_gray_left">
+            <label class="pl-30px pt-2 title_display mt-4">{{Title}}</label>
+        </div>
+    </div>
+    <div class="scroll row">
+        <div class="col-lg-12">
+            <input type="text" style="width: 100%;text-align: center;" [(ngModel)]="searchTxt" (ngModelChange)="onSearchChanged($event)" placeholder="กรอกเพื่อค้นหา">
+        </div>
+    </div>
+    <div *ngIf="DataList.length !== 0" class="scroll" style="top:230px" id="scroll_id">
+        <div *ngFor="let list of DataList" class="col-lg-12 " [id]="id+'_'+list.value">
+            <div class="col-lg-12 mt-3  selector_row row" (click)="onClickSelect(list)" [ngClass]="{'active': list === ActiveNow }">
+                <div class="col-lg-12">
+                    <label class="display-2">{{ list.data }}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="DataList.length === 0 && RespondCode === '' && searchTxt !== ''">
+        <div id="searchNotFoud" class="content row mt-10">
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                ไม่พบรายการค้นหา
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="DataList.length === 0 && RespondCode === '' && searchTxt === ''">
+        <div id="loadingData" class="content row mt-10">
+            <div class="col-lg-12 pt-5 m-0 text-center">
+                <img class="loading" src="./assets/kiatnakin/image/loading.png" />
+            </div>
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                กรุณารอสักครู่
+            </div>
+            <div class="col-lg-12 display-5 text-center text-dark-black-gray text-italic text-bold">
+                ระบบกำลังดึงข้อมูล
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="DataList.length === 0 && RespondCode !== '' && searchTxt === ''">
+        <div id="responseError" class="content row mt-10">
+            <div class="col-lg-12 pt-5 m-0 text-center">
+                <img src="./assets/kiatnakin/image/read_false.png" />
+            </div>
+            <div class="col-lg-12 mt-3 display-4 text-center text-bold text-dark">
+                {{RespondCode}}
+            </div>
+        </div>
+    </div>
+</div>

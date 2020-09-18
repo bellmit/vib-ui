@@ -1,0 +1,91 @@
+@import "./src/styles-master"
+
+#container_form_transfer
+  background-color: white
+  width: 1250px
+  height: 800px
+  @extend .shadow
+  #header
+    height: 70px
+    width: 100%
+    color: white
+    padding: 0px !important
+    .row
+      height: 100%
+      margin: 0px
+      #header-logo
+        margin: 0 0 1px
+      #header-desc
+
+.container
+  justify-content: center
+  align-items: center
+  height: 100%
+  margin-top: 5%
+
+.vertical-center
+  display: flex
+  vertical-align: middle
+  align-items: center
+
+.info
+  min-height: 10%
+
+div.speech:after
+  content: ' '
+  position: relative
+  width: 23px
+  height: 33px
+  left: calc(50% - 23px)
+  top: 33px
+  border: 25px solid
+  border-color: rgba(255, 255, 255, .8) transparent transparent
+
+.content-border
+  border-radius: 15px
+  border: 3px solid $yellow !important
+  background-color: $yellow !important
+  padding: 0
+  margin: 20px 0px 10px 45px
+
+.content-detail
+  background-color: white
+  border-radius: 15px 15px 0 0
+  padding: 5px 20px
+  .row
+    line-height: 40px
+    vertical-align: bottom
+
+.content-total
+  padding: 0px 20px
+
+.dp-picker-container
+  margin: 20px auto
+  width: 500px
+
+.form-in
+  height: 250px
+  margin: 0 30px 0 30px
+  padding: 0px
+
+.form-step4
+  height: 160px
+  margin: 0 30px 0 30px
+  padding: 0px
+
+.td-total
+  font-size: 60px
+  line-height: 50px
+  color: $light-blue
+
+img
+  vertical-align: baseline !important
+fee-picker
+  right: 1px
+
+.fee_condition
+  font-size: 24px
+  padding-left: 10px
+
+.bathtext
+  font-size: 27px

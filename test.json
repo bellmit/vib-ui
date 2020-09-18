@@ -1,0 +1,7 @@
+Deploy 29/05/2561
+1.หน้า Authen รูปใหญ่เกินไป
+2.Modal กด Enter บน Keyboard ต้องมี Modal ขึ้น
+3.ต้องแยก TAB Teller กับ VIB ออกมา
+4.GetMasterAppForm ไม่ขึ้น
+5.Force Code เสียบบัตรกรณี ลูกค้าเลือกกรอกข้อมูลเอง
+6.

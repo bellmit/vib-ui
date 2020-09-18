@@ -1,0 +1,16 @@
+.container-animate
+  text-align: center
+  img
+    max-width: 100%
+  .cardbox
+    z-index: 10
+    position: relative
+  .card
+    z-index: 1
+    position: relative
+    left: 0px
+
+
+
+
+

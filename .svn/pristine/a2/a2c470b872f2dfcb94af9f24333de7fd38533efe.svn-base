@@ -1,0 +1,281 @@
+<div class="text-center">
+    <img class="p-0 printer_slip" src="./assets/kiatnakin/image/printer_slip.png">
+    <div id="bg_slip" class="bg-slip">
+        <img class="p-0 kk-logo" src="./assets/kiatnakin/image/logoKKgray.png">
+        <div class="col-lg-12">
+            <div class="row display-3 text-left col-lg-11 offset-1 mt-5 p-0">
+                ใบบันทึกรายการ
+            </div>
+            <div class="row display-3 text-left col-lg-11 offset-1 p-0">Transaction Record</div>
+
+            <div [ngSwitch]="transactionType">
+                <div *ngSwitchCase="'statement-casa'" class="col-lg-12 p-0 ">
+                    <div style="overflow-y: auto">
+                        <div style="height: 450px;">
+                            {{dataService.transaction | json}}
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngSwitchCase="'statement-td'" class="col-lg-12 p-0 ">
+                    <div style="overflow-y: auto">
+                        <div style="height: 450px;">
+                            {{dataService.transaction | json}}
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngSwitchCase="'inthai'" class="col-lg-12 p-0 ">
+                    <div style="overflow-y: auto">
+                        <div style="height: 450px;">
+                            {{dataService.transaction | json}}
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngSwitchCase="'visa'" class="col-lg-12 p-0 ">
+                    <div style="overflow-y: auto">
+                        <div style="height: 450px;">
+                            {{dataService.transaction | json}}
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngSwitchDefault class="col-lg-12 p-0 mt-4">
+
+                    <div class="row">
+                        <div class="display-4 text-left col-lg-3 offset-1 text-bold">วันที่ / Date</div>
+                        <div class="display-4 text-right col-lg-3 text-bold">เวลา / Time</div>
+                        <div class="display-4 text-right col-lg-4 text-bold">ชื่อสาขา / Branch Name</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="display-4 text-left col-lg-3 offset-1">
+                            {{ dataService.transaction.transactionDateTime.day }}
+                        </div>
+                        <div class="display-4 text-center col-lg-4">
+                            {{ dataService.transaction.transactionDateTime.time }}
+                        </div>
+
+                        <div class="display-4 text-right col-lg-3" *ngIf="transactionType === 'Transfer'">
+                            {{branchName}}
+                        </div>
+
+                        <div class="display-4 text-right col-lg-3" *ngIf="transactionType === 'Withdraw'">
+                            {{ dataService.transaction.from.bank.shot_name }}
+                        </div>
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="display-3 text-left col-lg-5 offset-1 text-bold">Terminal ID</div>
+                        <div class="display-3 text-right col-lg-5 text-bold">Invoice No.</div>
+                    </div>
+                    <div class="row">
+                        <div class="display-3 text-left col-lg-5 offset-1">E004B069045P010</div>
+                        <div class="display-3 text-right col-lg-5">000400</div>
+                    </div> -->
+
+
+                    <div class="row mt-2">
+                        <div class="display-4 text-left col-lg-5 offset-1 text-bold">ลำดับที่ / Seq.No.</div>
+                        <div class="display-4 text-right col-lg-5 text-bold">ประเภทรายการ / Transaction Type</div>
+                    </div>
+                    <div class="row">
+                        <div class="display-4 text-left col-lg-5 offset-1">{{referenceNo}}</div>
+                        <div class="display-4 text-right col-lg-5">{{transactionType}}</div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="display-4 text-left col-lg-5 offset-1 text-bold">บัญชีต้นทาง / From A/C No.</div>
+                        <div class="display-4 text-right col-lg-5 text-bold">บัญชีปลายทาง / To A/C No.</div>
+                    </div>
+
+                    <!--Transfer-->
+                    <div class="row" *ngIf="transactionType === 'Transfer'">
+                        <div class="display-4 text-left col-lg-5 offset-1">
+                            {{dataService.transaction.from.accountNumber}}
+                        </div>
+                        <div class="display-4 text-right col-lg-5">
+                            {{dataService.transaction.to.accountNumber}}
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="(dataService.transaction.transactionType === 'CASA_CASA' || dataService.transaction.transactionType === 'CASA_Interbank') && dataService.transaction.from.custCif !== dataService.transaction.to.custCif ">
+                        <div class="display-4 text-right col-lg-10 offset-1">
+                            {{dataService.transaction.to.accountName}}
+                        </div>
+                    </div>
+                    <!--Deposit-->
+                    <div class="row" *ngIf="transactionType === 'Deposit'">
+                        <div class="display-4 text-left col-lg-3 offset-1"
+                             *ngIf="dataService.transaction.from.accountType == paymentType.Cash">
+                            {{'cash'|translate}}
+                        </div>
+                        <div class="display-4 text-right col-lg-7"
+                             *ngIf="dataService.transaction.to.accountType == paymentType.Cheque">
+                            Check No.{{dataService.transaction.to.micrResult}} (KKB/{{branchCode}})
+                        </div>
+                        <div class="display-4 text-right col-lg-7">
+                            {{dataService.transaction.to.accountNumber}}
+                        </div>
+                    </div>
+
+                    <!--Withdraw-->
+                    <div class="row" *ngIf="transactionType === 'Withdraw'">
+                        <div class="display-4 text-left col-lg-5 offset-1">
+                            {{dataService.transaction.from.accountNumber}}
+                        </div>
+                        <div class="display-4 text-right col-lg-5"
+                             *ngIf="dataService.transaction.to.accountType == paymentType.Cash">
+                            {{'Cash'}}
+                        </div>
+                        <div class="display-4 text-right col-lg-5"
+                             *ngIf="dataService.transaction.to.accountType == paymentType.Cheque">
+                            Check No.{{dataService.transaction.to.micrResult}} (KKB/{{branchCode}})
+                        </div>
+                    </div>
+
+                    <!--Billpay-->
+                    <div class="row" *ngIf="transactionType === 'Billpay'">
+                        <div class="display-4 text-left col-lg-8 offset-1">
+                            {{'Cash'}}
+                        </div>
+                        <div class="display-4 text-right col-lg-2">
+                            {{'Bank'}}
+                        </div>
+                    </div>
+
+                    <!--Investment--> 
+                    <div class="row" *ngIf="transactionType === 'Investment-Purchase'">
+                            <div class="display-4 text-left col-lg-8 offset-1">
+                                {{dataService.transaction.from.accountNumber}}
+                            </div>
+                            <div class="display-4 text-right col-lg-2">
+                                {{dataService.transaction.selectedFund.FundCod}}
+                            </div>
+                        </div>
+                    <div class="row" *ngIf="transactionType === 'Investment-Redeem'">
+                            <div class="display-4 text-left col-lg-8 offset-1">
+                                {{dataService.transaction.selectedFund.FundCod}}
+                            </div>
+                            <div class="display-4 text-right col-lg-2">
+                                {{dataService.transaction.from.accountNumber}}
+                            </div>
+                    </div>
+
+                    <div class="row" *ngIf="transactionType === 'Investment-Switch'">
+                            <div class="display-4 text-left col-lg-8 offset-1">
+                                {{dataService.transaction.selectedFund.FundCod}}
+                            </div>
+                            <div class="display-4 text-right col-lg-2">
+                                {{dataService.transaction.selectedFundSwitchOut.FundCod}}
+                            </div>
+                    </div>
+
+                    <!--Cheque-->
+                    <div class="row" *ngIf="transactionType === 'Cheque'">
+                        <div class="display-4 text-left col-lg-5 offset-1">
+                            {{dataService.transaction.from.accountNumber}}
+                        </div>
+                        <div class="display-4 text-right col-lg-5"
+                             *ngIf="dataService.transaction.to.accountType == paymentType.Cash">
+                            {{'Cash'}}
+                        </div>
+                        <div class="display-4 text-right col-lg-5"
+                             *ngIf="dataService.transaction.to.accountType == paymentType.Cheque">
+                            Check No.{{dataService.transaction.to.micrResult}} (KKB/{{branchCode}})
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                            <div class="display-4 text-left col-lg-5 offset-1 text-bold"></div>
+                            <div class="display-4 text-right col-lg-5 text-bold">
+                                <span *ngIf="TDTermAndRate.length > 0">
+                                    Term / NetRate
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mt-2 display-4 text-left col-lg-5 offset-1" id="depNoLabel">
+                                {{depNoLabel}}
+                            </div>
+                            <div class="display-4 text-right col-lg-5" id="TDTermAndRate">
+                                {{TDTermAndRate}}
+                            </div>
+                        </div>
+
+                    <div class="row mt-2">
+                        <div class="display-4 text-left col-lg-5 offset-1 text-bold">วันที่ตัดเงิน / Debit Date</div>
+                        <div class="display-4 text-right col-lg-5 text-bold">วันที่ได้รับเงิน / Credit Date</div>
+                    </div>
+                    <div class="row">
+                        <div class="display-4 text-left col-lg-5 offset-1" id="debitDate">
+                            {{debitDateLabel}}
+                        </div>
+                        <div class="display-4 text-right col-lg-5" id="creditDate">
+                            {{creditDateLabel}}
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="display-4 text-left col-lg-5 offset-1 text-bold">จำนวนเงิน / Amount (Baht)</div>
+                        <div class="display-4 text-right col-lg-5 text-bold">ค่าธรรมเนียม / Fee (Baht)</div>
+                    </div>
+                    <div class="row">
+                        <div class="display-4 text-left col-lg-5 offset-1" id="amount">
+                            {{dataService.transaction.amount | number:'.2-2'}}
+                        </div>
+                        <div class="display-4 text-right col-lg-5" id="fee">
+                            {{ dataService.transaction.fee.amount | number:'.2-2'}}
+                        </div>
+                    </div>
+
+                    <div *ngIf="dataService.transaction.from.accountType !== TDType " class="row mt-2">
+                        <div class="display-4 text-left col-lg-5 offset-1 text-bold">จำนวนเงินคงเหลือ</div>
+                        <div class="display-4 text-right col-lg-5 text-bold">จำนวนเงินที่ใช้ได้</div>
+                    </div>
+                    <div *ngIf="dataService.transaction.from.accountType !== TDType " class="row">
+                        <div class="display-4 text-left col-lg-5 offset-1 text-bold">Ledger Balance</div>
+                        <div class="display-4 text-right col-lg-5 text-bold">Available Balance</div>
+                    </div>
+
+                    <div *ngIf="dataService.transaction.from.accountType !== TDType " class="row">
+                        <div class="display-4 text-left col-lg-5 offset-1 ">
+                            {{dataService.transaction.balanceAvailable | number:'.2-2'}}
+                        </div>
+                        <div class="display-4 text-right col-lg-5 " id="avialable-balance">
+                            {{dataService.transaction.accountDetailAvailBalanceNet | number:'.2-2'}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 col-lg-10 offset-1" style="border-bottom: dashed 1px"></div>
+
+                <div class="display-3 text-center col-lg-12 mt-3 text-italic" style="font-weight: bold">
+                    {{ 'ต้องการพิมพ์ใบบันทึกรายการหรือไม่' }}
+                </div>
+
+                <div class="row text-center mt-3">
+
+                    <div class="col-lg-4 offset-1">
+                        <button id="printslip"
+                                class="btn-size-XL button-white text-blue border-blue"
+                                (click)="onClickPrintSlip(true)">
+                            <h2>{{ 'yes_reciept' | translate}}</h2>
+                        </button>
+                    </div>
+
+                    <div class="col-lg-4 offset-1">
+                        <button id="button-do-not-print-slip"
+                                class="btn-size-XL button-blue border-blue"
+                                (click)="onClickPrintSlip(false)">
+                            <h2>{{ 'no_reciept' | translate}}</h2>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+.cheque
+  width: 1200px
+  min-height: 660px
+  margin: 220px auto 20px
+  background-color: #ffffff
+  position: relative
+  .cheque-header
+    background-color: #4A4A4A
+    height: 80px
+    .cheque-header-logo
+      width: 278px
+      background-color: #ffffff
+      float: left
+      height: 100%
+      text-align: center
+      padding: 10px
+    .cheque-header-content
+      width: 922px
+      color: #ffffff
+      text-align: right
+      padding: 13px 40px
+      float: left
+      height: 100%
+      letter-spacing: 1px
+  .content
+    color: #646464
+    padding: 13px 40px
+    span
+      padding: 5px 10px
+    .content-border
+      border-radius: 25px
+      border: 2px solid #4A4A4A
+      max-height: 385px
+      .content-detail
+        min-height: 100px
+        background-color: #ffffff
+        border-radius: 25px 25px 0 0
+        padding: 5px 100px 5px
+        .new-row
+          margin-bottom: 20px
+          display: flex
+          line-height: 45px
+          vertical-align: middle
+      .content-total
+        min-height: 67px
+        padding: 15px 100px 5px
+
+.form-horizontal.form-input .form-group
+  margin-bottom: 10px !important
+input,select
+  text-indent: 20px
+.new-row
+  margin-bottom: 10px
+  min-height: 45px
+  line-height: 45px
+  vertical-align: middle
+.pay-img
+  width: 321px
+  height: 250px
+  margin: 0 auto 30px
+  vertical-align: middle
+  text-align: center
+  display: inline-flex
+  img
+    margin: auto
+
+.text-*
+  line-height: 2em
+.section-step
+  border-radius: 10px
+  margin: 0 auto
+  width: 900px
+  height: 140px
+  background-color: #FFFFFF
+  font-size: 20px
+
+div.speech:after
+  content: ' '
+  position: absolute
+  width: 0
+  height: 0
+  left: calc(50% - 23px)
+  top: 100%
+  border: 25px solid
+  border-color: #FFFFFF transparent transparent
